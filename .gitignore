@@ -127,3 +127,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Vim stuff
+*.swp
+
+
+# Others
+/data/STRING_data/9606.protein.links.full.v11.0.txt
