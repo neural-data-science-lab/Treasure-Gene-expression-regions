@@ -12,7 +12,7 @@ def prune_protein_protein_db(min_score=700,
     filename = "../data/STRING_data/10090.protein.links.full.v11.0.txt"
     target_filename = "../data/STRING_data/10090.protein.links." + str(min_score) + "_min_score.v11.0.txt"
 
-    print("Processing raw human protein links file ...")
+    print("Processing raw Mouse protein links file ...")
     p = 0.041 # see STRING documentation
     with open(file=filename, mode='r') as f, open(file=target_filename, mode='w') as targetfile:
         head = f.readline()
@@ -73,7 +73,7 @@ def write_PPI_graph(min_score=700):
     print('edges', len(PPI_graph.edges()))
 
     print("Writing PPI graph to disk ...")
-    graph_filename = "../data/PPI_data/PPI_graph_"+str(min_score)+"_min_score"
+    graph_filename = "../data/STRING_data/PPI_graph_"+str(min_score)+"_min_score"
     with open(file=graph_filename+'.pkl', mode='wb') as f:
         pickle.dump(PPI_graph, f, pickle.HIGHEST_PROTOCOL)
     print("Finished writing {}.\n".format(graph_filename))
@@ -84,9 +84,9 @@ def get_PPI_graph(min_score=700):
         return pickle.load(f)
 
 def write_protein_fasta(protein_list):
+    input_fasta_file = '../data/STRING_data/10090.protein.sequences.v11.0.fa'
 
-    input_fasta_file = '../data/STITCH_data/10090.protein.sequences.v11.0.fa'
-
+    print("Writing sequences to FASTA file...")
     return_sequences = []  # Setup an empty list
     for record in SeqIO.parse(input_fasta_file, "fasta"):
         if record.id in protein_list:
@@ -94,15 +94,15 @@ def write_protein_fasta(protein_list):
 
     print("Found {} PPI protein sequences of {}".format(len(return_sequences), len(protein_list)))
 
-    SeqIO.write(return_sequences, "src/data/PPI_graph_protein_seqs.fasta", "fasta")
+    SeqIO.write(return_sequences, "protein_representation/DeepGOPlus/data/PPI_graph_protein_seqs.fasta", "fasta")
 
-def write_encoded_proteins():
+def get_DeepGOPlus_command():
 
-    protein_dir = "../models/protein_representation/"
+    protein_dir = "protein_representation/DeepGOPlus/"
     in_file = protein_dir+'data/PPI_graph_protein_seqs.fasta'
     out_file = protein_dir+'results/output'
 
-    print('Execute this command in',protein_dir)
+    print(f'Execute this command in {protein_dir}:')
     print(f'source {protein_dir}predict.sh {in_file} {out_file}')
 
 
