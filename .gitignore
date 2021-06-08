@@ -131,6 +131,9 @@ dmypy.json
 # Vim stuff
 *.swp
 
+# Pycharm trash pile
+.idea/
+
 
 # Others
 /data/STRING_data/9606.protein.links.full.v11.0.txt
