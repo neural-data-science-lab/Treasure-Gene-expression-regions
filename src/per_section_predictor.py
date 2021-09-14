@@ -24,33 +24,49 @@ class PerSectionNetworkData:
         print('Loading data...')
         gene_list = GE_data_preparation.get_gene_list()
         alias_mapping = GE_data_preparation.get_alias_to_STRING_prot_mapping()
-        self.gene_list = [gene for gene in gene_list if gene in alias_mapping.keys()]
+        gene_id_to_symbol_mapping = GE_data_preparation.get_gene_id_to_symbol_mapping()
+
+        self.gene_list = [gene_id_to_symbol_mapping[gene] for gene in gene_list
+                          if gene_id_to_symbol_mapping[gene] in alias_mapping.keys()]
         self.protein_list = [alias_mapping[gene] for gene in self.gene_list]
         self.structure_list = GE_data_preparation.get_structure_list()
+
+        print('gene_list', self.gene_list[:10])
+        print('protein_list', self.protein_list[:10])
+        print('structure_list', self.structure_list[:10])
+
+        print('len(structure_list)', len(self.structure_list))
+
+        # prune protein and gene list to proteins present in STITCH, i.e. nodes with at least one link
+        self.PPI_graph = PPI_utils.get_PPI_graph(min_score=700)
+        self.PPI_graph = self.PPI_graph.subgraph(self.protein_list)
+        self.protein_list = [p for p in self.protein_list if p in self.PPI_graph.nodes()]
+        self.gene_list = [g for g in self.gene_list if alias_mapping[g] in self.protein_list]
+        print('PPI_graph nodes/edges:', len(self.PPI_graph.nodes()), len(self.PPI_graph.edges()))
 
         self.num_genes = len(self.gene_list)
         self.num_structures = 1
         print(f'Genes present: {self.num_genes}|\tStructures present: {self.num_structures}')
+        print('Proteins present:', len(self.protein_list))
 
     def build_data(self, config):
         # build protein features
         filename = 'protein_representation/DeepGOPlus/results/prot_to_encoding_dict.pkl'
         with open(file=filename, mode='rb') as f:
             protein_to_feature_dict = pickle.load(f)
+        print(len(set(protein_to_feature_dict.keys()) & set(self.protein_list)))
         self.protein_embeddings = torch.Tensor([protein_to_feature_dict[protein] for protein in self.protein_list])
 
         GE_struct_mat = GE_data_preparation.get_ge_structure_data()
-        max_expr_struct = np.argmax(GE_struct_mat.sum(axis=0))
-        self.y_data = GE_data_preparation.get_GEs(self.gene_list, [self.structure_list[max_expr_struct]])
+        max_expr_struct_ind = np.argmax(GE_struct_mat.sum(axis=0))
+        self.y_data = GE_data_preparation.get_GEs(self.gene_list, [self.structure_list[max_expr_struct_ind]])
         self.y_data = (self.y_data > config.threshold).astype(float)
         self.y_data = torch.tensor(self.y_data)
+        print('len(self.protein_list', len(self.protein_list))
         print('y_data.shape:', self.y_data.shape)
-        print(f'Chosen structure_id: {self.structure_list[max_expr_struct]}')
+        print(f'Chosen structure_id: {self.structure_list[max_expr_struct_ind]}')
 
         # build PyTorch geometric graph
-        self.PPI_graph = PPI_utils.get_PPI_graph(min_score=700)
-        print('PPI_graph nodes/edges:', len(self.PPI_graph.nodes()), len(self.PPI_graph.edges()))
-
         print("Building index dict ...")
         self.protein_to_index_dict = {protein: index for index, protein in enumerate(self.protein_list)}
         print("Building edge list ...")
@@ -72,7 +88,7 @@ class PerSectionNetworkData:
 
         # build protein mask
 
-        y = torch.tensor(self.y_data).view(-1)
+        y = self.y_data.view(-1)
 
         full_PPI_graph = data.Data(x=self.protein_embeddings,
                               edge_index=self.edge_list,
@@ -242,8 +258,6 @@ def main(config):
         config.train_prots = train_protein_indices
         network_data.build_data(config)
 
-        # build train data over whole dataset with help matrix
-
         print('Fetching data...')
         train_dataset = network_data.get()
         print('\nDone.\n')
@@ -334,6 +348,8 @@ if __name__ == '__main__':
     parser.add_argument("--lr", type=float, default=0.001)
 
     parser.add_argument("--fold", type=int, default=-1)
+
+    parser.add_argument("--arch", type=str, default='GCNConv')
 
     config = parser.parse_args()
 

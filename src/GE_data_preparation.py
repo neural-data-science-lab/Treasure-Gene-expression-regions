@@ -34,7 +34,7 @@ def write_ge_data():
         - add gene to list if not present
         - look at grid_file url
         - go to subdir
-        - parse structure unionize file for intensity
+        - parse structure unionize file for intensity values
     '''
 
 
@@ -46,14 +46,14 @@ def write_ge_data():
             continue
 
         # collect present genes and sections
-        gene = row['gene_id']
+        gene = str(row['gene_id'])
         if gene not in gene_list:
             gene_list.append(gene)
 
         file_sub_path = row['structure_unionizes_file_url'].split('mouse_expression')[1][1:]
         section_data = pd.read_csv(path+file_sub_path, index_col=0)
         for section_index, section_row in section_data.iterrows():
-            structure_id = section_row['structure_id']
+            structure_id = str(int(section_row['structure_id']))
             if structure_id not in structure_list:
                 structure_list.append(structure_id)
 
@@ -67,13 +67,13 @@ def write_ge_data():
         if not row['plane_of_section'] == 'coronal':
             continue
 
-        gene = row['gene_id']
+        gene = str(row['gene_id'])
         gene_index = gene_list.index(gene)
 
         file_sub_path = row['structure_unionizes_file_url'].split('mouse_expression')[1][1:]
         section_data = pd.read_csv(path + file_sub_path, index_col=0)
         for section_index, section_row in section_data.iterrows():
-            structure_id = section_row['structure_id']
+            structure_id = str(int(section_row['structure_id']))
             structure_index = structure_list.index(structure_id)
 
             expression_density = float(section_row['expression_density'])
@@ -118,7 +118,7 @@ def get_gene_id_to_symbol_mapping():
 
     return_dict = {}
     for _, row in full_gene_data.iterrows():
-        return_dict[row['gene_id']] = row['gene_symbol']
+        return_dict[str(row['gene_id'])] = row['gene_symbol']
 
     return return_dict
 
@@ -134,7 +134,7 @@ def get_alias_to_STRING_prot_mapping():
 
         for line in f:
             prot, alias, source = line.strip().split('\t')
-            return_dict[alias.strip()] = [prot.strip()]
+            return_dict[alias.strip()] = prot.strip()
 
     return return_dict
 
@@ -146,7 +146,9 @@ def get_DeepGOPlus_feature_dict():
 
 def get_GEs(gene_list, structure_list):
     # prune gene_expression structure matrix to given genes and given structures
-    orig_gene_list = get_gene_list()
+    gene_id_to_symbol_mapping = get_gene_id_to_symbol_mapping()
+    orig_gene_list = [gene_id_to_symbol_mapping[gene] for gene in get_gene_list()]
+
     gene_indices = [orig_gene_list.index(gene) for gene in gene_list]
 
     orig_structure_list = get_structure_list()
