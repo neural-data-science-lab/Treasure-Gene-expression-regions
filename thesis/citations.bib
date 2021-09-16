@@ -1,0 +1,384 @@
+@inproceedings{ChebConv,
+author = {Defferrard, Micha\"{e}l and Bresson, Xavier and Vandergheynst, Pierre},
+title = {Convolutional Neural Networks on Graphs with Fast Localized Spectral Filtering},
+year = {2016},
+isbn = {9781510838819},
+publisher = {Curran Associates Inc.},
+address = {Red Hook, NY, USA},
+abstract = {In this work, we are interested in generalizing convolutional neural networks (CNNs) from low-dimensional regular grids, where image, video and speech are represented, to high-dimensional irregular domains, such as social networks, brain connectomes or words' embedding, represented by graphs. We present a formulation of CNNs in the context of spectral graph theory, which provides the necessary mathematical background and efficient numerical schemes to design fast localized convolutional filters on graphs. Importantly, the proposed technique offers the same linear computational complexity and constant learning complexity as classical CNNs, while being universal to any graph structure. Experiments on MNIST and 20NEWS demonstrate the ability of this novel deep learning system to learn local, stationary, and compositional features on graphs.},
+booktitle = {Proceedings of the 30th International Conference on Neural Information Processing Systems},
+pages = {3844–3852},
+numpages = {9},
+location = {Barcelona, Spain},
+series = {NIPS'16}
+}
+
+@inproceedings{SAGEConv,
+  title={Inductive Representation Learning on Large Graphs},
+  author={William L. Hamilton and Zhitao Ying and J. Leskovec},
+  booktitle={NIPS},
+  year={2017}
+}
+
+@article{GATConv,
+  title={Graph attention networks},
+  author={Veli{\v{c}}kovi{\'c}, Petar and Cucurull, Guillem and Casanova, Arantxa and Romero, Adriana and Lio, Pietro and Bengio, Yoshua},
+  journal={CoRR},
+  volume={abs/1710.10903v3},
+    eprint={1710.10903},
+    archivePrefix={arXiv},
+    primaryClass={stat.ML},
+    year=2017
+}
+
+@article{GCNConv,
+  author    = {Thomas N. Kipf and
+               Max Welling},
+  title     = {Semi-Supervised Classification with Graph Convolutional Networks},
+  journal   = {CoRR},
+  volume    = {abs/1609.02907},
+  year      = {2016},
+  url       = {http://arxiv.org/abs/1609.02907},
+  archivePrefix = {arXiv},
+  eprint    = {1609.02907},
+  timestamp = {Mon, 13 Aug 2018 16:48:31 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/KipfW16.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{ArmaConv,
+  author    = {Filippo Maria Bianchi and
+               Daniele Grattarola and
+               Lorenzo Livi and
+               Cesare Alippi},
+  title     = {Graph Neural Networks with convolutional {ARMA} filters},
+  journal   = {CoRR},
+  volume    = {abs/1901.01343},
+  year      = {2019},
+  url       = {http://arxiv.org/abs/1901.01343},
+  archivePrefix = {arXiv},
+  eprint    = {1901.01343},
+  timestamp = {Thu, 31 Jan 2019 13:52:49 +0100},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-1901-01343.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{APPNPConv,
+  author    = {Johannes Klicpera and
+               Aleksandar Bojchevski and
+               Stephan G{\"{u}}nnemann},
+  title     = {Personalized Embedding Propagation: Combining Neural Networks on Graphs
+               with Personalized PageRank},
+  journal   = {CoRR},
+  volume    = {abs/1810.05997},
+  year      = {2018},
+  url       = {http://arxiv.org/abs/1810.05997},
+  archivePrefix = {arXiv},
+  eprint    = {1810.05997},
+  timestamp = {Tue, 30 Oct 2018 20:39:56 +0100},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-1810-05997.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@misc{FeaStConv,
+Author = {Nitika Verma and Edmond Boyer and Jakob Verbeek},
+Title = {FeaStNet: Feature-Steered Graph Convolutions for 3D Shape Analysis},
+Year = {2017},
+Eprint = {arXiv:1706.05206},
+}
+
+@article{Oliver2000,
+  doi = {10.1038/35001165},
+  url = {https://doi.org/10.1038/35001165},
+  year = {2000},
+  month = feb,
+  publisher = {Springer Science and Business Media {LLC}},
+  volume = {403},
+  number = {6770},
+  pages = {601--602},
+  author = {Stephen Oliver},
+  title = {Guilt-by-association goes global},
+  journal = {Nature}
+}
+
+@article{Gillis2012,
+  doi = {10.1371/journal.pcbi.1002444},
+  url = {https://doi.org/10.1371/journal.pcbi.1002444},
+  year = {2012},
+  month = mar,
+  publisher = {Public Library of Science ({PLoS})},
+  volume = {8},
+  number = {3},
+  pages = {e1002444},
+  author = {Jesse Gillis and Paul Pavlidis},
+  editor = {Andrey Rzhetsky},
+  title = {{\textquotedblleft}Guilt by Association{\textquotedblright} Is the Exception Rather Than the Rule in Gene Networks},
+  journal = {{PLoS} Computational Biology}
+}
+
+@article {DeepMocca2021,
+	author = {Althubaiti, Sara and Kulmanov, Maxat and Liu, Yang and Gkoutos, Georgios V and Schofield, Paul and Hoehndorf, Robert},
+	title = {DeepMOCCA: A pan-cancer prognostic model identifies personalized prognostic markers through graph attention and multi-omics data integration},
+	elocation-id = {2021.03.02.433454},
+	year = {2021},
+	doi = {10.1101/2021.03.02.433454},
+	publisher = {Cold Spring Harbor Laboratory},
+	abstract = {Combining multiple types of genomic, transcriptional, proteomic, and epigenetic datasets has the potential to reveal biological mechanisms across multiple scales, and may lead to more accurate models for clinical decision support. Developing efficient models that can derive clinical outcomes from high-dimensional data remains problematical; challenges include the integration of multiple types of omics data, inclusion of biological background knowledge, and developing machine learning models that are able to deal with this high dimensionality while having only few samples from which to derive a model. We developed DeepMOCCA, a framework for multi-omics cancer analysis. We combine different types of omics data using biological relations between genes, transcripts, and proteins, combine the multi-omics data with background knowledge in the form of protein{\textendash}protein interaction networks, and use graph convolution neural networks to exploit this combination of multi-omics data and background knowledge. DeepMOCCA predicts survival time for individual patient samples for 33 cancer types and outperforms most existing survival prediction methods. Moreover, DeepMOCCA includes a graph attention mechanism which prioritizes driver genes and prognostic markers in a patient-specific manner; the attention mechanism can be used to identify drivers and prognostic markers within cohorts and individual patients.Author summary Linking the features of tumors to a prognosis for the patient is a critical part of managing cancer. Many methods have been applied to this problem but we still lack accurate prognostic markers for many cancers. We now have more information than ever before on the state of the cancer genome, the epigenetic changes in tumors, and gene expression at both RNA and protein levels. Here, we address the question of how this data can be used to predict cancer survival and discover which tumor genes make the greatest contribution to the prognosis in individual tumor samples. We have developed a computational model, DeepMOCCA, that uses artificial neural networks underpinned by a large graph constructed from background knowledge concerning the functional interactions between genes and their products. We show that with our method, DeepMOCCA can predict cancer survival time based entirely on features of the tumor at a cellular and molecular level. The method confirms many existing genes that affect survival but for some cancers suggests new genes, either not implicated in survival before or not known to be important in that particular cancer. The ability to predict the important features in individual tumors provided by our method raises the possibility of personalized therapy based on the gene or network dominating the prognosis for that patient.Competing Interest StatementThe authors have declared no competing interest.},
+	URL = {https://www.biorxiv.org/content/early/2021/03/02/2021.03.02.433454},
+	eprint = {https://www.biorxiv.org/content/early/2021/03/02/2021.03.02.433454.full.pdf},
+	journal = {bioRxiv}
+}
+
+
+@article{STRINGv10,
+  doi = {10.1093/nar/gku1003},
+  url = {https://doi.org/10.1093/nar/gku1003},
+  year = {2014},
+  month = oct,
+  publisher = {Oxford University Press ({OUP})},
+  volume = {43},
+  number = {D1},
+  pages = {D447--D452},
+  author = {Damian Szklarczyk and Andrea Franceschini and Stefan Wyder and Kristoffer Forslund and Davide Heller and Jaime Huerta-Cepas and Milan Simonovic and Alexander Roth and Alberto Santos and Kalliopi P. Tsafou and Michael Kuhn and Peer and Lars J. Jensen and Christian von~Mering},
+  title = {{STRING} v10: protein{\textendash}protein interaction networks,  integrated over the tree of life},
+  journal = {Nucleic Acids Research}
+}
+
+@article{Vazquez2003,
+  doi = {10.1038/nbt825},
+  url = {https://doi.org/10.1038/nbt825},
+  year = {2003},
+  month = may,
+  publisher = {Springer Science and Business Media {LLC}},
+  volume = {21},
+  number = {6},
+  pages = {697--700},
+  author = {Alexei Vazquez and Alessandro Flammini and Amos Maritan and Alessandro Vespignani},
+  title = {Global protein function prediction from protein-protein interaction networks},
+  journal = {Nature Biotechnology}
+}
+
+@article{DeepGoPlus,
+    author = {Kulmanov, Maxat and Hoehndorf, Robert},
+    title = "{DeepGOPlus: improved protein function prediction from sequence}",
+    journal = {Bioinformatics},
+    volume = {36},
+    number = {2},
+    pages = {422-429},
+    year = {2019},
+    month = {07},
+    abstract = "{Protein function prediction is one of the major tasks of bioinformatics that can help in wide range of biological problems such as understanding disease mechanisms or finding drug targets. Many methods are available for predicting protein functions from sequence based features, protein–protein interaction networks, protein structure or literature. However, other than sequence, most of the features are difficult to obtain or not available for many proteins thereby limiting their scope. Furthermore, the performance of sequence-based function prediction methods is often lower than methods that incorporate multiple features and predicting protein functions may require a lot of time.We developed a novel method for predicting protein functions from sequence alone which combines deep convolutional neural network (CNN) model with sequence similarity based predictions. Our CNN model scans the sequence for motifs which are predictive for protein functions and combines this with functions of similar proteins (if available). We evaluate the performance of DeepGOPlus using the CAFA3 evaluation measures and achieve an Fmax of 0.390, 0.557 and 0.614 for BPO, MFO and CCO evaluations, respectively. These results would have made DeepGOPlus one of the three best predictors in CCO and the second best performing method in the BPO and MFO evaluations. We also compare DeepGOPlus with state-of-the-art methods such as DeepText2GO and GOLabeler on another dataset. DeepGOPlus can annotate around 40 protein sequences per second on common hardware, thereby making fast and accurate function predictions available for a wide range of proteins.http://deepgoplus.bio2vec.net/.Supplementary data are available at Bioinformatics online.}",
+    issn = {1367-4803},
+    doi = {10.1093/bioinformatics/btz595},
+    url = {https://doi.org/10.1093/bioinformatics/btz595},
+    eprint = {https://academic.oup.com/bioinformatics/article-pdf/36/2/422/31962786/btz595\_supplementary\_data.pdf},
+}
+
+@incollection{Pytorch,
+title = {PyTorch: An Imperative Style, High-Performance Deep Learning Library},
+author = {Paszke, Adam and Gross, Sam and Massa, Francisco and Lerer, Adam and Bradbury, James and Chanan, Gregory and Killeen, Trevor and Lin, Zeming and Gimelshein, Natalia and Antiga, Luca and Desmaison, Alban and Kopf, Andreas and Yang, Edward and DeVito, Zachary and Raison, Martin and Tejani, Alykhan and Chilamkurthy, Sasank and Steiner, Benoit and Fang, Lu and Bai, Junjie and Chintala, Soumith},
+booktitle = {Advances in Neural Information Processing Systems 32},
+editor = {H. Wallach and H. Larochelle and A. Beygelzimer and F. d\textquotesingle Alch\'{e}-Buc and E. Fox and R. Garnett},
+pages = {8024--8035},
+year = {2019},
+publisher = {Curran Associates, Inc.},
+url = {http://papers.neurips.cc/paper/9015-pytorch-an-imperative-style-high-performance-deep-learning-library.pdf}
+}
+
+@article{PytorchGeometric,
+  author    = {Matthias Fey and
+               Jan Eric Lenssen},
+  title     = {Fast Graph Representation Learning with PyTorch Geometric},
+  journal   = {CoRR},
+  volume    = {abs/1903.02428},
+  year      = {2019},
+  url       = {http://arxiv.org/abs/1903.02428},
+  archivePrefix = {arXiv},
+  eprint    = {1903.02428},
+  timestamp = {Sun, 31 Mar 2019 19:01:24 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-1903-02428.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@INPROCEEDINGS{Jeni2013,
+  author={Jeni, László A. and Cohn, Jeffrey F. and De La Torre, Fernando},
+  booktitle={2013 Humaine Association Conference on Affective Computing and Intelligent Interaction}, 
+  title={Facing Imbalanced Data--Recommendations for the Use of Performance Metrics}, 
+  year={2013},
+  volume={},
+  number={},
+  pages={245-251},
+  doi={10.1109/ACII.2013.47}}
+
+@article{PhenomeNET2011,
+  doi = {10.1093/nar/gkr538},
+  url = {https://doi.org/10.1093/nar/gkr538},
+  year = {2011},
+  month = jul,
+  publisher = {Oxford University Press ({OUP})},
+  volume = {39},
+  number = {18},
+  pages = {e119--e119},
+  author = {R. Hoehndorf and P. N. Schofield and G. V. Gkoutos},
+  title = {{PhenomeNET}: a whole-phenome approach to disease gene discovery},
+  journal = {Nucleic Acids Research}
+}
+
+@article{GOoriginal2000,
+  doi = {10.1038/75556},
+  url = {https://doi.org/10.1038/75556},
+  year = {2000},
+  month = may,
+  publisher = {Springer Science and Business Media {LLC}},
+  volume = {25},
+  number = {1},
+  pages = {25--29},
+  author = {Michael Ashburner and Catherine A. Ball and Judith A. Blake and David Botstein and Heather Butler and J. Michael Cherry and Allan P. Davis and Kara Dolinski and Selina S. Dwight and Janan T. Eppig and Midori A. Harris and David P. Hill and Laurie Issel-Tarver and Andrew Kasarskis and Suzanna Lewis and John C. Matese and Joel E. Richardson and Martin Ringwald and Gerald M. Rubin and Gavin Sherlock},
+  title = {Gene Ontology: tool for the unification of biology},
+  journal = {Nature Genetics}
+}
+
+@article{GOrecent2020,
+  doi = {10.1093/nar/gkaa1113},
+  url = {https://doi.org/10.1093/nar/gkaa1113},
+  year = {2020},
+  month = dec,
+  publisher = {Oxford University Press ({OUP})},
+  volume = {49},
+  number = {D1},
+  pages = {D325--D334},
+  author = {Seth Carbon and Eric Douglass and Benjamin M Good and Deepak R Unni and Nomi L Harris and Christopher J Mungall and Siddartha Basu and Rex L Chisholm and Robert J Dodson and Eric Hartline and Petra Fey and Paul D Thomas and Laurent-Philippe Albou and Dustin Ebert and Michael J Kesling and Huaiyu Mi and Anushya Muruganujan and Xiaosong Huang and Tremayne Mushayahama and Sandra A LaBonte and Deborah A Siegele and Giulia Antonazzo and Helen Attrill and Nick H Brown and Phani Garapati and Steven J Marygold and Vitor Trovisco and Gil dos Santos and Kathleen Falls and Christopher Tabone and Pinglei Zhou and Joshua L Goodman and Victor B Strelets and Jim Thurmond and Penelope Garmiri and Rizwan Ishtiaq and Milagros Rodr{\'{\i}}guez-L{\'{o}}pez and Marcio L Acencio and Martin Kuiper and Astrid L{\ae}greid and Colin Logie and Ruth C Lovering and Barbara Kramarz and Shirin C C Saverimuttu and Sandra M Pinheiro and Heather Gunn and Renzhi Su and Katherine E Thurlow and Marcus Chibucos and Michelle Giglio and Suvarna Nadendla and James Munro and Rebecca Jackson and Margaret J Duesbury and Noemi Del-Toro and Birgit H M Meldal and Kalpana Paneerselvam and Livia Perfetto and Pablo Porras and Sandra Orchard and Anjali Shrivastava and Hsin-Yu Chang and Robert Daniel Finn and Alexander Lawson Mitchell and Neil David Rawlings and Lorna Richardson and Amaia Sangrador-Vegas and Judith A Blake and Karen R Christie and Mary E Dolan and Harold J Drabkin and David P Hill and Li Ni and Dmitry M Sitnikov and Midori A Harris and Stephen G Oliver and Kim Rutherford and Valerie Wood and Jaqueline Hayles and J\"{u}rg B\"{a}hler and Elizabeth R Bolton and Jeffery L De Pons and Melinda R Dwinell and G Thomas Hayman and Mary L Kaldunski and Anne E Kwitek and Stanley J F Laulederkind and Cody Plasterer and Marek A Tutaj and Mahima Vedi and Shur-Jen Wang and Peter D'Eustachio and Lisa Matthews and James P Balhoff and Suzi A Aleksander and Michael J Alexander and J Michael Cherry and Stacia R Engel and Felix Gondwe and Kalpana Karra and Stuart R Miyasato and Robert S Nash and Matt Simison and Marek S Skrzypek and Shuai Weng and Edith D Wong and Marc Feuermann and Pascale Gaudet and Anne Morgat and Erica Bakker and Tanya Z Berardini and Leonore Reiser and Shabari Subramaniam and Eva Huala and Cecilia N Arighi and Andrea Auchincloss and Kristian Axelsen and Ghislaine Argoud-Puy and Alex Bateman and Marie-Claude Blatter and Emmanuel Boutet and Emily Bowler and Lionel Breuza and Alan Bridge and Ramona Britto and Hema Bye-A-Jee and Cristina Casals Casas and Elisabeth Coudert and Paul Denny and Anne Estreicher and Maria Livia Famiglietti and George Georghiou and Arnaud Gos and Nadine Gruaz-Gumowski and Emma Hatton-Ellis and Chantal Hulo and Alexandr Ignatchenko and Florence Jungo and Kati Laiho and Philippe Le Mercier and Damien Lieberherr and Antonia Lock and Yvonne Lussi and Alistair MacDougall and Michele Magrane and Maria J Martin and Patrick Masson and Darren A Natale and Nevila Hyka-Nouspikel and Sandra Orchard and Ivo Pedruzzi and Lucille Pourcel and Sylvain Poux and Sangya Pundir and Catherine Rivoire and Elena Speretta and Shyamala Sundaram and Nidhi Tyagi and Kate Warner and Rossana Zaru and Cathy H Wu and Alexander D Diehl and Juancarlos N Chan and Christian Grove and Raymond Y N Lee and Hans-Michael Muller and Daniela Raciti and Kimberly Van Auken and Paul W Sternberg and Matthew Berriman and Michael Paulini and Kevin Howe and Sibyl Gao and Adam Wright and Lincoln Stein and Douglas G Howe and Sabrina Toro and Monte Westerfield and Pankaj Jaiswal and Laurel Cooper and Justin Elser},
+  title = {The Gene Ontology resource: enriching a {GOld} mine},
+  journal = {Nucleic Acids Research}
+}
+
+@article{MP2009,
+  doi = {10.1002/wsbm.44},
+  url = {https://doi.org/10.1002/wsbm.44},
+  year = {2009},
+  month = nov,
+  publisher = {Wiley},
+  volume = {1},
+  number = {3},
+  pages = {390--399},
+  author = {Cynthia L. Smith and Janan T. Eppig},
+  title = {The mammalian phenotype ontology: enabling robust annotation and comparative analysis},
+  journal = {Wiley Interdisciplinary Reviews: Systems Biology and Medicine}
+}
+
+@article{DL2vec2020,
+  doi = {10.1093/bioinformatics/btaa879},
+  url = {https://doi.org/10.1093/bioinformatics/btaa879},
+  year = {2020},
+  month = oct,
+  publisher = {Oxford University Press ({OUP})},
+  author = {Jun Chen and Azza Althagafi and Robert Hoehndorf},
+  editor = {Robinson Peter},
+  title = {Predicting candidate genes from phenotypes,  functions and anatomical site of expression},
+  journal = {Bioinformatics},
+  note = {advance access}
+}
+
+@article{Word2vec2013,
+  author    = {Tom{\'{a}}s Mikolov and
+               Ilya Sutskever and
+               Kai Chen and
+               Greg Corrado and
+               Jeffrey Dean},
+  title     = {Distributed Representations of Words and Phrases and their Compositionality},
+  journal   = {CoRR},
+  volume    = {abs/1310.4546},
+  year      = {2013},
+  url       = {http://arxiv.org/abs/1310.4546},
+  archivePrefix = {arXiv},
+  eprint    = {1310.4546},
+  timestamp = {Mon, 28 Dec 2020 11:31:02 +0100},
+  biburl    = {https://dblp.org/rec/journals/corr/MikolovSCCD13.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{GENConv2020,
+  title={Deepergcn: All you need to train deeper gcns},
+  author={Li, Guohao and Xiong, Chenxin and Thabet, Ali and Ghanem, Bernard},
+  journal={CoRR},
+  year={2020},
+  volume ={abs/2006.07739}
+}
+
+@article{Trebacz2020,
+  title={Using ontology embeddings for structural inductive bias in gene expression data analysis},
+  author={Maja Trebacz and Zohreh Shams and Mateja Jamnik and Paul Scherer and Nikola Simidjievski and Helena Andres Terre and Pietro Liò},
+  journal={CoRR},
+  year={2020},
+  volume={abs/2011.10998}
+}
+
+
+@article{Adam2014,
+  title={Adam: A Method for Stochastic Optimization},
+  author={Diederik P. Kingma and Jimmy Ba},
+  journal={CoRR},
+  year={2015},
+  volume={abs/1412.6980}
+}
+
+@InProceedings{DeepGCN2019,
+    title={DeepGCNs: Can GCNs Go as Deep as CNNs?},
+    author={Guohao Li and Matthias Müller and Ali Thabet and Bernard Ghanem},
+    booktitle={The IEEE International Conference on Computer Vision (ICCV)},
+    year={2019}
+}
+
+@article{Zitnik2017,
+  author    = {Marinka Zitnik and
+               Jure Leskovec},
+  title     = {Predicting multicellular function through multi-layer tissue networks},
+  journal   = {CoRR},
+  volume    = {abs/1707.04638},
+  year      = {2017},
+  url       = {http://arxiv.org/abs/1707.04638},
+  archivePrefix = {arXiv},
+  eprint    = {1707.04638},
+  timestamp = {Mon, 13 Aug 2018 16:48:44 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/ZitnikL17.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+@article{Feng2017,
+  doi = {10.1155/2017/1289259},
+  url = {https://doi.org/10.1155/2017/1289259},
+  year = {2017},
+  publisher = {Hindawi Limited},
+  volume = {2017},
+  pages = {1--13},
+  author = {Yanghe Feng and Qi Wang and Tengjiao Wang},
+  title = {Drug Target Protein-Protein Interaction Networks: A Systematic Perspective},
+  journal = {{BioMed} Research International}
+}
+
+@article{Interpro2020,
+  doi = {10.1093/nar/gkaa977},
+  url = {https://doi.org/10.1093/nar/gkaa977},
+  year = {2020},
+  month = nov,
+  publisher = {Oxford University Press ({OUP})},
+  volume = {49},
+  number = {D1},
+  pages = {D344--D354},
+  author = {Matthias Blum and Hsin-Yu Chang and Sara Chuguransky and Tiago Grego and Swaathi Kandasaamy and Alex Mitchell and Gift Nuka and Typhaine Paysan-Lafosse and Matloob Qureshi and Shriya Raj and Lorna Richardson and Gustavo A Salazar and Lowri Williams and Peer Bork and Alan Bridge and Julian Gough and Daniel H Haft and Ivica Letunic and Aron Marchler-Bauer and Huaiyu Mi and Darren A Natale and Marco Necci and Christine A Orengo and Arun P Pandurangan and Catherine Rivoire and Christian J A Sigrist and Ian Sillitoe and Narmada Thanki and Paul D Thomas and Silvio C E Tosatto and Cathy H Wu and Alex Bateman and Robert D Finn},
+  title = {The {InterPro} protein families and domains database: 20 years on},
+  journal = {Nucleic Acids Research}
+}
+
+@article{MouseBrainAtlas,
+  doi = {10.1038/nature05453},
+  url = {https://doi.org/10.1038/nature05453},
+  year = {2006},
+  month = dec,
+  publisher = {Springer Science and Business Media {LLC}},
+  volume = {445},
+  number = {7124},
+  pages = {168--176},
+  author = {Ed S. Lein and Michael J. Hawrylycz and Nancy Ao and Mikael Ayres and Amy Bensinger and Amy Bernard and Andrew F. Boe and Mark S. Boguski and Kevin S. Brockway and Emi J. Byrnes and Lin Chen and Li Chen and Tsuey-Ming Chen and Mei Chi Chin and Jimmy Chong and Brian E. Crook and Aneta Czaplinska and Chinh N. Dang and Suvro Datta and Nick R. Dee and Aimee L. Desaki and Tsega Desta and Ellen Diep and Tim A. Dolbeare and Matthew J. Donelan and Hong-Wei Dong and Jennifer G. Dougherty and Ben J. Duncan and Amanda J. Ebbert and Gregor Eichele and Lili K. Estin and Casey Faber and Benjamin A. Facer and Rick Fields and Shanna R. Fischer and Tim P. Fliss and Cliff Frensley and Sabrina N. Gates and Katie J. Glattfelder and Kevin R. Halverson and Matthew R. Hart and John G. Hohmann and Maureen P. Howell and Darren P. Jeung and Rebecca A. Johnson and Patrick T. Karr and Reena Kawal and Jolene M. Kidney and Rachel H. Knapik and Chihchau L. Kuan and James H. Lake and Annabel R. Laramee and Kirk D. Larsen and Christopher Lau and Tracy A. Lemon and Agnes J. Liang and Ying Liu and Lon T. Luong and Jesse Michaels and Judith J. Morgan and Rebecca J. Morgan and Marty T. Mortrud and Nerick F. Mosqueda and Lydia L. Ng and Randy Ng and Geralyn J. Orta and Caroline C. Overly and Tu H. Pak and Sheana E. Parry and Sayan D. Pathak and Owen C. Pearson and Ralph B. Puchalski and Zackery L. Riley and Hannah R. Rockett and Stephen A. Rowland and Joshua J. Royall and Marcos J. Ruiz and Nadia R. Sarno and Katherine Schaffnit and Nadiya V. Shapovalova and Taz Sivisay and Clifford R. Slaughterbeck and Simon C. Smith and Kimberly A. Smith and Bryan I. Smith and Andy J. Sodt and Nick N. Stewart and Kenda-Ruth Stumpf and Susan M. Sunkin and Madhavi Sutram and Angelene Tam and Carey D. Teemer and Christina Thaller and Carol L. Thompson and Lee R. Varnam and Axel Visel and Ray M. Whitlock and Paul E. Wohnoutka and Crissa K. Wolkey and Victoria Y. Wong and Matthew Wood and Murat B. Yaylaoglu and Rob C. Young and Brian L. Youngstrom and Xu Feng Yuan and Bin Zhang and Theresa A. Zwingman and Allan R. Jones},
+  title = {Genome-wide atlas of gene expression in the adult mouse brain},
+  journal = {Nature}
+}

@@ -1,0 +1,256 @@
+\documentclass[]{article}
+\usepackage[left=3cm,right=3cm,top=1.5cm,bottom=2cm,includeheadfoot]{geometry} 
+\usepackage{babel}
+\usepackage{hyperref}
+\usepackage{mwe}
+\usepackage[markcase=noupper
+]{scrlayer-scrpage}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{multirow}
+
+% bibliography natbib
+\usepackage{natbib}
+\bibliographystyle{abbrvnat}
+%\setcitestyle{authoryear, open={((},close={))}
+\renewcommand{\cite}{\citep}
+
+
+% configure headline
+\KOMAoptions{
+	headsepline = true
+}
+\ihead{Tilman Hinnerichs}
+\ohead{Towards gene expression prediction in mouse brains}
+\cfoot*{\pagemark}
+%opening
+\title{Towards gene expression prediction in mouse brains}
+\author{Tilman Hinnerichs\\
+	\href{mailto:tilman@hinnerichs.com}{tilman@hinnerichs.com}}
+\date{}
+\pagestyle{headings}
+
+% Build subsubsubsection
+\usepackage{titlesec}
+\usepackage{todonotes}
+
+%Definitions
+\newtheorem{mydef}{Definition}
+\newtheorem{example}{Example}
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{proposition}{Proposition}
+
+\newcommand{\name}{Treasure}
+
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+\setcounter{tocdepth}{5}
+\setcounter{secnumdepth}{5}
+
+%-------------------------------------------------------------------------------
+% TITLE PAGE
+%-------------------------------------------------------------------------------
+
+\begin{document}
+	
+\title{ \normalsize \textsc{Diploma thesis}
+	\\ [2.0cm]
+	\HRule{0.5pt} \\
+	\LARGE \textbf{\uppercase{Towards gene expression prediction in mouse brains}
+		\HRule{1pt} \\ [0.5cm]
+		\normalsize September 30, 2021 \vspace*{5\baselineskip}}
+	
+	\date{Summer semester 2021}
+	
+	\author{
+		Tilman Hinnerichs \\
+		Matrikelnummer: 4643427 \\ 
+		Technische Universität Dresden\vspace{1cm}\\
+		Tutor: Dr. Nico Scherf\\
+		MPI for CBS }}
+\maketitle
+\todo{proper title?}
+\newpage
+\begin{abstract}
+	
+\end{abstract}
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\section*{To include in some chapter}
+Predict gene expression per section/structure:\\
+Take region as input and predict gene expression\\
+Challenges:
+\begin{itemize}
+	\item how to normalize expression intensity (see discussion in DeepMOCCA paper, Sara Alghamdi), as there are regions with much more activity than others (e.g. bone narrow vs. bone boarder); thresholds for intensity varies across genes
+	
+	\begin{itemize}
+		\item over all intensities $\rightarrow$
+		\item per structure $\rightarrow$  
+		\item per gene $\rightarrow$ 
+	\end{itemize}
+	\item transfer learning working for other structure/regions
+	\item dataset: Allen Mouse brain atlas vs. 
+	\begin{itemize}
+		\item \href{https://www.har.mrc.ac.uk/harwell-news/phenoview-new-tool-compare-impc-data/}{phenoview impc data}
+		
+		\item \href{https://www.mousephenotype.org/}{mousephenotype}
+		
+		\item \href{http://www.informatics.jax.org/expression.shtml}{HPO/MP project expression data}
+	\end{itemize}
+	\item structure specific features?
+\end{itemize}
+
+\subsection*{Possible hypotheses}
+\begin{itemize}
+	\item predict gene expression for a given single structure
+	\item predict structure from gene expression pattern
+	\item predict structure form gene expression and image
+	\item predict cancer type from morphology/pathologic image of cancer
+	\item simulate loss of function/expression by removing one node of graph
+\end{itemize}
+
+\section{Introduction}
+
+\begin{itemize}
+	\item Works on mouse brain in general and potential tasks
+	\item works on gene expression in mouse brains
+	\item conservative approaches
+	\item neural networks for this purpose
+	\item gene expression for general tissue
+	
+\end{itemize}
+
+\section{Literature review}
+
+\begin{itemize}
+	\item Variability and different interpretations of different graph convolutional neural filters \cite{GCNConv, GENConv2020, SAGEConv} etc.
+	\item Guilt by association over gene networks \cite{Oliver2000, Gillis2012}
+	\item protein function prediction from PPI networks \cite{Vazquez2003}
+	\item DeepGOPlus for feature generation \cite{DeepGoPlus}
+	\item discussion of DeepMocca by Sara \cite{DeepMocca2021}
+	\item discussion of different PPI network databases \cite{STRINGv10}
+	\item discussion of best neural learning/graph convolutional methods \cite{Pytorch, PytorchGeometric}
+	\item how to handle highly imbalanced data, metrics, preprocessing, sampling, modification of loss function \cite{Jeni2013} and optimization over them (with Adam\cite{Adam2014})
+	\item maybe introduction of PhenomeNET for MP/GO for more sophisticated protein representation \cite{PhenomeNET2011, GOoriginal2000, GOrecent2020, MP2009} and derive features from DL2vec \cite{DL2vec2020, Word2vec2013}
+	\item evaluation of \glqq Using ontology embeddings for structural inductive bias in gene expression data analysis\grqq{}\cite{Trebacz2020}
+	\item take some ideas from \citet{Zitnik2017} with title \glqq Predicting multicellular function through multi-layer tissue networks\grqq{}. (OhmNet)
+	\item potentially group results based on InterPro\cite{Interpro2020} families eventually
+	\item 
+	
+	
+\end{itemize}
+
+\section{Methods}
+\subsection{Problem description}
+
+\subsection{Datasets}
+\begin{itemize}
+	\item Allen mouse brain atlas \cite{MouseBrainAtlas}
+	\item STRING for PPI network and how we chose suitable interactions \cite{STRINGv10}
+\end{itemize}
+
+\subsection{Model}
+
+\subsubsection{Feature generation}
+
+\subsubsection{Graph convolutional neural layers}
+
+We include these molecular and ontology-based sub-models within a
+graph neural network (GNN) \cite{GCNConv}. The graph underlying the GNN is
+based on the protein--protein interaction (PPI) graph. The PPI dataset
+is represented by a graph $G=(V,E)$, where each protein is represented
+by a vertex $v\in V$, and each edge $e\in E\subseteq V\times V$
+represents an interaction between two proteins. Additionally, we
+introduce a mapping $x:V\rightarrow\mathbb{R}^{d}$ projecting each
+vertex $v$ to its node feature $x_v := x(v)$, where $d$ denotes the
+dimensionality of the node features.
+
+% As described before, graph convolution has shown significant
+% performance increase in a variety of tasks. While there are various
+% methods out there we will only introduce the most basic one here. 
+A graph convolutional layer \cite{GCNConv} consists of a learnable
+weight matrix followed by an aggregation step, formalized by
+\begin{equation}
+	\mathbf{X}^{\prime} = \mathbf{\hat{D}}^{-1/2} \mathbf{\hat{A}}
+	\mathbf{\hat{D}}^{-1/2} \mathbf{X} \mathbf{\Theta}
+\end{equation}
+where for a given graph $G=(V,E)$, $\hat{A} = A + I$ denotes the
+adjacency matrix with added self-loops for each vertex, $D$ is
+described by $\hat{D}_{ii} = \sum_{j=0} \hat{A}_{ij}$, a diagonal
+matrix displaying the degree of each node, and $\Theta$ denotes the
+learnable weight matrix. Added self-loops enforce that each node
+representation is directly dependent on its own preceding one. The
+number of graph convolutional layers stacked equals the radius of
+relevant nodes for each vertex within the graph.
+
+The update rule for each node is given by a message passing scheme
+formalized by
+\begin{equation}
+	\mathbf{x}^{\prime}_i = \mathbf{\Theta} \sum^{N}_{j}
+	\frac{1}{\sqrt{\hat{d}_j \hat{d}_i}} \mathbf{x}_j
+\end{equation}
+where both $\hat{d}_i, \hat{d}_j$ are dependent on the edge weights
+$e_{ij}$ of the graph. With simple, single-valued edge weights such as
+$e_{ij}=1 \text{ }\forall (i,j)\in E$, all $\hat{d}_i$ reduce to
+$d_i$, i.e., the degree of each vertex $i$. We denote this type of
+graph convolutional neural layers with \textsc{GCNConv}.
+
+While in this initial formulation of a GCNConv the node-wise update
+step is defined by the sum over all neighboring node representations,
+we can alter this formulation to other message passing schemes.  We
+can rearrange the order of activation function $\sigma$, aggregation
+$\mathrm{AGG}$, and linear neural layer $\mathrm{MLP}$ with this
+formulation as proposed by \cite{GENConv2020}:
+\begin{equation}
+	\mathbf{x}_i^{\prime} = \mathrm{MLP} \left( \mathbf{x}_i +
+	\mathrm{AGG} \left( \left\{
+	\mathrm{\sigma} \left( \mathbf{x}_j + \mathbf{e_{ji}} \right) +\epsilon
+	: j \in \mathcal{N}(i) \right\} \right)
+	\right)
+\end{equation}
+where we only consider
+$\sigma \in \{\mathrm{ReLU}, \mathrm{LeakyReLU}\}$. We denote this
+generalized layer type as \textsc{GENConv} following the notation of
+PyTorch Geometric \cite{PytorchGeometric}.  While the reordering is
+mainly important for numerical stability, this alteration also addresses
+the vanishing gradient problem for deeper convolutional networks
+\cite{GENConv2020}. Additionally, we can also generalize the
+aggregation function to allow different weighting functions such as
+learnable $\mathrm{SoftMax}$ or $\mathrm{Power}$ for the incoming
+signals for each vertex, substituting the averaging step in
+\textsc{GCNConv}. Hence, while \textsc{GCNConv} suffers from both
+vanishing gradients and signal fading for large scale and highly
+connected graphs, each propagation step in \textsc{GENConv} emphasizes
+signals with values close to $0$ and $1$. The same convolutional
+filter and weight matrix are applied to and learned for all nodes
+simultaneously. % , and the resulting information\todo{Which information?
+% Specify} hold no information on their own connectivity.
+We further employ another mechanism to avoid redundancy and fading
+signals in stacked graph convolutional networks, using residual
+connections and a normalization scheme \cite{DeepGCN2019}
+	\cite{GENConv2020} as shown in Supplementary 3.  The residual
+blocks are reusable and can be stacked multiple times.
+
+\subsubsection{Combined prediction model}
+
+\subsubsection{Hyperparameter tuning}
+
+\subsection{Evaluation and metrics}
+
+\section{Results}
+
+\section{Discussion}
+
+\section{Conclusion}
+
+\newpage
+
+\bibliography{citations}
+
+\end{document}

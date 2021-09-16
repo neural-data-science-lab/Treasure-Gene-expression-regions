@@ -1,0 +1,302 @@
+\begin{thebibliography}{24}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Althubaiti et~al.(2021)Althubaiti, Kulmanov, Liu, Gkoutos, Schofield,
+  and Hoehndorf]{DeepMocca2021}
+S.~Althubaiti, M.~Kulmanov, Y.~Liu, G.~V. Gkoutos, P.~Schofield, and
+  R.~Hoehndorf.
+\newblock Deepmocca: A pan-cancer prognostic model identifies personalized
+  prognostic markers through graph attention and multi-omics data integration.
+\newblock \emph{bioRxiv}, 2021.
+\newblock \doi{10.1101/2021.03.02.433454}.
+\newblock URL
+  \url{https://www.biorxiv.org/content/early/2021/03/02/2021.03.02.433454}.
+
+\bibitem[Ashburner et~al.(2000)Ashburner, Ball, Blake, Botstein, Butler,
+  Cherry, Davis, Dolinski, Dwight, Eppig, Harris, Hill, Issel-Tarver,
+  Kasarskis, Lewis, Matese, Richardson, Ringwald, Rubin, and
+  Sherlock]{GOoriginal2000}
+M.~Ashburner, C.~A. Ball, J.~A. Blake, D.~Botstein, H.~Butler, J.~M. Cherry,
+  A.~P. Davis, K.~Dolinski, S.~S. Dwight, J.~T. Eppig, M.~A. Harris, D.~P.
+  Hill, L.~Issel-Tarver, A.~Kasarskis, S.~Lewis, J.~C. Matese, J.~E.
+  Richardson, M.~Ringwald, G.~M. Rubin, and G.~Sherlock.
+\newblock Gene ontology: tool for the unification of biology.
+\newblock \emph{Nature Genetics}, 25\penalty0 (1):\penalty0 25--29, May 2000.
+\newblock \doi{10.1038/75556}.
+\newblock URL \url{https://doi.org/10.1038/75556}.
+
+\bibitem[Blum et~al.(2020)Blum, Chang, Chuguransky, Grego, Kandasaamy,
+  Mitchell, Nuka, Paysan-Lafosse, Qureshi, Raj, Richardson, Salazar, Williams,
+  Bork, Bridge, Gough, Haft, Letunic, Marchler-Bauer, Mi, Natale, Necci,
+  Orengo, Pandurangan, Rivoire, Sigrist, Sillitoe, Thanki, Thomas, Tosatto, Wu,
+  Bateman, and Finn]{Interpro2020}
+M.~Blum, H.-Y. Chang, S.~Chuguransky, T.~Grego, S.~Kandasaamy, A.~Mitchell,
+  G.~Nuka, T.~Paysan-Lafosse, M.~Qureshi, S.~Raj, L.~Richardson, G.~A. Salazar,
+  L.~Williams, P.~Bork, A.~Bridge, J.~Gough, D.~H. Haft, I.~Letunic,
+  A.~Marchler-Bauer, H.~Mi, D.~A. Natale, M.~Necci, C.~A. Orengo, A.~P.
+  Pandurangan, C.~Rivoire, C.~J.~A. Sigrist, I.~Sillitoe, N.~Thanki, P.~D.
+  Thomas, S.~C.~E. Tosatto, C.~H. Wu, A.~Bateman, and R.~D. Finn.
+\newblock The {InterPro} protein families and domains database: 20 years on.
+\newblock \emph{Nucleic Acids Research}, 49\penalty0 (D1):\penalty0 D344--D354,
+  Nov. 2020.
+\newblock \doi{10.1093/nar/gkaa977}.
+\newblock URL \url{https://doi.org/10.1093/nar/gkaa977}.
+
+\bibitem[Carbon et~al.(2020)Carbon, Douglass, Good, Unni, Harris, Mungall,
+  Basu, Chisholm, Dodson, Hartline, Fey, Thomas, Albou, Ebert, Kesling, Mi,
+  Muruganujan, Huang, Mushayahama, LaBonte, Siegele, Antonazzo, Attrill, Brown,
+  Garapati, Marygold, Trovisco, dos Santos, Falls, Tabone, Zhou, Goodman,
+  Strelets, Thurmond, Garmiri, Ishtiaq, Rodr{\'{\i}}guez-L{\'{o}}pez, Acencio,
+  Kuiper, L{\ae}greid, Logie, Lovering, Kramarz, Saverimuttu, Pinheiro, Gunn,
+  Su, Thurlow, Chibucos, Giglio, Nadendla, Munro, Jackson, Duesbury, Del-Toro,
+  Meldal, Paneerselvam, Perfetto, Porras, Orchard, Shrivastava, Chang, Finn,
+  Mitchell, Rawlings, Richardson, Sangrador-Vegas, Blake, Christie, Dolan,
+  Drabkin, Hill, Ni, Sitnikov, Harris, Oliver, Rutherford, Wood, Hayles,
+  B\"{a}hler, Bolton, Pons, Dwinell, Hayman, Kaldunski, Kwitek, Laulederkind,
+  Plasterer, Tutaj, Vedi, Wang, D'Eustachio, Matthews, Balhoff, Aleksander,
+  Alexander, Cherry, Engel, Gondwe, Karra, Miyasato, Nash, Simison, Skrzypek,
+  Weng, Wong, Feuermann, Gaudet, Morgat, Bakker, Berardini, Reiser,
+  Subramaniam, Huala, Arighi, Auchincloss, Axelsen, Argoud-Puy, Bateman,
+  Blatter, Boutet, Bowler, Breuza, Bridge, Britto, Bye-A-Jee, Casas, Coudert,
+  Denny, Estreicher, Famiglietti, Georghiou, Gos, Gruaz-Gumowski, Hatton-Ellis,
+  Hulo, Ignatchenko, Jungo, Laiho, Mercier, Lieberherr, Lock, Lussi,
+  MacDougall, Magrane, Martin, Masson, Natale, Hyka-Nouspikel, Orchard,
+  Pedruzzi, Pourcel, Poux, Pundir, Rivoire, Speretta, Sundaram, Tyagi, Warner,
+  Zaru, Wu, Diehl, Chan, Grove, Lee, Muller, Raciti, Auken, Sternberg,
+  Berriman, Paulini, Howe, Gao, Wright, Stein, Howe, Toro, Westerfield,
+  Jaiswal, Cooper, and Elser]{GOrecent2020}
+S.~Carbon, E.~Douglass, B.~M. Good, D.~R. Unni, N.~L. Harris, C.~J. Mungall,
+  S.~Basu, R.~L. Chisholm, R.~J. Dodson, E.~Hartline, P.~Fey, P.~D. Thomas,
+  L.-P. Albou, D.~Ebert, M.~J. Kesling, H.~Mi, A.~Muruganujan, X.~Huang,
+  T.~Mushayahama, S.~A. LaBonte, D.~A. Siegele, G.~Antonazzo, H.~Attrill, N.~H.
+  Brown, P.~Garapati, S.~J. Marygold, V.~Trovisco, G.~dos Santos, K.~Falls,
+  C.~Tabone, P.~Zhou, J.~L. Goodman, V.~B. Strelets, J.~Thurmond, P.~Garmiri,
+  R.~Ishtiaq, M.~Rodr{\'{\i}}guez-L{\'{o}}pez, M.~L. Acencio, M.~Kuiper,
+  A.~L{\ae}greid, C.~Logie, R.~C. Lovering, B.~Kramarz, S.~C.~C. Saverimuttu,
+  S.~M. Pinheiro, H.~Gunn, R.~Su, K.~E. Thurlow, M.~Chibucos, M.~Giglio,
+  S.~Nadendla, J.~Munro, R.~Jackson, M.~J. Duesbury, N.~Del-Toro, B.~H.~M.
+  Meldal, K.~Paneerselvam, L.~Perfetto, P.~Porras, S.~Orchard, A.~Shrivastava,
+  H.-Y. Chang, R.~D. Finn, A.~L. Mitchell, N.~D. Rawlings, L.~Richardson,
+  A.~Sangrador-Vegas, J.~A. Blake, K.~R. Christie, M.~E. Dolan, H.~J. Drabkin,
+  D.~P. Hill, L.~Ni, D.~M. Sitnikov, M.~A. Harris, S.~G. Oliver, K.~Rutherford,
+  V.~Wood, J.~Hayles, J.~B\"{a}hler, E.~R. Bolton, J.~L.~D. Pons, M.~R.
+  Dwinell, G.~T. Hayman, M.~L. Kaldunski, A.~E. Kwitek, S.~J.~F. Laulederkind,
+  C.~Plasterer, M.~A. Tutaj, M.~Vedi, S.-J. Wang, P.~D'Eustachio, L.~Matthews,
+  J.~P. Balhoff, S.~A. Aleksander, M.~J. Alexander, J.~M. Cherry, S.~R. Engel,
+  F.~Gondwe, K.~Karra, S.~R. Miyasato, R.~S. Nash, M.~Simison, M.~S. Skrzypek,
+  S.~Weng, E.~D. Wong, M.~Feuermann, P.~Gaudet, A.~Morgat, E.~Bakker, T.~Z.
+  Berardini, L.~Reiser, S.~Subramaniam, E.~Huala, C.~N. Arighi, A.~Auchincloss,
+  K.~Axelsen, G.~Argoud-Puy, A.~Bateman, M.-C. Blatter, E.~Boutet, E.~Bowler,
+  L.~Breuza, A.~Bridge, R.~Britto, H.~Bye-A-Jee, C.~C. Casas, E.~Coudert,
+  P.~Denny, A.~Estreicher, M.~L. Famiglietti, G.~Georghiou, A.~Gos,
+  N.~Gruaz-Gumowski, E.~Hatton-Ellis, C.~Hulo, A.~Ignatchenko, F.~Jungo,
+  K.~Laiho, P.~L. Mercier, D.~Lieberherr, A.~Lock, Y.~Lussi, A.~MacDougall,
+  M.~Magrane, M.~J. Martin, P.~Masson, D.~A. Natale, N.~Hyka-Nouspikel,
+  S.~Orchard, I.~Pedruzzi, L.~Pourcel, S.~Poux, S.~Pundir, C.~Rivoire,
+  E.~Speretta, S.~Sundaram, N.~Tyagi, K.~Warner, R.~Zaru, C.~H. Wu, A.~D.
+  Diehl, J.~N. Chan, C.~Grove, R.~Y.~N. Lee, H.-M. Muller, D.~Raciti, K.~V.
+  Auken, P.~W. Sternberg, M.~Berriman, M.~Paulini, K.~Howe, S.~Gao, A.~Wright,
+  L.~Stein, D.~G. Howe, S.~Toro, M.~Westerfield, P.~Jaiswal, L.~Cooper, and
+  J.~Elser.
+\newblock The gene ontology resource: enriching a {GOld} mine.
+\newblock \emph{Nucleic Acids Research}, 49\penalty0 (D1):\penalty0 D325--D334,
+  Dec. 2020.
+\newblock \doi{10.1093/nar/gkaa1113}.
+\newblock URL \url{https://doi.org/10.1093/nar/gkaa1113}.
+
+\bibitem[Chen et~al.(2020)Chen, Althagafi, and Hoehndorf]{DL2vec2020}
+J.~Chen, A.~Althagafi, and R.~Hoehndorf.
+\newblock Predicting candidate genes from phenotypes, functions and anatomical
+  site of expression.
+\newblock \emph{Bioinformatics}, Oct. 2020.
+\newblock \doi{10.1093/bioinformatics/btaa879}.
+\newblock URL \url{https://doi.org/10.1093/bioinformatics/btaa879}.
+\newblock advance access.
+
+\bibitem[Fey and Lenssen(2019)]{PytorchGeometric}
+M.~Fey and J.~E. Lenssen.
+\newblock Fast graph representation learning with pytorch geometric.
+\newblock \emph{CoRR}, abs/1903.02428, 2019.
+\newblock URL \url{http://arxiv.org/abs/1903.02428}.
+
+\bibitem[Gillis and Pavlidis(2012)]{Gillis2012}
+J.~Gillis and P.~Pavlidis.
+\newblock {\textquotedblleft}guilt by association{\textquotedblright} is the
+  exception rather than the rule in gene networks.
+\newblock \emph{{PLoS} Computational Biology}, 8\penalty0 (3):\penalty0
+  e1002444, Mar. 2012.
+\newblock \doi{10.1371/journal.pcbi.1002444}.
+\newblock URL \url{https://doi.org/10.1371/journal.pcbi.1002444}.
+
+\bibitem[Hamilton et~al.(2017)Hamilton, Ying, and Leskovec]{SAGEConv}
+W.~L. Hamilton, Z.~Ying, and J.~Leskovec.
+\newblock Inductive representation learning on large graphs.
+\newblock In \emph{NIPS}, 2017.
+
+\bibitem[Hoehndorf et~al.(2011)Hoehndorf, Schofield, and
+  Gkoutos]{PhenomeNET2011}
+R.~Hoehndorf, P.~N. Schofield, and G.~V. Gkoutos.
+\newblock {PhenomeNET}: a whole-phenome approach to disease gene discovery.
+\newblock \emph{Nucleic Acids Research}, 39\penalty0 (18):\penalty0 e119--e119,
+  July 2011.
+\newblock \doi{10.1093/nar/gkr538}.
+\newblock URL \url{https://doi.org/10.1093/nar/gkr538}.
+
+\bibitem[Jeni et~al.(2013)Jeni, Cohn, and De~La~Torre]{Jeni2013}
+L.~A. Jeni, J.~F. Cohn, and F.~De~La~Torre.
+\newblock Facing imbalanced data--recommendations for the use of performance
+  metrics.
+\newblock In \emph{2013 Humaine Association Conference on Affective Computing
+  and Intelligent Interaction}, pages 245--251, 2013.
+\newblock \doi{10.1109/ACII.2013.47}.
+
+\bibitem[Kingma and Ba(2015)]{Adam2014}
+D.~P. Kingma and J.~Ba.
+\newblock Adam: A method for stochastic optimization.
+\newblock \emph{CoRR}, abs/1412.6980, 2015.
+
+\bibitem[Kipf and Welling(2016)]{GCNConv}
+T.~N. Kipf and M.~Welling.
+\newblock Semi-supervised classification with graph convolutional networks.
+\newblock \emph{CoRR}, abs/1609.02907, 2016.
+\newblock URL \url{http://arxiv.org/abs/1609.02907}.
+
+\bibitem[Kulmanov and Hoehndorf(2019)]{DeepGoPlus}
+M.~Kulmanov and R.~Hoehndorf.
+\newblock {DeepGOPlus: improved protein function prediction from sequence}.
+\newblock \emph{Bioinformatics}, 36\penalty0 (2):\penalty0 422--429, 07 2019.
+\newblock ISSN 1367-4803.
+\newblock \doi{10.1093/bioinformatics/btz595}.
+\newblock URL \url{https://doi.org/10.1093/bioinformatics/btz595}.
+
+\bibitem[Lein et~al.(2006)Lein, Hawrylycz, Ao, Ayres, Bensinger, Bernard, Boe,
+  Boguski, Brockway, Byrnes, Chen, Chen, Chen, Chin, Chong, Crook, Czaplinska,
+  Dang, Datta, Dee, Desaki, Desta, Diep, Dolbeare, Donelan, Dong, Dougherty,
+  Duncan, Ebbert, Eichele, Estin, Faber, Facer, Fields, Fischer, Fliss,
+  Frensley, Gates, Glattfelder, Halverson, Hart, Hohmann, Howell, Jeung,
+  Johnson, Karr, Kawal, Kidney, Knapik, Kuan, Lake, Laramee, Larsen, Lau,
+  Lemon, Liang, Liu, Luong, Michaels, Morgan, Morgan, Mortrud, Mosqueda, Ng,
+  Ng, Orta, Overly, Pak, Parry, Pathak, Pearson, Puchalski, Riley, Rockett,
+  Rowland, Royall, Ruiz, Sarno, Schaffnit, Shapovalova, Sivisay, Slaughterbeck,
+  Smith, Smith, Smith, Sodt, Stewart, Stumpf, Sunkin, Sutram, Tam, Teemer,
+  Thaller, Thompson, Varnam, Visel, Whitlock, Wohnoutka, Wolkey, Wong, Wood,
+  Yaylaoglu, Young, Youngstrom, Yuan, Zhang, Zwingman, and
+  Jones]{MouseBrainAtlas}
+E.~S. Lein, M.~J. Hawrylycz, N.~Ao, M.~Ayres, A.~Bensinger, A.~Bernard, A.~F.
+  Boe, M.~S. Boguski, K.~S. Brockway, E.~J. Byrnes, L.~Chen, L.~Chen, T.-M.
+  Chen, M.~C. Chin, J.~Chong, B.~E. Crook, A.~Czaplinska, C.~N. Dang, S.~Datta,
+  N.~R. Dee, A.~L. Desaki, T.~Desta, E.~Diep, T.~A. Dolbeare, M.~J. Donelan,
+  H.-W. Dong, J.~G. Dougherty, B.~J. Duncan, A.~J. Ebbert, G.~Eichele, L.~K.
+  Estin, C.~Faber, B.~A. Facer, R.~Fields, S.~R. Fischer, T.~P. Fliss,
+  C.~Frensley, S.~N. Gates, K.~J. Glattfelder, K.~R. Halverson, M.~R. Hart,
+  J.~G. Hohmann, M.~P. Howell, D.~P. Jeung, R.~A. Johnson, P.~T. Karr,
+  R.~Kawal, J.~M. Kidney, R.~H. Knapik, C.~L. Kuan, J.~H. Lake, A.~R. Laramee,
+  K.~D. Larsen, C.~Lau, T.~A. Lemon, A.~J. Liang, Y.~Liu, L.~T. Luong,
+  J.~Michaels, J.~J. Morgan, R.~J. Morgan, M.~T. Mortrud, N.~F. Mosqueda, L.~L.
+  Ng, R.~Ng, G.~J. Orta, C.~C. Overly, T.~H. Pak, S.~E. Parry, S.~D. Pathak,
+  O.~C. Pearson, R.~B. Puchalski, Z.~L. Riley, H.~R. Rockett, S.~A. Rowland,
+  J.~J. Royall, M.~J. Ruiz, N.~R. Sarno, K.~Schaffnit, N.~V. Shapovalova,
+  T.~Sivisay, C.~R. Slaughterbeck, S.~C. Smith, K.~A. Smith, B.~I. Smith, A.~J.
+  Sodt, N.~N. Stewart, K.-R. Stumpf, S.~M. Sunkin, M.~Sutram, A.~Tam, C.~D.
+  Teemer, C.~Thaller, C.~L. Thompson, L.~R. Varnam, A.~Visel, R.~M. Whitlock,
+  P.~E. Wohnoutka, C.~K. Wolkey, V.~Y. Wong, M.~Wood, M.~B. Yaylaoglu, R.~C.
+  Young, B.~L. Youngstrom, X.~F. Yuan, B.~Zhang, T.~A. Zwingman, and A.~R.
+  Jones.
+\newblock Genome-wide atlas of gene expression in the adult mouse brain.
+\newblock \emph{Nature}, 445\penalty0 (7124):\penalty0 168--176, Dec. 2006.
+\newblock \doi{10.1038/nature05453}.
+\newblock URL \url{https://doi.org/10.1038/nature05453}.
+
+\bibitem[Li et~al.(2019)Li, Müller, Thabet, and Ghanem]{DeepGCN2019}
+G.~Li, M.~Müller, A.~Thabet, and B.~Ghanem.
+\newblock Deepgcns: Can gcns go as deep as cnns?
+\newblock In \emph{The IEEE International Conference on Computer Vision
+  (ICCV)}, 2019.
+
+\bibitem[Li et~al.(2020)Li, Xiong, Thabet, and Ghanem]{GENConv2020}
+G.~Li, C.~Xiong, A.~Thabet, and B.~Ghanem.
+\newblock Deepergcn: All you need to train deeper gcns.
+\newblock \emph{CoRR}, abs/2006.07739, 2020.
+
+\bibitem[Mikolov et~al.(2013)Mikolov, Sutskever, Chen, Corrado, and
+  Dean]{Word2vec2013}
+T.~Mikolov, I.~Sutskever, K.~Chen, G.~Corrado, and J.~Dean.
+\newblock Distributed representations of words and phrases and their
+  compositionality.
+\newblock \emph{CoRR}, abs/1310.4546, 2013.
+\newblock URL \url{http://arxiv.org/abs/1310.4546}.
+
+\bibitem[Oliver(2000)]{Oliver2000}
+S.~Oliver.
+\newblock Guilt-by-association goes global.
+\newblock \emph{Nature}, 403\penalty0 (6770):\penalty0 601--602, Feb. 2000.
+\newblock \doi{10.1038/35001165}.
+\newblock URL \url{https://doi.org/10.1038/35001165}.
+
+\bibitem[Paszke et~al.(2019)Paszke, Gross, Massa, Lerer, Bradbury, Chanan,
+  Killeen, Lin, Gimelshein, Antiga, Desmaison, Kopf, Yang, DeVito, Raison,
+  Tejani, Chilamkurthy, Steiner, Fang, Bai, and Chintala]{Pytorch}
+A.~Paszke, S.~Gross, F.~Massa, A.~Lerer, J.~Bradbury, G.~Chanan, T.~Killeen,
+  Z.~Lin, N.~Gimelshein, L.~Antiga, A.~Desmaison, A.~Kopf, E.~Yang, Z.~DeVito,
+  M.~Raison, A.~Tejani, S.~Chilamkurthy, B.~Steiner, L.~Fang, J.~Bai, and
+  S.~Chintala.
+\newblock Pytorch: An imperative style, high-performance deep learning library.
+\newblock In H.~Wallach, H.~Larochelle, A.~Beygelzimer, F.~d\textquotesingle
+  Alch\'{e}-Buc, E.~Fox, and R.~Garnett, editors, \emph{Advances in Neural
+  Information Processing Systems 32}, pages 8024--8035. Curran Associates,
+  Inc., 2019.
+\newblock URL
+  \url{http://papers.neurips.cc/paper/9015-pytorch-an-imperative-style-high-performance-deep-learning-library.pdf}.
+
+\bibitem[Smith and Eppig(2009)]{MP2009}
+C.~L. Smith and J.~T. Eppig.
+\newblock The mammalian phenotype ontology: enabling robust annotation and
+  comparative analysis.
+\newblock \emph{Wiley Interdisciplinary Reviews: Systems Biology and Medicine},
+  1\penalty0 (3):\penalty0 390--399, Nov. 2009.
+\newblock \doi{10.1002/wsbm.44}.
+\newblock URL \url{https://doi.org/10.1002/wsbm.44}.
+
+\bibitem[Szklarczyk et~al.(2014)Szklarczyk, Franceschini, Wyder, Forslund,
+  Heller, Huerta-Cepas, Simonovic, Roth, Santos, Tsafou, Kuhn, Peer, Jensen,
+  and von Mering]{STRINGv10}
+D.~Szklarczyk, A.~Franceschini, S.~Wyder, K.~Forslund, D.~Heller,
+  J.~Huerta-Cepas, M.~Simonovic, A.~Roth, A.~Santos, K.~P. Tsafou, M.~Kuhn,
+  Peer, L.~J. Jensen, and C.~von Mering.
+\newblock {STRING} v10: protein{\textendash}protein interaction networks,
+  integrated over the tree of life.
+\newblock \emph{Nucleic Acids Research}, 43\penalty0 (D1):\penalty0 D447--D452,
+  Oct. 2014.
+\newblock \doi{10.1093/nar/gku1003}.
+\newblock URL \url{https://doi.org/10.1093/nar/gku1003}.
+
+\bibitem[Trebacz et~al.(2020)Trebacz, Shams, Jamnik, Scherer, Simidjievski,
+  Terre, and Liò]{Trebacz2020}
+M.~Trebacz, Z.~Shams, M.~Jamnik, P.~Scherer, N.~Simidjievski, H.~A. Terre, and
+  P.~Liò.
+\newblock Using ontology embeddings for structural inductive bias in gene
+  expression data analysis.
+\newblock \emph{CoRR}, abs/2011.10998, 2020.
+
+\bibitem[Vazquez et~al.(2003)Vazquez, Flammini, Maritan, and
+  Vespignani]{Vazquez2003}
+A.~Vazquez, A.~Flammini, A.~Maritan, and A.~Vespignani.
+\newblock Global protein function prediction from protein-protein interaction
+  networks.
+\newblock \emph{Nature Biotechnology}, 21\penalty0 (6):\penalty0 697--700, May
+  2003.
+\newblock \doi{10.1038/nbt825}.
+\newblock URL \url{https://doi.org/10.1038/nbt825}.
+
+\bibitem[Zitnik and Leskovec(2017)]{Zitnik2017}
+M.~Zitnik and J.~Leskovec.
+\newblock Predicting multicellular function through multi-layer tissue
+  networks.
+\newblock \emph{CoRR}, abs/1707.04638, 2017.
+\newblock URL \url{http://arxiv.org/abs/1707.04638}.
+
+\end{thebibliography}
