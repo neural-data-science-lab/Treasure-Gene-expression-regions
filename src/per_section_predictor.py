@@ -46,6 +46,9 @@ class PerSectionNetworkData:
 
         self.num_genes = len(self.gene_list)
         self.num_structures = 1
+
+        config.num_genes = self.num_genes
+        config.num_structures = self.num_structures
         print(f'Genes present: {self.num_genes}|\tStructures present: {self.num_structures}')
         print('Proteins present:', len(self.protein_list))
 
@@ -58,7 +61,8 @@ class PerSectionNetworkData:
         self.protein_embeddings = torch.Tensor([protein_to_feature_dict[protein] for protein in self.protein_list])
 
         GE_struct_mat = GE_data_preparation.get_ge_structure_data()
-        max_expr_struct_ind = np.argmax(GE_struct_mat.sum(axis=0))
+        max_expr_struct_ind = np.argsort(GE_struct_mat.sum(axis=0))[-1] # sort struct indices by maximum expressions
+
         self.y_data = GE_data_preparation.get_GEs(self.gene_list, [self.structure_list[max_expr_struct_ind]])
         self.y_data = (self.y_data > config.threshold).astype(float)
         self.y_data = torch.tensor(self.y_data)
@@ -101,16 +105,28 @@ class PerSectionNetworkData:
     def __len__(self):
         return 1
 
-class GE_PerSectionDataset(nn.Module):
+class GE_PerSectionDataset(data.Dataset):
     def __init__(self, data_list):
         super(GE_PerSectionDataset, self).__init__()
         self.data_list = data_list
 
     def get(self, index):
-        return self.data[index]
+        return self.data_list[index]
+
+    def __getitem__(self, index):
+        # check whether multiple indices are given
+        if not isinstance(index, int):
+            raise TypeError("Index is not of type int.")
+        return self.data_list[index]
 
     def __len__(self):
-        return len(self.data)
+        return len(self.data_list)
+
+    def _download(self):
+        pass
+
+    def _process(self):
+        pass
 
 
 class GE_PerSectionPredNet(nn.Module):
@@ -120,13 +136,19 @@ class GE_PerSectionPredNet(nn.Module):
         self.config = config
         self.num_prots = num_prots
         self.num_features = num_features
+        self.conv_method = conv_method
 
         self.input_linear = nn.Linear(in_features=8192, out_features=200)
         self.output_linear = nn.Linear(in_features=200, out_features=1)
 
         self.relu = nn.ReLU()
+        self.dropout1 = nn.Dropout(0.5)
+        self.dropout2 = nn.Dropout(0.5)
+        self.dropout3 = nn.Dropout(0.5)
 
-        if 'GCNConv' in conv_method:
+        if conv_method == 'flat':
+            pass
+        elif 'GCNConv' in conv_method:
             self.conv1 = torch_geometric.nn.GCNConv(200, 200, cached=True, improved=True)
             self.conv2 = torch_geometric.nn.GCNConv(200, 200, cached=True, improved=True)
             self.conv3 = torch_geometric.nn.GCNConv(200, 200, cached=True, improved=True)
@@ -147,19 +169,26 @@ class GE_PerSectionPredNet(nn.Module):
             self.conv3 = torch_geometric.nn.DeepGCNLayer(conv3, norm3, act, block='res', dropout=0.5)
 
     def forward(self, PPI_data_object):
-        PPI_x, PPI_edge_index, PPI_batch, edge_attr = PPI_data_object
+        PPI_x = PPI_data_object.x
+        PPI_edge_index = PPI_data_object.edge_index
+
         PPI_x = PPI_x.view(-1,8192)
-        batch_size = PPI_x.size(1)
-        print('batch_size:', batch_size)
 
         PPI_x = self.relu(self.input_linear(PPI_x))
-        PPI_x = self.conv1(PPI_x, PPI_edge_index)
-        PPI_x = self.conv2(PPI_x, PPI_edge_index)
-        PPI_x = self.conv3(PPI_x, PPI_edge_index)
+        PPI_x = self.dropout1(PPI_x)
+        if not self.conv_method=='flat':
+            PPI_x = self.conv1(PPI_x, PPI_edge_index)
+            PPI_x = self.dropout2(PPI_x)
+            PPI_x = self.conv2(PPI_x, PPI_edge_index)
+            PPI_x = self.dropout3(PPI_x)
+            PPI_x = self.conv3(PPI_x, PPI_edge_index)
+            PPI_x = self.dropout3(PPI_x)
 
         PPI_x = self.output_linear(PPI_x)
 
-        return PPI_x.sigmoid()
+        PPI_x =  PPI_x.sigmoid()
+
+        return PPI_x.view(1, -1)
 
 def BCELoss_ClassWeights(input, target, pos_weight):
     # input (n, d)
@@ -172,17 +201,22 @@ def BCELoss_ClassWeights(input, target, pos_weight):
     return final_reduced_over_batch
 
 def train(config, model, device, train_loader, optimizer, epoch, neg_to_pos_ratio, train_mask):
-    print('Training on {} samples...'.format(len(train_loader.dataset))) #.dataset)))
+    if not config.quiet and len(train_loader.dataset)>1:
+        print('Training on {} samples...'.format(len(train_loader.dataset)))
     sys.stdout.flush()
     model.train()
     return_loss = 0
 
     for batch_idx, data in enumerate(train_loader):
         optimizer.zero_grad()
+        # select single data object for forward passing
+        data = data.to_data_list()[0]
+        output = model(data.to(device))
 
-        output = model(data)
+        # print('output.size()', output.size())
+        # print('output[train_mask...].size()', output[:, train_mask==1].size())
 
-        y = torch.Tensor(np.array([graph_data.y.numpy() for graph_data in data])).float().to(output.device)
+        y = torch.Tensor(np.array([graph_data.y.cpu().numpy() for graph_data in [data]])).float().to(output.device)
 
         # my implementation of BCELoss
         output = torch.clamp(output, min=1e-7, max=1 - 1e-7)
@@ -190,14 +224,14 @@ def train(config, model, device, train_loader, optimizer, epoch, neg_to_pos_rati
         pos_weight = neg_to_pos_ratio
         loss = BCELoss_ClassWeights(input=output[:, train_mask == 1].view(-1, 1),
                                     target=y[:, train_mask == 1].view(-1, 1), pos_weight=pos_weight)
-        loss = loss / (config.num_proteins)
+        loss = loss / (config.num_genes)
 
         # loss = nn.BCEWithLogitsLoss(pos_weight=pos_weights.to(device))(input=output[:, train_mask==1].view(-1, 1), target=y[:, train_mask==1].view(-1, 1),)
         # loss = nn.BCELoss(reduction='mean')(input=output[help_mask==1].view(-1, 1), target=y[help_mask==1].view(-1, 1))
         return_loss += loss
         loss.backward()
         optimizer.step()
-        if batch_idx % 10 == 0:
+        if not config.quiet and batch_idx % 10 == 0 and epoch%5==0:
             print('Train epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(epoch,
                                                                            batch_idx * output.size(0),
                                                                            len(train_loader.dataset),
@@ -206,17 +240,18 @@ def train(config, model, device, train_loader, optimizer, epoch, neg_to_pos_rati
             sys.stdout.flush()
     return return_loss
 
-def quick_predicting(model, device, loader, round=False):
+def quick_predicting(model, device, loader, round=False, quiet_mode=False):
     model.eval()
     total_preds = torch.Tensor()
     total_labels = torch.Tensor()
-    print('Make prediction for {} samples...'.format(len(loader.dataset)))
+    if not quiet_mode:
+        print('Make prediction for {} samples...'.format(len(loader.dataset)))
     with torch.no_grad():
         for data in loader:
             # data = data.to(device)
-            output = model(data)  # .sigmoid()
+            output = model(data.to(device))  # .sigmoid()
             total_preds = torch.cat((total_preds, output.cpu()), 0)
-            y = torch.Tensor(np.array([graph_data.y.numpy() for graph_data in data]))
+            y = torch.Tensor(np.array([graph_data.y.cpu().numpy() for graph_data in [data]]))
             total_labels = torch.cat((total_labels.view(-1, 1), y.view(-1, 1).float().cpu()), 0)
 
     if round:
@@ -274,7 +309,7 @@ def main(config):
 
         # build DataLoaders
         print('Building data loader ...')
-        train_loader = data.DataListLoader(train_dataset, config.batch_size, shuffle=True)
+        train_loader = data.DataLoader(train_dataset, config.batch_size, shuffle=True)
         # valid_loader = data.DataLoader(valid_dataset, config.batch_size, shuffle=False)
 
         print('Initializing model ...')
@@ -290,7 +325,7 @@ def main(config):
         sys.stdout.flush()
 
         ret = None
-        best_AUROC = 0
+        best_AUROC = best_epoch = 0
         for epoch in range(1, config.num_epochs + 1):
             loss = train(config=config,
                          model=model,
@@ -300,36 +335,47 @@ def main(config):
                          epoch=epoch,
                          neg_to_pos_ratio=len_to_sum_ratio,
                          train_mask=train_mask)
-            print('Train loss:', loss)
+            if epoch%5==5:
+                print('Train loss:', loss)
             sys.stdout.flush()
 
-            if epoch%3 == 0:
-                print('Predicting for validation data...')
+            if epoch%5 == 0:
+                if not config.quiet:
+                    print('Predicting for validation data...')
                 file='../results/quick_pred_' +config.arch+'_fold_'+str(config.fold) + '_results'
                 with open(file=file, mode='a') as f:
-                    labels, predictions = quick_predicting(model, device, train_loader, round=False)
+                    labels, predictions = quick_predicting(model, device, train_loader, round=False, quiet_mode=config.quiet)
 
                     # get train and test predictions
-                    train_labels = labels.reshape((num_proteins, num_structures))[:, train_mask==1].flatten()
-                    train_predictions = predictions.reshape((num_proteins, num_structures))[:, train_mask==1].flatten()
+                    train_labels = labels.reshape((num_proteins, num_structures))[train_mask==1, :].flatten()
+                    train_predictions = predictions.reshape((num_proteins, num_structures))[train_mask==1, :].flatten()
 
                     test_labels = labels.reshape((num_proteins, num_structures))[train_mask==0, :].flatten()
                     test_predictions = predictions.reshape((num_proteins, num_structures))[train_mask==0, :].flatten()
 
-                    print('pred_eval', train_labels.max(), train_predictions.max(), train_labels.min(), train_predictions.min(), train_predictions.shape)
-                    print('pred_eval', test_labels.max(), test_predictions.max(), test_labels.min(), test_predictions.min(), test_predictions.shape)
+                    # print('pred_eval', train_labels.max(), train_predictions.max(), train_labels.min(), train_predictions.min(), train_predictions.shape)
+                    # print('pred_eval', test_labels.max(), test_predictions.max(), test_labels.min(), test_predictions.min(), test_predictions.shape)
 
-                    print('Train:', 'Acc, ROC_AUC, f1, matthews_corrcoef',
-                          metrics.accuracy_score(train_labels, train_predictions.round()),
-                          metrics.roc_auc_score(train_labels, train_predictions),
-                          metrics.matthews_corrcoef(train_labels, train_predictions.round()), file=f)
+                    new_AUROC = metrics.roc_auc_score(test_labels, test_predictions)
+                    if new_AUROC > best_AUROC:
+                        best_AUROC = new_AUROC
+                        best_epoch = epoch
+                        if not config.quiet:
+                            print(f"New best AUROC score: {best_AUROC}|\tEpoch:{best_epoch}")
 
-                    print('Test:', 'Acc, ROC_AUC, f1, matthews_corrcoef',
-                          metrics.accuracy_score(test_labels, test_predictions.round()),
-                          metrics.roc_auc_score(test_labels, test_predictions),
-                          metrics.matthews_corrcoef(test_labels, test_predictions.round()), file=f)
+                    if not config.quiet:
+                        print('Train:', 'Acc, ROC_AUC, f1, matthews_corrcoef',
+                              metrics.accuracy_score(train_labels, train_predictions.round()),
+                              metrics.roc_auc_score(train_labels, train_predictions),
+                              metrics.matthews_corrcoef(train_labels, train_predictions.round()))
+
+                        print('Test:', 'Acc, ROC_AUC, f1, matthews_corrcoef',
+                              metrics.accuracy_score(test_labels, test_predictions.round()),
+                              metrics.roc_auc_score(test_labels, test_predictions),
+                              metrics.matthews_corrcoef(test_labels, test_predictions.round()))
 
             sys.stdout.flush()
+        print(f"Best AUROC score: {best_AUROC}|\tEpoch:{best_epoch}")
         results.append(ret)
 
         if torch.cuda.is_available():
@@ -350,6 +396,8 @@ if __name__ == '__main__':
     parser.add_argument("--fold", type=int, default=-1)
 
     parser.add_argument("--arch", type=str, default='GCNConv')
+
+    parser.add_argument("--quiet", action='store_true')
 
     config = parser.parse_args()
 

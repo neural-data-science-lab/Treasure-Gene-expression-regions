@@ -49,3 +49,8 @@ image magick to convert images
 - predict gene expression with knowledge about closeness and without
 -> fixed predictor
 
+## Nico 23.09.:
+Learning structure representation:
+- developmental hierarchy dataset?
+- actual hierarchy w.r.t. closeness
+

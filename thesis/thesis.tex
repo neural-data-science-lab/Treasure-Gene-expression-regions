@@ -92,7 +92,21 @@ Challenges:
 	\begin{itemize}
 		\item over all intensities $\rightarrow$
 		\item per structure $\rightarrow$  
-		\item per gene $\rightarrow$ 
+		\item per gene $\rightarrow$ \\
+		
+	Our model also allows us to test different ways of representing omics data. We
+	tested different ways to normalize values assigned to genes as these normalizations
+	convey different biological information; in the matrix of values assigned to genes from
+	cancer samples, we can normalize values across the entire matrix, across each row
+	(cancer sample), or across each column (gene). While a global normalization is more
+	common, row-based normalization allows us to highlight values that are significantly
+	higher or lower within one sample (e.g., which genes are expressed at high or low levels within a single sample), and column-based normalization allows us to highlight values
+	assigned to a particular gene that are significantly higher or lower within one sample
+	(e.g., whether a gene is expressed at higher or lower levels within one sample compared
+	to all others). We find that column-based normalization performs better than row-based
+	normalization, while the global normalization approach performs close to random. The
+	best results are achieved when combining both row- and column-based normalization
+	(Supplementary Table 2).	
 	\end{itemize}
 	\item transfer learning working for other structure/regions
 	\item dataset: Allen Mouse brain atlas vs. 
@@ -104,6 +118,10 @@ Challenges:
 		\item \href{http://www.informatics.jax.org/expression.shtml}{HPO/MP project expression data}
 	\end{itemize}
 	\item structure specific features?
+	\begin{itemize}
+		\item structural ontology / closeness
+		\item developmental hierarchy of tissue
+	\end{itemize}
 \end{itemize}
 
 \subsection*{Possible hypotheses}
