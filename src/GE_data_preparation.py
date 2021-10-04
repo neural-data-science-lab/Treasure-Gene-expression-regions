@@ -1,9 +1,12 @@
 import numpy as np
 import networkx as nx
+
 import pandas as pd
 
 import pickle
+import json
 from tqdm import tqdm
+import copy
 
 import PPI_utils
 
@@ -156,7 +159,33 @@ def get_GEs(gene_list, structure_list):
 
     return get_ge_structure_data()[gene_indices,:][:,structure_indices]
 
+def parse_structure_ontology():
+    filename = '../data/mouse_expression/1.json'
+
+    print('Parsing structure ontology json...')
+    onto_graph = nx.DiGraph()
+    id_to_data_mapping = {}
+    with open(file=filename, mode='r') as f:
+        def rec_children_parsing(structure_entity):
+            id = structure_entity['id']
+            if id not in id_to_data_mapping.keys():
+                id_to_data_mapping[id] = structure_entity.copy()
+                id_to_data_mapping[id].pop('children', None)
+            else:
+                print('Same ID is multiple times in 1.json:', id)
+
+            if structure_entity['children']:
+                for child in structure_entity['children']:
+                    onto_graph.add_edge(id, child['id'], label='is_child')
+                    onto_graph.add_edge(child['id'], id, label='has_parent')
+                    rec_children_parsing(child)
+
+        onto_json = json.load(f)
+        rec_children_parsing(onto_json['msg'][0])
+    return onto_graph, id_to_data_mapping
+
 
 if __name__ == '__main__':
-    write_ge_data()
-
+    # write_ge_data()
+    graph, mapping = parse_structure_ontology()
+    print(len(graph.nodes()), len(graph.edges()))

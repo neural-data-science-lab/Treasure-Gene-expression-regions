@@ -160,6 +160,7 @@ class GE_PerSectionPredNet(nn.Module):
             norm2 = torch.nn.LayerNorm(200, elementwise_affine=True)
 
             conv3 = torch_geometric.nn.GENConv(200, 200, aggr='softmax', t=1.0, learn_t=True, num_layers=2, norm='layer')
+
             norm3 = torch.nn.LayerNorm(200, elementwise_affine=True)
 
             act = torch.nn.LeakyReLU(0.2, inplace=True)
@@ -365,14 +366,14 @@ def main(config):
 
                     if not config.quiet:
                         print('Train:', 'Acc, ROC_AUC, f1, matthews_corrcoef',
-                              metrics.accuracy_score(train_labels, train_predictions.round()),
-                              metrics.roc_auc_score(train_labels, train_predictions),
-                              metrics.matthews_corrcoef(train_labels, train_predictions.round()))
+                              round(metrics.accuracy_score(train_labels, train_predictions.round()),4),
+                              round(metrics.roc_auc_score(train_labels, train_predictions),4),
+                              round(metrics.matthews_corrcoef(train_labels, train_predictions.round()),4))
 
                         print('Test:', 'Acc, ROC_AUC, f1, matthews_corrcoef',
-                              metrics.accuracy_score(test_labels, test_predictions.round()),
-                              metrics.roc_auc_score(test_labels, test_predictions),
-                              metrics.matthews_corrcoef(test_labels, test_predictions.round()))
+                              round(metrics.accuracy_score(test_labels, test_predictions.round()),4),
+                              round(metrics.roc_auc_score(test_labels, test_predictions),4),
+                              round(metrics.matthews_corrcoef(test_labels, test_predictions.round()),4))
 
             sys.stdout.flush()
         print(f"Best AUROC score: {best_AUROC}|\tEpoch:{best_epoch}")
