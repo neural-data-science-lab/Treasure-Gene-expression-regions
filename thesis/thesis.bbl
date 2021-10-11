@@ -1,4 +1,4 @@
-\begin{thebibliography}{24}
+\begin{thebibliography}{25}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -221,6 +221,12 @@ G.~Li, M.~Müller, A.~Thabet, and B.~Ghanem.
 G.~Li, C.~Xiong, A.~Thabet, and B.~Ghanem.
 \newblock Deepergcn: All you need to train deeper gcns.
 \newblock \emph{CoRR}, abs/2006.07739, 2020.
+
+\bibitem[Liaw et~al.(2018)Liaw, Liang, Nishihara, Moritz, Gonzalez, and
+  Stoica]{liaw2018tune}
+R.~Liaw, E.~Liang, R.~Nishihara, P.~Moritz, J.~E. Gonzalez, and I.~Stoica.
+\newblock Tune: A research platform for distributed model selection and
+  training, 2018.
 
 \bibitem[Mikolov et~al.(2013)Mikolov, Sutskever, Chen, Corrado, and
   Dean]{Word2vec2013}

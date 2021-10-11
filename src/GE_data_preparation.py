@@ -149,6 +149,7 @@ def get_DeepGOPlus_feature_dict():
 
 def get_GEs(gene_list, structure_list):
     # prune gene_expression structure matrix to given genes and given structures
+    # returns matrix GE of shape len(structure_list) x len(gene_list)
     gene_id_to_symbol_mapping = get_gene_id_to_symbol_mapping()
     orig_gene_list = [gene_id_to_symbol_mapping[gene] for gene in get_gene_list()]
 
@@ -157,9 +158,17 @@ def get_GEs(gene_list, structure_list):
     orig_structure_list = get_structure_list()
     structure_indices = [orig_structure_list.index(struct) for struct in structure_list]
 
-    return get_ge_structure_data()[gene_indices,:][:,structure_indices]
+    return np.transpose(get_ge_structure_data()[gene_indices,:][:,structure_indices])
 
-def parse_structure_ontology():
+def get_structure_ontology():
+    """
+    Parses the Allen Mouse Brain Atlas structural ontology and returns the corresponding networkx
+    graph together with a mapping from structure id to annotated data, e.g. name, hemisphere, ...
+    :return:        nx graph representing ontology, dict from ids to dict representing annotation
+    """
+
+    # See https://rdrr.io/github/AllenInstitute/cocoframer/src/R/ontology.R
+    # Download link: http://api.brain-map.org/api/v2/structure_graph_download/1.json
     filename = '../data/mouse_expression/1.json'
 
     print('Parsing structure ontology json...')
@@ -167,7 +176,7 @@ def parse_structure_ontology():
     id_to_data_mapping = {}
     with open(file=filename, mode='r') as f:
         def rec_children_parsing(structure_entity):
-            id = structure_entity['id']
+            id = str(structure_entity['id'])
             if id not in id_to_data_mapping.keys():
                 id_to_data_mapping[id] = structure_entity.copy()
                 id_to_data_mapping[id].pop('children', None)
@@ -176,16 +185,34 @@ def parse_structure_ontology():
 
             if structure_entity['children']:
                 for child in structure_entity['children']:
-                    onto_graph.add_edge(id, child['id'], label='is_child')
-                    onto_graph.add_edge(child['id'], id, label='has_parent')
+                    onto_graph.add_edge(id, str(child['id']), label='has_child')
+                    onto_graph.add_edge(str(child['id']), id, label='has_parent')
                     rec_children_parsing(child)
 
         onto_json = json.load(f)
         rec_children_parsing(onto_json['msg'][0])
     return onto_graph, id_to_data_mapping
 
+def get_similarity_matrix(G, similarity_metric='dist'):
+    # Takes graph and metric for measuring similarity type as inputs and calculates
+    # the corresponding similarity matrix ordered w.r.t. G.nodes()/inherent node ordering
+
+    if similarity_metric=='simrank':
+        # https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.similarity.simrank_similarity.html#networkx.algorithms.similarity.simrank_similarity
+        sim = nx.simrank_similarity(G, max_iterations=10)
+        mat = np.array([[sim[u][v] for v in G] for u in G])
+    elif similarity_metric=='dist':
+        sim = nx.all_pairs_shortest_path_length(G)
+        mat = np.array([[d[v] for v in G]  for _, d in sim])
+        # mat = 1- (mat/mat.max()) @TODO remove comment for normalization
+    elif similarity_metric=='panther':
+        raise NotImplementedError('See Networkx similarity panther for implementation...')
+    return mat
+
 
 if __name__ == '__main__':
-    # write_ge_data()
-    graph, mapping = parse_structure_ontology()
-    print(len(graph.nodes()), len(graph.edges()))
+    write_ge_data()
+
+    # graph, mapping = parse_structure_ontology()
+    # print(len(graph.nodes()), len(graph.edges()))
+

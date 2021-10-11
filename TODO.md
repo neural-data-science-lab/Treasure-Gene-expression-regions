@@ -54,3 +54,28 @@ Learning structure representation:
 - developmental hierarchy dataset?
 - actual hierarchy w.r.t. closeness
 
+0. find structure hierarchy/onto
+- parse ontology intro graph
+- find mapping from structures to ontology classes
+- determine closely related structures
+0.1. developmental ontology
+1. rebuild predictor as regression task
+2. use normalization
+  - global
+3. take multiple closely relate structures w.r.t. structure onto/hierarchy
+
+## Nico 30.09.:
+
+- # orig-structures: 2493
+- # pruned 844
+
+- use children of most expressed structure
+- use siblings
+- use parents/cousins
+
+- implement as regression task with column/row normalization
+- implement fixpoint learner for classification 
+  - across multiple (related) structures
+- scrim across citations of DeepMOCCA/Takata (Flaambrain)
+- proper thresholds for gene expression density?
+
