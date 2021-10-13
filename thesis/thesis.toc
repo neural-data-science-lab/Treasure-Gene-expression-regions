@@ -1,15 +1,19 @@
 \babel@toc {nil}{}
-\contentsline {section}{\numberline {1}Introduction}{5}{section.1}%
-\contentsline {section}{\numberline {2}Literature review}{5}{section.2}%
-\contentsline {section}{\numberline {3}Methods}{5}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Problem description}{5}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Datasets}{5}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}Model}{6}{subsection.3.3}%
-\contentsline {subsubsection}{\numberline {3.3.1}Feature generation}{6}{subsubsection.3.3.1}%
-\contentsline {subsubsection}{\numberline {3.3.2}Graph convolutional neural layers}{6}{subsubsection.3.3.2}%
-\contentsline {subsubsection}{\numberline {3.3.3}Combined prediction model}{6}{subsubsection.3.3.3}%
-\contentsline {subsubsection}{\numberline {3.3.4}Hyperparameter tuning}{6}{subsubsection.3.3.4}%
-\contentsline {subsection}{\numberline {3.4}Evaluation and metrics}{7}{subsection.3.4}%
-\contentsline {section}{\numberline {4}Results}{7}{section.4}%
-\contentsline {section}{\numberline {5}Discussion}{7}{section.5}%
-\contentsline {section}{\numberline {6}Conclusion}{7}{section.6}%
+\contentsline {section}{\numberline {1}Introduction}{6}{section.1}%
+\contentsline {section}{\numberline {2}Literature review}{6}{section.2}%
+\contentsline {subsection}{\numberline {2.1}To be searched}{6}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}To be sorted somewhere}{6}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Spatial patterns of gene expression}{7}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Gene knockout and pathology hypotheses}{7}{subsection.2.4}%
+\contentsline {section}{\numberline {3}Methods}{7}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Problem description}{7}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Datasets}{7}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Model}{7}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.1}Feature generation}{7}{subsubsection.3.3.1}%
+\contentsline {subsubsection}{\numberline {3.3.2}Graph convolutional neural layers}{7}{subsubsection.3.3.2}%
+\contentsline {subsubsection}{\numberline {3.3.3}Combined prediction model}{8}{subsubsection.3.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.4}Hyperparameter tuning}{8}{subsubsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.4}Evaluation and metrics}{8}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Results}{8}{section.4}%
+\contentsline {section}{\numberline {5}Discussion}{8}{section.5}%
+\contentsline {section}{\numberline {6}Conclusion}{8}{section.6}%

@@ -1,9 +1,15 @@
-\begin{thebibliography}{25}
+\begin{thebibliography}{34}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[noa()]{noauthor_clustering_nodate}
+Clustering of spatial gene expression patterns in the mouse brain and
+  comparison with classical neuroanatomy - {ScienceDirect}.
+\newblock URL
+  \url{https://www.sciencedirect.com/science/article/abs/pii/S1046202309002035?casa_token=1ZHnepKbbpgAAAAA:1S2m5q8_x_uYFTeJivzAG59F4WNz6HgkJEDxuBGq2X3FguxdTIshHxlP7Nxz56GazM05bVkEpSk}.
 
 \bibitem[Althubaiti et~al.(2021)Althubaiti, Kulmanov, Liu, Gkoutos, Schofield,
   and Hoehndorf]{DeepMocca2021}
@@ -123,6 +129,16 @@ M.~Fey and J.~E. Lenssen.
 \newblock \emph{CoRR}, abs/1903.02428, 2019.
 \newblock URL \url{http://arxiv.org/abs/1903.02428}.
 
+\bibitem[Flati et~al.(2020)Flati, Gioiosa, Chillemi, Mele, Oliverio, Mannironi,
+  Rinaldi, and Castrignan{\`{o}}]{Flati2020}
+T.~Flati, S.~Gioiosa, G.~Chillemi, A.~Mele, A.~Oliverio, C.~Mannironi,
+  A.~Rinaldi, and T.~Castrignan{\`{o}}.
+\newblock A gene expression atlas for different kinds of stress in the mouse
+  brain.
+\newblock \emph{Scientific Data}, 7\penalty0 (1), Dec. 2020.
+\newblock \doi{10.1038/s41597-020-00772-z}.
+\newblock URL \url{https://doi.org/10.1038/s41597-020-00772-z}.
+
 \bibitem[Gillis and Pavlidis(2012)]{Gillis2012}
 J.~Gillis and P.~Pavlidis.
 \newblock {\textquotedblleft}guilt by association{\textquotedblright} is the
@@ -136,6 +152,21 @@ J.~Gillis and P.~Pavlidis.
 W.~L. Hamilton, Z.~Ying, and J.~Leskovec.
 \newblock Inductive representation learning on large graphs.
 \newblock In \emph{NIPS}, 2017.
+
+\bibitem[Hawrylycz et~al.(2011)Hawrylycz, Baldock, Burger, Hashikawa, Johnson,
+  Martone, Ng, Lau, Larsen, Nissanov, Puelles, Ruffins, Verbeek, Zaslavsky, and
+  Boline]{hawrylycz_digital_2011}
+M.~Hawrylycz, R.~A. Baldock, A.~Burger, T.~Hashikawa, G.~A. Johnson,
+  M.~Martone, L.~Ng, C.~Lau, S.~D. Larsen, J.~Nissanov, L.~Puelles, S.~Ruffins,
+  F.~Verbeek, I.~Zaslavsky, and J.~Boline.
+\newblock Digital {Atlasing} and {Standardization} in the {Mouse} {Brain}.
+\newblock \emph{PLOS Computational Biology}, 7\penalty0 (2):\penalty0 e1001065,
+  Feb. 2011.
+\newblock ISSN 1553-7358.
+\newblock \doi{10.1371/journal.pcbi.1001065}.
+\newblock URL
+  \url{https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1001065}.
+\newblock Publisher: Public Library of Science.
 
 \bibitem[Hoehndorf et~al.(2011)Hoehndorf, Schofield, and
   Gkoutos]{PhenomeNET2011}
@@ -153,6 +184,16 @@ L.~A. Jeni, J.~F. Cohn, and F.~De~La~Torre.
 \newblock In \emph{2013 Humaine Association Conference on Affective Computing
   and Intelligent Interaction}, pages 245--251, 2013.
 \newblock \doi{10.1109/ACII.2013.47}.
+
+\bibitem[Kelly and Black(2020)]{kelly_graphsim_2020}
+S.~T. Kelly and M.~A. Black.
+\newblock graphsim: {An} {R} package for simulating gene expression data from
+  graph structures of biological pathways.
+\newblock \emph{Journal of Open Source Software}, 5\penalty0 (51):\penalty0
+  2161, July 2020.
+\newblock ISSN 2475-9066.
+\newblock \doi{10.21105/joss.02161}.
+\newblock URL \url{https://joss.theoj.org/papers/10.21105/joss.02161}.
 
 \bibitem[Kingma and Ba(2015)]{Adam2014}
 D.~P. Kingma and J.~Ba.
@@ -258,6 +299,27 @@ A.~Paszke, S.~Gross, F.~Massa, A.~Lerer, J.~Bradbury, G.~Chanan, T.~Killeen,
 \newblock URL
   \url{http://papers.neurips.cc/paper/9015-pytorch-an-imperative-style-high-performance-deep-learning-library.pdf}.
 
+\bibitem[Pavlidis and Noble(2001)]{pavlidis_analysis_2001}
+P.~Pavlidis and W.~S. Noble.
+\newblock Analysis of strain and regional variation in gene expression in mouse
+  brain.
+\newblock \emph{Genome Biology}, 2\penalty0 (10):\penalty0 research0042.1,
+  Sept. 2001.
+\newblock ISSN 1474-760X.
+\newblock \doi{10.1186/gb-2001-2-10-research0042}.
+\newblock URL \url{https://doi.org/10.1186/gb-2001-2-10-research0042}.
+
+\bibitem[Prosniak et~al.(2001)Prosniak, Hooper, Dietzschold, and
+  Koprowski]{prosniak_effect_2001}
+M.~Prosniak, D.~C. Hooper, B.~Dietzschold, and H.~Koprowski.
+\newblock Effect of rabies virus infection on gene expression in mouse brain.
+\newblock \emph{Proceedings of the National Academy of Sciences}, 98\penalty0
+  (5):\penalty0 2758--2763, Feb. 2001.
+\newblock ISSN 0027-8424, 1091-6490.
+\newblock \doi{10.1073/pnas.051630298}.
+\newblock URL \url{https://www.pnas.org/content/98/5/2758}.
+\newblock Publisher: National Academy of Sciences Section: Biological Sciences.
+
 \bibitem[Smith and Eppig(2009)]{MP2009}
 C.~L. Smith and J.~T. Eppig.
 \newblock The mammalian phenotype ontology: enabling robust annotation and
@@ -280,6 +342,22 @@ D.~Szklarczyk, A.~Franceschini, S.~Wyder, K.~Forslund, D.~Heller,
 \newblock \doi{10.1093/nar/gku1003}.
 \newblock URL \url{https://doi.org/10.1093/nar/gku1003}.
 
+\bibitem[Takata et~al.(2021)Takata, Sato, Komaki, Okano, and
+  Tanaka]{takata_flexible_2021}
+N.~Takata, N.~Sato, Y.~Komaki, H.~Okano, and K.~F. Tanaka.
+\newblock Flexible annotation atlas of the mouse brain: combining and dividing
+  brain structures of the {Allen} {Brain} {Atlas} while maintaining anatomical
+  hierarchy.
+\newblock \emph{Scientific Reports}, 11\penalty0 (1):\penalty0 6234, Mar. 2021.
+\newblock ISSN 2045-2322.
+\newblock \doi{10.1038/s41598-021-85807-0}.
+\newblock URL \url{https://www.nature.com/articles/s41598-021-85807-0}.
+\newblock Bandiera\_abtest: a Cc\_license\_type: cc\_by Cg\_type: Nature
+  Research Journals Number: 1 Primary\_atype: Research Publisher: Nature
+  Publishing Group Subject\_term: Brain;Functional magnetic resonance
+  imaging;Neuroscience Subject\_term\_id:
+  brain;functional-magnetic-resonance-imaging;neuroscience.
+
 \bibitem[Trebacz et~al.(2020)Trebacz, Shams, Jamnik, Scherer, Simidjievski,
   Terre, and Liò]{Trebacz2020}
 M.~Trebacz, Z.~Shams, M.~Jamnik, P.~Scherer, N.~Simidjievski, H.~A. Terre, and
@@ -287,6 +365,17 @@ M.~Trebacz, Z.~Shams, M.~Jamnik, P.~Scherer, N.~Simidjievski, H.~A. Terre, and
 \newblock Using ontology embeddings for structural inductive bias in gene
   expression data analysis.
 \newblock \emph{CoRR}, abs/2011.10998, 2020.
+
+\bibitem[Valk et~al.(2020)Valk, Xu, Margulies, Masouleh, Paquola, Goulas,
+  Kochunov, Smallwood, Yeo, Bernhardt, and
+  Eickhoff]{ValkShapingBrainStructure2020}
+S.~L. Valk, T.~Xu, D.~S. Margulies, S.~K. Masouleh, C.~Paquola, A.~Goulas,
+  P.~Kochunov, J.~Smallwood, B.~T.~T. Yeo, B.~C. Bernhardt, and S.~B. Eickhoff.
+\newblock Shaping brain structure: Genetic and phylogenetic axes of macroscale
+  organization of cortical thickness.
+\newblock \emph{Science Advances}, 6\penalty0 (39):\penalty0 eabb3417, 2020.
+\newblock \doi{10.1126/sciadv.abb3417}.
+\newblock URL \url{https://www.science.org/doi/abs/10.1126/sciadv.abb3417}.
 
 \bibitem[Vazquez et~al.(2003)Vazquez, Flammini, Maritan, and
   Vespignani]{Vazquez2003}
@@ -297,6 +386,15 @@ A.~Vazquez, A.~Flammini, A.~Maritan, and A.~Vespignani.
   2003.
 \newblock \doi{10.1038/nbt825}.
 \newblock URL \url{https://doi.org/10.1038/nbt825}.
+
+\bibitem[Zeng et~al.(2015)Zeng, Li, Mukkamala, Ye, and Ji]{zeng_deep_2015}
+T.~Zeng, R.~Li, R.~Mukkamala, J.~Ye, and S.~Ji.
+\newblock Deep convolutional neural networks for annotating gene expression
+  patterns in the mouse brain.
+\newblock \emph{BMC Bioinformatics}, 16\penalty0 (1):\penalty0 147, May 2015.
+\newblock ISSN 1471-2105.
+\newblock \doi{10.1186/s12859-015-0553-9}.
+\newblock URL \url{https://doi.org/10.1186/s12859-015-0553-9}.
 
 \bibitem[Zitnik and Leskovec(2017)]{Zitnik2017}
 M.~Zitnik and J.~Leskovec.

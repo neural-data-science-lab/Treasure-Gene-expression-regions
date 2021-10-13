@@ -36,7 +36,6 @@ with varying biological interpretation
 3. predict structure from gene expression and images
 
 image magick to convert images
-
 - predict region from image 
 - predict gene expression from function
 - combine both 
@@ -69,9 +68,13 @@ Learning structure representation:
 - # orig-structures: 2493
 - # pruned 844
 
+
 - use children of most expressed structure
 - use siblings
 - use parents/cousins
+
+- questions on Takata paper:
+  - see notes on Zotero on tablet
 
 - implement as regression task with column/row normalization
 - implement fixpoint learner for classification 
