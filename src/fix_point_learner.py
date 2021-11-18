@@ -37,7 +37,6 @@ class PerSectionNetworkData:
         # prune structure to ones present in AMBA structure ontology
         self.structure_list = [struc for struc in self.structure_list if struc in struc_onto_graph.nodes()]
         # prune structure list w.r.t. threshold w.r.t. similarity metric specified
-        orig_node_list = list(struc_onto_graph.nodes())
         GE_struc_mat = GE_data_preparation.get_GEs(self.gene_list, self.structure_list)
         max_expr_struc_ind = np.argsort(GE_struc_mat.sum(axis=1))[-1] # sort struct indices by maximum expressions
         max_expr_struc = self.structure_list[max_expr_struc_ind]
@@ -69,18 +68,6 @@ class PerSectionNetworkData:
         print('Proteins present:', len(self.protein_list))
 
     def build_data(self, config):
-        if config.prot_representation == 'DeepGOPlus':
-            # build protein features
-            filename = 'protein_representation/DeepGOPlus/results/prot_to_encoding_dict.pkl'
-            with open(file=filename, mode='rb') as f:
-                protein_to_feature_dict = pickle.load(f)
-            print(len(set(protein_to_feature_dict.keys()) & set(self.protein_list)))
-            self.protein_embeddings = torch.Tensor([protein_to_feature_dict[protein] for protein in self.protein_list])
-        elif config.prot_representation == 'phenotype':
-            raise NotImplementedError
-        else:
-            raise ValueError("Invalid protein representation method selected!")
-
         self.y_data = GE_data_preparation.get_GEs(self.gene_list, self.structure_list)
 
         if config.expr_normalization == 'none':
@@ -89,7 +76,7 @@ class PerSectionNetworkData:
             # normalize by globally maximum value
             self.y_data = self.y_data / self.y_data.max()
         elif config.expr_normalization == 'row':
-            # normalize row-wise, i.e. within each structure
+            # normalize row-wise, i.e. w.r.t. each structure
             self.y_data = self.y_data/self.y_data.max(axis=1).reshape(-1,1)
         elif config.expr_normalization == 'column':
             # normalize column-wise, i.e. w.r.t. each gene
@@ -98,12 +85,19 @@ class PerSectionNetworkData:
             raise ValueError("Unsupported normalization mode selected for config.expr_normalization!")
 
         if not config.expr_threshold == 0:
-            # apply plain threshold after
-            self.y_data = (self.y_data > config.expr_threshold).astype(float)
+            # apply plain threshold
+            self.y_data = (self.y_data > config.expr_threshold)
 
-        self.y_data = torch.tensor(self.y_data)
+        self.y_data = torch.tensor(self.y_data).float()
+
         print('len(self.protein_list', len(self.protein_list))
         print('y_data.size():', self.y_data.size())
+
+        # build protein features
+        self.protein_embeddings = torch.transpose(self.y_data, 0, 1)
+
+        self.embedding_size = self.protein_embeddings.size()[1]
+        config.embedding_size = self.embedding_size
 
         # build PyTorch geometric graph
         print("Building index dict ...")
@@ -169,17 +163,19 @@ class GE_PerSectionDataset(data.Dataset):
         pass
 
 
-class GE_PerSectionPredNet(torch.nn.Module):
+class GE_FixPoint_PredNet(torch.nn.Module):
     def __init__(self, config, num_prots, num_features, conv_method):
-        super(GE_PerSectionPredNet, self).__init__()
+        super(GE_FixPoint_PredNet, self).__init__()
 
         self.config = config
         self.num_prots = num_prots
         self.num_features = num_features
         self.conv_method = conv_method
 
-        self.input_linear = torch.nn.Linear(in_features=self.num_features, out_features=200)
-        self.output_linear = torch.nn.Linear(in_features=200, out_features=1)
+        self.lat_size = 10
+
+        self.input_linear = torch.nn.Linear(in_features=self.num_features, out_features=self.lat_size)
+        self.output_linear = torch.nn.Linear(in_features=self.lat_size, out_features=1)
 
         self.relu = torch.nn.ReLU()
         self.dropout1 = torch.nn.Dropout(0.5)
@@ -188,20 +184,28 @@ class GE_PerSectionPredNet(torch.nn.Module):
 
         if conv_method == 'flat':
             pass
-        elif 'GCNConv' in conv_method:
-            self.conv1 = nn.GCNConv(200, 200, cached=True, improved=True)
-            self.conv2 = nn.GCNConv(200, 200, cached=True, improved=True)
-            self.conv3 = nn.GCNConv(200, 200, cached=True, improved=True)
+        elif 'GCNConv' == conv_method:
+            self.conv1 = nn.GCNConv(self.lat_size, self.lat_size, cached=True, improved=True)
+            self.conv2 = nn.GCNConv(self.lat_size, self.lat_size, cached=True, improved=True)
+            self.conv3 = nn.GCNConv(self.lat_size, self.lat_size, cached=True, improved=True)
+        elif 'GCNConv_pruned' == conv_method:
+            self.conv1 = nn.GCNConv(self.lat_size, self.lat_size, cached=True, add_self_loops=False)
+            self.conv2 = nn.GCNConv(self.lat_size, self.lat_size, cached=True, add_self_loops=False)
+            self.conv3 = nn.GCNConv(self.lat_size, self.lat_size, cached=True, add_self_loops=False)
+        elif 'SAGEConv' == conv_method:
+            self.conv1 = nn.SAGEConv(self.lat_size, self.lat_size)
+            self.conv2 = nn.SAGEConv(self.lat_size, self.lat_size)
+            self.conv3 = nn.SAGEConv(self.lat_size, self.lat_size)
         elif 'GENConv' in conv_method:
-            conv1 = nn.GENConv(200, 200, aggr='softmax', t=1.0, learn_t=True, num_layers=2, norm='layer')
-            norm1 = torch.nn.LayerNorm(200, elementwise_affine=True)
+            conv1 = nn.GENConv(self.lat_size, self.lat_size, aggr='softmax', t=1.0, learn_t=True, num_layers=2, norm='layer')
+            norm1 = torch.nn.LayerNorm(self.lat_size, elementwise_affine=True)
 
-            conv2 = nn.GENConv(200, 200, aggr='softmax', t=1.0, learn_t=True, num_layers=2, norm='layer')
-            norm2 = torch.nn.LayerNorm(200, elementwise_affine=True)
+            conv2 = nn.GENConv(self.lat_size, self.lat_size, aggr='softmax', t=1.0, learn_t=True, num_layers=2, norm='layer')
+            norm2 = torch.nn.LayerNorm(self.lat_size, elementwise_affine=True)
 
-            conv3 = nn.GENConv(200, 200, aggr='softmax', t=1.0, learn_t=True, num_layers=2, norm='layer')
+            conv3 = nn.GENConv(self.lat_size, self.lat_size, aggr='softmax', t=1.0, learn_t=True, num_layers=2, norm='layer')
 
-            norm3 = torch.nn.LayerNorm(200, elementwise_affine=True)
+            norm3 = torch.nn.LayerNorm(self.lat_size, elementwise_affine=True)
 
             act = torch.nn.LeakyReLU(0.2, inplace=True)
 
@@ -215,14 +219,13 @@ class GE_PerSectionPredNet(torch.nn.Module):
         PPI_x = PPI_x.view(-1,self.num_features)
 
         PPI_x = self.relu(self.input_linear(PPI_x))
-        PPI_x = self.dropout1(PPI_x)
+        # PPI_x = self.dropout1(PPI_x)
         if not self.conv_method=='flat':
             PPI_x = self.conv1(PPI_x, PPI_edge_index)
-            PPI_x = self.dropout2(PPI_x)
+            PPI_x = self.relu(PPI_x)
             PPI_x = self.conv2(PPI_x, PPI_edge_index)
-            PPI_x = self.dropout3(PPI_x)
-            PPI_x = self.conv3(PPI_x, PPI_edge_index)
-            PPI_x = self.dropout3(PPI_x)
+            PPI_x = self.relu(PPI_x)
+            # PPI_x = self.conv3(PPI_x, PPI_edge_index)
 
         PPI_x = self.output_linear(PPI_x)
 
@@ -298,8 +301,6 @@ def train(config, model, device, train_loader, optimizer, epoch, class_weight, t
             # calculate mean over all genes and present structures
             loss = loss / (config.num_genes * config.num_structures)
 
-        # loss = nn.BCEWithLogitsLoss(pos_weight=pos_weights.to(device))(input=output[:, train_mask==1].view(-1, 1), target=y[:, train_mask==1].view(-1, 1),)
-        # loss = nn.BCELoss(reduction='mean')(input=output[help_mask==1].view(-1, 1), target=y[help_mask==1].view(-1, 1))
         return_loss += loss
         loss.backward()
         optimizer.step()
@@ -397,10 +398,10 @@ def main(config):
         # valid_loader = loader.DataLoader(valid_dataset, config.batch_size, shuffle=False)
 
         print('Initializing model ...')
-        model = GE_PerSectionPredNet(config,
-                                     num_prots=num_proteins,
-                                     num_features=8192,
-                                     conv_method=config.conv_method)
+        model = GE_FixPoint_PredNet(config,
+                                    num_prots=num_proteins,
+                                    num_features=config.embedding_size,
+                                    conv_method=config.conv_method)
         model = nn.DataParallel(model).to('cuda')
         print("Model total parameters", sum(p.numel() for p in model.parameters()))
 
@@ -421,7 +422,7 @@ def main(config):
                          class_weight=class_weight,
                          train_mask=train_mask)
 
-            if epoch%5==0 and not config.quiet:
+            if epoch%5==0 and config.quiet:
                 print('Train loss:', loss)
             sys.stdout.flush()
 
@@ -447,18 +448,23 @@ def main(config):
                             cluster_ids = torch.Tensor(np.array([graph_data.cluster_ids.numpy() for graph_data in data]))
                         num_clusters = len(class_weight)
 
+                        norm_class_weight = class_weight / class_weight.max()
                         # distribute respective class weights calculated by k-means to each label
                         point_wise_weights = torch.zeros(cluster_ids.size())
                         for i in range(num_clusters):
-                            point_wise_weights[cluster_ids == i] = class_weight.sum()/class_weight[i]
+                            point_wise_weights[cluster_ids == i] = norm_class_weight.sum()/norm_class_weight[i]
 
-                        train_loss = weighted_l1_loss(pred=torch.tensor(train_predictions), target=torch.tensor(train_labels), weight=point_wise_weights[:, train_mask==1].view(-1))
+                        train_loss = weighted_l1_loss(pred=torch.tensor(train_predictions),
+                                                      target=torch.tensor(train_labels),
+                                                      weight=point_wise_weights[:, train_mask==1].view(-1))
                         train_loss = train_loss/(config.num_genes * config.num_structures)
 
-                        test_loss = weighted_l1_loss(pred=torch.tensor(test_predictions), target=torch.tensor(test_labels), weight=point_wise_weights[:, train_mask == 0].view(-1))
+                        test_loss = weighted_l1_loss(pred=torch.tensor(test_predictions),
+                                                     target=torch.tensor(test_labels),
+                                                     weight=point_wise_weights[:, train_mask == 0].view(-1))
                         test_loss = test_loss / (config.num_genes * config.num_structures)
 
-                        print(f'Epoch: {epoch}\t|\tTrain Loss: {train_loss}\t|\tTest Loss: {test_loss}')
+                        print(f'Train Loss: {train_loss}|\tTest Loss: {test_loss}')
                         print('min/max preds:', train_predictions.min(), train_predictions.max())
 
                         if test_loss < best_score:
@@ -500,7 +506,6 @@ if __name__ == '__main__':
     parser.add_argument("--expr_threshold", type=float, default=0.1)
     parser.add_argument("--expr_normalization", type=str, default='global') # other options are 'none', 'column' and 'row'
     parser.add_argument("--struc_sim_threshold", type=float, default=2.0) # similarity measure is distance over structure ontology graph
-    parser.add_argument("--prot_representation", type=str, default='DeepGOPlus')
 
     parser.add_argument("--num_epochs", type=int, default=3)
     parser.add_argument("--batch_size", type=int, default=64)
@@ -511,6 +516,7 @@ if __name__ == '__main__':
     parser.add_argument("--conv_method", type=str, default='GCNConv')
 
     parser.add_argument("--quiet", action='store_true')
+
 
     config = parser.parse_args()
 
