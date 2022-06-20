@@ -1,19 +1,23 @@
-\babel@toc {nil}{}
+\babel@toc {nil}{}\relax 
 \contentsline {section}{\numberline {1}Introduction}{6}{section.1}%
-\contentsline {section}{\numberline {2}Literature review}{6}{section.2}%
+\contentsline {section}{\numberline {2}Literature overview}{6}{section.2}%
 \contentsline {subsection}{\numberline {2.1}To be searched}{6}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}To be sorted somewhere}{6}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.2}To be sorted somewhere}{7}{subsection.2.2}%
 \contentsline {subsection}{\numberline {2.3}Spatial patterns of gene expression}{7}{subsection.2.3}%
-\contentsline {subsection}{\numberline {2.4}Gene knockout and pathology hypotheses}{7}{subsection.2.4}%
-\contentsline {section}{\numberline {3}Methods}{7}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Problem description}{7}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Datasets}{7}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}Model}{7}{subsection.3.3}%
-\contentsline {subsubsection}{\numberline {3.3.1}Feature generation}{7}{subsubsection.3.3.1}%
-\contentsline {subsubsection}{\numberline {3.3.2}Graph convolutional neural layers}{7}{subsubsection.3.3.2}%
-\contentsline {subsubsection}{\numberline {3.3.3}Combined prediction model}{8}{subsubsection.3.3.3}%
-\contentsline {subsubsection}{\numberline {3.3.4}Hyperparameter tuning}{8}{subsubsection.3.3.4}%
-\contentsline {subsection}{\numberline {3.4}Evaluation and metrics}{8}{subsection.3.4}%
-\contentsline {section}{\numberline {4}Results}{8}{section.4}%
-\contentsline {section}{\numberline {5}Discussion}{8}{section.5}%
-\contentsline {section}{\numberline {6}Conclusion}{8}{section.6}%
+\contentsline {subsection}{\numberline {2.4}Gene knockout and pathology hypotheses}{8}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Structural connectivity}{8}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Functional connectivity}{8}{subsection.2.6}%
+\contentsline {section}{\numberline {3}Methods}{8}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Problem description}{8}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Datasets}{8}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Model}{9}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.1}Feature generation}{9}{subsubsection.3.3.1}%
+\contentsline {subsubsection}{\numberline {3.3.2}Graph convolutional neural layers}{9}{subsubsection.3.3.2}%
+\contentsline {subsubsection}{\numberline {3.3.3}Uniform Manifold Approximation and Projection (UMAP)}{10}{subsubsection.3.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.4}Parametric UMAP}{10}{subsubsection.3.3.4}%
+\contentsline {subsubsection}{\numberline {3.3.5}Combined prediction model}{10}{subsubsection.3.3.5}%
+\contentsline {subsubsection}{\numberline {3.3.6}Hyperparameter tuning}{10}{subsubsection.3.3.6}%
+\contentsline {subsection}{\numberline {3.4}Evaluation and metrics}{10}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Results}{10}{section.4}%
+\contentsline {section}{\numberline {5}Discussion}{10}{section.5}%
+\contentsline {section}{\numberline {6}Conclusion}{10}{section.6}%

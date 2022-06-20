@@ -169,7 +169,7 @@ class GE_PerSectionDataset(data.Dataset):
         pass
 
 
-class GE_PerSectionPredNet(/orch.nn.Module):
+class GE_PerSectionPredNet(torch.nn.Module):
     def __init__(self, config, num_prots, num_features, conv_method):
         super(GE_PerSectionPredNet, self).__init__()
 

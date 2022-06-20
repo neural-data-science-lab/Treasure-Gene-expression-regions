@@ -1,4 +1,4 @@
-\begin{thebibliography}{34}
+\begin{thebibliography}{36}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -284,6 +284,16 @@ S.~Oliver.
 \newblock \doi{10.1038/35001165}.
 \newblock URL \url{https://doi.org/10.1038/35001165}.
 
+\bibitem[Pallast et~al.(2019)Pallast, Diedenhofen, Blaschke, Wieters,
+  Wiedermann, Hoehn, Fink, and Aswendt]{AIDAmri2019}
+N.~Pallast, M.~Diedenhofen, S.~Blaschke, F.~Wieters, D.~Wiedermann, M.~Hoehn,
+  G.~R. Fink, and M.~Aswendt.
+\newblock Processing pipeline for atlas-based imaging data analysis of
+  structural and functional mouse brain {MRI} ({AIDAmri}).
+\newblock \emph{Frontiers in Neuroinformatics}, 13, June 2019.
+\newblock \doi{10.3389/fninf.2019.00042}.
+\newblock URL \url{https://doi.org/10.3389/fninf.2019.00042}.
+
 \bibitem[Paszke et~al.(2019)Paszke, Gross, Massa, Lerer, Bradbury, Chanan,
   Killeen, Lin, Gimelshein, Antiga, Desmaison, Kopf, Yang, DeVito, Raison,
   Tejani, Chilamkurthy, Steiner, Fang, Bai, and Chintala]{Pytorch}
@@ -395,6 +405,19 @@ T.~Zeng, R.~Li, R.~Mukkamala, J.~Ye, and S.~Ji.
 \newblock ISSN 1471-2105.
 \newblock \doi{10.1186/s12859-015-0553-9}.
 \newblock URL \url{https://doi.org/10.1186/s12859-015-0553-9}.
+
+\bibitem[Zerbi et~al.(2021)Zerbi, Pagani, Markicevic, Matteoli, Pozzi,
+  Fagiolini, Bozzi, Galbusera, Scattoni, Provenzano, Banerjee, Helmchen,
+  Basson, Ellegood, Lerch, Rudin, Gozzi, and Wenderoth]{Zerbi2021}
+V.~Zerbi, M.~Pagani, M.~Markicevic, M.~Matteoli, D.~Pozzi, M.~Fagiolini,
+  Y.~Bozzi, A.~Galbusera, M.~L. Scattoni, G.~Provenzano, A.~Banerjee,
+  F.~Helmchen, M.~A. Basson, J.~Ellegood, J.~P. Lerch, M.~Rudin, A.~Gozzi, and
+  N.~Wenderoth.
+\newblock Brain mapping across 16 autism mouse models reveals a spectrum of
+  functional connectivity subtypes.
+\newblock \emph{Molecular Psychiatry}, Aug. 2021.
+\newblock \doi{10.1038/s41380-021-01245-4}.
+\newblock URL \url{https://doi.org/10.1038/s41380-021-01245-4}.
 
 \bibitem[Zitnik and Leskovec(2017)]{Zitnik2017}
 M.~Zitnik and J.~Leskovec.

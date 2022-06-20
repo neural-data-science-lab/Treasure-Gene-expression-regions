@@ -17,9 +17,7 @@
 
 
 % configure headline
-\KOMAoptions{
-	headsepline = true
-}
+
 \ihead{Tilman Hinnerichs}
 \ohead{Towards gene expression prediction in mouse brains}
 \cfoot*{\pagemark}
@@ -134,16 +132,45 @@ Challenges:
 		\item structural ontology?
 		\item developmental ontology
 	\end{itemize}
-	\item graph autoencoders for 
 \end{itemize}
+
+Compare the following embeddings:
+\begin{enumerate}
+	\item tSNE
+	\item UMAP
+	\item Parametric UMAP
+	\item Parametric UMAP with custom graph
+	\item Parametric Umap with custom graph and GNN in network
+\end{enumerate}
+
+
+
+\subsection*{To be investigated}
+\begin{itemize}
+	\item predict against axonal/structural connectivity
+	\item predict against functional connectivity
+\end{itemize}
+
 
 \subsection*{Possible hypotheses}
 \begin{itemize}
 	\item predict gene expression for a given single structure
-	\item predict structure from gene expression pattern
-	\item predict structure form gene expression and image
-	\item predict cancer type from morphology/pathologic image of cancer
-	\item simulate loss of function/expression by removing one node of graph
+	\item (predict structure from gene expression pattern)
+	\item (predict structure form gene expression and image)
+	\item (predict cancer type from morphology/pathologic image of cancer)
+	\item simulate loss of function/expression by removing one node of graph/add remove gene expression
+	\begin{itemize}
+		\item evaluate against what data? see other section
+	\end{itemize}
+	\item see influence on \textbf{structural} connectivity
+	\begin{itemize}
+		\item evaluate against what data?
+	\end{itemize}
+	\item see influence on \textbf{functional} connectivity
+	\begin{itemize}
+		\item evaluate against what data? \cite{Zerbi2021}
+		\item transgenic data from AMBA?
+	\end{itemize}
 \end{itemize}
 
 \subsection*{Ideas for page-filling plots}
@@ -152,15 +179,55 @@ Challenges:
 	\item show predictability of gene expression across over multiple structure vs. distance over onto?
 \end{itemize}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \newpage
 
 \section{Introduction}
+General thread for introduction and motivation:
+\begin{itemize}
+	\item Gene expression patterns are difficult to analyze in humans $\rightarrow$ take mouse as model organisms
+	\item no in-depth analysis of mouse brain genetic patterns and their relation to different connectivity patterns has been made yet
+	\item we analyze 
+\end{itemize}
+
+\subsection*{General Introduction of the Research Study}
+
+\subsection*{Research problem or Questions with Sub-Questions}
+
+\subsection*{Reasons or Needs for the Research Study/Motivation for my research}
+
+\subsection*{Definition and explanation of Key Terminology}
+
+\subsection*{Context of Research Study within th Greater Discipline}
 
 \begin{itemize}
+	\item Introduction to mouse brains as model organisms for insights into human brain
 	\item Works on mouse brain in general and potential tasks
 	\item works on gene expression in mouse brains
-	\item conservative approaches
+	\begin{itemize}
+		\item traditional approaches
+		\item importance of gene expression patterns in mouse brains
+	\end{itemize}
 	\item neural networks for this purpose
+	\begin{itemize}
+		\item how were 
+	\end{itemize}
 	\item gene expression for general tissue
 	
 \end{itemize}
@@ -169,7 +236,17 @@ Challenges:
 	\item 
 \end{itemize}
 
-\section{Literature review}
+\section{Literature overview}
+
+\subsection*{Brief Overview of Theoreticla Foundations Utilized in the study}
+
+\subsection*{Brief Overview of LIterature Reviewed, Discussed and applied}
+
+\subsection*{Study Model and Process Aligning with literature reviewed}
+
+\subsection*{Hypotheses and justifications tied to prior sections and statements}
+
+\subsection*{The Scope of the study with theoretical assumptions and limitations}
 
 \subsection{To be searched}
 \begin{itemize}
@@ -222,7 +299,41 @@ Modern approaches on learning from gene expression patterns in mouse brain:
 	\item Gene expression for different kinds of stress within mouse brain \cite{Flati2020}
 \end{itemize}
 
+\subsection{Structural connectivity}
+
+\begin{itemize}
+	\item experimental setup from Allen Institute for axonal projection data
+	\item paraphrase description of \glqq Technical tour: Explore the Allen Mouse Brain Connectivity Atlas\grqq{}
+\end{itemize}
+
+
+\subsection{Functional connectivity}
+\begin{itemize}
+	\item Where is data coming from? \cite{AIDAmri2019}
+	\item How to calculate functional connectivity matrix $\rightarrow$ AIDAconnect (no paper yet? cite dataset?
+	\item How to combine functional connectivity for multiple samples? 
+\end{itemize}
+
 \section{Methods}
+\subsection*{Introduction and general description, study method and study design}
+
+\subsection*{in-depth description of the study design/datasets used and motivation why they were used for these experiments}
+\begin{itemize}
+	\item why were these datasets used and not others?
+	\item How did we achieve the matching?
+	\item what are premises of the dataset?
+\end{itemize}
+
+\subsection*{Explanation of Sample used in the study}
+
+\subsection*{Explanation of Measurement, Definitions, Indexes, Reliabililty and Validity of study method and study design}
+
+\subsection*{Description of Analytical Tehcniques to be Applied and justification for them}
+
+\subsection*{Reliability oand validity of internal/external design and related subtypes}
+
+\subsection*{Assumptions of study method and study design with implied }
+
 \subsection{Problem description}
 
 \subsection{Datasets}
@@ -231,9 +342,23 @@ Modern approaches on learning from gene expression patterns in mouse brain:
 	\item STRING for PPI network and how we chose suitable interactions \cite{STRINGv10}
 \end{itemize}
 
+Four graphs were used in this study:
+\begin{itemize}
+	\item Protein-protein interaction graph from STRING
+	\item structure hierarchy/ontology from \cite{MouseBrainAtlas}
+	\item structural connectivity data from \cite{AIDAmri2019}
+	\item functional connectivity data from \cite{AIDAmri2019}
+\end{itemize}
+
 \subsection{Model}
 
 \subsubsection{Feature generation}
+
+Data preparation for regression task
+\begin{itemize}
+	\item unbalanced data for regression $\rightarrow$ k-means and weighting w.r.t. bin
+	
+\end{itemize}
 
 \subsubsection{Graph convolutional neural layers}
 
@@ -313,6 +438,10 @@ connections and a normalization scheme \cite{DeepGCN2019}
 	\cite{GENConv2020} as shown in Supplementary 3.  The residual
 blocks are reusable and can be stacked multiple times.
 
+\subsubsection{Uniform Manifold Approximation and Projection (UMAP)}
+
+\subsubsection{Parametric UMAP}
+
 \subsubsection{Combined prediction model}
 
 \subsubsection{Hyperparameter tuning}
@@ -321,9 +450,31 @@ blocks are reusable and can be stacked multiple times.
 
 \section{Results}
 
+\subsection*{Brief Overview of Material}
+\subsection*{Findings (Results) of the Method of Study and Any Unplanned or Unexpected Situations that Occurred}
+\subsection*{Brief Descriptive Analysis
+Reliability and Validity of the Analysis}
+\subsection*{Explanation of the Hypothesis and Precise and Exact Data (Do Not Give Your Opinion)}
+
+
 \section{Discussion}
 
+\subsection*{Brief Overview of Material}
+\subsection*{Full Discussion of Findings (Results) and Implications}
+\subsection*{Full Discussion of Research Analysis of Findings}
+\subsection*{Full Discussion of Hypothesis and of Findings}
+\subsection*{Post Analysis and Implications of Hypothesis and of Findings}
+
+
 \section{Conclusion}
+
+
+\subsection*{Summary of Academic Study}
+\subsection*{Reference to Literature Review}
+\subsection*{Implications of Academic Study}
+\subsection*{Limitations of the Theory or Method of Research}
+\subsection*{Recommendations or Suggestions of Future Academic Study}
+
 
 \newpage
 

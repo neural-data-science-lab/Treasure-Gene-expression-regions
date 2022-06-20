@@ -6,9 +6,9 @@ import pandas as pd
 import pickle
 import json
 from tqdm import tqdm
-import copy
+import os
 
-import PPI_utils
+# import PPI_utils
 
 
 def get_protein_to_EnsemblProtein_id():
@@ -26,65 +26,45 @@ def get_protein_to_EnsemblProtein_id():
 
     return protein_to_Ensembl_protein_id_mapping
 
+
 def write_ge_data():
-    path = '../data/mouse_expression/'
+    # Parse gene expression data downloaded as described in NeÜrDS/AllenSDK
 
-    gene_file = 'mouse_expression_data_sets.csv'
-    full_gene_data = pd.read_csv(path+gene_file, index_col=0)
+    path = '../data/mouse_expression/structure_data/'
+    print('Parsing gene expression data...')
 
-    '''
-    For all gene dataset pairs:
-        - add gene to list if not present
-        - look at grid_file url
-        - go to subdir
-        - parse structure unionize file for intensity values
-    '''
-
-
-    print('Parsing mouse gene expression data...')
     gene_list = []
     structure_list = []
-    for index, row in tqdm(full_gene_data.iterrows(), total=25898):
-        if not row['plane_of_section'] == 'coronal':
-            continue
+    for file in os.listdir(path):
+        if 'structure_unionizes' not in file: continue
 
-        # collect present genes and sections
-        gene = str(row['gene_id'])
-        if gene not in gene_list:
-            gene_list.append(gene)
-
-        file_sub_path = row['structure_unionizes_file_url'].split('mouse_expression')[1][1:]
-        section_data = pd.read_csv(path+file_sub_path, index_col=0)
-        for section_index, section_row in section_data.iterrows():
-            structure_id = str(int(section_row['structure_id']))
-            if structure_id not in structure_list:
+        with open(file=path+file, mode='r') as f:
+            # skip header
+            f.readline()
+            for line in f:
+                _, structure_id, expr_energy, expr_density, _, _, _, _, gene_id = line.strip().split(',')
                 structure_list.append(structure_id)
+                gene_list.append(gene_id)
 
-    print('Done.')
-    print(f'Genes: {len(gene_list)}|\tStructures: {len(structure_list)}')
+    gene_list = list(set(gene_list))
+    structure_list = list(set(structure_list))
+    print(f'Genes: {len(gene_list)}\t|\tStructures: {len(structure_list)}')
 
-    # re-parse all files for intensity values
-    print('Parsing expression values...')
-    ge_structure_data = np.zeros((len(gene_list), len(structure_list)))
-    for _, row in tqdm(full_gene_data.iterrows(), total=25898):
-        if not row['plane_of_section'] == 'coronal':
-            continue
+    ge_structure_data = np.zeros((len(structure_list), len(gene_list)))
+    for file in os.listdir(path):
+        if 'structure_unionizes' not in file: continue
 
-        gene = str(row['gene_id'])
-        gene_index = gene_list.index(gene)
+        with open(file=path+file, mode='r') as f:
+            # skip header
+            f.readline()
+            for line in f:
+                _, structure_id, expr_energy, expr_density, _, _, _, _, gene_id = line.strip().split(',')
+                structure_index = structure_list.index(structure_id)
+                gene_index = gene_list.index(gene_id)
+                ge_structure_data[structure_index, gene_index] = float(expr_density)
 
-        file_sub_path = row['structure_unionizes_file_url'].split('mouse_expression')[1][1:]
-        section_data = pd.read_csv(path + file_sub_path, index_col=0)
-        for section_index, section_row in section_data.iterrows():
-            structure_id = str(int(section_row['structure_id']))
-            structure_index = structure_list.index(structure_id)
-
-            expression_density = float(section_row['expression_density'])
-            ge_structure_data[gene_index, structure_index] = expression_density
-    print('Done.')
-
-    print('Writing parsed files to disk...')
-    # write gene_list
+    # Write structure_list, gene_list, expression_density_mat to disk
+    path = '../data/mouse_expression/'
     with open(path+'gene_list.pkl', mode='wb') as f:
         pickle.dump(gene_list, f, pickle.HIGHEST_PROTOCOL)
 
@@ -97,15 +77,29 @@ def write_ge_data():
         pickle.dump(ge_structure_data, f, pickle.HIGHEST_PROTOCOL)
     print('Done.')
 
+
 def get_gene_list():
     filename = '../data/mouse_expression/gene_list.pkl'
     with open(file=filename, mode='rb') as f:
         return pickle.load(f)
 
+
 def get_structure_list():
     filename = '../data/mouse_expression/structure_list.pkl'
     with open(file=filename, mode='rb') as f:
         return pickle.load(f)
+
+
+def get_protein_list():
+    gene_list = get_gene_list()
+    gene_id_to_symbol_mapping = get_gene_id_to_symbol_mapping()
+    alias_mapping = get_alias_to_STRING_prot_mapping()
+    gene_list = [gene_id_to_symbol_mapping[gene] for gene in gene_list
+                 if gene_id_to_symbol_mapping[gene] in alias_mapping.keys()]
+    protein_list = [alias_mapping[gene] for gene in gene_list]
+
+    return protein_list
+
 
 def get_ge_structure_data():
     filename = '../data/mouse_expression/ge_structure_mat.pkl'
@@ -215,4 +209,5 @@ if __name__ == '__main__':
 
     # graph, mapping = parse_structure_ontology()
     # print(len(graph.nodes()), len(graph.edges()))
+
 

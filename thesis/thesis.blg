@@ -1,49 +1,49 @@
-This is BibTeX, Version 0.99d (TeX Live 2021/Arch Linux)
+This is BibTeX, Version 0.99d (TeX Live 2022/Arch Linux)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: thesis.aux
 The style file: abbrvnat.bst
 Database file #1: citations.bib
 Warning--to sort, need author or key in noauthor_clustering_nodate
 Warning--empty year in noauthor_clustering_nodate
-You've used 34 entries,
+You've used 36 entries,
             2773 wiz_defined-function locations,
-            874 strings with 20903 characters,
-and the built_in function-call counts, 36656 in all, are:
-= -- 2758
-> -- 4545
+            890 strings with 21794 characters,
+and the built_in function-call counts, 38546 in all, are:
+= -- 2899
+> -- 4785
 < -- 12
-+ -- 1516
-- -- 1482
-* -- 3890
-:= -- 6191
-add.period$ -- 160
-call.type$ -- 34
-change.case$ -- 594
-chr.to.int$ -- 34
-cite$ -- 71
-duplicate$ -- 716
-empty$ -- 1310
-format.name$ -- 1533
-if$ -- 7081
++ -- 1596
+- -- 1560
+* -- 4091
+:= -- 6518
+add.period$ -- 170
+call.type$ -- 36
+change.case$ -- 626
+chr.to.int$ -- 36
+cite$ -- 75
+duplicate$ -- 756
+empty$ -- 1372
+format.name$ -- 1613
+if$ -- 7442
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 32
-newline$ -- 235
-num.names$ -- 134
-pop$ -- 1104
+missing$ -- 34
+newline$ -- 249
+num.names$ -- 142
+pop$ -- 1162
 preamble$ -- 1
-purify$ -- 560
+purify$ -- 590
 quote$ -- 0
-skip$ -- 938
+skip$ -- 987
 stack$ -- 0
-substring$ -- 579
-swap$ -- 76
+substring$ -- 583
+swap$ -- 80
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 374
+type$ -- 396
 warning$ -- 2
-while$ -- 133
+while$ -- 139
 width$ -- 0
-write$ -- 557
+write$ -- 590
 (There were 2 warnings)
