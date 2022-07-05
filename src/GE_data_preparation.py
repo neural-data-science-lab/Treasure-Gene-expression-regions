@@ -27,7 +27,7 @@ def get_protein_to_EnsemblProtein_id():
     return protein_to_Ensembl_protein_id_mapping
 
 
-def write_ge_data():
+def write_ge_data_old():
     # Parse gene expression data downloaded as described in NeÜrDS/AllenSDK
 
     path = '../data/mouse_expression/structure_data/'
@@ -35,7 +35,7 @@ def write_ge_data():
 
     gene_list = []
     structure_list = []
-    for file in os.listdir(path):
+    for file in tqdm(os.listdir(path)):
         if 'structure_unionizes' not in file: continue
 
         with open(file=path+file, mode='r') as f:
@@ -51,7 +51,7 @@ def write_ge_data():
     print(f'Genes: {len(gene_list)}\t|\tStructures: {len(structure_list)}')
 
     ge_structure_data = np.zeros((len(structure_list), len(gene_list)))
-    for file in os.listdir(path):
+    for file in tqdm(os.listdir(path)):
         if 'structure_unionizes' not in file: continue
 
         with open(file=path+file, mode='r') as f:
@@ -75,6 +75,55 @@ def write_ge_data():
     # dump ge_structure_matrix to file
     with open(path+'ge_structure_mat.pkl', mode='wb') as f:
         pickle.dump(ge_structure_data, f, pickle.HIGHEST_PROTOCOL)
+    print('Done.')
+
+
+def write_ge_data():
+    gene_list = set()
+    structure_list = set()
+
+    path = '../data/mouse_expression/structure_data/'
+    # parse all genes and structures
+    print('Preparing gene and structure lists...')
+    for file in tqdm(list(os.listdir(path))):
+        if not file.endswith('.csv'): continue
+        with open(file=path+file, mode='r') as f:
+            f.readline()  # skip header
+            for line in f:
+                _, struc_id, expr_energy, expr_dens, data_set_id, section_plane, gene_acro = line.strip().split(',')[:7]
+                gene_entrez = line.strip().split(',')[-1]
+                gene_list.add(gene_entrez)
+                structure_list.add(struc_id)
+
+    gene_list = list(gene_list)
+    structure_list = list(structure_list)
+    print(f'{len(gene_list)=}, {len(structure_list)=}')
+
+    print('Writing gene-structure matrix...')
+    ge_struc_mat = np.zeros((len(structure_list), len(gene_list)))
+    for file in tqdm(list(os.listdir(path))):
+        if not file.endswith('.csv'): continue
+        with open(file=path + file, mode='r') as f:
+            f.readline()  # skip header
+            for line in f:
+                _, struc_id, expr_energy, expr_dens, data_set_id, section_plane, gene_acro = line.strip().split(',')[:7]
+                gene_entrez = line.strip().split(',')[-1]
+                structure_index = structure_list.index(struc_id)
+                gene_index = gene_list.index(gene_entrez)
+                ge_struc_mat[structure_index, gene_index] = float(expr_energy)
+
+    # Write structure_list, gene_list, expression_density_mat to disk
+    path = '../data/mouse_expression/'
+    with open(path + 'gene_list.pkl', mode='wb') as f:
+        pickle.dump(gene_list, f, pickle.HIGHEST_PROTOCOL)
+
+    # write structure_list
+    with open(path + 'structure_list.pkl', mode='wb') as f:
+        pickle.dump(structure_list, f, pickle.HIGHEST_PROTOCOL)
+
+    # dump ge_structure_matrix to file
+    with open(path + 'ge_structure_mat.pkl', mode='wb') as f:
+        pickle.dump(ge_struc_mat, f, pickle.HIGHEST_PROTOCOL)
     print('Done.')
 
 
@@ -116,7 +165,6 @@ def get_gene_id_to_symbol_mapping():
     return_dict = {}
     for _, row in full_gene_data.iterrows():
         return_dict[str(row['gene_id'])] = row['gene_symbol']
-
     return return_dict
 
 def get_alias_to_STRING_prot_mapping():
@@ -197,7 +245,7 @@ def get_similarity_matrix(G, similarity_metric='dist'):
         mat = np.array([[sim[u][v] for v in G] for u in G])
     elif similarity_metric=='dist':
         sim = nx.all_pairs_shortest_path_length(G)
-        mat = np.array([[d[v] for v in G]  for _, d in sim])
+        mat = np.array([[d[v] for v in G] for _, d in sim])
         # mat = 1- (mat/mat.max()) @TODO remove comment for normalization
     elif similarity_metric=='panther':
         raise NotImplementedError('See Networkx similarity panther for implementation...')
@@ -206,6 +254,11 @@ def get_similarity_matrix(G, similarity_metric='dist'):
 
 if __name__ == '__main__':
     write_ge_data()
+
+    print(get_gene_list())
+    print(get_structure_list())
+
+    print(get_ge_structure_data().shape)
 
     # graph, mapping = parse_structure_ontology()
     # print(len(graph.nodes()), len(graph.edges()))

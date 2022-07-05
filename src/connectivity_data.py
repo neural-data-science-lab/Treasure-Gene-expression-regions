@@ -180,8 +180,81 @@ def get_structure_list():
     return structure_list
 
 
+def write_functional_conn_data(aggr='max'):
+    path = '../data/connectivity_data/functional_connectivity/'
+
+    dims = np.zeros(3)
+    conn_mat = None
+    struc_list = []
+
+    with open(file=path+'data/outpath/' + 'Baseline.mat') as f:
+        print('Parsing functional connectivity matrix...')
+        index = 0
+        parse_mat = True
+        for line in f:
+            if parse_mat:
+                if line.strip() == '# name: matrix' and f.readline().strip() == '# type: matrix':
+                    next(f) # skip ndims
+                    dims = np.array(list(map(int, f.readline().strip().split(' '))))
+                    conn_mat = np.zeros(np.prod(dims))
+                    print('conn_mat.shape', conn_mat.shape)
+                    continue
+
+                if not dims.any(): continue
+                line = line.strip()
+                if not line:
+                    parse_mat = False
+                    continue
+
+                conn_mat[index] = float(line)
+                index += 1
+
+            else:
+                if line.strip() == '# name: <cell-element>' and f.readline().strip() == '# type: sq_string':
+                    for i in range(2): next(f)
+                    struc_list.append(f.readline().strip())
+
+        conn_mat = conn_mat.reshape(dims)
+    print('conn_mat.shape', conn_mat.shape)
+    print('conn_mat.sum()', conn_mat.max())
+
+    if aggr == 'max':
+        conn_mat = conn_mat.max(axis=2)
+    else:
+        raise ValueError("No valid aggregation method chosen in functional connectivity parser!")
+
+    print('Writing processed files to disk...')
+    with open(file=path + 'funn_structs.txt', mode='w') as f:
+        for struc in struc_list:
+            print(struc, file=f)
+
+    with open(file=path + 'funn_conn_mat.npy', mode='wb') as f:
+        np.save(f, conn_mat)
+
+    print('Done.')
+
+
+def get_funn_struc_list():
+    path = '../data/connectivity_data/functional_connectivity/'
+    struc_list = []
+    with open(file=path + 'funn_structs.txt', mode='r') as f:
+        for line in f:
+            struc_list.append(line.strip())
+
+    return struc_list
+
+
+def get_funn_conn_mat():
+    path = '../data/connectivity_data/functional_connectivity/'
+
+    with open(file=path + 'funn_conn_mat.npy', mode='rb') as f:
+        return np.load(f)
+
+
 if __name__ == '__main__':
     # write_structure_subgroups()
-    download_connectivity_data()
+    # download_connectivity_data()
+
+    write_functional_conn_data()
 
 
