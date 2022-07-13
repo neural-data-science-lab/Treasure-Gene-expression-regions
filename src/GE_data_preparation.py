@@ -127,6 +127,12 @@ def write_ge_data():
     print('Done.')
 
 
+def get_ge_structure_data():
+    filename = '../data/mouse_expression/ge_structure_mat.pkl'
+    with open(file=filename, mode='rb') as f:
+        return pickle.load(f)
+
+
 def get_gene_list():
     filename = '../data/mouse_expression/gene_list.pkl'
     with open(file=filename, mode='rb') as f:
@@ -149,11 +155,6 @@ def get_protein_list():
 
     return protein_list
 
-
-def get_ge_structure_data():
-    filename = '../data/mouse_expression/ge_structure_mat.pkl'
-    with open(file=filename, mode='rb') as f:
-        return pickle.load(f)
 
 def get_gene_id_to_symbol_mapping():
     # parses mouse atlas data and returns an internal gene_id to generic gene_symbol mapping
@@ -235,6 +236,8 @@ def get_structure_ontology():
         rec_children_parsing(onto_json['msg'][0])
     return onto_graph, id_to_data_mapping
 
+
+
 def get_similarity_matrix(G, similarity_metric='dist'):
     # Takes graph and metric for measuring similarity type as inputs and calculates
     # the corresponding similarity matrix ordered w.r.t. G.nodes()/inherent node ordering
@@ -253,14 +256,12 @@ def get_similarity_matrix(G, similarity_metric='dist'):
 
 
 if __name__ == '__main__':
-    write_ge_data()
-
-    print(get_gene_list())
-    print(get_structure_list())
-
-    print(get_ge_structure_data().shape)
+    # write_ge_data()
 
     # graph, mapping = parse_structure_ontology()
     # print(len(graph.nodes()), len(graph.edges()))
+    draw_onto_graph()
+
+
 
 

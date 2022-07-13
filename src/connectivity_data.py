@@ -1,7 +1,8 @@
 import numpy as np
 import pandas as pd
 
-from allensdk.core.mouse_connectivity_cache import MouseConnectivityCache
+import networkx as nx
+
 
 from tqdm import tqdm
 import pickle
@@ -9,6 +10,8 @@ import os
 
 
 def write_structure_subgroups():
+    from allensdk.core.mouse_connectivity_cache import MouseConnectivityCache
+
     path = '../data/'
     # adapted from https://allensdk.readthedocs.io/en/latest/_static/examples/nb/mouse_connectivity.html#Structure-Signal-Unionization
     mcc = MouseConnectivityCache()
@@ -51,6 +54,7 @@ def get_structure_subgroups():
 
 
 def download_connectivity_data():
+    from allensdk.core.mouse_connectivity_cache import MouseConnectivityCache
     path = '../data/connectivity_data/structural_connectivity/'
 
     # if not os.path.exists(path+'all_experiments.csv') \
@@ -171,7 +175,7 @@ def get_struc_conn_matrix(hemisphere_id=3):
     return return_mat  # / diagonal_vec
 
 
-def get_structure_list():
+def get_struc_conn_list():
     path = '../data/connectivity_data/structural_connectivity/'
     structure_list = []
     with open(file=path + 'structure_list', mode='r') as f:
@@ -180,7 +184,19 @@ def get_structure_list():
     return structure_list
 
 
-def write_functional_conn_data(aggr='max'):
+def get_struc_conn_graph(threshold=0.5):
+    struc_conn_mat = get_struc_conn_matrix()
+    struc_conn_struc_list = get_struc_conn_list()
+
+    G = nx.from_numpy_array(struc_conn_mat > threshold)
+    for i, node in enumerate(G.nodes):
+        G.nodes[node]['struc_name'] = struc_conn_struc_list[i]
+        print(G.nodes[node], i)
+
+    return G
+
+
+def write_functional_conn_data(aggr='mean'):
     path = '../data/connectivity_data/functional_connectivity/'
 
     dims = np.zeros(3)
@@ -216,10 +232,11 @@ def write_functional_conn_data(aggr='max'):
 
         conn_mat = conn_mat.reshape(dims)
     print('conn_mat.shape', conn_mat.shape)
-    print('conn_mat.sum()', conn_mat.max())
 
     if aggr == 'max':
         conn_mat = conn_mat.max(axis=2)
+    if aggr == 'mean':
+        conn_mat = conn_mat.mean(axis=2)
     else:
         raise ValueError("No valid aggregation method chosen in functional connectivity parser!")
 
@@ -251,10 +268,23 @@ def get_funn_conn_mat():
         return np.load(f)
 
 
+def get_funn_conn_graph(threshold=0.5):
+    fun_conn_mat = get_funn_conn_mat()
+    struc_list = get_funn_struc_list()
+
+    G = nx.from_numpy_array(fun_conn_mat>threshold)
+    for i, node in enumerate(G.nodes):
+        G.nodes[node]['struc_name'] = struc_list[i]
+
+    return G
+
+
 if __name__ == '__main__':
     # write_structure_subgroups()
     # download_connectivity_data()
 
-    write_functional_conn_data()
+    # write_functional_conn_data()
+    # get_funn_conn_graph()
+    get_struc_conn_graph()
 
 

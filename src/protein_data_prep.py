@@ -30,6 +30,7 @@ def parse_MGI_MP_annotations():
 
     return MGI_entity_list, annotation_list
 
+
 def parse_MGI_GO_annotations():
     path = '../data/DL2vec_data/'
     filename = 'gene_association.mgi'
@@ -56,6 +57,7 @@ def parse_MGI_GO_annotations():
     print('GO classes present:', len(set([tup[1] for tup in annotation_list])))
 
     return MGI_entity_list, annotation_list
+
 
 def write_annotation_files():
     path = '../data/DL2vec_data/'
@@ -105,6 +107,7 @@ def write_annotation_files():
             f.write(protein+'\n')
     print('Proteins present:', len(mapped_GO_protein_list & mapped_MP_protein_list))
     print('Done.')
+
 
 def get_MGI_protein_list():
     path = '../data/DL2vec_data/'
