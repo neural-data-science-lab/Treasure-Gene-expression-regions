@@ -1,4 +1,4 @@
-\begin{thebibliography}{36}
+\begin{thebibliography}{46}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -123,21 +123,17 @@ J.~Chen, A.~Althagafi, and R.~Hoehndorf.
 \newblock URL \url{https://doi.org/10.1093/bioinformatics/btaa879}.
 \newblock advance access.
 
+\bibitem[Fakhry and Ji(2015)]{fakhry2015high}
+A.~Fakhry and S.~Ji.
+\newblock High-resolution prediction of mouse brain connectivity using gene
+  expression patterns.
+\newblock \emph{Methods}, 73:\penalty0 71--78, 2015.
+
 \bibitem[Fey and Lenssen(2019)]{PytorchGeometric}
 M.~Fey and J.~E. Lenssen.
 \newblock Fast graph representation learning with pytorch geometric.
 \newblock \emph{CoRR}, abs/1903.02428, 2019.
 \newblock URL \url{http://arxiv.org/abs/1903.02428}.
-
-\bibitem[Flati et~al.(2020)Flati, Gioiosa, Chillemi, Mele, Oliverio, Mannironi,
-  Rinaldi, and Castrignan{\`{o}}]{Flati2020}
-T.~Flati, S.~Gioiosa, G.~Chillemi, A.~Mele, A.~Oliverio, C.~Mannironi,
-  A.~Rinaldi, and T.~Castrignan{\`{o}}.
-\newblock A gene expression atlas for different kinds of stress in the mouse
-  brain.
-\newblock \emph{Scientific Data}, 7\penalty0 (1), Dec. 2020.
-\newblock \doi{10.1038/s41597-020-00772-z}.
-\newblock URL \url{https://doi.org/10.1038/s41597-020-00772-z}.
 
 \bibitem[Gillis and Pavlidis(2012)]{Gillis2012}
 J.~Gillis and P.~Pavlidis.
@@ -214,6 +210,11 @@ M.~Kulmanov and R.~Hoehndorf.
 \newblock \doi{10.1093/bioinformatics/btz595}.
 \newblock URL \url{https://doi.org/10.1093/bioinformatics/btz595}.
 
+\bibitem[Lee and Lee(2020)]{lee2020prediction}
+T.~Lee and H.~Lee.
+\newblock Prediction of alzheimer’s disease using blood gene expression data.
+\newblock \emph{Scientific reports}, 10\penalty0 (1):\penalty0 1--13, 2020.
+
 \bibitem[Lein et~al.(2006)Lein, Hawrylycz, Ao, Ayres, Bensinger, Bernard, Boe,
   Boguski, Brockway, Byrnes, Chen, Chen, Chen, Chin, Chong, Crook, Czaplinska,
   Dang, Datta, Dee, Desaki, Desta, Diep, Dolbeare, Donelan, Dong, Dougherty,
@@ -263,6 +264,15 @@ G.~Li, C.~Xiong, A.~Thabet, and B.~Ghanem.
 \newblock Deepergcn: All you need to train deeper gcns.
 \newblock \emph{CoRR}, abs/2006.07739, 2020.
 
+\bibitem[Li et~al.(2013)Li, Bunney, Meng, Hagenauer, Walsh, Vawter, Evans,
+  Choudary, Cartagena, Barchas, et~al.]{li2013circadian}
+J.~Z. Li, B.~G. Bunney, F.~Meng, M.~H. Hagenauer, D.~M. Walsh, M.~P. Vawter,
+  S.~J. Evans, P.~V. Choudary, P.~Cartagena, J.~D. Barchas, et~al.
+\newblock Circadian patterns of gene expression in the human brain and
+  disruption in major depressive disorder.
+\newblock \emph{Proceedings of the National Academy of Sciences}, 110\penalty0
+  (24):\penalty0 9950--9955, 2013.
+
 \bibitem[Liaw et~al.(2018)Liaw, Liang, Nishihara, Moritz, Gonzalez, and
   Stoica]{liaw2018tune}
 R.~Liaw, E.~Liang, R.~Nishihara, P.~Moritz, J.~E. Gonzalez, and I.~Stoica.
@@ -293,6 +303,16 @@ N.~Pallast, M.~Diedenhofen, S.~Blaschke, F.~Wieters, D.~Wiedermann, M.~Hoehn,
 \newblock \emph{Frontiers in Neuroinformatics}, 13, June 2019.
 \newblock \doi{10.3389/fninf.2019.00042}.
 \newblock URL \url{https://doi.org/10.3389/fninf.2019.00042}.
+
+\bibitem[Partel et~al.(2020)Partel, Hilscher, Milli, Solorzano, Klemm, Nilsson,
+  and W\"{a}hlby]{Partel2020}
+G.~Partel, M.~M. Hilscher, G.~Milli, L.~Solorzano, A.~H. Klemm, M.~Nilsson, and
+  C.~W\"{a}hlby.
+\newblock Automated identification of the mouse brain's spatial compartments
+  from in situ sequencing data.
+\newblock \emph{{BMC} Biology}, 18\penalty0 (1), Oct. 2020.
+\newblock \doi{10.1186/s12915-020-00874-5}.
+\newblock URL \url{https://doi.org/10.1186/s12915-020-00874-5}.
 
 \bibitem[Paszke et~al.(2019)Paszke, Gross, Massa, Lerer, Bradbury, Chanan,
   Killeen, Lin, Gimelshein, Antiga, Desmaison, Kopf, Yang, DeVito, Raison,
@@ -330,6 +350,21 @@ M.~Prosniak, D.~C. Hooper, B.~Dietzschold, and H.~Koprowski.
 \newblock URL \url{https://www.pnas.org/content/98/5/2758}.
 \newblock Publisher: National Academy of Sciences Section: Biological Sciences.
 
+\bibitem[Rankin(2002)]{rankin2002gene}
+C.~H. Rankin.
+\newblock From gene to identified neuron to behaviour in caenorhabditis
+  elegans.
+\newblock \emph{Nature Reviews Genetics}, 3\penalty0 (8):\penalty0 622--630,
+  2002.
+
+\bibitem[Roberti et~al.(2019)Roberti, Lovino, Di~Cataldo, Ficarra, and
+  Urgese]{roberti2019exploiting}
+I.~Roberti, M.~Lovino, S.~Di~Cataldo, E.~Ficarra, and G.~Urgese.
+\newblock Exploiting gene expression profiles for the automated prediction of
+  connectivity between brain regions.
+\newblock \emph{International journal of molecular sciences}, 20\penalty0
+  (8):\penalty0 2035, 2019.
+
 \bibitem[Smith and Eppig(2009)]{MP2009}
 C.~L. Smith and J.~T. Eppig.
 \newblock The mammalian phenotype ontology: enabling robust annotation and
@@ -338,6 +373,12 @@ C.~L. Smith and J.~T. Eppig.
   1\penalty0 (3):\penalty0 390--399, Nov. 2009.
 \newblock \doi{10.1002/wsbm.44}.
 \newblock URL \url{https://doi.org/10.1002/wsbm.44}.
+
+\bibitem[Sun and Hobert(2021)]{sun2021temporal}
+H.~Sun and O.~Hobert.
+\newblock Temporal transitions in the post-mitotic nervous system of
+  caenorhabditis elegans.
+\newblock \emph{Nature}, 600\penalty0 (7887):\penalty0 93--99, 2021.
 
 \bibitem[Szklarczyk et~al.(2014)Szklarczyk, Franceschini, Wyder, Forslund,
   Heller, Huerta-Cepas, Simonovic, Roth, Santos, Tsafou, Kuhn, Peer, Jensen,
@@ -376,6 +417,12 @@ M.~Trebacz, Z.~Shams, M.~Jamnik, P.~Scherer, N.~Simidjievski, H.~A. Terre, and
   expression data analysis.
 \newblock \emph{CoRR}, abs/2011.10998, 2020.
 
+\bibitem[Twine et~al.(2011)Twine, Janitz, Wilkins, and Janitz]{twine2011whole}
+N.~A. Twine, K.~Janitz, M.~R. Wilkins, and M.~Janitz.
+\newblock Whole transcriptome sequencing reveals gene expression and splicing
+  differences in brain regions affected by alzheimer's disease.
+\newblock \emph{PloS one}, 6\penalty0 (1):\penalty0 e16266, 2011.
+
 \bibitem[Valk et~al.(2020)Valk, Xu, Margulies, Masouleh, Paquola, Goulas,
   Kochunov, Smallwood, Yeo, Bernhardt, and
   Eickhoff]{ValkShapingBrainStructure2020}
@@ -396,6 +443,30 @@ A.~Vazquez, A.~Flammini, A.~Maritan, and A.~Vespignani.
   2003.
 \newblock \doi{10.1038/nbt825}.
 \newblock URL \url{https://doi.org/10.1038/nbt825}.
+
+\bibitem[Wang et~al.(2022)Wang, Han, Zhang, Wang, Wang, Wang, Shang, and
+  Peng]{wang2022network}
+W.~Wang, R.~Han, M.~Zhang, Y.~Wang, T.~Wang, Y.~Wang, X.~Shang, and J.~Peng.
+\newblock A network-based method for brain disease gene prediction by
+  integrating brain connectome and molecular network.
+\newblock \emph{Briefings in Bioinformatics}, 23\penalty0 (1):\penalty0
+  bbab459, 2022.
+
+\bibitem[Whitfield et~al.(2003)Whitfield, Cziko, and
+  Robinson]{whitfield2003gene}
+C.~W. Whitfield, A.-M. Cziko, and G.~E. Robinson.
+\newblock Gene expression profiles in the brain predict behavior in individual
+  honey bees.
+\newblock \emph{Science}, 302\penalty0 (5643):\penalty0 296--299, 2003.
+
+\bibitem[Zapala et~al.(2005)Zapala, Hovatta, Ellison, Wodicka, Del~Rio,
+  Tennant, Tynan, Broide, Helton, Stoveken, et~al.]{zapala2005adult}
+M.~A. Zapala, I.~Hovatta, J.~A. Ellison, L.~Wodicka, J.~A. Del~Rio, R.~Tennant,
+  W.~Tynan, R.~S. Broide, R.~Helton, B.~S. Stoveken, et~al.
+\newblock Adult mouse brain gene expression patterns bear an embryologic
+  imprint.
+\newblock \emph{Proceedings of the National Academy of Sciences}, 102\penalty0
+  (29):\penalty0 10357--10362, 2005.
 
 \bibitem[Zeng et~al.(2015)Zeng, Li, Mukkamala, Ye, and Ji]{zeng_deep_2015}
 T.~Zeng, R.~Li, R.~Mukkamala, J.~Ye, and S.~Ji.

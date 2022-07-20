@@ -1,23 +1,30 @@
 \babel@toc {nil}{}\relax 
-\contentsline {section}{\numberline {1}Introduction}{6}{section.1}%
-\contentsline {section}{\numberline {2}Literature overview}{6}{section.2}%
-\contentsline {subsection}{\numberline {2.1}To be searched}{6}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}To be sorted somewhere}{7}{subsection.2.2}%
-\contentsline {subsection}{\numberline {2.3}Spatial patterns of gene expression}{7}{subsection.2.3}%
-\contentsline {subsection}{\numberline {2.4}Gene knockout and pathology hypotheses}{8}{subsection.2.4}%
-\contentsline {subsection}{\numberline {2.5}Structural connectivity}{8}{subsection.2.5}%
-\contentsline {subsection}{\numberline {2.6}Functional connectivity}{8}{subsection.2.6}%
-\contentsline {section}{\numberline {3}Methods}{8}{section.3}%
+\contentsline {section}{\numberline {1}Introduction}{4}{section.1}%
+\contentsline {section}{\numberline {2}Literature overview}{5}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Gene expression prediction}{5}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Finding spatial patterns in gene expression in mice brains}{5}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Approaches to dimensionality reduction and their application}{5}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Structural and functional connectivity prediction}{5}{subsection.2.4}%
+\contentsline {section}{\numberline {3}Materials and methods}{8}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Problem description}{8}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}Spatial gene expression prediction}{8}{subsubsection.3.1.1}%
+\contentsline {subsubsection}{\numberline {3.1.2}Dimensionality reduction in mice brains}{8}{subsubsection.3.1.2}%
+\contentsline {subsubsection}{\numberline {3.1.3}Structural and functional connectivity prediction}{8}{subsubsection.3.1.3}%
 \contentsline {subsection}{\numberline {3.2}Datasets}{8}{subsection.3.2}%
 \contentsline {subsection}{\numberline {3.3}Model}{9}{subsection.3.3}%
 \contentsline {subsubsection}{\numberline {3.3.1}Feature generation}{9}{subsubsection.3.3.1}%
 \contentsline {subsubsection}{\numberline {3.3.2}Graph convolutional neural layers}{9}{subsubsection.3.3.2}%
-\contentsline {subsubsection}{\numberline {3.3.3}Uniform Manifold Approximation and Projection (UMAP)}{10}{subsubsection.3.3.3}%
-\contentsline {subsubsection}{\numberline {3.3.4}Parametric UMAP}{10}{subsubsection.3.3.4}%
-\contentsline {subsubsection}{\numberline {3.3.5}Combined prediction model}{10}{subsubsection.3.3.5}%
-\contentsline {subsubsection}{\numberline {3.3.6}Hyperparameter tuning}{10}{subsubsection.3.3.6}%
+\contentsline {subsubsection}{\numberline {3.3.3}Dimensionality reduction techniques}{10}{subsubsection.3.3.3}%
+\contentsline {paragraph}{\numberline {3.3.3.1}Principal component analysis}{10}{paragraph.3.3.3.1}%
+\contentsline {paragraph}{\numberline {3.3.3.2}tSNE}{10}{paragraph.3.3.3.2}%
+\contentsline {paragraph}{\numberline {3.3.3.3}UMAP}{10}{paragraph.3.3.3.3}%
+\contentsline {paragraph}{\numberline {3.3.3.4}Parametric UMAP}{10}{paragraph.3.3.3.4}%
+\contentsline {subsubsection}{\numberline {3.3.4}Combined prediction model}{10}{subsubsection.3.3.4}%
+\contentsline {subsubsection}{\numberline {3.3.5}Hyperparameter tuning}{10}{subsubsection.3.3.5}%
 \contentsline {subsection}{\numberline {3.4}Evaluation and metrics}{10}{subsection.3.4}%
-\contentsline {section}{\numberline {4}Results}{10}{section.4}%
-\contentsline {section}{\numberline {5}Discussion}{10}{section.5}%
-\contentsline {section}{\numberline {6}Conclusion}{10}{section.6}%
+\contentsline {section}{\numberline {4}Results}{11}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Gene expression prediction}{11}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Dimensionality reduction and its combination with different graphs structures}{11}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}On the linkage of connectivities and gene expression patterns}{11}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Discussion}{12}{section.5}%
+\contentsline {section}{\numberline {6}Conclusion}{13}{section.6}%
