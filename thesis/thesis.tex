@@ -80,7 +80,23 @@
 \newpage
 
 
-
+\subsection*{To be sorted somewhere}
+\begin{itemize}
+	\item Variability and different interpretations of different graph convolutional neural filters \cite{GCNConv, GENConv2020, feng2022kergnns} etc.
+	
+	
+	\item DeepGOPlus for feature generation \cite{DeepGoPlus}
+	\item discussion of different PPI network databases \cite{STRINGv10}
+	\item discussion of potential databases associating gene expression data with their spatial distribution \cite{hawrylycz_digital_2011}
+	\item discussion of best neural learning/graph convolutional methods \cite{Pytorch, PytorchGeometric}
+	\item how to handle highly imbalanced data, metrics, preprocessing, sampling, modification of loss function \cite{Jeni2013} and optimization over them (with Adam\cite{Adam2014})
+	\item maybe introduction of PhenomeNET for MP/GO for more sophisticated protein representation \cite{PhenomeNET2011, GOoriginal2000, GOrecent2020, MP2009} and derive features from DL2vec \cite{DL2vec2020, Word2vec2013}
+	\item evaluation of \glqq Using ontology embeddings for structural inductive bias in gene expression data analysis\grqq{}\cite{Trebacz2020}
+	\item take some ideas from \citet{Zitnik2017} with title \glqq Predicting multicellular function through multi-layer tissue networks\grqq{}. (OhmNet)
+	\item potentially group results based on InterPro\cite{Interpro2020} families eventually
+	
+	\item choice of model organism?!
+\end{itemize}
 
 
 \newpage
@@ -97,6 +113,8 @@ General thread for introduction and motivation:
 	\item studies have shown circadian patterns of gene expression in human brain and the disruption of those in depressive disorder \cite{li2013circadian}
 	\item \cite{twine2011whole} show the importance of gene expression patterns, by linking gene expression abberation with increase in Alzheimer's disease
 	
+	\item Guilt by association over gene networks \cite{Oliver2000, Gillis2012} in genetic networks
+	\item protein function prediction from PPI networks \cite{Vazquez2003}I
 \end{itemize}
 
 \subsection*{General Introduction of the Research Study}
@@ -128,18 +146,48 @@ General thread for introduction and motivation:
 \newpage
 \section{Literature overview}
 \label{sec:relatedwork}
-\subsection{Gene expression prediction}
+\subsection{Gene expression databases and prediction}
+\label{sec:relatedwork_geneexp}
+Research in gene expression prediction and profiling has a long history in bioinformatics and systems biology, but was almost exclusively linked to cancer research. Moreover, with the rise of machine learning, and more specifically (deep) neural networks and its variants, this field became increasingly data reliant. The Human Genome Project \cite{watson1990human}, launched in 1990 and declared finished in 2003 while the first gapless assembly was finished in 2022, also sparked various works in relating these genetic representations to other tissue- and individual-specific properties. 
+
+For comparison of gene expression profiling works there exist multiple prominent variables. Most significantly, the chosen organism is a crucial choice for both data availability and predictive complexity. Second, the chosen tissue is naturally important for the proposed hypotheses, especially with respect to tissue definitive cancer research, and its potential ability to generalize without transfer learning. While gene expression pattern analysis approaches frequently focus on tissues like \textit{mamma}, (primarily female) breast, \cite{herschkowitz2007identification}, liver \cite{flores2002patterns}, and skeletal muscle \cite{lecker2004multiple} for exploration of diseases like cancer and atrophy, respectively, in humans. 
+
+However, the nervous system is often investigated separately as it bears different molecular processes and structure, anatomy and cell life cycles, while brain and spinal cord are even based in a separate nutritional circuit for mammals. Moreover, gene expression determination in the human brain may almost certainly remain an deadly intervention for most brain tissues, hence allowing only for careful extraction of specific tissues in living organisms. Also this disallows for \textit{in-vivo} extraction of vital brain regions and structures, e.g. the brainstem. Furthermore, the human brain's gene expression patterns are varied and diversified \cite{ramasamy2014genetic}, aligning with its anatomical and embryogenesis complexity, and its compartments are exceptionally and deeply connective and collaborative \cite{fornito2015connectomics}. Both also hold for invertebrates, i.e. insects. Thus, full genetic profiles of expression are mandatory for a full understanding of the mammalian and invertebrate brain and primary nervous system, respectively. 
+
+In literature there are several approaches, compromising sequencing depth, accuracy, throughput and spatial resolution. Generally, one can identify two classes of gene expression measurement while preserving spatial information. The first approach is to store spacial coordinates first, followed by a the sequencing of single-cell RNA where \citet{achim2015high} and \citet{chen2017spatial} propose the mapping and the Geo-seq protocol for this method. The second method includes the usage of "barcodes", decoded in the tissue sample, while running a parallel analysis of numerous mRNAs \cite{ke2013situ, moffitt2016high}. By the strong intervention of the tissue extraction, full genome atlases are fit together from various experiments on multiple individuals. We will discuss the choice of mice datasets and their properties in more detail in Section \ref{sec:datasets}. 
+
+The human brain is among the most intricate and complicated networks we do know of, and is far from being fully understood. Additionally, full transcriptomic atlases of human brains are difficult to collect while raising decisive privacy concerns as elaborated in Section \ref{sec:datasets}. 
+
+However, there have been 
+
+
+Still the ultimate goal shall be the further understanding of brains of our species.
+
+ there have been various approaches to prediction of gene expression in other tissues and organisms. 
+
+
+
+almost always have to come from multiple individuals
+
+
+
+
+Identifying predictive properties such as sufficient representations is crucial 
 
 \begin{itemize}
 
-	\item \cite{lee2020prediction} train classifiers using blood gene expression data in order to predict Alheimer's disease in Humans
 
-	
+	\item read across citations of DeepMOCCA/\citet{takata_flexible_2021}
+	\item 
+	\item \cite{schulte2021integration} also predict gene expression prediction in humans but over PPI networks for identification of novel cancer genes using regular GCNs
+	\item Guilt by association over gene networks \cite{Oliver2000, Gillis2012}
 \end{itemize}
 
 \subsection{Finding spatial patterns in gene expression in mice brains}
+\label{sec:relatedwork_micebrains}
 
 \begin{itemize}
+	\item \cite{lee2020prediction} train classifiers using blood gene expression data in order to predict Alheimer's disease in Humans
 	\item Sparked by the \citet{MouseBrainAtlas}
 	\item \cite{zapala2005adult} is among the earliest works, showing that local structures beared "transcriptional imprint" that coincide with the embryological origin of the examined regions. However, they only were able to identify up to 24 neural tissues. They further conclude that this may be important for functional collaboration within the adult mouse brain.
 \end{itemize}
@@ -161,6 +209,10 @@ General thread for introduction and motivation:
 \end{itemize}
 
 \subsection{Structural and functional connectivity prediction}
+
+\begin{itemize}
+	\item \cite{fornito2015connectomics} elaborate on the connectomics of brain disorders and its complexity in connectivity. Understanding how brain networks respond to pathological perturbations is crucial for understanding brain disorders and behavior
+\end{itemize}
 \subsection*{Structural/Axonal connectivity}
 
 \begin{itemize}
@@ -204,7 +256,7 @@ General thread for introduction and motivation:
 
 \subsection*{To be searched}
 \begin{itemize}
-	\item read across citations of DeepMOCCA/\citet{takata_flexible_2021}
+
 	\item find other papers on
 	\begin{itemize}
 		\item gene expression patterns within mouse brain and both possible hypothesis and tasks, and models over this
@@ -214,23 +266,7 @@ General thread for introduction and motivation:
 	\end{itemize}
 \end{itemize}
 
-\subsection*{To be sorted somewhere}
-\begin{itemize}
-	\item Variability and different interpretations of different graph convolutional neural filters \cite{GCNConv, GENConv2020, SAGEConv} etc.
-	\item Guilt by association over gene networks \cite{Oliver2000, Gillis2012}
-	\item protein function prediction from PPI networks \cite{Vazquez2003}
-	\item DeepGOPlus for feature generation \cite{DeepGoPlus}
-	\item discussion of DeepMocca by Sara \cite{DeepMocca2021}
-	\item discussion of different PPI network databases \cite{STRINGv10}
-	\item discussion of potential databases associating gene expression data with their spatial distribution \cite{hawrylycz_digital_2011}
-	\item discussion of best neural learning/graph convolutional methods \cite{Pytorch, PytorchGeometric}
-	\item how to handle highly imbalanced data, metrics, preprocessing, sampling, modification of loss function \cite{Jeni2013} and optimization over them (with Adam\cite{Adam2014})
-	\item maybe introduction of PhenomeNET for MP/GO for more sophisticated protein representation \cite{PhenomeNET2011, GOoriginal2000, GOrecent2020, MP2009} and derive features from DL2vec \cite{DL2vec2020, Word2vec2013}
-	\item evaluation of \glqq Using ontology embeddings for structural inductive bias in gene expression data analysis\grqq{}\cite{Trebacz2020}
-	\item take some ideas from \citet{Zitnik2017} with title \glqq Predicting multicellular function through multi-layer tissue networks\grqq{}. (OhmNet)
-	\item potentially group results based on InterPro\cite{Interpro2020} families eventually
-	\item RayTune\cite{liaw2018tune} for automated hyperparameter tuning
-\end{itemize}
+
 
 \subsection*{Spatial patterns of gene expression}
 
@@ -256,11 +292,12 @@ Modern approaches on learning from gene expression patterns in mouse brain:
 In this study, we utilized and incorporated various approaches from other works and applied them to diverse datasets. The following section will give a brief overview over all modules of the proposed model, while the combined method will be presented and described in the results section (Section \ref{sec:results}).
 \subsection*{Introduction and general description, study method and study design}
 \subsection{Problem description}
+\label{sec:probdesc}
 Here we give a brief introduction to each of the three tackled issues and further summarize data properties, challenges and goals of each problem. 
 \subsubsection{Spatial gene expression prediction}
 Firstly, the issue of gene expression prediction 
 
-\subsubsection{Dimensionality reduction in mice brains}
+\subsubsection{Dimensionality reduction in brains}
 \begin{itemize}
 	\item 
 \end{itemize}
@@ -274,6 +311,26 @@ Firstly, the issue of gene expression prediction
 \subsection*{Assumptions of study method and study design with implied }
 
 \subsection{Datasets}
+\label{sec:datasets}
+As human brains are among the most complex in structure and connectivity within nature, a full transcriptomic atlas may be very valuable for the research community and our experiments in this work. However, full transcriptomic atlases of homo sapiens are ethically difficult to gather. Additionally, as a valuable, public genetic atlas of deceased relatives may provide highly critical information about the remaining, living ones, such as genetic diseases, genetic markers for correlating with addiction and other social behavior, or ancestry in general, this raises tremendous privacy concerns. As we want to investigate transcriptomic patterns in the brain and their relation to structural and functional connectivity as a generalized, organism-invariant methodology, we also want our experiments to be as understandable and replicable as possible. As rodents and more specifically mice are well studied in behavior and due to their taxonomic proximity to humans serve as model organisms for diverse genetic, social and medical experiments, we opted for mice as the study organism.
+
+However, there have been multiple initiatives towards collaborative and open human brain data, such as the 
+\begin{itemize}
+	\item Human connectome atlas
+	\item Allen Human Brain atlas -> very small sample size
+\end{itemize}
+Furthermore, immense effort was put into enormous projects and databases for example invertebrates, namely \textit{Drosophila} (specifically \textit{Drosophila melanogaster}, also called \textit{fruit fly}) and \textit{Caenorhabditis elegans} (short: \textit{"C. elegans"}, colloquially also called \textit{roundworm}) with the two projects "Virtual Fly Brain" \cite{milyaev2012virtual} (\href{https://virtualflybrain.org/}{https://virtualflybrain.org/}) and "Wormbase" \cite{lee2003building, davis2022wormbase} (\href{https://wormbase.org}{https://wormbase.org}), respectively. Yet, we wanted to stay within the same taxonomic phylum leading our choice towards mice brains. 
+
+
+\subsubsection{Spatial gene expression values in mice brain}
+\begin{itemize}
+	\item choice of model organism!!
+	\item copy introduction from graph-iss
+\end{itemize}
+
+\subsection{Structural and functional connectivity databases}
+
+
 \subsection*{in-depth description of the study design/datasets used and motivation why they were used for these experiments}
 \subsection*{Explanation of Sample used in the study}
 \begin{itemize}
@@ -302,6 +359,7 @@ Firstly, the issue of gene expression prediction
 		
 		\item \href{http://www.informatics.jax.org/expression.shtml}{HPO/MP project expression data}
 	\end{itemize}
+	\item Mouse brain CCFv3
 \end{itemize}
 \begin{itemize}
 	\item Allen mouse brain atlas \cite{MouseBrainAtlas}
@@ -320,6 +378,7 @@ Four graphs were used in this study:
 \end{itemize}
 
 \subsection{Model}
+\label{sec:modeldesc}
 \subsection*{Explanation of Measurement, Definitions, Indexes, Reliabililty and Validity of study method and study design}
 \subsection*{Description of Analytical Tehcniques to be Applied and justification for them}
 
@@ -414,6 +473,7 @@ blocks are reusable and can be stacked multiple times.
 	\item what is GATConv?
 	\item what is KerGNN and what is its idea?
 	\item add some sentences to the section above
+	\item node vs. graph classification vs. link prediction
 \end{itemize}
 
 \subsubsection{Dimensionality reduction techniques}
@@ -428,10 +488,16 @@ blocks are reusable and can be stacked multiple times.
 \subsubsection{Combined prediction model}
 
 \subsubsection{Hyperparameter tuning}
+\begin{itemize}
+	\item RayTune\cite{liaw2018tune} for automated hyperparameter tuning
+\end{itemize}
 
 \subsection{Evaluation and metrics}
+\label{sec:evalmetrics}
 \begin{itemize}
-	\item self-build metric for evaluation
+	\item AUC and AUPR for gene expression prediction
+	\item self-built metric for evaluation of dim-red
+	\item AUC and AUPR for conn pred
 \end{itemize}
 
 

@@ -3,51 +3,47 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: thesis.aux
 The style file: abbrvnat.bst
 Database file #1: citations.bib
-You're missing a field name---line 28 of file citations.bib
- :     eprint={1710.10903},
- :                         5
-I'm skipping whatever remains of this entry
 Warning--to sort, need author or key in noauthor_clustering_nodate
 Warning--empty year in noauthor_clustering_nodate
-You've used 46 entries,
+You've used 59 entries,
             2773 wiz_defined-function locations,
-            958 strings with 24141 characters,
-and the built_in function-call counts, 44382 in all, are:
-= -- 3395
-> -- 5243
-< -- 16
-+ -- 1750
-- -- 1704
-* -- 4642
-:= -- 7442
-add.period$ -- 200
-call.type$ -- 46
-change.case$ -- 702
-chr.to.int$ -- 46
-cite$ -- 95
-duplicate$ -- 962
-empty$ -- 1772
-format.name$ -- 1773
-if$ -- 8622
+            1030 strings with 27353 characters,
+and the built_in function-call counts, 53296 in all, are:
+= -- 4133
+> -- 6051
+< -- 18
++ -- 2021
+- -- 1962
+* -- 5539
+:= -- 8870
+add.period$ -- 237
+call.type$ -- 59
+change.case$ -- 824
+chr.to.int$ -- 59
+cite$ -- 121
+duplicate$ -- 1230
+empty$ -- 2304
+format.name$ -- 2046
+if$ -- 10392
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 44
-newline$ -- 299
-num.names$ -- 182
-pop$ -- 1295
+missing$ -- 57
+newline$ -- 362
+num.names$ -- 234
+pop$ -- 1510
 preamble$ -- 1
-purify$ -- 656
+purify$ -- 765
 quote$ -- 0
-skip$ -- 1161
+skip$ -- 1405
 stack$ -- 0
-substring$ -- 826
-swap$ -- 90
+substring$ -- 1201
+swap$ -- 102
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 506
+type$ -- 649
 warning$ -- 2
-while$ -- 186
+while$ -- 252
 width$ -- 0
-write$ -- 720
-(There was 1 error message)
+write$ -- 886
+(There were 2 warnings)

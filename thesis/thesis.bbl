@@ -1,4 +1,4 @@
-\begin{thebibliography}{46}
+\begin{thebibliography}{59}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -11,16 +11,14 @@ Clustering of spatial gene expression patterns in the mouse brain and
 \newblock URL
   \url{https://www.sciencedirect.com/science/article/abs/pii/S1046202309002035?casa_token=1ZHnepKbbpgAAAAA:1S2m5q8_x_uYFTeJivzAG59F4WNz6HgkJEDxuBGq2X3FguxdTIshHxlP7Nxz56GazM05bVkEpSk}.
 
-\bibitem[Althubaiti et~al.(2021)Althubaiti, Kulmanov, Liu, Gkoutos, Schofield,
-  and Hoehndorf]{DeepMocca2021}
-S.~Althubaiti, M.~Kulmanov, Y.~Liu, G.~V. Gkoutos, P.~Schofield, and
-  R.~Hoehndorf.
-\newblock Deepmocca: A pan-cancer prognostic model identifies personalized
-  prognostic markers through graph attention and multi-omics data integration.
-\newblock \emph{bioRxiv}, 2021.
-\newblock \doi{10.1101/2021.03.02.433454}.
-\newblock URL
-  \url{https://www.biorxiv.org/content/early/2021/03/02/2021.03.02.433454}.
+\bibitem[Achim et~al.(2015)Achim, Pettit, Saraiva, Gavriouchkina, Larsson,
+  Arendt, and Marioni]{achim2015high}
+K.~Achim, J.-B. Pettit, L.~R. Saraiva, D.~Gavriouchkina, T.~Larsson, D.~Arendt,
+  and J.~C. Marioni.
+\newblock High-throughput spatial mapping of single-cell rna-seq data to tissue
+  of origin.
+\newblock \emph{Nature biotechnology}, 33\penalty0 (5):\penalty0 503--509,
+  2015.
 
 \bibitem[Ashburner et~al.(2000)Ashburner, Ball, Blake, Botstein, Butler,
   Cherry, Davis, Dolinski, Dwight, Eppig, Harris, Hill, Issel-Tarver,
@@ -114,6 +112,12 @@ S.~Carbon, E.~Douglass, B.~M. Good, D.~R. Unni, N.~L. Harris, C.~J. Mungall,
 \newblock \doi{10.1093/nar/gkaa1113}.
 \newblock URL \url{https://doi.org/10.1093/nar/gkaa1113}.
 
+\bibitem[Chen et~al.(2017)Chen, Suo, Tam, Han, Peng, and Jing]{chen2017spatial}
+J.~Chen, S.~Suo, P.~P. Tam, J.-D.~J. Han, G.~Peng, and N.~Jing.
+\newblock Spatial transcriptomic analysis of cryosectioned tissue samples with
+  geo-seq.
+\newblock \emph{Nature protocols}, 12\penalty0 (3):\penalty0 566--580, 2017.
+
 \bibitem[Chen et~al.(2020)Chen, Althagafi, and Hoehndorf]{DL2vec2020}
 J.~Chen, A.~Althagafi, and R.~Hoehndorf.
 \newblock Predicting candidate genes from phenotypes, functions and anatomical
@@ -123,17 +127,45 @@ J.~Chen, A.~Althagafi, and R.~Hoehndorf.
 \newblock URL \url{https://doi.org/10.1093/bioinformatics/btaa879}.
 \newblock advance access.
 
+\bibitem[Davis et~al.(2022)Davis, Zarowiecki, Arnaboldi, Becerra, Cain, Chan,
+  Chen, Cho, da~Veiga~Beltrame, Diamantakis, et~al.]{davis2022wormbase}
+P.~Davis, M.~Zarowiecki, V.~Arnaboldi, A.~Becerra, S.~Cain, J.~Chan, W.~J.
+  Chen, J.~Cho, E.~da~Veiga~Beltrame, S.~Diamantakis, et~al.
+\newblock Wormbase in 2022—data, processes, and tools for analyzing
+  caenorhabditis elegans.
+\newblock \emph{Genetics}, 220\penalty0 (4):\penalty0 iyac003, 2022.
+
 \bibitem[Fakhry and Ji(2015)]{fakhry2015high}
 A.~Fakhry and S.~Ji.
 \newblock High-resolution prediction of mouse brain connectivity using gene
   expression patterns.
 \newblock \emph{Methods}, 73:\penalty0 71--78, 2015.
 
+\bibitem[Feng et~al.(2022)Feng, You, Wang, and Tassiulas]{feng2022kergnns}
+A.~Feng, C.~You, S.~Wang, and L.~Tassiulas.
+\newblock Kergnns: Interpretable graph neural networks with graph kernels.
+\newblock \emph{ArXiv Preprint: https://arxiv. org/abs/2201.00491}, 2022.
+
 \bibitem[Fey and Lenssen(2019)]{PytorchGeometric}
 M.~Fey and J.~E. Lenssen.
 \newblock Fast graph representation learning with pytorch geometric.
 \newblock \emph{CoRR}, abs/1903.02428, 2019.
 \newblock URL \url{http://arxiv.org/abs/1903.02428}.
+
+\bibitem[Flores-Morales et~al.(2002)Flores-Morales, Gullberg, Fernandez,
+  Ståhlberg, Lee, Vennström, and Norstedt]{flores2002patterns}
+A.~Flores-Morales, H.~Gullberg, L.~Fernandez, N.~Ståhlberg, N.~H. Lee,
+  B.~Vennström, and G.~Norstedt.
+\newblock Patterns of liver gene expression governed by tr$\beta$.
+\newblock \emph{Molecular endocrinology}, 16\penalty0 (6):\penalty0 1257--1268,
+  2002.
+
+\bibitem[Fornito et~al.(2015)Fornito, Zalesky, and
+  Breakspear]{fornito2015connectomics}
+A.~Fornito, A.~Zalesky, and M.~Breakspear.
+\newblock The connectomics of brain disorders.
+\newblock \emph{Nature Reviews Neuroscience}, 16\penalty0 (3):\penalty0
+  159--172, 2015.
 
 \bibitem[Gillis and Pavlidis(2012)]{Gillis2012}
 J.~Gillis and P.~Pavlidis.
@@ -143,11 +175,6 @@ J.~Gillis and P.~Pavlidis.
   e1002444, Mar. 2012.
 \newblock \doi{10.1371/journal.pcbi.1002444}.
 \newblock URL \url{https://doi.org/10.1371/journal.pcbi.1002444}.
-
-\bibitem[Hamilton et~al.(2017)Hamilton, Ying, and Leskovec]{SAGEConv}
-W.~L. Hamilton, Z.~Ying, and J.~Leskovec.
-\newblock Inductive representation learning on large graphs.
-\newblock In \emph{NIPS}, 2017.
 
 \bibitem[Hawrylycz et~al.(2011)Hawrylycz, Baldock, Burger, Hashikawa, Johnson,
   Martone, Ng, Lau, Larsen, Nissanov, Puelles, Ruffins, Verbeek, Zaslavsky, and
@@ -163,6 +190,15 @@ M.~Hawrylycz, R.~A. Baldock, A.~Burger, T.~Hashikawa, G.~A. Johnson,
 \newblock URL
   \url{https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1001065}.
 \newblock Publisher: Public Library of Science.
+
+\bibitem[Herschkowitz et~al.(2007)Herschkowitz, Simin, Weigman, Mikaelian,
+  Usary, Hu, Rasmussen, Jones, Assefnia, Chandrasekharan,
+  et~al.]{herschkowitz2007identification}
+J.~I. Herschkowitz, K.~Simin, V.~J. Weigman, I.~Mikaelian, J.~Usary, Z.~Hu,
+  K.~E. Rasmussen, L.~P. Jones, S.~Assefnia, S.~Chandrasekharan, et~al.
+\newblock Identification of conserved gene expression features between murine
+  mammary carcinoma models and human breast tumors.
+\newblock \emph{Genome biology}, 8\penalty0 (5):\penalty0 1--17, 2007.
 
 \bibitem[Hoehndorf et~al.(2011)Hoehndorf, Schofield, and
   Gkoutos]{PhenomeNET2011}
@@ -180,6 +216,13 @@ L.~A. Jeni, J.~F. Cohn, and F.~De~La~Torre.
 \newblock In \emph{2013 Humaine Association Conference on Affective Computing
   and Intelligent Interaction}, pages 245--251, 2013.
 \newblock \doi{10.1109/ACII.2013.47}.
+
+\bibitem[Ke et~al.(2013)Ke, Mignardi, Pacureanu, Svedlund, Botling, W{\"a}hlby,
+  and Nilsson]{ke2013situ}
+R.~Ke, M.~Mignardi, A.~Pacureanu, J.~Svedlund, J.~Botling, C.~W{\"a}hlby, and
+  M.~Nilsson.
+\newblock In situ sequencing for rna analysis in preserved tissue and cells.
+\newblock \emph{Nature methods}, 10\penalty0 (9):\penalty0 857--860, 2013.
 
 \bibitem[Kelly and Black(2020)]{kelly_graphsim_2020}
 S.~T. Kelly and M.~A. Black.
@@ -209,6 +252,20 @@ M.~Kulmanov and R.~Hoehndorf.
 \newblock ISSN 1367-4803.
 \newblock \doi{10.1093/bioinformatics/btz595}.
 \newblock URL \url{https://doi.org/10.1093/bioinformatics/btz595}.
+
+\bibitem[Lecker et~al.(2004)Lecker, Jagoe, Gilbert, Gomes, Baracos, Bailey,
+  Price, Mitch, and Goldberg]{lecker2004multiple}
+S.~H. Lecker, R.~T. Jagoe, A.~Gilbert, M.~Gomes, V.~Baracos, J.~Bailey, S.~R.
+  Price, W.~E. Mitch, and A.~L. Goldberg.
+\newblock Multiple types of skeletal muscle atrophy involve a common program of
+  changes in gene expression.
+\newblock \emph{The FASEB Journal}, 18\penalty0 (1):\penalty0 39--51, 2004.
+
+\bibitem[Lee and Sternberg(2003)]{lee2003building}
+R.~Y. Lee and P.~W. Sternberg.
+\newblock Building a cell and anatomy ontology of caenorhabditis elegans.
+\newblock \emph{Comparative and Functional Genomics}, 4\penalty0 (1):\penalty0
+  121--126, 2003.
 
 \bibitem[Lee and Lee(2020)]{lee2020prediction}
 T.~Lee and H.~Lee.
@@ -287,6 +344,21 @@ T.~Mikolov, I.~Sutskever, K.~Chen, G.~Corrado, and J.~Dean.
 \newblock \emph{CoRR}, abs/1310.4546, 2013.
 \newblock URL \url{http://arxiv.org/abs/1310.4546}.
 
+\bibitem[Milyaev et~al.(2012)Milyaev, Osumi-Sutherland, Reeve, Burton, Baldock,
+  and Armstrong]{milyaev2012virtual}
+N.~Milyaev, D.~Osumi-Sutherland, S.~Reeve, N.~Burton, R.~A. Baldock, and J.~D.
+  Armstrong.
+\newblock The virtual fly brain browser and query interface.
+\newblock \emph{Bioinformatics}, 28\penalty0 (3):\penalty0 411--415, 2012.
+
+\bibitem[Moffitt et~al.(2016)Moffitt, Hao, Wang, Chen, Babcock, and
+  Zhuang]{moffitt2016high}
+J.~R. Moffitt, J.~Hao, G.~Wang, K.~H. Chen, H.~P. Babcock, and X.~Zhuang.
+\newblock High-throughput single-cell gene-expression profiling with
+  multiplexed error-robust fluorescence in situ hybridization.
+\newblock \emph{Proceedings of the National Academy of Sciences}, 113\penalty0
+  (39):\penalty0 11046--11051, 2016.
+
 \bibitem[Oliver(2000)]{Oliver2000}
 S.~Oliver.
 \newblock Guilt-by-association goes global.
@@ -350,6 +422,15 @@ M.~Prosniak, D.~C. Hooper, B.~Dietzschold, and H.~Koprowski.
 \newblock URL \url{https://www.pnas.org/content/98/5/2758}.
 \newblock Publisher: National Academy of Sciences Section: Biological Sciences.
 
+\bibitem[Ramasamy et~al.(2014)Ramasamy, Trabzuni, Guelfi, Varghese, Smith,
+  Walker, De, Coin, De~Silva, Cookson, et~al.]{ramasamy2014genetic}
+A.~Ramasamy, D.~Trabzuni, S.~Guelfi, V.~Varghese, C.~Smith, R.~Walker, T.~De,
+  L.~Coin, R.~De~Silva, M.~R. Cookson, et~al.
+\newblock Genetic variability in the regulation of gene expression in ten
+  regions of the human brain.
+\newblock \emph{Nature neuroscience}, 17\penalty0 (10):\penalty0 1418--1428,
+  2014.
+
 \bibitem[Rankin(2002)]{rankin2002gene}
 C.~H. Rankin.
 \newblock From gene to identified neuron to behaviour in caenorhabditis
@@ -364,6 +445,14 @@ I.~Roberti, M.~Lovino, S.~Di~Cataldo, E.~Ficarra, and G.~Urgese.
   connectivity between brain regions.
 \newblock \emph{International journal of molecular sciences}, 20\penalty0
   (8):\penalty0 2035, 2019.
+
+\bibitem[Schulte-Sasse et~al.(2021)Schulte-Sasse, Budach, Hnisz, and
+  Marsico]{schulte2021integration}
+R.~Schulte-Sasse, S.~Budach, D.~Hnisz, and A.~Marsico.
+\newblock Integration of multiomics data with graph convolutional networks to
+  identify new cancer genes and their associated molecular mechanisms.
+\newblock \emph{Nature Machine Intelligence}, 3\penalty0 (6):\penalty0
+  513--526, 2021.
 
 \bibitem[Smith and Eppig(2009)]{MP2009}
 C.~L. Smith and J.~T. Eppig.
@@ -451,6 +540,11 @@ W.~Wang, R.~Han, M.~Zhang, Y.~Wang, T.~Wang, Y.~Wang, X.~Shang, and J.~Peng.
   integrating brain connectome and molecular network.
 \newblock \emph{Briefings in Bioinformatics}, 23\penalty0 (1):\penalty0
   bbab459, 2022.
+
+\bibitem[Watson(1990)]{watson1990human}
+J.~D. Watson.
+\newblock The human genome project: past, present, and future.
+\newblock \emph{Science}, 248\penalty0 (4951):\penalty0 44--49, 1990.
 
 \bibitem[Whitfield et~al.(2003)Whitfield, Cziko, and
   Robinson]{whitfield2003gene}
