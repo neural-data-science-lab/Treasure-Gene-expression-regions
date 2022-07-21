@@ -1,4 +1,4 @@
-\begin{thebibliography}{59}
+\begin{thebibliography}{66}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -19,6 +19,14 @@ K.~Achim, J.-B. Pettit, L.~R. Saraiva, D.~Gavriouchkina, T.~Larsson, D.~Arendt,
   of origin.
 \newblock \emph{Nature biotechnology}, 33\penalty0 (5):\penalty0 503--509,
   2015.
+
+\bibitem[Aromolaran et~al.(2020)Aromolaran, Beder, Oswald, Oyelade, Adebiyi,
+  and Koenig]{aromolaran2020essential}
+O.~Aromolaran, T.~Beder, M.~Oswald, J.~Oyelade, E.~Adebiyi, and R.~Koenig.
+\newblock Essential gene prediction in drosophila melanogaster using machine
+  learning approaches based on sequence and functional features.
+\newblock \emph{Computational and structural biotechnology journal},
+  18:\penalty0 612--621, 2020.
 
 \bibitem[Ashburner et~al.(2000)Ashburner, Ball, Blake, Botstein, Butler,
   Cherry, Davis, Dolinski, Dwight, Eppig, Harris, Hill, Issel-Tarver,
@@ -126,6 +134,14 @@ J.~Chen, A.~Althagafi, and R.~Hoehndorf.
 \newblock \doi{10.1093/bioinformatics/btaa879}.
 \newblock URL \url{https://doi.org/10.1093/bioinformatics/btaa879}.
 \newblock advance access.
+
+\bibitem[Chikina et~al.(2009)Chikina, Huttenhower, Murphy, and
+  Troyanskaya]{chikina2009global}
+M.~D. Chikina, C.~Huttenhower, C.~T. Murphy, and O.~G. Troyanskaya.
+\newblock Global prediction of tissue-specific gene expression and
+  context-dependent gene networks in caenorhabditis elegans.
+\newblock \emph{PLoS computational biology}, 5\penalty0 (6):\penalty0 e1000417,
+  2009.
 
 \bibitem[Davis et~al.(2022)Davis, Zarowiecki, Arnaboldi, Becerra, Cain, Chan,
   Chen, Cho, da~Veiga~Beltrame, Diamantakis, et~al.]{davis2022wormbase}
@@ -351,6 +367,15 @@ N.~Milyaev, D.~Osumi-Sutherland, S.~Reeve, N.~Burton, R.~A. Baldock, and J.~D.
 \newblock The virtual fly brain browser and query interface.
 \newblock \emph{Bioinformatics}, 28\penalty0 (3):\penalty0 411--415, 2012.
 
+\bibitem[modENCODE Consortium et~al.(2010)modENCODE Consortium, Roy, Ernst,
+  Kharchenko, Kheradpour, Negre, Eaton, Landolin, Bristow, Ma,
+  et~al.]{modencode2010identification}
+modENCODE Consortium, S.~Roy, J.~Ernst, P.~V. Kharchenko, P.~Kheradpour,
+  N.~Negre, M.~L. Eaton, J.~M. Landolin, C.~A. Bristow, L.~Ma, et~al.
+\newblock Identification of functional elements and regulatory circuits by
+  drosophila modencode.
+\newblock \emph{Science}, 330\penalty0 (6012):\penalty0 1787--1797, 2010.
+
 \bibitem[Moffitt et~al.(2016)Moffitt, Hao, Wang, Chen, Babcock, and
   Zhuang]{moffitt2016high}
 J.~R. Moffitt, J.~Hao, G.~Wang, K.~H. Chen, H.~P. Babcock, and X.~Zhuang.
@@ -358,6 +383,12 @@ J.~R. Moffitt, J.~Hao, G.~Wang, K.~H. Chen, H.~P. Babcock, and X.~Zhuang.
   multiplexed error-robust fluorescence in situ hybridization.
 \newblock \emph{Proceedings of the National Academy of Sciences}, 113\penalty0
   (39):\penalty0 11046--11051, 2016.
+
+\bibitem[Noble(2006)]{noble2006support}
+W.~S. Noble.
+\newblock What is a support vector machine?
+\newblock \emph{Nature biotechnology}, 24\penalty0 (12):\penalty0 1565--1567,
+  2006.
 
 \bibitem[Oliver(2000)]{Oliver2000}
 S.~Oliver.
@@ -498,6 +529,14 @@ N.~Takata, N.~Sato, Y.~Komaki, H.~Okano, and K.~F. Tanaka.
   imaging;Neuroscience Subject\_term\_id:
   brain;functional-magnetic-resonance-imaging;neuroscience.
 
+\bibitem[Tomczak et~al.(2015)Tomczak, Czerwi{\'n}ska, and
+  Wiznerowicz]{tomczak2015review}
+K.~Tomczak, P.~Czerwi{\'n}ska, and M.~Wiznerowicz.
+\newblock Review the cancer genome atlas (tcga): an immeasurable source of
+  knowledge.
+\newblock \emph{Contemporary Oncology/Wsp{\'o}{\l}czesna Onkologia},
+  2015\penalty0 (1):\penalty0 68--77, 2015.
+
 \bibitem[Trebacz et~al.(2020)Trebacz, Shams, Jamnik, Scherer, Simidjievski,
   Terre, and Liò]{Trebacz2020}
 M.~Trebacz, Z.~Shams, M.~Jamnik, P.~Scherer, N.~Simidjievski, H.~A. Terre, and
@@ -533,6 +572,13 @@ A.~Vazquez, A.~Flammini, A.~Maritan, and A.~Vespignani.
 \newblock \doi{10.1038/nbt825}.
 \newblock URL \url{https://doi.org/10.1038/nbt825}.
 
+\bibitem[Wang et~al.(2021)Wang, Shao, Huang, Tang, Zhang, Ding, and
+  Huang]{wang2021mogonet}
+T.~Wang, W.~Shao, Z.~Huang, H.~Tang, J.~Zhang, Z.~Ding, and K.~Huang.
+\newblock Mogonet integrates multi-omics data using graph convolutional
+  networks allowing patient classification and biomarker identification.
+\newblock \emph{Nature Communications}, 12\penalty0 (1):\penalty0 1--13, 2021.
+
 \bibitem[Wang et~al.(2022)Wang, Han, Zhang, Wang, Wang, Wang, Shang, and
   Peng]{wang2022network}
 W.~Wang, R.~Han, M.~Zhang, Y.~Wang, T.~Wang, Y.~Wang, X.~Shang, and J.~Peng.
@@ -552,6 +598,13 @@ C.~W. Whitfield, A.-M. Cziko, and G.~E. Robinson.
 \newblock Gene expression profiles in the brain predict behavior in individual
   honey bees.
 \newblock \emph{Science}, 302\penalty0 (5643):\penalty0 296--299, 2003.
+
+\bibitem[Yang et~al.(2019)Yang, Fang, and Shen]{yang2019predicting}
+Y.~Yang, Q.~Fang, and H.-B. Shen.
+\newblock Predicting gene regulatory interactions based on spatial gene
+  expression data and deep learning.
+\newblock \emph{PLoS computational biology}, 15\penalty0 (9):\penalty0
+  e1007324, 2019.
 
 \bibitem[Zapala et~al.(2005)Zapala, Hovatta, Ellison, Wodicka, Del~Rio,
   Tennant, Tynan, Broide, Helton, Stoveken, et~al.]{zapala2005adult}

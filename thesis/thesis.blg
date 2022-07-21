@@ -5,45 +5,45 @@ The style file: abbrvnat.bst
 Database file #1: citations.bib
 Warning--to sort, need author or key in noauthor_clustering_nodate
 Warning--empty year in noauthor_clustering_nodate
-You've used 59 entries,
+You've used 66 entries,
             2773 wiz_defined-function locations,
-            1030 strings with 27353 characters,
-and the built_in function-call counts, 53296 in all, are:
-= -- 4133
-> -- 6051
-< -- 18
-+ -- 2021
-- -- 1962
-* -- 5539
-:= -- 8870
-add.period$ -- 237
-call.type$ -- 59
-change.case$ -- 824
-chr.to.int$ -- 59
-cite$ -- 121
-duplicate$ -- 1230
-empty$ -- 2304
-format.name$ -- 2046
-if$ -- 10392
+            1067 strings with 29068 characters,
+and the built_in function-call counts, 57491 in all, are:
+= -- 4487
+> -- 6384
+< -- 19
++ -- 2133
+- -- 2067
+* -- 5946
+:= -- 9534
+add.period$ -- 258
+call.type$ -- 66
+change.case$ -- 879
+chr.to.int$ -- 66
+cite$ -- 135
+duplicate$ -- 1376
+empty$ -- 2590
+format.name$ -- 2158
+if$ -- 11237
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 57
-newline$ -- 362
-num.names$ -- 234
-pop$ -- 1510
+missing$ -- 64
+newline$ -- 397
+num.names$ -- 262
+pop$ -- 1607
 preamble$ -- 1
-purify$ -- 765
+purify$ -- 813
 quote$ -- 0
-skip$ -- 1405
+skip$ -- 1524
 stack$ -- 0
-substring$ -- 1201
-swap$ -- 102
+substring$ -- 1385
+swap$ -- 109
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 649
+type$ -- 726
 warning$ -- 2
-while$ -- 252
+while$ -- 285
 width$ -- 0
-write$ -- 886
+write$ -- 977
 (There were 2 warnings)

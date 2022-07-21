@@ -1,32 +1,31 @@
 \babel@toc {nil}{}\relax 
 \contentsline {section}{\numberline {1}Introduction}{5}{section.1}%
 \contentsline {section}{\numberline {2}Literature overview}{6}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Gene expression prediction and databases}{6}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.1}Gene expression databases and prediction}{6}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}Finding spatial patterns in gene expression in mice brains}{7}{subsection.2.2}%
 \contentsline {subsection}{\numberline {2.3}Approaches to dimensionality reduction and their application}{7}{subsection.2.3}%
 \contentsline {subsection}{\numberline {2.4}Structural and functional connectivity prediction}{7}{subsection.2.4}%
-\contentsline {section}{\numberline {3}Materials and methods}{9}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Problem description}{9}{subsection.3.1}%
-\contentsline {subsubsection}{\numberline {3.1.1}Spatial gene expression prediction}{9}{subsubsection.3.1.1}%
-\contentsline {subsubsection}{\numberline {3.1.2}Dimensionality reduction in brains}{9}{subsubsection.3.1.2}%
-\contentsline {subsubsection}{\numberline {3.1.3}Structural and functional connectivity prediction}{9}{subsubsection.3.1.3}%
-\contentsline {subsection}{\numberline {3.2}Datasets}{9}{subsection.3.2}%
-\contentsline {subsubsection}{\numberline {3.2.1}Spatial gene expression values in mice brain}{10}{subsubsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.3}Structural and functional connectivity databases}{10}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}Model}{11}{subsection.3.4}%
-\contentsline {subsubsection}{\numberline {3.4.1}Feature generation}{11}{subsubsection.3.4.1}%
-\contentsline {subsubsection}{\numberline {3.4.2}Graph convolutional neural layers}{11}{subsubsection.3.4.2}%
-\contentsline {subsubsection}{\numberline {3.4.3}Dimensionality reduction techniques}{12}{subsubsection.3.4.3}%
-\contentsline {paragraph}{\numberline {3.4.3.1}Principal component analysis}{12}{paragraph.3.4.3.1}%
-\contentsline {paragraph}{\numberline {3.4.3.2}tSNE}{12}{paragraph.3.4.3.2}%
-\contentsline {paragraph}{\numberline {3.4.3.3}UMAP}{12}{paragraph.3.4.3.3}%
-\contentsline {paragraph}{\numberline {3.4.3.4}Parametric UMAP}{12}{paragraph.3.4.3.4}%
-\contentsline {subsubsection}{\numberline {3.4.4}Combined prediction model}{12}{subsubsection.3.4.4}%
-\contentsline {subsubsection}{\numberline {3.4.5}Hyperparameter tuning}{12}{subsubsection.3.4.5}%
-\contentsline {subsection}{\numberline {3.5}Evaluation and metrics}{12}{subsection.3.5}%
-\contentsline {section}{\numberline {4}Results}{13}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Gene expression prediction}{13}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Dimensionality reduction and its combination with different graphs structures}{13}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}On the linkage of connectivities and gene expression patterns}{13}{subsection.4.3}%
-\contentsline {section}{\numberline {5}Discussion}{14}{section.5}%
-\contentsline {section}{\numberline {6}Conclusion}{15}{section.6}%
+\contentsline {section}{\numberline {3}Materials and methods}{10}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Problem description}{10}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}Spatial gene expression prediction}{10}{subsubsection.3.1.1}%
+\contentsline {subsubsection}{\numberline {3.1.2}Dimensionality reduction in brains}{10}{subsubsection.3.1.2}%
+\contentsline {subsubsection}{\numberline {3.1.3}Structural and functional connectivity prediction}{10}{subsubsection.3.1.3}%
+\contentsline {subsection}{\numberline {3.2}Datasets}{10}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Spatial gene expression values in mice brain}{11}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}Structural and functional connectivity databases}{11}{subsubsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.3}Model}{12}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.1}Feature generation}{12}{subsubsection.3.3.1}%
+\contentsline {subsubsection}{\numberline {3.3.2}Graph convolutional neural layers}{12}{subsubsection.3.3.2}%
+\contentsline {subsubsection}{\numberline {3.3.3}Dimensionality reduction techniques}{13}{subsubsection.3.3.3}%
+\contentsline {paragraph}{\numberline {3.3.3.1}Principal component analysis (PCA)}{13}{paragraph.3.3.3.1}%
+\contentsline {paragraph}{\numberline {3.3.3.2}tSNE}{13}{paragraph.3.3.3.2}%
+\contentsline {paragraph}{\numberline {3.3.3.3}UMAP}{13}{paragraph.3.3.3.3}%
+\contentsline {paragraph}{\numberline {3.3.3.4}Parametric UMAP}{13}{paragraph.3.3.3.4}%
+\contentsline {subsubsection}{\numberline {3.3.4}Hyperparameter tuning}{13}{subsubsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.4}Evaluation and metrics}{13}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Results}{14}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Gene expression prediction}{14}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Dimensionality reduction and its combination with different graphs structures}{14}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}On the linkage of connectivities and gene expression patterns}{14}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Discussion}{15}{section.5}%
+\contentsline {section}{\numberline {6}Conclusion}{16}{section.6}%

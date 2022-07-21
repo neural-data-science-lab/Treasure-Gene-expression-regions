@@ -114,7 +114,8 @@ General thread for introduction and motivation:
 	\item \cite{twine2011whole} show the importance of gene expression patterns, by linking gene expression abberation with increase in Alzheimer's disease
 	
 	\item Guilt by association over gene networks \cite{Oliver2000, Gillis2012} in genetic networks
-	\item protein function prediction from PPI networks \cite{Vazquez2003}I
+	\item protein function prediction from PPI networks \cite{Vazquez2003}
+	\item GCNs have been applied successfully to variety of tasks over different types of graphs.
 \end{itemize}
 
 \subsection*{General Introduction of the Research Study}
@@ -152,16 +153,15 @@ Research in gene expression prediction and profiling has a long history in bioin
 
 For comparison of gene expression profiling works there exist multiple prominent variables. Most significantly, the chosen organism is a crucial choice for both data availability and predictive complexity. Second, the chosen tissue is naturally important for the proposed hypotheses, especially with respect to tissue definitive cancer research, and its potential ability to generalize without transfer learning. While gene expression pattern analysis approaches frequently focus on tissues like \textit{mamma}, (primarily female) breast, \cite{herschkowitz2007identification}, liver \cite{flores2002patterns}, and skeletal muscle \cite{lecker2004multiple} for exploration of diseases like cancer and atrophy, respectively, in humans. 
 
-However, the nervous system is often investigated separately as it bears different molecular processes and structure, anatomy and cell life cycles, while brain and spinal cord are even based in a separate nutritional circuit for mammals. Moreover, gene expression determination in the human brain may almost certainly remain an deadly intervention for most brain tissues, hence allowing only for careful extraction of specific tissues in living organisms. Also this disallows for \textit{in-vivo} extraction of vital brain regions and structures, e.g. the brainstem. Furthermore, the human brain's gene expression patterns are varied and diversified \cite{ramasamy2014genetic}, aligning with its anatomical and embryogenesis complexity, and its compartments are exceptionally and deeply connective and collaborative \cite{fornito2015connectomics}. Both also hold for invertebrates, i.e. insects. Thus, full genetic profiles of expression are mandatory for a full understanding of the mammalian and invertebrate brain and primary nervous system, respectively. 
+However, the nervous system is often investigated separately as it bears different molecular processes and structure, anatomy and cell life cycles, while brain and spinal cord are even based in a separate nutritional circuit for mammals. Moreover, gene expression determination in the human brain may almost certainly remain an deadly intervention for most brain tissues, hence allowing only for careful extraction of specific tissues in living organisms. Also this disallows for \textit{in-vivo} extraction of vital brain regions and structures, e.g. the brainstem. Furthermore, the human brain's gene expression patterns are varied and diversified \cite{ramasamy2014genetic}, aligning with its anatomical and embryogenesis complexity, and its compartments are exceptionally and deeply connective and collaborative \cite{fornito2015connectomics}. Both also hold for invertebrates, i.e. insects. Thus, full genetic profiles of expression are mandatory for a full understanding of the mammalian and invertebrate brain and primary nervous system, respectively. By the strong intervention of the tissue extraction, full genome atlases are fit together from various experiments on multiple individuals.
 
-In literature there are several approaches, compromising sequencing depth, accuracy, throughput and spatial resolution. Generally, one can identify two classes of gene expression measurement while preserving spatial information. The first approach is to store spacial coordinates first, followed by a the sequencing of single-cell RNA where \citet{achim2015high} and \citet{chen2017spatial} propose the mapping and the Geo-seq protocol for this method. The second method includes the usage of "barcodes", decoded in the tissue sample, while running a parallel analysis of numerous mRNAs \cite{ke2013situ, moffitt2016high}. By the strong intervention of the tissue extraction, full genome atlases are fit together from various experiments on multiple individuals. We will discuss the choice of mice datasets and their properties in more detail in Section \ref{sec:datasets}. 
+The human brain is among the most intricate and complicated networks we do know of, and is far from being fully understood. Additionally, full transcriptomic atlases of human brains are difficult to collect while raising decisive privacy concerns. Yet, there were multiple efforts and projects with rather small sample sizes. A detailed elaboration on dataset and organism choice, and their respective properties may be found in Section \ref{sec:datasets}. \\
 
-The human brain is among the most intricate and complicated networks we do know of, and is far from being fully understood. Additionally, full transcriptomic atlases of human brains are difficult to collect while raising decisive privacy concerns as elaborated in Section \ref{sec:datasets}. 
+However, there have been works on numerous works for other tissues and other organisms. \citet{modencode2010identification} correlate activity patterns in the regulatory network within \textit{Drosophile}, proposing their model for identification of functional elements "modENCODE". As this work was published back in 2010, the approach relies purely on statistical correlation and covariance. \citet{chikina2009global} follow a similar approach in \textit{C. elegans} predicting tissue-specific gene expression in 2006 utilizing support-vector machines (SVM)\cite{noble2006support}. 
 
-However, there have been 
+More modern, data-oriented machine learning models such as (deep) neural networks (NN) were applied successfully to similar problems. \citet{aromolaran2020essential} achieved to predict essential genes based on their respective sequence and functional features profiting off NNs, while transcriptomic interaction prediction was done based on functional gene data using deep learning in \citet{yang2019predicting} in \textit{Drosophila} over different tissues. 
 
-
-Still the ultimate goal shall be the further understanding of brains of our species.
+Within humans, as mentioned previously, gene expression was primarily used for cancer and disease research. \citet{schulte2021integration} and \citet{wang2021mogonet} were the first to apply graph convolutional neural networks to the task of gene expression prediction within humans. While \citet{schulte2021integration} was applied on data from The Cancer Genome Atlas (TCGA)\cite{tomczak2015review} across multiple tissues, \citet{wang2021mogonet}'s MOGONET is proposed as a general framework for gene expression prediction with example computations on ROSMAP dataset and TCGA. Both approaches implement the original formulation of GCNs\cite{GCNConv}, which we will discuss in more detail in Section \ref{sec:graphconv}, over protein-protein interaction networks and accomplish outstanding performances and insight to molecular processes.
 
  there have been various approaches to prediction of gene expression in other tissues and organisms. 
 
@@ -312,7 +312,7 @@ Firstly, the issue of gene expression prediction
 
 \subsection{Datasets}
 \label{sec:datasets}
-As human brains are among the most complex in structure and connectivity within nature, a full transcriptomic atlas may be very valuable for the research community and our experiments in this work. However, full transcriptomic atlases of homo sapiens are ethically difficult to gather. Additionally, as a valuable, public genetic atlas of deceased relatives may provide highly critical information about the remaining, living ones, such as genetic diseases, genetic markers for correlating with addiction and other social behavior, or ancestry in general, this raises tremendous privacy concerns. As we want to investigate transcriptomic patterns in the brain and their relation to structural and functional connectivity as a generalized, organism-invariant methodology, we also want our experiments to be as understandable and replicable as possible. As rodents and more specifically mice are well studied in behavior and due to their taxonomic proximity to humans serve as model organisms for diverse genetic, social and medical experiments, we opted for mice as the study organism.
+As human brains are among the most complex in structure and connectivity within nature, a full transcriptomic atlas may be very valuable for the research community and our experiments in this work. However, full transcriptomic atlases of homo sapiens are ethically difficult to gather. Additionally, as a valuable, public genetic atlas of deceased relatives may provide highly critical information about the remaining, living ones, such as genetic diseases, genetic markers for correlating with addiction and other social behavior, or ancestry in general, this raises tremendous privacy concerns. As we want to investigate transcriptomic patterns in the brain and their relation to structural and functional connectivity as a generalized, organism-invariant methodology, we also want our experiments to be as understandable and replicable as possible. As rodents and more specifically mice are well studied in behavior and due to their taxonomic proximity to humans serve as model organisms for diverse genetic, social and medical experiments, we opted for mice as the study organism. The ultimate goal still shall be the further understanding of brains of our species.
 
 However, there have been multiple initiatives towards collaborative and open human brain data, such as the 
 \begin{itemize}
@@ -321,14 +321,23 @@ However, there have been multiple initiatives towards collaborative and open hum
 \end{itemize}
 Furthermore, immense effort was put into enormous projects and databases for example invertebrates, namely \textit{Drosophila} (specifically \textit{Drosophila melanogaster}, also called \textit{fruit fly}) and \textit{Caenorhabditis elegans} (short: \textit{"C. elegans"}, colloquially also called \textit{roundworm}) with the two projects "Virtual Fly Brain" \cite{milyaev2012virtual} (\href{https://virtualflybrain.org/}{https://virtualflybrain.org/}) and "Wormbase" \cite{lee2003building, davis2022wormbase} (\href{https://wormbase.org}{https://wormbase.org}), respectively. Yet, we wanted to stay within the same taxonomic phylum leading our choice towards mice brains. 
 
+In literature there are several approaches, compromising sequencing depth, accuracy, throughput and spatial resolution. Generally, one can identify two classes of gene expression measurement while preserving spatial information. The first approach is to store spacial coordinates first, followed by a the sequencing of single-cell RNA where \citet{achim2015high} and \citet{chen2017spatial} propose the mapping and the Geo-seq protocol for this method. The second method includes the usage of "barcodes", decoded in the tissue sample, while running a parallel analysis of numerous mRNAs \cite{ke2013situ, moffitt2016high}. Samples are collected from multiple individuals.
+
 
 \subsubsection{Spatial gene expression values in mice brain}
 \begin{itemize}
-	\item choice of model organism!!
+	\item include average brain and annotation brain for parcelation
 	\item copy introduction from graph-iss
+	\item add section on gene set enrichment analysis (GSEA)
 \end{itemize}
 
-\subsection{Structural and functional connectivity databases}
+Protein-protein interaction graph:
+\begin{itemize}
+	\item CPDB78, STRING-db79, IRefIndex80, Multinet81 and PCNet82
+	\item STRING\cite{STRINGv10} for mice
+\end{itemize}
+
+\subsubsection{Structural and functional connectivity databases}
 
 
 \subsection*{in-depth description of the study design/datasets used and motivation why they were used for these experiments}
@@ -392,7 +401,7 @@ Data preparation for regression task
 \end{itemize}
 
 \subsubsection{Graph convolutional neural layers}
-
+\label{sec:graphconv}
 We include these molecular and ontology-based sub-models within a
 graph neural network (GNN) \cite{GCNConv}. The graph underlying the GNN is
 based on the protein--protein interaction (PPI) graph. The PPI dataset
@@ -477,15 +486,18 @@ blocks are reusable and can be stacked multiple times.
 \end{itemize}
 
 \subsubsection{Dimensionality reduction techniques}
-\paragraph{Principal component analysis}
+\paragraph{Principal component analysis (PCA)}
+\label{sec:pca}
 
 \paragraph{tSNE}
+\label{sec:tsne}
 
 \paragraph{UMAP}
+\label{sec:umap}
 
 \paragraph{Parametric UMAP}
+\label{sec:paraumap}
 
-\subsubsection{Combined prediction model}
 
 \subsubsection{Hyperparameter tuning}
 \begin{itemize}
