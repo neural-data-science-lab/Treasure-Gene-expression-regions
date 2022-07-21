@@ -149,7 +149,7 @@ General thread for introduction and motivation:
 \label{sec:relatedwork}
 \subsection{Gene expression databases and prediction}
 \label{sec:relatedwork_geneexp}
-Research in gene expression prediction and profiling has a long history in bioinformatics and systems biology, but was almost exclusively linked to cancer research. Moreover, with the rise of machine learning, and more specifically (deep) neural networks and its variants, this field became increasingly data reliant. The Human Genome Project \cite{watson1990human}, launched in 1990 and declared finished in 2003 while the first gapless assembly was finished in 2022, also sparked various works in relating these genetic representations to other tissue- and individual-specific properties. 
+Research in gene expression prediction and profiling has a long history in bioinformatics and systems biology, but was almost exclusively linked to cancer research. Moreover, with the rise of machine learning, and more specifically (deep) neural networks and its variants, this field became increasingly data reliant. The Human Genome Project \cite{watson1990human}, launched in 1990 and declared finished in 2003 while the first gapless assembly was finished in 2022, also sparked various works in relating these genetic representations to other tissue- and individual-specific properties and traits.\\ 
 
 For comparison of gene expression profiling works there exist multiple prominent variables. Most significantly, the chosen organism is a crucial choice for both data availability and predictive complexity. Second, the chosen tissue is naturally important for the proposed hypotheses, especially with respect to tissue definitive cancer research, and its potential ability to generalize without transfer learning. While gene expression pattern analysis approaches frequently focus on tissues like \textit{mamma}, (primarily female) breast, \cite{herschkowitz2007identification}, liver \cite{flores2002patterns}, and skeletal muscle \cite{lecker2004multiple} for exploration of diseases like cancer and atrophy, respectively, in humans. 
 
@@ -157,60 +157,53 @@ However, the nervous system is often investigated separately as it bears differe
 
 The human brain is among the most intricate and complicated networks we do know of, and is far from being fully understood. Additionally, full transcriptomic atlases of human brains are difficult to collect while raising decisive privacy concerns. Yet, there were multiple efforts and projects with rather small sample sizes. A detailed elaboration on dataset and organism choice, and their respective properties may be found in Section \ref{sec:datasets}. \\
 
-However, there have been works on numerous works for other tissues and other organisms. \citet{modencode2010identification} correlate activity patterns in the regulatory network within \textit{Drosophile}, proposing their model for identification of functional elements "modENCODE". As this work was published back in 2010, the approach relies purely on statistical correlation and covariance. \citet{chikina2009global} follow a similar approach in \textit{C. elegans} predicting tissue-specific gene expression in 2006 utilizing support-vector machines (SVM)\cite{noble2006support}. 
+However, there have been works on numerous works for other tissues and other organisms. \citet{modencode2010identification} correlate activity patterns in the regulatory network within \textit{Drosophile}, proposing their model for identification of functional elements "modENCODE". As this work was published back in \citeyear{modencode2010identification}, the approach relies purely on statistical correlation and covariance. \citet{chikina2009global} follow a similar approach in \textit{C. elegans} predicting tissue-specific gene expression in \citeyear{noble2006support} utilizing support-vector machines (SVM)\cite{noble2006support}. 
 
 More modern, data-oriented machine learning models such as (deep) neural networks (NN) were applied successfully to similar problems. \citet{aromolaran2020essential} achieved to predict essential genes based on their respective sequence and functional features profiting off NNs, while transcriptomic interaction prediction was done based on functional gene data using deep learning in \citet{yang2019predicting} in \textit{Drosophila} over different tissues. 
 
-Within humans, as mentioned previously, gene expression was primarily used for cancer and disease research. \citet{schulte2021integration} and \citet{wang2021mogonet} were the first to apply graph convolutional neural networks to the task of gene expression prediction within humans. While \citet{schulte2021integration} was applied on data from The Cancer Genome Atlas (TCGA)\cite{tomczak2015review} across multiple tissues, \citet{wang2021mogonet}'s MOGONET is proposed as a general framework for gene expression prediction with example computations on ROSMAP dataset and TCGA. Both approaches implement the original formulation of GCNs\cite{GCNConv}, which we will discuss in more detail in Section \ref{sec:graphconv}, over protein-protein interaction networks and accomplish outstanding performances and insight to molecular processes.
+Within humans, as mentioned previously, gene expression was primarily used for cancer and disease research. \citet{schulte2021integration} and \citet{wang2021mogonet} were the first to apply graph convolutional neural networks to the task of gene expression prediction within humans. While \citet{schulte2021integration} was applied on data from The Cancer Genome Atlas (TCGA)\cite{tomczak2015review} across multiple tissues, \citet{wang2021mogonet}'s MOGONET is proposed as a general framework for gene expression prediction with example computations on ROSMAP dataset and TCGA. Both approaches implement the original formulation of GCNs\cite{GCNConv}, which we will discuss in more detail in Section \ref{sec:graphconv}, over protein-protein interaction networks and accomplish outstanding performances and both measure biomarker importance for prediction in order to leverage explainability. The authors thereby exploit the "guilt by association" principle \cite{Oliver2000, Gillis2012} over gene networks, adding background knowledge such as biological interaction and pathways.
 
- there have been various approaches to prediction of gene expression in other tissues and organisms. 
+Crucial for almost all classification tasks in machine learning is the choice of entity representation. In the mentioned works molecular \cite{schulte2021integration, modencode2010identification, noble2006support} and phenotypical \cite{wang2021mogonet, chikina2009global} features were used for expression prediction, but never both combined. The combination of phenotypical and molecular features over GCNs was proven to raise predictive performance in drug-target interaction prediction \cite{hinnerichs2021dti} but remains an open challenge for this very task.
 
-
-
-almost always have to come from multiple individuals
-
-
-
-
-Identifying predictive properties such as sufficient representations is crucial 
-
-\begin{itemize}
-
-
-	\item read across citations of DeepMOCCA/\citet{takata_flexible_2021}
-	\item 
-	\item \cite{schulte2021integration} also predict gene expression prediction in humans but over PPI networks for identification of novel cancer genes using regular GCNs
-	\item Guilt by association over gene networks \cite{Oliver2000, Gillis2012}
-\end{itemize}
 
 \subsection{Finding spatial patterns in gene expression in mice brains}
 \label{sec:relatedwork_micebrains}
+In this subsection we will constrain the issue of gene expression analysis to both "spatial patterns", mammals and the tissues of the brain, which we study in this work. The term \textit{spatial patterns} is rather vague and allows for various interpretations, both discrete and continuous, which will form the classes for the following literature review.\\
+
+\citet{zapala2005adult} is among the earliest works, showing that local structures beared "transcriptional imprint" that coincide with the embryological origin of the examined regions. However, they only were able to identify up to 24 neural tissues. They further conclude that this may be important for functional collaboration within the adult mouse brain. The authors measure pairwise correlation show the existence of clusters over a heatmap. \\
+
+The Allen Institute Brain Atlas (AIBA), is a collection various atlases such as Allen Mouse Brain Atlas (AMBA)\cite{MouseBrainAtlas, daigle2018suite}, the Allen Mouse Brain Connectivity Atlas (AMBCA) \cite{oh2014mesoscale, harris2019hierarchical} and the Allen Mouse Brain Common Coordinate Framework (CCFv3) \cite{wang2020allen} to name only the ones related to adult mice's brains. As it was the first coherent collection of spatially resolved expression values, mapping 2D expression images consistently to 3D coordinates, the AMBA has sparked a range of publications. Within \citet{MouseBrainAtlas}, the Allen Institute also published the "Allen Reference Atlas"(ARA) proposing a number morphological and histologically induced sub-regions of the brain and hence a precisely defined parcelation. Moreover, they propose the ARA \textit{ontology}, a semnatic hierarchy, providing a hierarchical cluster of all sub-structures and map them back to their coordinates with the CCF. 
+
+\todo{Name a few sparked research works on this}
+
+\citet{takata_flexible_2021} propose a flexible annotation atlas of the mouse brain, introducing a flexible ontology construction framework which may be used on the transcriptomic data such as the AMBA, leveraging anatomic structure and axonal projection data. Here, FAA focuses on consistent and reproducible regions-of-interest (ROIs) definition for other downstream tasks such as resting-state functional connectivity annotation. Further, this ontology may be seen as a pattern within mouse brain, while it may only detect connected structures. 
+
+The authors of \citet{ValkShapingBrainStructure2020} analyze structural covariance of cortical thickness within primate brains, namely macaques, and its correlation to each cortical layers transcriptome. Further, transcriptomic variation was related to a continuum of functions by mapping them the brain anatomy, inducing a \textit{continuous}, functional parcelation of the primates brain. Further, this study suggests a relation of functional and transcriptomic links.
+
+While also focused on mouse brains, \citet{Partel2020} submits a novel database based on their own \textit{in-situ} sequencing data, and a consecutive spatial gene expression analysis pipeline, and relates the results to tissue morphology and hence indirectly to the AMBA. Similarly to our proposed approach, brain parcelation are present as $n$-dimensional, continuous embeddings, representing closeness in gene expression space.  Due to the similarity in the pipeline especially in their visualization utilizing UMAP, we will use the generated images of this work for a brief comparison in Section \ref{sec:results}.
+
+
 
 \begin{itemize}
-	\item \cite{lee2020prediction} train classifiers using blood gene expression data in order to predict Alheimer's disease in Humans
+
 	\item Sparked by the \citet{MouseBrainAtlas}
-	\item \cite{zapala2005adult} is among the earliest works, showing that local structures beared "transcriptional imprint" that coincide with the embryological origin of the examined regions. However, they only were able to identify up to 24 neural tissues. They further conclude that this may be important for functional collaboration within the adult mouse brain.
+	\item 
 \end{itemize}
 \begin{itemize}
 	\item Have GCNs be applied before here?
 	\item usage of ontologies?
 	\begin{itemize}
-		\item functional graph \cite{ValkShapingBrainStructure2020}
+		\item functional graph 
 		\item structural ontology?
 		\item developmental ontology
 	\end{itemize}
 \end{itemize}
 
-\subsection*{How to deviate from \cite{Partel2020}}
-
-\subsection{Approaches to dimensionality reduction and their application}
-\begin{itemize}
-	\item Brief Overview of theoretical Foundations Utilized in the study
-\end{itemize}
 
 \subsection{Structural and functional connectivity prediction}
 
 \begin{itemize}
+	\item \cite{lee2020prediction} train classifiers using blood gene expression data in order to predict Alheimer's disease in Humans
 	\item \cite{fornito2015connectomics} elaborate on the connectomics of brain disorders and its complexity in connectivity. Understanding how brain networks respond to pathological perturbations is crucial for understanding brain disorders and behavior
 \end{itemize}
 \subsection*{Structural/Axonal connectivity}
@@ -568,6 +561,11 @@ Reliability and Validity of the Analysis}
 \subsection*{Full Discussion of Research Analysis of Findings}
 \subsection*{Full Discussion of Hypothesis and of Findings}
 \subsection*{Post Analysis and Implications of Hypothesis and of Findings}
+
+Novelty:
+\begin{itemize}
+	\item GCNs over gene expression was never applied here
+\end{itemize}
 
 
 

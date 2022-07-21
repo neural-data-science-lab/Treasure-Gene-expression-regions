@@ -1,4 +1,4 @@
-\begin{thebibliography}{66}
+\begin{thebibliography}{71}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -143,6 +143,14 @@ M.~D. Chikina, C.~Huttenhower, C.~T. Murphy, and O.~G. Troyanskaya.
 \newblock \emph{PLoS computational biology}, 5\penalty0 (6):\penalty0 e1000417,
   2009.
 
+\bibitem[Daigle et~al.(2018)Daigle, Madisen, Hage, Valley, Knoblich, Larsen,
+  Takeno, Huang, Gu, Larsen, et~al.]{daigle2018suite}
+T.~L. Daigle, L.~Madisen, T.~A. Hage, M.~T. Valley, U.~Knoblich, R.~S. Larsen,
+  M.~M. Takeno, L.~Huang, H.~Gu, R.~Larsen, et~al.
+\newblock A suite of transgenic driver and reporter mouse lines with enhanced
+  brain-cell-type targeting and functionality.
+\newblock \emph{Cell}, 174\penalty0 (2):\penalty0 465--480, 2018.
+
 \bibitem[Davis et~al.(2022)Davis, Zarowiecki, Arnaboldi, Becerra, Cain, Chan,
   Chen, Cho, da~Veiga~Beltrame, Diamantakis, et~al.]{davis2022wormbase}
 P.~Davis, M.~Zarowiecki, V.~Arnaboldi, A.~Becerra, S.~Cain, J.~Chan, W.~J.
@@ -192,6 +200,13 @@ J.~Gillis and P.~Pavlidis.
 \newblock \doi{10.1371/journal.pcbi.1002444}.
 \newblock URL \url{https://doi.org/10.1371/journal.pcbi.1002444}.
 
+\bibitem[Harris et~al.(2019)Harris, Mihalas, Hirokawa, Whitesell, Choi,
+  Bernard, Bohn, Caldejon, Casal, Cho, et~al.]{harris2019hierarchical}
+J.~A. Harris, S.~Mihalas, K.~E. Hirokawa, J.~D. Whitesell, H.~Choi, A.~Bernard,
+  P.~Bohn, S.~Caldejon, L.~Casal, A.~Cho, et~al.
+\newblock Hierarchical organization of cortical and thalamic connectivity.
+\newblock \emph{Nature}, 575\penalty0 (7781):\penalty0 195--202, 2019.
+
 \bibitem[Hawrylycz et~al.(2011)Hawrylycz, Baldock, Burger, Hashikawa, Johnson,
   Martone, Ng, Lau, Larsen, Nissanov, Puelles, Ruffins, Verbeek, Zaslavsky, and
   Boline]{hawrylycz_digital_2011}
@@ -215,6 +230,12 @@ J.~I. Herschkowitz, K.~Simin, V.~J. Weigman, I.~Mikaelian, J.~Usary, Z.~Hu,
 \newblock Identification of conserved gene expression features between murine
   mammary carcinoma models and human breast tumors.
 \newblock \emph{Genome biology}, 8\penalty0 (5):\penalty0 1--17, 2007.
+
+\bibitem[Hinnerichs and Hoehndorf(2021)]{hinnerichs2021dti}
+T.~Hinnerichs and R.~Hoehndorf.
+\newblock Dti-voodoo: machine learning over interaction networks and
+  ontology-based background knowledge predicts drug--target interactions.
+\newblock \emph{Bioinformatics}, 37\penalty0 (24):\penalty0 4835--4843, 2021.
 
 \bibitem[Hoehndorf et~al.(2011)Hoehndorf, Schofield, and
   Gkoutos]{PhenomeNET2011}
@@ -389,6 +410,13 @@ W.~S. Noble.
 \newblock What is a support vector machine?
 \newblock \emph{Nature biotechnology}, 24\penalty0 (12):\penalty0 1565--1567,
   2006.
+
+\bibitem[Oh et~al.(2014)Oh, Harris, Ng, Winslow, Cain, Mihalas, Wang, Lau,
+  Kuan, Henry, et~al.]{oh2014mesoscale}
+S.~W. Oh, J.~A. Harris, L.~Ng, B.~Winslow, N.~Cain, S.~Mihalas, Q.~Wang,
+  C.~Lau, L.~Kuan, A.~M. Henry, et~al.
+\newblock A mesoscale connectome of the mouse brain.
+\newblock \emph{Nature}, 508\penalty0 (7495):\penalty0 207--214, 2014.
 
 \bibitem[Oliver(2000)]{Oliver2000}
 S.~Oliver.
@@ -571,6 +599,14 @@ A.~Vazquez, A.~Flammini, A.~Maritan, and A.~Vespignani.
   2003.
 \newblock \doi{10.1038/nbt825}.
 \newblock URL \url{https://doi.org/10.1038/nbt825}.
+
+\bibitem[Wang et~al.(2020)Wang, Ding, Li, Royall, Feng, Lesnar, Graddis,
+  Naeemi, Facer, Ho, et~al.]{wang2020allen}
+Q.~Wang, S.-L. Ding, Y.~Li, J.~Royall, D.~Feng, P.~Lesnar, N.~Graddis,
+  M.~Naeemi, B.~Facer, A.~Ho, et~al.
+\newblock The allen mouse brain common coordinate framework: a 3d reference
+  atlas.
+\newblock \emph{Cell}, 181\penalty0 (4):\penalty0 936--953, 2020.
 
 \bibitem[Wang et~al.(2021)Wang, Shao, Huang, Tang, Zhang, Ding, and
   Huang]{wang2021mogonet}
