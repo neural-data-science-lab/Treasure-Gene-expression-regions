@@ -1,15 +1,9 @@
-\begin{thebibliography}{71}
+\begin{thebibliography}{84}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
-
-\bibitem[noa()]{noauthor_clustering_nodate}
-Clustering of spatial gene expression patterns in the mouse brain and
-  comparison with classical neuroanatomy - {ScienceDirect}.
-\newblock URL
-  \url{https://www.sciencedirect.com/science/article/abs/pii/S1046202309002035?casa_token=1ZHnepKbbpgAAAAA:1S2m5q8_x_uYFTeJivzAG59F4WNz6HgkJEDxuBGq2X3FguxdTIshHxlP7Nxz56GazM05bVkEpSk}.
 
 \bibitem[Achim et~al.(2015)Achim, Pettit, Saraiva, Gavriouchkina, Larsson,
   Arendt, and Marioni]{achim2015high}
@@ -19,6 +13,14 @@ K.~Achim, J.-B. Pettit, L.~R. Saraiva, D.~Gavriouchkina, T.~Larsson, D.~Arendt,
   of origin.
 \newblock \emph{Nature biotechnology}, 33\penalty0 (5):\penalty0 503--509,
   2015.
+
+\bibitem[Arnatkevic̆i{\=u}t{\.e} et~al.(2018)Arnatkevic̆i{\=u}t{\.e},
+  Fulcher, Pocock, and Fornito]{arnatkevic̆iute2018hub}
+A.~Arnatkevic̆i{\=u}t{\.e}, B.~D. Fulcher, R.~Pocock, and A.~Fornito.
+\newblock Hub connectivity, neuronal diversity, and gene expression in the
+  caenorhabditis elegans connectome.
+\newblock \emph{PLoS computational biology}, 14\penalty0 (2):\penalty0
+  e1005989, 2018.
 
 \bibitem[Aromolaran et~al.(2020)Aromolaran, Beder, Oswald, Oyelade, Adebiyi,
   and Koenig]{aromolaran2020essential}
@@ -41,6 +43,15 @@ M.~Ashburner, C.~A. Ball, J.~A. Blake, D.~Botstein, H.~Butler, J.~M. Cherry,
 \newblock \doi{10.1038/75556}.
 \newblock URL \url{https://doi.org/10.1038/75556}.
 
+\bibitem[Betzel et~al.(2019)Betzel, Medaglia, Kahn, Soffer, Schonhaut, and
+  Bassett]{betzel2019structural}
+R.~F. Betzel, J.~D. Medaglia, A.~E. Kahn, J.~Soffer, D.~R. Schonhaut, and D.~S.
+  Bassett.
+\newblock Structural, geometric and genetic factors predict interregional brain
+  connectivity patterns probed by electrocorticography.
+\newblock \emph{Nature biomedical engineering}, 3\penalty0 (11):\penalty0
+  902--916, 2019.
+
 \bibitem[Blum et~al.(2020)Blum, Chang, Chuguransky, Grego, Kandasaamy,
   Mitchell, Nuka, Paysan-Lafosse, Qureshi, Raj, Richardson, Salazar, Williams,
   Bork, Bridge, Gough, Haft, Letunic, Marchler-Bauer, Mi, Natale, Necci,
@@ -57,6 +68,14 @@ M.~Blum, H.-Y. Chang, S.~Chuguransky, T.~Grego, S.~Kandasaamy, A.~Mitchell,
   Nov. 2020.
 \newblock \doi{10.1093/nar/gkaa977}.
 \newblock URL \url{https://doi.org/10.1093/nar/gkaa977}.
+
+\bibitem[Bohland et~al.(2010)Bohland, Bokil, Pathak, Lee, Ng, Lau, Kuan,
+  Hawrylycz, and Mitra]{bohland2010clustering}
+J.~W. Bohland, H.~Bokil, S.~D. Pathak, C.-K. Lee, L.~Ng, C.~Lau, C.~Kuan,
+  M.~Hawrylycz, and P.~P. Mitra.
+\newblock Clustering of spatial gene expression patterns in the mouse brain and
+  comparison with classical neuroanatomy.
+\newblock \emph{Methods}, 50\penalty0 (2):\penalty0 105--112, 2010.
 
 \bibitem[Carbon et~al.(2020)Carbon, Douglass, Good, Unni, Harris, Mungall,
   Basu, Chisholm, Dodson, Hartline, Fey, Thomas, Albou, Ebert, Kesling, Mi,
@@ -159,11 +178,23 @@ P.~Davis, M.~Zarowiecki, V.~Arnaboldi, A.~Becerra, S.~Cain, J.~Chan, W.~J.
   caenorhabditis elegans.
 \newblock \emph{Genetics}, 220\penalty0 (4):\penalty0 iyac003, 2022.
 
+\bibitem[Diez and Sepulcre(2018)]{diez2018neurogenetic}
+I.~Diez and J.~Sepulcre.
+\newblock Neurogenetic profiles delineate large-scale connectivity dynamics of
+  the human brain.
+\newblock \emph{Nature communications}, 9\penalty0 (1):\penalty0 1--10, 2018.
+
 \bibitem[Fakhry and Ji(2015)]{fakhry2015high}
 A.~Fakhry and S.~Ji.
 \newblock High-resolution prediction of mouse brain connectivity using gene
   expression patterns.
 \newblock \emph{Methods}, 73:\penalty0 71--78, 2015.
+
+\bibitem[Fakhry et~al.(2015)Fakhry, Zeng, Peng, and Ji]{fakhry2015global}
+A.~Fakhry, T.~Zeng, H.~Peng, and S.~Ji.
+\newblock Global analysis of gene expression and projection target correlations
+  in the mouse brain.
+\newblock \emph{Brain Informatics}, 2\penalty0 (2):\penalty0 107--117, 2015.
 
 \bibitem[Feng et~al.(2022)Feng, You, Wang, and Tassiulas]{feng2022kergnns}
 A.~Feng, C.~You, S.~Wang, and L.~Tassiulas.
@@ -191,6 +222,20 @@ A.~Fornito, A.~Zalesky, and M.~Breakspear.
 \newblock \emph{Nature Reviews Neuroscience}, 16\penalty0 (3):\penalty0
   159--172, 2015.
 
+\bibitem[Fulcher and Fornito(2016)]{fulcher2016transcriptional}
+B.~D. Fulcher and A.~Fornito.
+\newblock A transcriptional signature of hub connectivity in the mouse
+  connectome.
+\newblock \emph{Proceedings of the National Academy of Sciences}, 113\penalty0
+  (5):\penalty0 1435--1440, 2016.
+
+\bibitem[Fulcher et~al.(2021)Fulcher, Arnatkeviciute, and
+  Fornito]{fulcher2021overcoming}
+B.~D. Fulcher, A.~Arnatkeviciute, and A.~Fornito.
+\newblock Overcoming false-positive gene-category enrichment in the analysis of
+  spatially resolved transcriptomic brain atlas data.
+\newblock \emph{Nature communications}, 12\penalty0 (1):\penalty0 1--13, 2021.
+
 \bibitem[Gillis and Pavlidis(2012)]{Gillis2012}
 J.~Gillis and P.~Pavlidis.
 \newblock {\textquotedblleft}guilt by association{\textquotedblright} is the
@@ -199,6 +244,13 @@ J.~Gillis and P.~Pavlidis.
   e1002444, Mar. 2012.
 \newblock \doi{10.1371/journal.pcbi.1002444}.
 \newblock URL \url{https://doi.org/10.1371/journal.pcbi.1002444}.
+
+\bibitem[Goel et~al.(2014)Goel, Kuceyeski, LoCastro, and Raj]{goel2014spatial}
+P.~Goel, A.~Kuceyeski, E.~LoCastro, and A.~Raj.
+\newblock Spatial patterns of genome-wide expression profiles reflect anatomic
+  and fiber connectivity architecture of healthy human brain.
+\newblock \emph{Human brain mapping}, 35\penalty0 (8):\penalty0 4204--4218,
+  2014.
 
 \bibitem[Harris et~al.(2019)Harris, Mihalas, Hirokawa, Whitesell, Choi,
   Bernard, Bohn, Caldejon, Casal, Cho, et~al.]{harris2019hierarchical}
@@ -254,6 +306,14 @@ L.~A. Jeni, J.~F. Cohn, and F.~De~La~Torre.
   and Intelligent Interaction}, pages 245--251, 2013.
 \newblock \doi{10.1109/ACII.2013.47}.
 
+\bibitem[Kaufman et~al.(2006)Kaufman, Dror, Meilijson, and
+  Ruppin]{kaufman2006gene}
+A.~Kaufman, G.~Dror, I.~Meilijson, and E.~Ruppin.
+\newblock Gene expression of caenorhabditis elegans neurons carries information
+  on their synaptic connectivity.
+\newblock \emph{PLoS computational biology}, 2\penalty0 (12):\penalty0 e167,
+  2006.
+
 \bibitem[Ke et~al.(2013)Ke, Mignardi, Pacureanu, Svedlund, Botling, W{\"a}hlby,
   and Nilsson]{ke2013situ}
 R.~Ke, M.~Mignardi, A.~Pacureanu, J.~Svedlund, J.~Botling, C.~W{\"a}hlby, and
@@ -303,11 +363,6 @@ R.~Y. Lee and P.~W. Sternberg.
 \newblock Building a cell and anatomy ontology of caenorhabditis elegans.
 \newblock \emph{Comparative and Functional Genomics}, 4\penalty0 (1):\penalty0
   121--126, 2003.
-
-\bibitem[Lee and Lee(2020)]{lee2020prediction}
-T.~Lee and H.~Lee.
-\newblock Prediction of alzheimer’s disease using blood gene expression data.
-\newblock \emph{Scientific reports}, 10\penalty0 (1):\penalty0 1--13, 2020.
 
 \bibitem[Lein et~al.(2006)Lein, Hawrylycz, Ao, Ayres, Bensinger, Bernard, Boe,
   Boguski, Brockway, Byrnes, Chen, Chen, Chen, Chin, Chong, Crook, Czaplinska,
@@ -435,6 +490,14 @@ N.~Pallast, M.~Diedenhofen, S.~Blaschke, F.~Wieters, D.~Wiedermann, M.~Hoehn,
 \newblock \doi{10.3389/fninf.2019.00042}.
 \newblock URL \url{https://doi.org/10.3389/fninf.2019.00042}.
 
+\bibitem[Parkes et~al.(2017)Parkes, Fulcher, Y{\"u}cel, and
+  Fornito]{parkes2017transcriptional}
+L.~Parkes, B.~Fulcher, M.~Y{\"u}cel, and A.~Fornito.
+\newblock Transcriptional signatures of connectomic subregions of the human
+  striatum.
+\newblock \emph{Genes, Brain and Behavior}, 16\penalty0 (7):\penalty0 647--663,
+  2017.
+
 \bibitem[Partel et~al.(2020)Partel, Hilscher, Milli, Solorzano, Klemm, Nilsson,
   and W\"{a}hlby]{Partel2020}
 G.~Partel, M.~M. Hilscher, G.~Milli, L.~Solorzano, A.~H. Klemm, M.~Nilsson, and
@@ -470,17 +533,6 @@ P.~Pavlidis and W.~S. Noble.
 \newblock \doi{10.1186/gb-2001-2-10-research0042}.
 \newblock URL \url{https://doi.org/10.1186/gb-2001-2-10-research0042}.
 
-\bibitem[Prosniak et~al.(2001)Prosniak, Hooper, Dietzschold, and
-  Koprowski]{prosniak_effect_2001}
-M.~Prosniak, D.~C. Hooper, B.~Dietzschold, and H.~Koprowski.
-\newblock Effect of rabies virus infection on gene expression in mouse brain.
-\newblock \emph{Proceedings of the National Academy of Sciences}, 98\penalty0
-  (5):\penalty0 2758--2763, Feb. 2001.
-\newblock ISSN 0027-8424, 1091-6490.
-\newblock \doi{10.1073/pnas.051630298}.
-\newblock URL \url{https://www.pnas.org/content/98/5/2758}.
-\newblock Publisher: National Academy of Sciences Section: Biological Sciences.
-
 \bibitem[Ramasamy et~al.(2014)Ramasamy, Trabzuni, Guelfi, Varghese, Smith,
   Walker, De, Coin, De~Silva, Cookson, et~al.]{ramasamy2014genetic}
 A.~Ramasamy, D.~Trabzuni, S.~Guelfi, V.~Varghese, C.~Smith, R.~Walker, T.~De,
@@ -497,6 +549,16 @@ C.~H. Rankin.
 \newblock \emph{Nature Reviews Genetics}, 3\penalty0 (8):\penalty0 622--630,
   2002.
 
+\bibitem[Richiardi et~al.(2015)Richiardi, Altmann, Milazzo, Chang, Chakravarty,
+  Banaschewski, Barker, Bokde, Bromberg, B{\"u}chel,
+  et~al.]{richiardi2015correlated}
+J.~Richiardi, A.~Altmann, A.-C. Milazzo, C.~Chang, M.~M. Chakravarty,
+  T.~Banaschewski, G.~J. Barker, A.~L. Bokde, U.~Bromberg, C.~B{\"u}chel,
+  et~al.
+\newblock Correlated gene expression supports synchronous activity in brain
+  networks.
+\newblock \emph{Science}, 348\penalty0 (6240):\penalty0 1241--1244, 2015.
+
 \bibitem[Roberti et~al.(2019)Roberti, Lovino, Di~Cataldo, Ficarra, and
   Urgese]{roberti2019exploiting}
 I.~Roberti, M.~Lovino, S.~Di~Cataldo, E.~Ficarra, and G.~Urgese.
@@ -504,6 +566,22 @@ I.~Roberti, M.~Lovino, S.~Di~Cataldo, E.~Ficarra, and G.~Urgese.
   connectivity between brain regions.
 \newblock \emph{International journal of molecular sciences}, 20\penalty0
   (8):\penalty0 2035, 2019.
+
+\bibitem[Roland et~al.(1994)Roland, Graufelds, Wǎhlin, Ingelman, Andersson,
+  Ledberg, Pedersen, {\AA}kerman, Dabringhaus, and Zilles]{roland1994human}
+P.~Roland, C.~Graufelds, J.~Wǎhlin, L.~Ingelman, M.~Andersson, A.~Ledberg,
+  J.~Pedersen, S.~{\AA}kerman, A.~Dabringhaus, and K.~Zilles.
+\newblock Human brain atlas: for high-resolution functional and anatomical
+  mapping.
+\newblock \emph{Human Brain Mapping}, 1\penalty0 (3):\penalty0 173--184, 1994.
+
+\bibitem[Rubinov et~al.(2015)Rubinov, Ypma, Watson, and
+  Bullmore]{rubinov2015wiring}
+M.~Rubinov, R.~J. Ypma, C.~Watson, and E.~T. Bullmore.
+\newblock Wiring cost and topological participation of the mouse brain
+  connectome.
+\newblock \emph{Proceedings of the National Academy of Sciences}, 112\penalty0
+  (32):\penalty0 10032--10037, 2015.
 
 \bibitem[Schulte-Sasse et~al.(2021)Schulte-Sasse, Budach, Hnisz, and
   Marsico]{schulte2021integration}
@@ -590,6 +668,20 @@ S.~L. Valk, T.~Xu, D.~S. Margulies, S.~K. Masouleh, C.~Paquola, A.~Goulas,
 \newblock \doi{10.1126/sciadv.abb3417}.
 \newblock URL \url{https://www.science.org/doi/abs/10.1126/sciadv.abb3417}.
 
+\bibitem[Van~Essen et~al.(2013)Van~Essen, Smith, Barch, Behrens, Yacoub,
+  Ugurbil, Consortium, et~al.]{van2013wu}
+D.~C. Van~Essen, S.~M. Smith, D.~M. Barch, T.~E. Behrens, E.~Yacoub,
+  K.~Ugurbil, W.-M.~H. Consortium, et~al.
+\newblock The wu-minn human connectome project: an overview.
+\newblock \emph{Neuroimage}, 80:\penalty0 62--79, 2013.
+
+\bibitem[Varadan et~al.(2006)Varadan, Miller~III, and
+  Anastassiou]{varadan2006computational}
+V.~Varadan, D.~M. Miller~III, and D.~Anastassiou.
+\newblock Computational inference of the molecular logic for synaptic
+  connectivity in c. elegans.
+\newblock \emph{Bioinformatics}, 22\penalty0 (14):\penalty0 e497--e506, 2006.
+
 \bibitem[Vazquez et~al.(2003)Vazquez, Flammini, Maritan, and
   Vespignani]{Vazquez2003}
 A.~Vazquez, A.~Flammini, A.~Maritan, and A.~Vespignani.
@@ -599,6 +691,17 @@ A.~Vazquez, A.~Flammini, A.~Maritan, and A.~Vespignani.
   2003.
 \newblock \doi{10.1038/nbt825}.
 \newblock URL \url{https://doi.org/10.1038/nbt825}.
+
+\bibitem[V{\'e}rtes et~al.(2016)V{\'e}rtes, Rittman, Whitaker, Romero-Garcia,
+  V{\'a}{\v{s}}a, Kitzbichler, Wagstyl, Fonagy, Dolan, Jones,
+  et~al.]{vertes2016gene}
+P.~E. V{\'e}rtes, T.~Rittman, K.~J. Whitaker, R.~Romero-Garcia,
+  F.~V{\'a}{\v{s}}a, M.~G. Kitzbichler, K.~Wagstyl, P.~Fonagy, R.~J. Dolan,
+  P.~B. Jones, et~al.
+\newblock Gene transcription profiles associated with inter-modular hubs and
+  connection distance in human functional magnetic resonance imaging networks.
+\newblock \emph{Philosophical Transactions of the Royal Society B: Biological
+  Sciences}, 371\penalty0 (1705):\penalty0 20150362, 2016.
 
 \bibitem[Wang et~al.(2020)Wang, Ding, Li, Royall, Feng, Lesnar, Graddis,
   Naeemi, Facer, Ho, et~al.]{wang2020allen}
