@@ -146,6 +146,7 @@ General thread for introduction and motivation:
 		\item built an open framework for parametric UMAP in torch to integrate non-UMAP graphs
 	\end{itemize}
 	\item what is the outline of this script?
+	\item implementation available at Github link
 \end{itemize}
 
 \subsection*{General Introduction of the Research Study}
@@ -276,6 +277,16 @@ However, there have been multiple initiatives towards collaborative and open hum
 
 Furthermore, immense effort was put into enormous projects and databases for model invertebrates, namely \textit{Drosophila} (specifically \textit{Drosophila melanogaster}, also called \textit{fruit fly}) and \textit{Caenorhabditis elegans} (short: \textit{"C. elegans"}, colloquially also called \textit{roundworm}) with the two projects "Virtual Fly Brain" \cite{milyaev2012virtual} (\href{https://virtualflybrain.org/}{https://virtualflybrain.org/}) and "Wormbase" \cite{lee2003building, davis2022wormbase} (\href{https://wormbase.org}{https://wormbase.org}), respectively. Yet, we wanted to stay within the same taxonomic phylum leading our choice towards mouse brains.\\
 
+We further use four different graphs in our setup, which shall be described and our choice motivated in the following sections:
+\begin{enumerate}
+	\item Structure -- gene expression data and the corresponding structure ontology/hierarchy, 
+	\item Protein-protein interaction graph,
+	\item Structural connectivity and axonal projection data, and
+	\item Functional connectivity data.
+\end{enumerate}
+
+Links to all datasets and download scripts are available in the Github repository.
+
 \subsubsection{Spatial gene expression values in mice brain}
 
 The AMBA\cite{MouseBrainAtlas} is a genome-wise and comprehensive, digital 3D-map of spatial gene expression of the adult mouse central nervous system (CNS). AMBA utilizes \textit{in situ} hybridization (ISH) for expression measurement and is publicly and freely available. 
@@ -314,19 +325,22 @@ The most important supportive dataset for AMBA is the Common Coordinate Framewor
 	\label{fig:CCF_images}
 \end{figure}
 
-Expression values in AMBA are provided per structure as expression densities, intensities and energies. Let $g$ be the considered gene, $d$ the considered division or substructure, $P_{g,d}$ be the set of pixels within an ISH image and $P_{g,d,e}$ the set of expressing pixels, displaying expression of $g$ in $d$. Both $P_{g,d}$ and $P_{g,d,e}$ are given as measured expression intensities for the respective pixels. Thus, the three measurements are defined as follows:
+Expression values in AMBA are provided per structure as expression densities, intensities and energies. Let $g$ be the considered gene, $d$ the considered division or substructure, $P_{g,d}$ be the set of pixels within an ISH image and $P_{g,d,e}$ the set of expressing pixels, displaying expression of $g$ in $d$. Both $P_{g,d}$ and $P_{g,d,e}$ are given as measured expression intensities for the respective pixels. Thus, the three measurements are defined as shown in Table \ref{tab:expr_values}.
 
-{\renewcommand{\arraystretch}{3}
-\begin{tabular}{llp{8cm}}
-	Metric name&Formula&Description\\
-	\hline
-	Expression density&$E_d:=\frac{|P_{g,d,e}|}{|P_{g,d}|}$&sum of expressing pixels / sum of all pixels in division\\
-	Expression intensity&$E_i:=\frac{\sum_{p_e\in P_{g,d,e}} p_e}{|P_{g,d,e}|}$&sum of expressing pixel intensity / sum of expressing pixels\\
-	Expression energy&$E_i:=\frac{\sum_{p_e\in P_{g,d,e}} p_e}{|P_{g,d}|}$&sum of expressing pixel intensity / sum of all pixels in division\\
-\end{tabular}
-}
+\begin{table}
+	\renewcommand{\arraystretch}{3}
+	\begin{tabular}{llp{8cm}}
+		Metric name&Formula&Description\\
+		\hline
+		Expression density&$E_d:=\frac{|P_{g,d,e}|}{|P_{g,d}|}$&sum of expressing pixels / sum of all pixels in division\\
+		Expression intensity&$E_i:=\frac{\sum_{p_e\in P_{g,d,e}} p_e}{|P_{g,d,e}|}$&sum of expressing pixel intensity / sum of expressing pixels\\
+		Expression energy&$E_i:=\frac{\sum_{p_e\in P_{g,d,e}} p_e}{|P_{g,d}|}$&sum of expressing pixel intensity / sum of all pixels in division\\
+	\end{tabular}
+	\label{tab:expr_values}
+	\caption{Formulas and descriptions for the calculation of the three expression values provided by AMBA. The respective descriptions are provided by the official \href{http://help.brain-map.org/download/attachments/2818169/InformaticsDataProcessing.pdf?version=1&modificationDate=1319667590884&api=v2}{Allen Mouse Brain Documentation}, which we note as a reference for further information on these metrics.}
+\end{table}
 
-The respective description is provided by the official \href{http://help.brain-map.org/download/attachments/2818169/InformaticsDataProcessing.pdf?version=1&modificationDate=1319667590884&api=v2}{Allen Mouse Brain Documentation}, which we note as a reference for further information on these metrics. As expression energy provides an in-division normalization within itself, is invariant to structure size and is dependent on the actually measured intensities, it appears to be the natural choice. It was further used by all previously mentioned studies over AMBA as ground-truth; we will hence do likewise, and thus use expression value and expression energy interchangeably.
+ As expression energy provides an in-division normalization within itself, is invariant to structure size and is dependent on the actually measured intensities, it appears to be the natural choice. It was further used by all previously mentioned studies over AMBA as ground-truth; we will hence do likewise, and thus use expression value and expression energy interchangeably.
 
 We perform a gene-set enrichment analysis (GSEA) on the expression values. GSEA is a method facilitating recognition of classes that are expressed frequently, and thus may be over-represented in the expression data. We hereby follow the works of \citet{subramanian2007gsea} and \citet{kuleshov2016enrichr} for this purpose, and integrate them into our preprocessing pipeline.
 
@@ -393,37 +407,31 @@ Especially for our binary classification task of gene expression prediction (see
 
 \subsubsection{Protein-protein interaction graph}
 As shortly sketched in the introduction (see Section \ref{sec:introduction}), we want to apply graph convolutional neural networks over protein-protein interaction (PPI) graphs and identify patterns within. However, there are numerous databases for PPI graphs publicly and freely available.
-Common sources are CPDB\cite{lo2009cpdb}, iRefIndex\cite{razick2008irefindex}, MultiNet\cite{sengupta2023multinet} and STRING\cite{STRINGv10}. Due to our experience with the database and its success in other related tasks \cite{schulte2021integration, wang2021mogonet, hinnerichs2021dti}, we will use STRING (Version 10) as ground truth data. As STRING provide probabilities and hence confidence scores for each interaction, we re-use the recommended threshold of $0.7$ in order to retrieve only high-confidence interactions. STRING database contains $300000$ interactions between over $20000$ genes gathered from other databases and literature for \textit{Mus musculus}. An example interaction graph for \textit{Kdm7a}, an histone demethylase required for brain development, is shown in Figure \ref{fig:PPI_graph}.
+Common sources are CPDB\cite{lo2009cpdb}, iRefIndex\cite{razick2008irefindex}, MultiNet\cite{sengupta2023multinet} and STRING\cite{STRINGv10}. Due to our experience with the database and its success in other related tasks \cite{schulte2021integration, wang2021mogonet, hinnerichs2021dti}, we will use STRING (Version 10) as ground truth data. As STRING provide probabilities and hence confidence scores for each interaction, we re-use the recommended threshold of $0.7$ in order to retrieve only high-confidence interactions. STRING database contains $300000$ interactions between over $20000$ genes gathered from other databases and literature for \textit{Mus musculus}. An example interaction graph for \textit{Kdm7a}, an histone demethylase required for brain development, and its interactors is shown in Figure \ref{fig:PPI_graph}.
 
 \begin{figure}
 	\centering
 	\includegraphics[width=1.\linewidth]{figures/string_hires_image.png}
-	\caption{Protein-protein interaction graph for \textit{Kdm7a}, an histone demethylase required for brain development, that is closely related to e.g. \textit{Hist2h3c2}, a protein playing central role in transcription regulation and thus proliferation activity indicating e.g. malign tumors}
+	\caption{Protein-protein interaction graph for \textit{Kdm7a}, an histone demethylase required for brain development, that is closely related to e.g. \textit{Hist2h3c2}, a protein playing central role in transcription regulation and thus proliferation activity indicating e.g. malign tumors. For more information about \textit{Kdm7a} and the used color encoding for vertices and edges, please see \href{https://string-db.org/network/10090.ENSMUSP00000002305}{string-db.org/10090.ENSMUSP00000002305}}
 	\label{fig:PPI_graph}
 \end{figure}
 
-\subsubsection{Structural and functional connectivity databases}
+\subsubsection{Structural connectome data}
 
+We chose the AMBA partly with respect to its neat integration with the Allen Mouse Brain Connectivity Atlas (AMBCA)\cite{oh2014mesoscale}, published by the Allen institute, as a publicly available source for axonal connectivity data. The Allen Mouse Brain Connectivity Atlas is a high-resolution map of neuronal connections in the adult mouse brain, obtained from EGFP-expressing (enhanced green fluorescent protein) vectors following structural connections. As with AMBA, AMBCA tracing images were mapped back to 3D reference space using the CCF(v3) coordinates. Likewise, we are again able to group voxels to structures, parcelating the mouse brain and organized by the CCF ontology. All data was downloaded over the AllenSDK API. 
+
+\subsubsection{Functional connectivity}
+\begin{itemize}
+	
+	\item Where is data coming from? \cite{AIDAmri2019} (AIDAmri)
+	\item How to calculate functional connectivity matrix $\rightarrow$ AIDAconnect (no paper yet? cite dataset?
+	\item How to combine functional connectivity for multiple samples? 
+\end{itemize}
 
 \subsection*{in-depth description of the study design/datasets used and motivation why they were used for these experiments}
 \subsection*{Explanation of Sample used in the study}
-\begin{itemize}
-
-	\item how many positives, samples, individuals
-
-	\begin{itemize}
-		\item over all intensities $\rightarrow$
-		\item per structure $\rightarrow$  
-		\item per gene $\rightarrow$ 
-		
-	\end{itemize}
-
-	\item experimental setup from Allen Institute for axonal projection data
-	\item paraphrase description of \glqq Technical tour: Explore the Allen Mouse Brain Connectivity Atlas\grqq{}
-\end{itemize}
 
 \begin{itemize}
-	\item why were these datasets used and not others?ss
 	\item How did we achieve the matching?
 	\item what are premises of the dataset?
 	
@@ -437,9 +445,6 @@ Common sources are CPDB\cite{lo2009cpdb}, iRefIndex\cite{razick2008irefindex}, M
 		\item \href{http://www.informatics.jax.org/expression.shtml}{HPO/MP project expression data}
 	\end{itemize}
 	\item Mouse brain CCFv3
-	\item Where is data coming from? \cite{AIDAmri2019} (AIDAmri)
-	\item How to calculate functional connectivity matrix $\rightarrow$ AIDAconnect (no paper yet? cite dataset?
-	\item How to combine functional connectivity for multiple samples? 
 \end{itemize}
 
 Four graphs were used in this study:
