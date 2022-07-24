@@ -3,11 +3,12 @@
 \usepackage{babel}
 \usepackage{hyperref}
 \usepackage{mwe}
-\usepackage[markcase=noupper
-]{scrlayer-scrpage}
+\usepackage[markcase=noupper]{scrlayer-scrpage}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{multirow}
+\usepackage{subcaption}
+\usepackage{rotating}
 
 % bibliography natbib
 \usepackage{natbib}
@@ -275,34 +276,131 @@ However, there have been multiple initiatives towards collaborative and open hum
 
 Furthermore, immense effort was put into enormous projects and databases for model invertebrates, namely \textit{Drosophila} (specifically \textit{Drosophila melanogaster}, also called \textit{fruit fly}) and \textit{Caenorhabditis elegans} (short: \textit{"C. elegans"}, colloquially also called \textit{roundworm}) with the two projects "Virtual Fly Brain" \cite{milyaev2012virtual} (\href{https://virtualflybrain.org/}{https://virtualflybrain.org/}) and "Wormbase" \cite{lee2003building, davis2022wormbase} (\href{https://wormbase.org}{https://wormbase.org}), respectively. Yet, we wanted to stay within the same taxonomic phylum leading our choice towards mouse brains.\\
 
-The AMBA  
-
-In literature there are several approaches, compromising sequencing depth, accuracy, throughput and spatial resolution. Generally, one can identify two classes of gene expression measurement while preserving spatial information. The first approach is to store spacial coordinates first, followed by a the sequencing of single-cell RNA where \citet{achim2015high} and \citet{chen2017spatial} propose the mapping and the Geo-seq protocol for this method. The second method includes the usage of "barcodes", decoded in the tissue sample, while running a parallel analysis of numerous mRNAs \cite{ke2013situ, moffitt2016high}. Samples are collected from multiple individuals.
-
-
 \subsubsection{Spatial gene expression values in mice brain}
-\begin{itemize}
-	\item include average brain and annotation brain for parcelation
-	\item copy introduction from graph-iss
-	\item why AMBA? How many individuals? (in comparison to Human Brain Atlas)
-	\item overview on dataset: 
-	\begin{itemize}
-		\item how many datapoints?
-		\item show distribution (histo, mean, median, boxplot?) of expression densities see `get\_ge\_structure\_mat`
-		\item how many genes and structures?
-	\end{itemize}
-	
-	\item expression density vs. expression energy vs. (third one) and why did we choose energy? -> relate to normalization 
-	\item how to normalize expression intensity (see discussion in DeepMOCCA paper, Sara Alghamdi), as there are regions with much more activity than others (e.g. bone narrow vs. bone boarder); thresholds for intensity varies across genes
-	
-	\item add section on gene set enrichment analysis (GSEA) -> is AMBA doing this already? If not, cite some pipeline 
-\end{itemize}
 
-Protein-protein interaction graph:
-\begin{itemize}
-	\item CPDB78, STRING-db79, IRefIndex80, Multinet81 and PCNet82
-	\item STRING\cite{STRINGv10} for mice (how did we choose the interactions (threshold))
-\end{itemize}
+The AMBA\cite{MouseBrainAtlas} is a genome-wise and comprehensive, digital 3D-map of spatial gene expression of the adult mouse central nervous system (CNS). AMBA utilizes \textit{in situ} hybridization (ISH) for expression measurement and is publicly and freely available. 
+In literature there are several approaches, compromising sequencing depth, accuracy, throughput and spatial resolution. Generally, one can identify two classes of gene expression measurement while preserving spatial information. The first approach is to store spacial coordinates first, followed by a the sequencing of single-cell RNA where \citet{achim2015high} and \citet{chen2017spatial} propose the mapping and the Geo-seq protocol for this method. The second method includes the usage of "barcodes", decoded in the tissue sample, while running a parallel analysis of numerous mRNAs \cite{ke2013situ, moffitt2016high}. Here, AMBA and \citet{Partel2020}'s dataset are constructed using the first and the latter method, respectively. Sample extraction is very invasive and hence samples are collected from multiple individuals. Please see \citet{ng2007neuroinformatics} for more information and an overview on applied 3D reconstruction and registration of ISH images.\\
+
+In AMBA over $17000$ genes were measured in voxels in resolutions of $10\mu m$, $25\mu m$, $50\mu m$ or $100\mu m$. An "average brain", i.e. averaging expression intensities of each voxel among all genes, is shown in Figure \ref{fig:average_cor} and \ref{fig:average_sag} as coronal and sagittal cross-sections.
+The most important supportive dataset for AMBA is the Common Coordinate Framework Version 3 (CCFv3)\cite{wang2020allen} structuring  and mapping all brain voxels into identifiable sub-structures, based on their morphology. Unfortunately, functional connectivity (FC) measurement is often measured with respect to regions-of-interest (ROIs) that may coincide with these structures. Therefore, full brain FC datasets on voxel level may not be publicly available in the same resolution. Hence, for a full integration of all datasets, we will use the CCFv3 grouped voxel for structures, thus redefining all three problem descriptions from voxel to structure level, i.e. a set of voxels. A visualization of these structures based on the CCFv3 annotation volume is depicted in Figure \ref{fig:ano_cor} and \ref{fig:ano_sag}.\\
+
+
+\begin{figure}
+	\begin{subfigure}{.43\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{figures/avgt_coronal.png}
+		\caption{Average coronal}
+		\label{fig:average_cor}
+	\end{subfigure}
+	\begin{subfigure}{.3\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth, angle=270]{figures/avgt_sagittal.png}
+		\caption{Average sagittal}
+		\label{fig:average_sag}
+	\end{subfigure}\\
+	\begin{subfigure}{.43\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{figures/ano_coronal.png}
+		\caption{Annotation coronal}
+		\label{fig:ano_cor}
+	\end{subfigure}	
+	\begin{subfigure}{.3\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth, angle=270]{figures/ano_sagittal.png}
+		\caption{Annotation sagittal}
+		\label{fig:ano_sag}
+	\end{subfigure}
+	\caption{(a)-(b): Coronal and sagittal view on the "average brain", an averaged map of all gene expression values gathered from AMBA; (c)-(d): Coronal and sagittal view on the annotation atlas, partitioning the reference brain into $\approx900$ sub-structures.}
+	\label{fig:CCF_images}
+\end{figure}
+
+Expression values in AMBA are provided per structure as expression densities, intensities and energies. Let $g$ be the considered gene, $d$ the considered division or substructure, $P_{g,d}$ be the set of pixels within an ISH image and $P_{g,d,e}$ the set of expressing pixels, displaying expression of $g$ in $d$. Both $P_{g,d}$ and $P_{g,d,e}$ are given as measured expression intensities for the respective pixels. Thus, the three measurements are defined as follows:
+
+{\renewcommand{\arraystretch}{3}
+\begin{tabular}{llp{8cm}}
+	Metric name&Formula&Description\\
+	\hline
+	Expression density&$E_d:=\frac{|P_{g,d,e}|}{|P_{g,d}|}$&sum of expressing pixels / sum of all pixels in division\\
+	Expression intensity&$E_i:=\frac{\sum_{p_e\in P_{g,d,e}} p_e}{|P_{g,d,e}|}$&sum of expressing pixel intensity / sum of expressing pixels\\
+	Expression energy&$E_i:=\frac{\sum_{p_e\in P_{g,d,e}} p_e}{|P_{g,d}|}$&sum of expressing pixel intensity / sum of all pixels in division\\
+\end{tabular}
+}
+
+The respective description is provided by the official \href{http://help.brain-map.org/download/attachments/2818169/InformaticsDataProcessing.pdf?version=1&modificationDate=1319667590884&api=v2}{Allen Mouse Brain Documentation}, which we note as a reference for further information on these metrics. As expression energy provides an in-division normalization within itself, is invariant to structure size and is dependent on the actually measured intensities, it appears to be the natural choice. It was further used by all previously mentioned studies over AMBA as ground-truth; we will hence do likewise, and thus use expression value and expression energy interchangeably.
+
+We perform a gene-set enrichment analysis (GSEA) on the expression values. GSEA is a method facilitating recognition of classes that are expressed frequently, and thus may be over-represented in the expression data. We hereby follow the works of \citet{subramanian2007gsea} and \citet{kuleshov2016enrichr} for this purpose, and integrate them into our preprocessing pipeline.
+
+With $S$ the set of structures and $G$ the set of genes, we are now able to construct a matrix $M_{GE}\in \mathbb{R}^{S\times G}$. For simplicity, we will only consider structures with at least one non-zero gene expression value and genes that have a non-zero expression energy in at least one structure. This leaves us with $|S|=843$ structures and $|G|=16679$ genes. Note further, that the measured pixel-wise intensities are not normalized and hence the matrix entries, i.e. expression energies, may not be within the interval $[0,1]$. Hence, we will first normalize the matrix. 
+However, the briefly put process of normalization remains non-trivial, not within its computational complexity, but within its neuro-biological implications and constraints. More specifically, there may be "effective" and "ineffective" genes. "Effective genes" may have a high impact on other downstream processes with even a few low expression intensities on one side, while "ineffective" genes have low impact albeit high expression intensities and high spread among the considered substructure. Summing up, the expression entries in $M_{GE}$ may not be proportional for its actual importance. 
+
+An example may be genes describing and piloting cell proliferation. As cell division is naturally lowered in brains, in comparison to e.g. bone marrow, due to the density of neural cells, those genes may not be expressed as much. A significant increase of such may hence indicate functional deviant purpose or even pathological, i.e. cancerous, tissues, but works on low expression levels thus representing an "effective" gene. On the other hand, genes managing nutritional supply, may be highly expressed in all cells at all times, over-ruling the above "effective gene" in its expression intensities, thus constituting an "ineffective" gene.
+
+Thus, there exist three different normalization schemes for this matrix: 
+\begin{enumerate}
+	\item A global normalization by dividing all matrix values by its global maximum, 
+	\item a row-wise or per-structure normalization scheme, and
+	\item a column-wise or per-gene normalization.
+\end{enumerate}
+
+While the global normalization remains the most common, it potentially leads to even lower values for "effective" and preserves over-represented and exaggerated expression energies for "ineffective" genes.
+Further per-structure, i.e. row-wise, normalization allows for highlighting of expression values that are significantly lower or higher among a single structure. Unfortunately, a row-wise normalization scheme will not break the above bias, but migrates the issue from the global to a structure-level scale. The third normalization scheme helps us to identify values associated with a specific gene, which are highly expressed, significantly lower or higher among the samples, i.e. \textit{relative} expression intensities. This scheme helps us solving the issue of invariance to effectiveness of genes and allows for a fair representation of the transcriptome. The overall distribution of all all normalization schemes are depicted in Figure \ref{fig:global_hist} to \ref{fig:col_perc}.\\
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{.35\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{plotted_figures/global_normal_ge_data_histo.png}
+		\caption{Histogram, globally norm}
+		\label{fig:global_hist}
+	\end{subfigure}
+	\begin{subfigure}{.35\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{plotted_figures/global_percent_ge_data_histo.png}
+		\caption{Bin shares, globally norm}
+		\label{fig:global_perc}
+	\end{subfigure}\\
+	\begin{subfigure}{.35\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{plotted_figures/row_normal_ge_data_histo.png}
+		\caption{Histogram, row-wise norm}
+		\label{fig:row_hist}
+	\end{subfigure}
+	\begin{subfigure}{.35\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{plotted_figures/row_percent_ge_data_histo.png}
+		\caption{Bin shares, row-wise norm}
+		\label{fig:row_perc}
+	\end{subfigure}\\
+	\begin{subfigure}{.35\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{plotted_figures/column_normal_ge_data_histo.png}
+		\caption{Histogram, column-wise norm}
+		\label{fig:col_hist}
+	\end{subfigure}
+	\begin{subfigure}{.35\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{plotted_figures/column_percent_ge_data_histo.png}
+		\caption{Bin shares, column-wise norm}
+		\label{fig:col_perc}
+	\end{subfigure}\\
+	\caption{$|S|=843$, $|G|=16679$}
+	\label{fig:ge_hists}
+\end{figure}
+
+\todo{Edit figure caption}
+
+Especially for our binary classification task of gene expression prediction (see Section \ref{sec:probdesc_geneexp}), we need mapping of those entries to $\{0,1\}$. Moreover, neural networks prefer inputs in the interval $[0,1]$ as we want to use $M_{GE}$ as input for the problems described in Sections \ref{sec:probdesc_dimpres} and \ref{sec:probdesc_connpred}. Thus, we threshold the resulting normalized expression energies, by applying a fixed cut-off threshold $t\in[0,1]$. We experiment with various expression thresholds as described in results Section \ref{sec:results}.
+
+\subsubsection{Protein-protein interaction graph}
+As shortly sketched in the introduction (see Section \ref{sec:introduction}), we want to apply graph convolutional neural networks over protein-protein interaction (PPI) graphs and identify patterns within. However, there are numerous databases for PPI graphs publicly and freely available.
+Common sources are CPDB\cite{lo2009cpdb}, iRefIndex\cite{razick2008irefindex}, MultiNet\cite{sengupta2023multinet} and STRING\cite{STRINGv10}. Due to our experience with the database and its success in other related tasks \cite{schulte2021integration, wang2021mogonet, hinnerichs2021dti}, we will use STRING (Version 10) as ground truth data. As STRING provide probabilities and hence confidence scores for each interaction, we re-use the recommended threshold of $0.7$ in order to retrieve only high-confidence interactions. STRING database contains $300000$ interactions between over $20000$ genes gathered from other databases and literature for \textit{Mus musculus}. An example interaction graph for \textit{Kdm7a}, an histone demethylase required for brain development, is shown in Figure \ref{fig:PPI_graph}.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=1.\linewidth]{figures/string_hires_image.png}
+	\caption{Protein-protein interaction graph for \textit{Kdm7a}, an histone demethylase required for brain development, that is closely related to e.g. \textit{Hist2h3c2}, a protein playing central role in transcription regulation and thus proliferation activity indicating e.g. malign tumors}
+	\label{fig:PPI_graph}
+\end{figure}
 
 \subsubsection{Structural and functional connectivity databases}
 

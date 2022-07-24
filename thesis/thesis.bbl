@@ -1,4 +1,4 @@
-\begin{thebibliography}{84}
+\begin{thebibliography}{90}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -342,6 +342,15 @@ T.~N. Kipf and M.~Welling.
 \newblock \emph{CoRR}, abs/1609.02907, 2016.
 \newblock URL \url{http://arxiv.org/abs/1609.02907}.
 
+\bibitem[Kuleshov et~al.(2016)Kuleshov, Jones, Rouillard, Fernandez, Duan,
+  Wang, Koplev, Jenkins, Jagodnik, Lachmann, et~al.]{kuleshov2016enrichr}
+M.~V. Kuleshov, M.~R. Jones, A.~D. Rouillard, N.~F. Fernandez, Q.~Duan,
+  Z.~Wang, S.~Koplev, S.~L. Jenkins, K.~M. Jagodnik, A.~Lachmann, et~al.
+\newblock Enrichr: a comprehensive gene set enrichment analysis web server 2016
+  update.
+\newblock \emph{Nucleic acids research}, 44\penalty0 (W1):\penalty0 W90--W97,
+  2016.
+
 \bibitem[Kulmanov and Hoehndorf(2019)]{DeepGoPlus}
 M.~Kulmanov and R.~Hoehndorf.
 \newblock {DeepGOPlus: improved protein function prediction from sequence}.
@@ -428,6 +437,12 @@ R.~Liaw, E.~Liang, R.~Nishihara, P.~Moritz, J.~E. Gonzalez, and I.~Stoica.
 \newblock Tune: A research platform for distributed model selection and
   training, 2018.
 
+\bibitem[Lo et~al.(2009)Lo, Lee, Lee, and Lyu]{lo2009cpdb}
+W.-C. Lo, C.-C. Lee, C.-Y. Lee, and P.-C. Lyu.
+\newblock Cpdb: a database of circular permutation in proteins.
+\newblock \emph{Nucleic acids research}, 37\penalty0 (suppl\_1):\penalty0
+  D328--D332, 2009.
+
 \bibitem[Mikolov et~al.(2013)Mikolov, Sutskever, Chen, Corrado, and
   Dean]{Word2vec2013}
 T.~Mikolov, I.~Sutskever, K.~Chen, G.~Corrado, and J.~Dean.
@@ -459,6 +474,15 @@ J.~R. Moffitt, J.~Hao, G.~Wang, K.~H. Chen, H.~P. Babcock, and X.~Zhuang.
   multiplexed error-robust fluorescence in situ hybridization.
 \newblock \emph{Proceedings of the National Academy of Sciences}, 113\penalty0
   (39):\penalty0 11046--11051, 2016.
+
+\bibitem[Ng et~al.(2007)Ng, Pathak, Kuan, Lau, Dong, Sodt, Dang, Avants,
+  Yushkevich, Gee, et~al.]{ng2007neuroinformatics}
+L.~Ng, S.~Pathak, C.~Kuan, C.~Lau, H.-w. Dong, A.~Sodt, C.~Dang, B.~Avants,
+  P.~Yushkevich, J.~Gee, et~al.
+\newblock Neuroinformatics for genome-wide 3-d gene expression mapping in the
+  mouse brain.
+\newblock \emph{IEEE/ACM Transactions on Computational Biology and
+  Bioinformatics}, 4\penalty0 (3):\penalty0 382--393, 2007.
 
 \bibitem[Noble(2006)]{noble2006support}
 W.~S. Noble.
@@ -549,6 +573,13 @@ C.~H. Rankin.
 \newblock \emph{Nature Reviews Genetics}, 3\penalty0 (8):\penalty0 622--630,
   2002.
 
+\bibitem[Razick et~al.(2008)Razick, Magklaras, and
+  Donaldson]{razick2008irefindex}
+S.~Razick, G.~Magklaras, and I.~M. Donaldson.
+\newblock irefindex: a consolidated protein interaction database with
+  provenance.
+\newblock \emph{BMC bioinformatics}, 9\penalty0 (1):\penalty0 1--19, 2008.
+
 \bibitem[Richiardi et~al.(2015)Richiardi, Altmann, Milazzo, Chang, Chakravarty,
   Banaschewski, Barker, Bokde, Bromberg, B{\"u}chel,
   et~al.]{richiardi2015correlated}
@@ -591,6 +622,14 @@ R.~Schulte-Sasse, S.~Budach, D.~Hnisz, and A.~Marsico.
 \newblock \emph{Nature Machine Intelligence}, 3\penalty0 (6):\penalty0
   513--526, 2021.
 
+\bibitem[Sengupta et~al.(2023)Sengupta, Gambin, Basu, and
+  Plewczynski]{sengupta2023multinet}
+K.~Sengupta, A.~Gambin, S.~Basu, and D.~Plewczynski.
+\newblock Multinet: A diffusion-based approach to assign directionality in
+  protein interactions using a consensus of eight protein interaction datasets.
+\newblock In \emph{Proceedings of International Conference on Frontiers in
+  Computing and Systems}, pages 13--20. Springer, 2023.
+
 \bibitem[Smith and Eppig(2009)]{MP2009}
 C.~L. Smith and J.~T. Eppig.
 \newblock The mammalian phenotype ontology: enabling robust annotation and
@@ -599,6 +638,12 @@ C.~L. Smith and J.~T. Eppig.
   1\penalty0 (3):\penalty0 390--399, Nov. 2009.
 \newblock \doi{10.1002/wsbm.44}.
 \newblock URL \url{https://doi.org/10.1002/wsbm.44}.
+
+\bibitem[Subramanian et~al.(2007)Subramanian, Kuehn, Gould, Tamayo, and
+  Mesirov]{subramanian2007gsea}
+A.~Subramanian, H.~Kuehn, J.~Gould, P.~Tamayo, and J.~P. Mesirov.
+\newblock Gsea-p: a desktop application for gene set enrichment analysis.
+\newblock \emph{Bioinformatics}, 23\penalty0 (23):\penalty0 3251--3253, 2007.
 
 \bibitem[Sun and Hobert(2021)]{sun2021temporal}
 H.~Sun and O.~Hobert.
