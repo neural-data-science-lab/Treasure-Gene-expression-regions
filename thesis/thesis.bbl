@@ -1,4 +1,4 @@
-\begin{thebibliography}{90}
+\begin{thebibliography}{106}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -13,6 +13,11 @@ K.~Achim, J.-B. Pettit, L.~R. Saraiva, D.~Gavriouchkina, T.~Larsson, D.~Arendt,
   of origin.
 \newblock \emph{Nature biotechnology}, 33\penalty0 (5):\penalty0 503--509,
   2015.
+
+\bibitem[Angrist and Pischke(2009)]{angrist2009mostly}
+J.~D. Angrist and J.-S. Pischke.
+\newblock \emph{Mostly harmless econometrics: An empiricist's companion}.
+\newblock Princeton university press, 2009.
 
 \bibitem[Arnatkevic̆i{\=u}t{\.e} et~al.(2018)Arnatkevic̆i{\=u}t{\.e},
   Fulcher, Pocock, and Fornito]{arnatkevic̆iute2018hub}
@@ -42,6 +47,15 @@ M.~Ashburner, C.~A. Ball, J.~A. Blake, D.~Botstein, H.~Butler, J.~M. Cherry,
 \newblock \emph{Nature Genetics}, 25\penalty0 (1):\penalty0 25--29, May 2000.
 \newblock \doi{10.1038/75556}.
 \newblock URL \url{https://doi.org/10.1038/75556}.
+
+\bibitem[Bauer et~al.(2018)Bauer, Kraft, Baxter, Wright, Reisman, Bice, Park,
+  Bruchas, Snyder, Lee, et~al.]{bauer2018effective}
+A.~Q. Bauer, A.~W. Kraft, G.~A. Baxter, P.~W. Wright, M.~D. Reisman, A.~R.
+  Bice, J.~J. Park, M.~R. Bruchas, A.~Z. Snyder, J.-M. Lee, et~al.
+\newblock Effective connectivity measured using optogenetically evoked
+  hemodynamic signals exhibits topography distinct from resting state
+  functional connectivity in the mouse.
+\newblock \emph{Cerebral Cortex}, 28\penalty0 (1):\penalty0 370--386, 2018.
 
 \bibitem[Betzel et~al.(2019)Betzel, Medaglia, Kahn, Soffer, Schonhaut, and
   Bassett]{betzel2019structural}
@@ -162,6 +176,12 @@ M.~D. Chikina, C.~Huttenhower, C.~T. Murphy, and O.~G. Troyanskaya.
 \newblock \emph{PLoS computational biology}, 5\penalty0 (6):\penalty0 e1000417,
   2009.
 
+\bibitem[Chorowski et~al.(2015)Chorowski, Bahdanau, Serdyuk, Cho, and
+  Bengio]{chorowski2015attention}
+J.~K. Chorowski, D.~Bahdanau, D.~Serdyuk, K.~Cho, and Y.~Bengio.
+\newblock Attention-based models for speech recognition.
+\newblock \emph{Advances in neural information processing systems}, 28, 2015.
+
 \bibitem[Daigle et~al.(2018)Daigle, Madisen, Hage, Valley, Knoblich, Larsen,
   Takeno, Huang, Gu, Larsen, et~al.]{daigle2018suite}
 T.~L. Daigle, L.~Madisen, T.~A. Hage, M.~T. Valley, U.~Knoblich, R.~S. Larsen,
@@ -222,6 +242,44 @@ A.~Fornito, A.~Zalesky, and M.~Breakspear.
 \newblock \emph{Nature Reviews Neuroscience}, 16\penalty0 (3):\penalty0
   159--172, 2015.
 
+\bibitem[Friston and B{\"u}chel(2000)]{friston2000attentional}
+K.~Friston and C.~B{\"u}chel.
+\newblock Attentional modulation of effective connectivity from v2 to v5/mt in
+  humans.
+\newblock \emph{Proceedings of the National Academy of Sciences}, 97\penalty0
+  (13):\penalty0 7591--7596, 2000.
+
+\bibitem[Friston(1994)]{friston1994functional}
+K.~J. Friston.
+\newblock Functional and effective connectivity in neuroimaging: a synthesis.
+\newblock \emph{Human brain mapping}, 2\penalty0 (1-2):\penalty0 56--78, 1994.
+
+\bibitem[Friston(2002)]{friston2002dysfunctional}
+K.~J. Friston.
+\newblock Dysfunctional connectivity in schizophrenia.
+\newblock \emph{World Psychiatry}, 1\penalty0 (2):\penalty0 66, 2002.
+
+\bibitem[Friston(2011)]{friston2011functional}
+K.~J. Friston.
+\newblock Functional and effective connectivity: a review.
+\newblock \emph{Brain connectivity}, 1\penalty0 (1):\penalty0 13--36, 2011.
+
+\bibitem[Friston et~al.(1993)Friston, Frith, Liddle, and
+  Frackowiak]{friston1993functional}
+K.~J. Friston, C.~D. Frith, P.~F. Liddle, and R.~S. Frackowiak.
+\newblock Functional connectivity: the principal-component analysis of large
+  (pet) data sets.
+\newblock \emph{Journal of Cerebral Blood Flow \& Metabolism}, 13\penalty0
+  (1):\penalty0 5--14, 1993.
+
+\bibitem[Friston et~al.(1994)Friston, Holmes, Worsley, Poline, Frith, and
+  Frackowiak]{friston1994statistical}
+K.~J. Friston, A.~P. Holmes, K.~J. Worsley, J.-P. Poline, C.~D. Frith, and
+  R.~S. Frackowiak.
+\newblock Statistical parametric maps in functional imaging: a general linear
+  approach.
+\newblock \emph{Human brain mapping}, 2\penalty0 (4):\penalty0 189--210, 1994.
+
 \bibitem[Fulcher and Fornito(2016)]{fulcher2016transcriptional}
 B.~D. Fulcher and A.~Fornito.
 \newblock A transcriptional signature of hub connectivity in the mouse
@@ -251,6 +309,17 @@ P.~Goel, A.~Kuceyeski, E.~LoCastro, and A.~Raj.
   and fiber connectivity architecture of healthy human brain.
 \newblock \emph{Human brain mapping}, 35\penalty0 (8):\penalty0 4204--4218,
   2014.
+
+\bibitem[Hamida et~al.(2018)Hamida, Mendon{\c{c}}a-Netto, Arefin, Nasseef,
+  Boulos, McNicholas, Ehrlich, Clarke, Moquin, Gratton,
+  et~al.]{hamida2018increased}
+S.~B. Hamida, S.~Mendon{\c{c}}a-Netto, T.~M. Arefin, M.~T. Nasseef, L.-J.
+  Boulos, M.~McNicholas, A.~T. Ehrlich, E.~Clarke, L.~Moquin, A.~Gratton,
+  et~al.
+\newblock Increased alcohol seeking in mice lacking gpr88 involves
+  dysfunctional mesocorticolimbic networks.
+\newblock \emph{Biological psychiatry}, 84\penalty0 (3):\penalty0 202--212,
+  2018.
 
 \bibitem[Harris et~al.(2019)Harris, Mihalas, Hirokawa, Whitesell, Choi,
   Bernard, Bohn, Caldejon, Casal, Cho, et~al.]{harris2019hierarchical}
@@ -411,6 +480,13 @@ E.~S. Lein, M.~J. Hawrylycz, N.~Ao, M.~Ayres, A.~Bensinger, A.~Bernard, A.~F.
 \newblock \doi{10.1038/nature05453}.
 \newblock URL \url{https://doi.org/10.1038/nature05453}.
 
+\bibitem[Lepper{\o}d et~al.(2018)Lepper{\o}d, St{\"o}ber, Hafting, Fyhn, and
+  Kording]{lepperod2018inferring}
+M.~E. Lepper{\o}d, T.~St{\"o}ber, T.~Hafting, M.~Fyhn, and K.~P. Kording.
+\newblock Inferring causal connectivity from pairwise recordings and
+  optogenetics.
+\newblock \emph{bioRxiv}, page 463760, 2018.
+
 \bibitem[Li et~al.(2019)Li, Müller, Thabet, and Ghanem]{DeepGCN2019}
 G.~Li, M.~Müller, A.~Thabet, and B.~Ghanem.
 \newblock Deepgcns: Can gcns go as deep as cnns?
@@ -475,6 +551,12 @@ J.~R. Moffitt, J.~Hao, G.~Wang, K.~H. Chen, H.~P. Babcock, and X.~Zhuang.
 \newblock \emph{Proceedings of the National Academy of Sciences}, 113\penalty0
   (39):\penalty0 11046--11051, 2016.
 
+\bibitem[Mungall et~al.(2012)Mungall, Torniai, Gkoutos, Lewis, and
+  Haendel]{mungall2012uberon}
+C.~J. Mungall, C.~Torniai, G.~V. Gkoutos, S.~E. Lewis, and M.~A. Haendel.
+\newblock Uberon, an integrative multi-species anatomy ontology.
+\newblock \emph{Genome biology}, 13\penalty0 (1):\penalty0 1--20, 2012.
+
 \bibitem[Ng et~al.(2007)Ng, Pathak, Kuan, Lau, Dong, Sodt, Dang, Avants,
   Yushkevich, Gee, et~al.]{ng2007neuroinformatics}
 L.~Ng, S.~Pathak, C.~Kuan, C.~Lau, H.-w. Dong, A.~Sodt, C.~Dang, B.~Avants,
@@ -483,6 +565,12 @@ L.~Ng, S.~Pathak, C.~Kuan, C.~Lau, H.-w. Dong, A.~Sodt, C.~Dang, B.~Avants,
   mouse brain.
 \newblock \emph{IEEE/ACM Transactions on Computational Biology and
   Bioinformatics}, 4\penalty0 (3):\penalty0 382--393, 2007.
+
+\bibitem[Nieto-Castanon(2020)]{nieto2020handbook}
+A.~Nieto-Castanon.
+\newblock \emph{Handbook of functional connectivity Magnetic Resonance Imaging
+  methods in CONN}.
+\newblock Hilbert Press, 2020.
 
 \bibitem[Noble(2006)]{noble2006support}
 W.~S. Noble.
@@ -556,6 +644,11 @@ P.~Pavlidis and W.~S. Noble.
 \newblock ISSN 1474-760X.
 \newblock \doi{10.1186/gb-2001-2-10-research0042}.
 \newblock URL \url{https://doi.org/10.1186/gb-2001-2-10-research0042}.
+
+\bibitem[Pearl(2009)]{pearl2009causality}
+J.~Pearl.
+\newblock \emph{Causality}.
+\newblock Cambridge university press, 2009.
 
 \bibitem[Ramasamy et~al.(2014)Ramasamy, Trabzuni, Guelfi, Varghese, Smith,
   Walker, De, Coin, De~Silva, Cookson, et~al.]{ramasamy2014genetic}
@@ -639,6 +732,11 @@ C.~L. Smith and J.~T. Eppig.
 \newblock \doi{10.1002/wsbm.44}.
 \newblock URL \url{https://doi.org/10.1002/wsbm.44}.
 
+\bibitem[Sporns(2016)]{sporns2016networks}
+O.~Sporns.
+\newblock \emph{Networks of the Brain}.
+\newblock MIT press, 2016.
+
 \bibitem[Subramanian et~al.(2007)Subramanian, Kuehn, Gould, Tamayo, and
   Mesirov]{subramanian2007gsea}
 A.~Subramanian, H.~Kuehn, J.~Gould, P.~Tamayo, and J.~P. Mesirov.
@@ -679,6 +777,14 @@ N.~Takata, N.~Sato, Y.~Komaki, H.~Okano, and K.~F. Tanaka.
   Publishing Group Subject\_term: Brain;Functional magnetic resonance
   imaging;Neuroscience Subject\_term\_id:
   brain;functional-magnetic-resonance-imaging;neuroscience.
+
+\bibitem[Tan et~al.(2012)Tan, Chen, Kolachana, Apud, Mattay, Callicott, Chen,
+  and Weinberger]{tan2012effective}
+H.~Y. Tan, A.~G. Chen, B.~Kolachana, J.~A. Apud, V.~S. Mattay, J.~H. Callicott,
+  Q.~Chen, and D.~R. Weinberger.
+\newblock Effective connectivity of akt1-mediated dopaminergic working memory
+  networks and pharmacogenetics of anti-dopaminergic treatment.
+\newblock \emph{Brain}, 135\penalty0 (5):\penalty0 1436--1445, 2012.
 
 \bibitem[Tomczak et~al.(2015)Tomczak, Czerwi{\'n}ska, and
   Wiznerowicz]{tomczak2015review}

@@ -10,6 +10,8 @@
 \usepackage{subcaption}
 \usepackage{rotating}
 
+\usepackage{setspace}
+
 % bibliography natbib
 \usepackage{natbib}
 \bibliographystyle{abbrvnat}
@@ -41,6 +43,7 @@
 \newtheorem{proposition}{Proposition}
 
 \newcommand{\name}{Treasure}
+\newcommand{\Github}{https://github.com/neural-data-science-lab/Treasure-Gene-expression-regions}
 
 \newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
 \setcounter{tocdepth}{5}
@@ -51,6 +54,8 @@
 %-------------------------------------------------------------------------------
 
 \begin{document}
+	
+\onehalfspacing
 	
 \pagenumbering{gobble}
 	
@@ -217,7 +222,7 @@ While also focused on mouse brains, \citet{Partel2020} submits a novel database 
 
 Up until now, GCNs were not applied to this issue.
 
-\subsection{Structural and functional connectivity prediction}
+\subsection{Structural, functional and effective connectivity prediction}
 
 In this section we will examine related work on brain connectivity prediction from transcriptomic data. We hereby separate axonal and functional connectivity due to their differing associated hypotheses.\\
 
@@ -235,7 +240,11 @@ The correlation of \textit{functional} connectivities and transcriptomic data is
 \citet{whitfield2003gene} were one of the first to link transcriptomic data with behavior and hence functional patterns in individual honey bees back in \citeyear{whitfield2003gene}. The authors show that changes in the messenger RNA were connected to behavior and how changes to RNA directly influenced the other.
 \citet{rankin2002gene} first developed the idea of combining behavioral analyses of \textit{C. elegans} with their genetics. Further, \citet{sun2021temporal} only recently described the distinct functional states and the corresponding distinct molecular states within the transcriptome. While honey bees and nematodes are rather simple model organisms, enabling both full transcriptomic analyses of the organisms, and their bearing and actions. However, "behavior" may be ambiguous and vague for such taxonomically distant animals, from the viewpoint of humans, and may only be linked to very basic meta-tasks such as basic routing, orientation and basic social interaction. 
 
-Research on humans further indicates correlation of transcriptomic patterns and "neural dynamics", concluded from e.g. fMRI data \cite{richiardi2015correlated, diez2018neurogenetic, vertes2016gene} or electrocorticography \cite{betzel2019structural}. We refer to \citet{fulcher2021overcoming} for an extensive overview on the link to axonal and functional connectivity. Further, \citet{Zerbi2021} propose a computational model calibrated over 16 autistic mouse models, that reveals a range of functional connectivity subclasses and -types.
+Research on humans further indicates correlation of transcriptomic patterns and "neural dynamics", concluded from e.g. fMRI data \cite{richiardi2015correlated, diez2018neurogenetic, vertes2016gene} or electrocorticography \cite{betzel2019structural}. We refer to \citet{fulcher2021overcoming} for an extensive overview on the link to axonal and functional connectivity. Further, \citet{Zerbi2021} propose a computational model calibrated over 16 autistic mouse models, that reveals a range of functional connectivity subclasses and -types, based on spatial gene expression.\\
+
+Third, we study the relation of \textit{effective connectivity} and genetic expression patterns. While effective differs from functional connectivity \cite{bauer2018effective}, there is only little study on the influence of gene expression on causal relations. The rather point-wise studies such as \citet{tan2012effective} show that disturbances in e.g. \textit{COMT}, \textit{AKT1} and \textit{DRD2} are related to variation in effective connectivity. Moreover \citet{hamida2018increased} showed that \textit{Gpr88}-knockout is related to changes to effective connectivity in the corticolimbic system. While these works motivate only little experiments towards this relation, one of the most well-renowned researcher on effective connectivity, Karl J. Friston, wrote in \citet{friston2002dysfunctional} on "The Disconnection Hypothesis". It states that pathological cognitive behavior, is expressed in abnormal, especially \textit{effective}, connections. These however, are determined by (1) structural plasticity, i.e. neurogenesis and gene expression, (2) synaptic plasticity, i.e. functional connectivity, which is in return linked to the transcriptome (see above paragraph on FC). \citet{friston2011functional} further provides a splendid overview over the relation of functional and effective connectivity. \citet{lepperod2018inferring} run a first computational model for describing effective connectivities in brains.
+
+\todo{Gene expression and effective connectivity}
 
 
 \subsection*{Brief Overview of LIterature Reviewed, Discussed and applied}
@@ -261,9 +270,9 @@ Firstly, the issue of spatial gene expression prediction is concerned with the f
 
 \subsubsection{Preserving dimensionality reduction in brains}
 \label{sec:probdesc_dimpres}
-The second studied issue is the task of preserving dimensionality reduction. Here, all regions or 3D-voxels are associated with a vector embedding of fixed dimensionality $n$, representing each section with the features of choice. As we are concerned with the influence and patterns of gene expression we will only use and consider embeddings of transcriptome for this task. The eventual task is to find a mapping $f_{emb}:\mathbb{R}^n \rightarrow \mathbb{R}^k$ with $k<n$ reducing each structure's representation dimensionality to $k$, such that the relative, pairwise distances are preserved. Hence, if two sections share similar expressions, they should be described similarly in $\mathbb{R}^k$, invariant to spatial distance. As we seek to visualize such embeddings for quality assessment of the embeddings and characterization of marked regions, a mapping into color-space, i.e. choosing $k\in\{1,2,3\}$, appears natural.
+The second studied issue is the task of preserving dimensionality reduction. Here, all regions or 3D-voxels are associated with a vector embedding of fixed dimensionality $n$, representing each section with the features of choice. As we are concerned with the influence and patterns of gene expression we will only use and consider embeddings of transcriptome for this task. The eventual task is to find a mapping $f_{\text{emb}}:\mathbb{R}^n \rightarrow \mathbb{R}^k$ with $k<n$ reducing each structure's representation dimensionality to $k$, such that the relative, pairwise distances are preserved. Hence, if two sections share similar expressions, they should be described similarly in $\mathbb{R}^k$, invariant to spatial distance. As we seek to visualize such embeddings for quality assessment of the embeddings and characterization of marked regions, a mapping into color-space, i.e. choosing $k\in\{1,2,3\}$, appears natural.
 
-\subsubsection{Structural and functional connectivity prediction}
+\subsubsection{Structural, functional and effective connectivity prediction}
 \label{sec:probdesc_connpred}
 Eventually, we want to forecast the brain's connectome in our third formulation: Given two structures we want to predict whether there is a connection either of axonal or functional or both types. Therefore, similarly to the question of dimensionality, regions and voxels, respectively, are represented by their expression characteristics in vector space. Likewise to other works, introduced and explained in Section \ref{sec:results}, and to the issue described in \ref{sec:probdesc_geneexp}, our analysis is invariant to the eventual "strength" of the connection, but focuses on the quality of connectivity. Hence, we define a cut-off threshold converting the issue to a binary classification task, whereas non-positive and unknown links are treated as negatives.
 
@@ -277,15 +286,16 @@ However, there have been multiple initiatives towards collaborative and open hum
 
 Furthermore, immense effort was put into enormous projects and databases for model invertebrates, namely \textit{Drosophila} (specifically \textit{Drosophila melanogaster}, also called \textit{fruit fly}) and \textit{Caenorhabditis elegans} (short: \textit{"C. elegans"}, colloquially also called \textit{roundworm}) with the two projects "Virtual Fly Brain" \cite{milyaev2012virtual} (\href{https://virtualflybrain.org/}{https://virtualflybrain.org/}) and "Wormbase" \cite{lee2003building, davis2022wormbase} (\href{https://wormbase.org}{https://wormbase.org}), respectively. Yet, we wanted to stay within the same taxonomic phylum leading our choice towards mouse brains.\\
 
-We further use four different graphs in our setup, which shall be described and our choice motivated in the following sections:
+We further use five different graphs in our setup, which shall be described and our choice motivated in the following sections:
 \begin{enumerate}
 	\item Structure -- gene expression data and the corresponding structure ontology/hierarchy, 
 	\item Protein-protein interaction graph,
-	\item Structural connectivity and axonal projection data, and
-	\item Functional connectivity data.
+	\item Structural connectivity and axonal projection data, 
+	\item Functional connectivity data, and
+	\item Effective connectivity data.
 \end{enumerate}
 
-Links to all datasets and download scripts are available in the Github repository.
+We provide visualizations and plots for each graph to provide a better intuition respectively. Links to all datasets and download scripts are available in the \href{\Github}{\Github} Github repository.
 
 \subsubsection{Spatial gene expression values in mice brain}
 
@@ -332,9 +342,9 @@ Expression values in AMBA are provided per structure as expression densities, in
 	\begin{tabular}{llp{8cm}}
 		Metric name&Formula&Description\\
 		\hline
-		Expression density&$E_d:=\frac{|P_{g,d,e}|}{|P_{g,d}|}$&sum of expressing pixels / sum of all pixels in division\\
-		Expression intensity&$E_i:=\frac{\sum_{p_e\in P_{g,d,e}} p_e}{|P_{g,d,e}|}$&sum of expressing pixel intensity / sum of expressing pixels\\
-		Expression energy&$E_i:=\frac{\sum_{p_e\in P_{g,d,e}} p_e}{|P_{g,d}|}$&sum of expressing pixel intensity / sum of all pixels in division\\
+		Expression density&$E_d(g,d):=\frac{|P_{g,d,e}|}{|P_{g,d}|}$&sum of expressing pixels / sum of all pixels in division\\
+		Expression intensity&$E_i(g,d):=\frac{\sum_{p_e\in P_{g,d,e}} p_e}{|P_{g,d,e}|}$&sum of expressing pixel intensity / sum of expressing pixels\\
+		Expression energy&$E_e(g,d):=\frac{\sum_{p_e\in P_{g,d,e}} p_e}{|P_{g,d}|}$&sum of expressing pixel intensity / sum of all pixels in division\\
 	\end{tabular}
 	\label{tab:expr_values}
 	\caption{Formulas and descriptions for the calculation of the three expression values provided by AMBA. The respective descriptions are provided by the official \href{http://help.brain-map.org/download/attachments/2818169/InformaticsDataProcessing.pdf?version=1&modificationDate=1319667590884&api=v2}{Allen Mouse Brain Documentation}, which we note as a reference for further information on these metrics.}
@@ -361,43 +371,47 @@ Further per-structure, i.e. row-wise, normalization allows for highlighting of e
 
 \begin{figure}
 	\centering
-	\begin{subfigure}{.35\textwidth}
+	\begin{subfigure}{.45\textwidth}
 		\centering
 		\includegraphics[width=.9\linewidth]{plotted_figures/global_normal_ge_data_histo.png}
-		\caption{Histogram, globally norm}
+		\caption{Histogram, global norm}
 		\label{fig:global_hist}
 	\end{subfigure}
-	\begin{subfigure}{.35\textwidth}
+	\begin{subfigure}{.45\textwidth}
 		\centering
 		\includegraphics[width=.9\linewidth]{plotted_figures/global_percent_ge_data_histo.png}
-		\caption{Bin shares, globally norm}
+		\caption{Bin shares, global norm}
 		\label{fig:global_perc}
 	\end{subfigure}\\
-	\begin{subfigure}{.35\textwidth}
+	\begin{subfigure}{.45\textwidth}
 		\centering
 		\includegraphics[width=.9\linewidth]{plotted_figures/row_normal_ge_data_histo.png}
 		\caption{Histogram, row-wise norm}
 		\label{fig:row_hist}
 	\end{subfigure}
-	\begin{subfigure}{.35\textwidth}
+	\begin{subfigure}{.45\textwidth}
 		\centering
 		\includegraphics[width=.9\linewidth]{plotted_figures/row_percent_ge_data_histo.png}
 		\caption{Bin shares, row-wise norm}
 		\label{fig:row_perc}
 	\end{subfigure}\\
-	\begin{subfigure}{.35\textwidth}
+	\begin{subfigure}{.45\textwidth}
 		\centering
 		\includegraphics[width=.9\linewidth]{plotted_figures/column_normal_ge_data_histo.png}
 		\caption{Histogram, column-wise norm}
 		\label{fig:col_hist}
 	\end{subfigure}
-	\begin{subfigure}{.35\textwidth}
+	\begin{subfigure}{.45\textwidth}
 		\centering
 		\includegraphics[width=.9\linewidth]{plotted_figures/column_percent_ge_data_histo.png}
 		\caption{Bin shares, column-wise norm}
 		\label{fig:col_perc}
-	\end{subfigure}\\
-	\caption{$|S|=843$, $|G|=16679$}
+	\end{subfigure}
+
+
+	\caption{This figure shows the corresponding distributions of gene expression values for the respective normalization schemes, i.e. global, column-wise and row-wise, each associated with differing biologic interpretations. The expression matrix is determined by $|S|=843$ structures and $|G|=16679$ corresponding genes and the pairwise spatial gene expression values.\\ \ref{fig:global_hist}, \ref{fig:row_hist} and \ref{fig:col_hist}: Color-coded distribution of normalized expression energies; color describes the individual expression values. Note that values are on different scales i.e. $10^7$ for \ref{fig:global_hist} and \ref{fig:row_hist}, and $10^6$ for \ref{fig:col_hist}.\\ 
+	\ref{fig:global_perc}, \ref{fig:row_perc} and \ref{fig:col_perc}: 
+	Color-coded proportional distribution of expression energies. While showing the same distribution, colors describe the several shares of each bin. Note the different scales. We clearly see a shift of the average for the column-wise normalization in comparison to the other two approaches.}
 	\label{fig:ge_hists}
 \end{figure}
 
@@ -416,45 +430,112 @@ Common sources are CPDB\cite{lo2009cpdb}, iRefIndex\cite{razick2008irefindex}, M
 	\label{fig:PPI_graph}
 \end{figure}
 
-\subsubsection{Structural connectome data}
+\subsubsection{Connectivity data}
+Understanding neural circuits and the wiring within our brains remains an unsolved, yet fundamental task to understand the processes of cognition. In history there were multiple approaches to measurement of such wiring schemes. We follow the classification of "Networks of the Brain"\cite{sporns2016networks}, distinguishing three different brain connectivities:
+\begin{enumerate}
+	\item Structural connectivity,
+	\item Functional connectivity, and 
+	\item Effective connectivity.
+\end{enumerate}
 
-We chose the AMBA partly with respect to its neat integration with the Allen Mouse Brain Connectivity Atlas (AMBCA)\cite{oh2014mesoscale}, published by the Allen institute, as a publicly available source for axonal connectivity data. The Allen Mouse Brain Connectivity Atlas is a high-resolution map of neuronal connections in the adult mouse brain, obtained from EGFP-expressing (enhanced green fluorescent protein) vectors following structural connections. As with AMBA, AMBCA tracing images were mapped back to 3D reference space using the CCF(v3) coordinates. Likewise, we are again able to group voxels to structures, parcelating the mouse brain and organized by the CCF ontology. All data was downloaded over the AllenSDK API. 
+The following definitions and descriptions are summarized from \citet{sporns2016networks}(see pp. 37-40) as it forms the most fundamental and influential standard literature up to this date. Please see this book for further information and more in-depth analysis of this topic and their cognitive and neurological implications.\\
 
-\subsubsection{Functional connectivity}
-\begin{itemize}
-	
-	\item Where is data coming from? \cite{AIDAmri2019} (AIDAmri)
-	\item How to calculate functional connectivity matrix $\rightarrow$ AIDAconnect (no paper yet? cite dataset?
-	\item How to combine functional connectivity for multiple samples? 
-\end{itemize}
+\textit{Structural connectivity} hereby links to physical or anatomical connections in form of linking neural elements, i.e. neurons. While this wiring measure may be relatively static on shorter time scales, "local" structural connectivity within regions may be dynamic or plastic over hours, days and months, due to our learning process. This is described in more detail in Section \ref{sec:struc_conn}.
 
-\subsection*{in-depth description of the study design/datasets used and motivation why they were used for these experiments}
-\subsection*{Explanation of Sample used in the study}
+\textit{Functional connectivity} (FC) tries to measure the deviation from statistical independence between distributed and often spatially remote neuronal units \cite{friston1993functional, friston1994statistical}. This data may be recorded from different sources measuring neuronal activity as elaborated further in Section \ref{sec:fun_conn}. Unlike structural connectivity, FC is highly time dependent. However, an observed statistical dependence between two nodes does not allow the inference of a causal interaction between them.
 
-\begin{itemize}
-	\item How did we achieve the matching?
-	\item what are premises of the dataset?
-	
-	\item transfer learning working for other structure/regions
-	\item dataset: Allen Mouse brain atlas vs. 
-	\begin{itemize}
-		\item \href{https://www.har.mrc.ac.uk/harwell-news/phenoview-new-tool-compare-impc-data/}{phenoview impc data}
-		
-		\item \href{https://www.mousephenotype.org/}{mousephenotype}
-		
-		\item \href{http://www.informatics.jax.org/expression.shtml}{HPO/MP project expression data}
-	\end{itemize}
-	\item Mouse brain CCFv3
-\end{itemize}
+The third type of connectivity is \textit{effective connectivity}, describing the \textit{causal} effects between neural elements as detailed in \citet{friston1994functional} and \citet{friston2000attentional}. It models the actual collaboration of and dependencies between structures as noted in \ref{sec:eff_conn}.\\
 
-Four graphs were used in this study:
-\begin{itemize}
-	\item Protein-protein interaction graph from STRING
-	\item structure hierarchy/ontology from \cite{MouseBrainAtlas}
-	\item structural connectivity data from (Mouse Projection data)
-	\item functional connectivity data from \cite{AIDAmri2019}
-	
-\end{itemize}
+\paragraph{Structural connectome data}
+\label{sec:struc_conn}
+
+We chose the AMBA partly with respect to its neat integration with the Allen Mouse Brain Connectivity Atlas (AMBCA)\cite{oh2014mesoscale}, published by the Allen institute, as a publicly available source for axonal connectivity data. The Allen Mouse Brain Connectivity Atlas is a high-resolution map of neuronal connections in the adult mouse brain, obtained from EGFP-expressing (enhanced green fluorescent protein) vectors following structural connections. As with AMBA, AMBCA tracing images were mapped back to 3D reference space using the CCF(v3) coordinates. Likewise, we are again able to group voxels to structures, parcelating the mouse brain and organized by the CCF ontology. All data was downloaded over the AllenSDK API. For a better understanding we provide a visualization of the measured EGFP data and the associated masks in Figure \ref{fig:struc_conn}.
+
+Let $S$ be the set of structures, then $M_{\text{struc}}\in\mathbb{R}^{|S|\times|S|}$ denotes the structural connectivity matrix. We normalize all injections by their respective origin intensity projection. Second, we threshold the intensities with $t=0.1$ as the connectivity distribution is quite similar the one for AMBA (see \ref{fig:ge_hists}) and eventually symmetrize the matrix. We eventually obtain $|S|=147$ structures and $\sum_{m\in M_{\text{struc}} }m=2624$ functional connections between them, depicted in Figure \ref{fig:struc_conn_vis}.
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=1.\linewidth]{figures/projection_data_visualization.png}
+	\caption{Test, what is MaxIP? (Maximum intensity projection)}
+	\label{fig:struc_conn}
+\end{figure} 
+
+\paragraph{Functional connectivity data} 
+\label{sec:fun_conn}
+
+The functional connectivity data was rather difficult to obtain in comparison to all other data sources. While previously described data sources are either published by the same institute or provide a inherently provide a wide range of mappings to other databases, there are very few datasets of functional connectivity data publicly and freely available. Moreover, these rare datasets should be related to non-pathological, adult mouse brains, further diminishing resulting numbers. 
+
+Functional connectivity may be measured using different data sources such as electrocorticography, fMRI or others. In most studies of this kind the latter is utilized as ground truth and thus shall be both used here and described briefly.
+Functional magnetic resonance imaging (fMRI) is non-invasive way of detecting joint neural activity the brain. The most frequent approach is measurement of blood oxygen-level dependent signal (BOLD signal), capturing the relative levels of hemoglobin-bound oxygen in the blood. The underlying assumption presumes a correlation of used oxygen and neural activity within some given region creating a unique signal. Observation of oxygen usage hence forms an indirect and delayed measurement. Moreover, we observe all regions at the same time, while acquiring BOLD signals in response to various tasks. A temporally proximate similar characteristic signal within two regions may indicate a collaboration of those two regions for that specific task. 
+However in this publication, we will focus on resting-state fMRI (rs-fMRI), where no specific task is given. This is due to the over-expression of motoric collaborations and exploration of the \textit{default mode network} \cite{sporns2016networks}. Therefore it is more reliable in the investigation of the brains hierarchy and functional organization. Hence, a further constraint of rs-fMRI was added to the list of requirements to the dataset.\\
+
+However, we were eventually able to obtain resting-state, functional connectivities from AIDAmri \cite{AIDAmri2019}, publishing both their pipeline for Atlas-Based Imaging Data Analysis (AIDA) and the associated dataset containing raw functional MRI data. The authors further capture the brains of 7 individuals as resting-state fMRI prior and after a stroke inducing intervention. Their follow-up software AIDAconnect (not published as a paper, please see \todo{Github link} for more information) first maps the AIDAmri data to CCF regions and second measures the associated change in both structural and functional connectivities pre and post stroke. One contribution of this work was to make this pipeline usable and provide \textit{working} scripts following their approach. We would like to thank the AswendtLab (\href{https://neurologie.uk-koeln.de/forschung/ag-neuroimaging-neuroengineering/}{Website}) for their support and help in order to get their pipeline running. 
+While the authors capture axonal projections in AIDAmri, too, they measure far less structures than AMBCA on a smaller sample size, hence leading to our preference of AMBCA for this very study. \\
+
+Let $n$ be the number of observed individuals, then $M'_{\text{func}}\in\mathbb{R}^{n\times|S|\times|S|}$ denotes the functional connectivity matrix. We threshold the pair-wise connectivity by $t=0.5$ obtaining a binary matrix. In order to combine the matrices over all individuals, we follow "The Handbook of Functional Connectivity" \cite{nieto2020handbook} by over averaging the respective connectivities, defined by 
+\begin{equation}
+	M_{\text{func}}:= \left(M_{\text{func}}\right)_{i,j} = \left(\left(\frac{1}{n}\sum_{k\in [n]}M'_{\text{func}, k,i,j}\right) > t_{\text{func}}\right)_{i,j}
+\end{equation}
+
+with $>:\mathbb{R}\times\mathbb{R}\rightarrow \{0,1\} $ and $t_{\text{func}}:=0.5$. We symmetrize the resulting matrix. This leaves us with $|S|=49$ structures and $\sum_{m\in M_{\text{func}} }m=278$ connections between them. A visualization is shown in Figure \ref{fig:func_conn_vis}.
+
+
+\paragraph{Effective connectivity} 
+\label{sec:eff_conn}
+
+The third considered connection type is \textit{effective connectivity} describing the causal relationship between different structures. In general, effective connectivity may be derived from various neural activity data likewise to functional connectivity, i.e. fMRI data over BOLD signals or electrocorticography. As already processed and available, we use the raw BOLD signals from AIDAmri \cite{AIDAmri2019}. 
+In the literature there are various ways of measuring causality between signals, still constituting an active research topic. We follow the approach of \textit{instrumental variables} described in \citet{angrist2009mostly} for econometrics and famously elaborated in detail in \citet{pearl2009causality}.\\
+
+Let $n$ be the number of individuals, then $M'_{eff}\in\mathbb{R}^{n\times|S|\times|S|}$ denotes the effective connectivity matrix. Our pipeline returns the respective pairwise beta values of each pairwise beta regression of structure related signals, which are stored in $M'_{eff}$. Beta values may be interpreted similarly to covariance matrices, whereas their magnitude and quality is more expressive. As we are only interested in the interaction itself, but not the corresponding inhibition or activation, we calculate the absolute values and normalize for each individual. Likewise to our FC preprocessing, we average the causal connections along all individuals and symmetrize the resulting matrix. This may be summarized in the following equation:
+
+\begin{align*}
+	m_{max}:=& \max \left(\left|M'_{\text{eff}}\right|\right)\\
+	t_{\text{eff}}:=& 0.1\\
+	M_{\text{eff}}:=& \left(M_{\text{eff}}\right)_{i,j} \\
+	=& \left(\left(\frac{1}{n}\sum_{k\in [n]}\frac{\left|M'_{\text{eff}, k,i,j}\right|}{m_{max}} \right) > t_{\text{eff}} \right)_{i,j}
+\end{align*}
+with $>:\mathbb{R}\times\mathbb{R}\rightarrow \{0,1\} $. 
+This results in $|S|=49$ structures and $\sum_{m\in M_{\text{eff}} }m=492$ causal connections between them. A visualization of measured \textit{effective connectivities} is shown in Figure \ref{fig:eff_conn_vis}.
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{.3\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{plotted_figures/struc_3d_conn_plot.png}
+		\caption{Structural connectivity}
+		\label{fig:struc_conn_vis}
+	\end{subfigure}
+	\begin{subfigure}{.3\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{plotted_figures/func_3d_conn_plot.png}
+		\caption{Functional connectivity}
+		\label{fig:func_conn_vis}
+	\end{subfigure}
+	\begin{subfigure}{.3\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{plotted_figures/eff_3d_conn_plot.png}
+		\caption{Effective connectivity}
+		\label{fig:eff_conn_vis}
+	\end{subfigure}
+
+	\caption{Test}
+	\label{fig:conn_vis}
+\end{figure}
+\todo{Do figure description}
+
+\begin{table}
+	\centering
+	\begin{tabular}{lll}
+		Connectivity type&Number of present structures&Number of links\\
+		\hline
+		Structural connectivity&147&2624\\
+		Functional connectivity&49&278\\
+		Effective connectivity&49&492\\
+	\end{tabular}
+	\caption{Overview on sizes of respective connectivity datasets}
+	\label{tab:conn_overview}
+\end{table}
 
 \subsection{Model}
 \label{sec:modeldesc}
@@ -463,58 +544,131 @@ Four graphs were used in this study:
 
 \subsection*{Reliability and validity of internal/external design and related subtypes}
 
-\subsubsection{Feature generation}
+\subsubsection{Feature generation and protein representation}
+\label{sec:feature_gen}
+For the prediction gene expression values in the first task (see Section \ref{sec:probdesc_geneexp}), we need embeddings of each gene potentially representing its role in downstream tasks. Hence, we decided to exploit protein-function data based on both bottom-up and top-down i.e. molecular and phenotypical background data. For the bottom-up representations we utilize the DeepGOPlus \cite{DeepGoPlus} embeddings, that are based on a prediction of protein-function based on their corresponding amino-acid sequence. For top-down and phenotypical features, we use DL2vec \cite{DL2vec2020} over PhenomeNET\cite{PhenomeNET2011} an aggregation of various ontologies such as Gene Ontology (GO) \cite{GOoriginal2000, GOrecent2020}, Mammalian Phenotype Ontology (MPO) \cite{MP2009} and Uberon \cite{mungall2012uberon}, a multi-species anatomy ontology. DL2vec hereby formulates random walks over these ontologies, interpreted as knowledge graphs, and embeds them under usage of Word2Vec \cite{Word2vec2013}.
 
-Data preparation for regression task
-\begin{itemize}
-	\item unbalanced data for prediction task
-\end{itemize}
+For the other two tasks (see Section \ref{sec:probdesc_dimpres} and Section \ref{sec:probdesc_connpred}), we will use the raw gene expression values parsed from AMBA to represent each substructure.
 
 \subsubsection{Graph convolutional neural layers}
 \label{sec:graphconv}
-We include these molecular and ontology-based sub-models within a
-graph neural network (GNN) \cite{GCNConv}. The graph underlying the GNN is
-based on the protein--protein interaction (PPI) graph. The PPI dataset
+Graphs are one of the most expressive and common data structures for structured data. Especially in bio- and neuroinformatics, pairwise relations like in protein-protein interaction graphs, molecular graphs, biomedical ontologies, and biochemical knowledge graphs are widely spread. Considering graphs we distinguish between various types that allow application of differing algorithms. Especially with respect to the four graphs mentioned in Section \ref{sec:datasets}, we will provide a brief classification.
+
+\begin{mydef}[Homogeneous Graph]
+	A (homogeneous) graph $G$ is given by as tuple $G:=(V,E)$ with $V$ the set of vertices and $E$ the set of edges. A graph $G$ is called
+	\begin{itemize}
+		\item  \textbf{directed} if $E\subseteq V\times V$, and
+		\item \textbf{undirected} if $E\in 2^V$.
+	\end{itemize}
+\end{mydef}
+
+Variations of graphs are shown in the table below.
+
+{
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{lll}
+	Graph type&Definition&\\
+	\hline
+	(Undirected) Hypergraph&$G_H=(V,E)$&with $E\subseteq\mathcal{P}(V)\backslash\emptyset$\\
+	Weighted graph&$G=(V,E,w)$& with $w:E\rightarrow \mathbb{R}$\\
+	Node labeled graph&$G=(V,E,x)$&with $x:V\rightarrow\mathbb{R}^n$\\
+	Heterogeneous graph&$G=(V,E,l)$&with $l:V\cup E\rightarrow L$ and labeling space $L$\\
+\end{tabular}
+}\\
+
+With these formulations we are able to both classify all previously described graphs, but also formulate constraints on graphs for the upcoming definitions. While the structure--gene expression in combination with the associated CCFv3 ontology is a edge and node labeled, heterogeneous graph, the PPI graph from STRING, and all three connectivity graphs are edge-weighted, homogeneous ones. However, after our thresholding process all weights are reduced to the binary space $\{0,1\}$.\\
+
+Graph convolutional neural networks are a geometric generalization of convolutional neural networks (CNN) commonly used over images, in order to learn generalizable kernels incorporating and learning to highlight local features. A stack of CNNs trained on cat and dog images, was shown to learn general features, such as ear and snout shapes. 
+However, CNN filters have fixed geometric relations, i.e. we may always name and point at the element "right of" our current element within an image. Such orders among neighbors do not exist within graphs, and are even counterproductive, taking the order-invariance of the graph nature. Further, the number of neighbors for an element may not be constant in a graph, while they traditionally are within 2D- and 3D-images. Within a potential formulation of GCNs we would like to keep certain properties of CNNs, namely the ability to exploit locality, correlation of filter sizes and the considered neighborhood, learnable weights and node invariance. \\
+
+The first formulation of GCNs was introduced by \citet{GCNConv} and assumes the following two properties of a graph.
+
+\begin{enumerate}
+	\item A \textit{homogeneous} graph $G=(V,E)$, with $|V|=N$ and $E$ summarized by the adjacency matrix $A\in\mathbb{B}^{N\times N}$
+	\item Node features, defined by a node labeling $x:V\rightarrow\mathbb{R}^D$ with feature dimensionality $D$ summarized in the feature matrix $X\in\mathbb{R}^{N\times D}$
+\end{enumerate}
+
+We will use the protein-protein interaction (PPI) graph as underlying structure, while adding the representations reported in Section \ref{sec:feature_gen}. The PPI dataset
 is represented by a graph $G=(V,E)$, where each protein is represented
 by a vertex $v\in V$, and each edge $e\in E\subseteq V\times V$
-represents an interaction between two proteins. Additionally, we
-introduce a mapping $x:V\rightarrow\mathbb{R}^{d}$ projecting each
-vertex $v$ to its node feature $x_v := x(v)$, where $d$ denotes the
-dimensionality of the node features.
+represents an interaction between two proteins.\\ 
 
-% As described before, graph convolution has shown significant
-% performance increase in a variety of tasks. While there are various
-% methods out there we will only introduce the most basic one here. 
-A graph convolutional layer \cite{GCNConv} consists of a learnable
-weight matrix followed by an aggregation step, formalized by
+A GCN layer is defined by an update rule. Let $H^{(l)}\in\mathbb{R}^{N\times D}$ the current node representation at layer $l$, then the update rule is defined by.
+
 \begin{equation}
-	\mathbf{X}^{\prime} = \mathbf{\hat{D}}^{-1/2} \mathbf{\hat{A}}
-	\mathbf{\hat{D}}^{-1/2} \mathbf{X} \mathbf{\Theta}
+	H^{(l+1)}:=f\left(H^{(l)}, A\right) \text{ with } H^{(0)}:=X
 \end{equation}
-where for a given graph $G=(V,E)$, $\hat{A} = A + I$ denotes the
-adjacency matrix with added self-loops for each vertex, $D$ is
-described by $\hat{D}_{ii} = \sum_{j=0} \hat{A}_{ij}$, a diagonal
+
+The crucial step is encoded in the function $f$ and may consist of the following three sub-steps.
+\begin{enumerate}
+	\item Applying learnable weight matrix
+	\item Propagate/aggregate features to/from neighbors using a message passing scheme, and
+	\item Application of an activation function
+\end{enumerate}
+summarized by 
+\begin{equation}
+	f\left( H^{(l)},A \right) :=\sigma \left( AH^{(l)}\mathbf{\Theta}^{(l)} \right)
+\end{equation}
+with weight matrix $\mathbf{\Theta}^{(l)}$ of layer $l$, and $\sigma$ a non-linear activation function, e.g. \textsc{ReLU}. Here features are propagated by simple multiplication of the adjacency matrix. We will formulate more sophisticated aggregation kernels later in this chapter.\\
+
+For comparison, CNNs we preserve so called \textit{translational invariance}, i.e. the same filter may pick up the same features from an object regardless of the position of the object within the image. We generalize this property for graphs with invariance of order among neighbors, called \textit{permutational invariance}. Further this formulation allows for locality exploitation.\\
+
+
+The second crucial contribution of \citet{GCNConv} is a "kernel trick" allowing for vital speedup of feature propagation. The authors reformulate the aggregation in the following way. 
+
+\begin{equation}
+	H^{(l+1)} = \hat{D}^{-1/2} \hat{A}
+	\hat{D}^{-1/2} H^{(l)} \mathbf{\Theta}
+\end{equation}
+with $\hat{A} = A + I$ denoting the
+adjacency matrix with added self-loops for each vertex, $D$ described by $\hat{D}_{ii} = \sum_{j=0} \hat{A}_{ij}$, a diagonal
 matrix displaying the degree of each node, and $\Theta$ denotes the
-learnable weight matrix. Added self-loops enforce that each node
-representation is directly dependent on its own preceding one. The
-number of graph convolutional layers stacked equals the radius of
+learnable weight matrix for a given graph $G=(V,E)$.
+Note that $\hat{A}$ is formulated such that nodes are also directly influenced by their own previous representation.
+Naturally, the number of graph convolutional layers stacked equals the radius of
 relevant nodes for each vertex within the graph.
 
-The update rule for each node is given by a message passing scheme
+The update rule for the respective nodes is given by a message passing scheme
 formalized by
 \begin{equation}
-	\mathbf{x}^{\prime}_i = \mathbf{\Theta} \sum^{N}_{j}
-	\frac{1}{\sqrt{\hat{d}_j \hat{d}_i}} \mathbf{x}_j
+	\mathbf{h^{(l)}}_i = \mathbf{\Theta}^T \sum^{N}_{j}
+	\frac{1}{\sqrt{\hat{d}_j \hat{d}_i}} \mathbf{h^{(l)}}_j
 \end{equation}
 where both $\hat{d}_i, \hat{d}_j$ are dependent on the edge weights
 $e_{ij}$ of the graph. With simple, single-valued edge weights such as
 $e_{ij}=1 \text{ }\forall (i,j)\in E$, all $\hat{d}_i$ reduce to
 $d_i$, i.e., the degree of each vertex $i$. We denote this type of
-graph convolutional neural layers with \textsc{GCNConv}.
+graph convolutional neural layers by \textsc{GCNConv}.
 
-While in this initial formulation of a GCNConv the node-wise update
-step is defined by the sum over all neighboring node representations,
-we can alter this formulation to other message passing schemes.  We
+While in this initial formulation of a \textsc{GCNConv} the node-wise update
+step is defined by the sum over all neighboring node representations. This leads to the effect of \textit{over-smoothing}, i.e. over-softening of strong signals, especially in highly connected, non-sparse graphs. Further this makes the stacking of multiple layers nearly impossible to achieve feasibility due to fading signals.\\
+
+A second approach to graph and geometric deep learning are graph attention networks (GAT), introduced in \citet{chorowski2015attention}. Likewise to GCNs, GATs may be formulated with the following steps:
+
+\begin{enumerate}
+	\item Application of a learnable weight matrix,
+	\item an attention mechanism,
+	\item a activation function to combine the attention values, and 
+	\item the aggregation function.
+\end{enumerate}
+The crucial difference to plain GCNs lies within the second step, i.e. the graph attention mechanism. We therefore compute the pair-wise importance of node $j$'s representation to node $i$'s for all pairs $i,j$. We do so by concatenation of embeddings followed by the dot-product with a learnable weight vector with an eventual application of LeakyReLU. This process is summarized by
+\begin{align}
+	z^{(l)}_i:=& \text{ }\Theta^{(l)}h^{(l)}_i\\
+	e^{(l)}_{ij}:=&\text{ LeakyReLU}\left( {a^{(l)}}^T \cdot \left( z^{(l)}_i \circ z^{(l)}_j \right) \right)
+\end{align}
+
+with learnable vector $a$ and edge weight $e_{ij}$, and allows for inclusion of a shared attentional mechanism $a$. The resulting pair-wise coefficients measuring the mutual importance are summarized for node $i$ among all possible neighbors $j$ using a softmax function.
+
+\begin{equation}
+	\alpha^{(l)}_{ij}=\frac{\exp\left( e^{(l)}_{ij} \right)}{\sum_{k\in\mathcal{N}(i)}\exp\left( e^{(l)}_{ik} \right) }
+\end{equation}
+The aggregation is then formulated as a weighted sum with above coefficients.
+\begin{equation}
+	h^{(l+1)}_i := \sigma\left( \sum_{j\in\mathcal{N}(i)} \alpha^{(l)}_{ij} z^{(l)} _j \right)
+\end{equation}
+We are further able to generalize this approach by so called \textit{multi-head attention} allowing for multiple attention vectors $a$, which are then summarized within the aggregation function by averaging over all heads. Similarly, to GCNConv we denote a single layer of GAT as \textit{GATConv}.\\
+
+We can alter this propagation formulation to other message passing schemes. Thus, we
 can rearrange the order of activation function $\sigma$, aggregation
 $\mathrm{AGG}$, and linear neural layer $\mathrm{MLP}$ with this
 formulation as proposed by \cite{GENConv2020}:
@@ -577,6 +731,7 @@ blocks are reusable and can be stacked multiple times.
 \subsection{Evaluation and metrics}
 \label{sec:evalmetrics}
 \begin{itemize}
+	\item unbalanced data for prediction task
 	\item AUC and AUPR for gene expression prediction
 	\item self-built metric for evaluation of dim-red
 	\item AUC and AUPR for conn pred
@@ -669,5 +824,11 @@ Novelty:
 \newpage
 
 \bibliography{citations}
+
+\newpage
+
+\appendix
+
+
 
 \end{document}
