@@ -260,7 +260,7 @@ Third, we study the relation of \textit{effective connectivity} and genetic expr
 \section{Materials and methods}
 \label{sec:methods}
 In this study, we utilized and incorporated various approaches from other works and applied them to diverse datasets. The following section will give a brief overview over all modules of the proposed models, while the entire computational methods will be presented and described in the results section (Section \ref{sec:results}). We further introduce the goals and scopes of our respective research questions and on our evaluation metrics for this purpose.  
-\subsection*{Introduction and general description, study method and study design}
+
 \subsection{Problem description}
 \label{sec:probdesc}
 Here we give a brief introduction to each of the three tackled issues and further summarize data properties, challenges and goals of each problem in this section and Section \ref{sec:datasets}. 
@@ -297,7 +297,7 @@ We further use five different graphs in our setup, which shall be described and 
 
 We provide visualizations and plots for each graph to provide a better intuition respectively. Links to all datasets and download scripts are available in the \href{\Github}{\Github} Github repository.
 
-\subsubsection{Spatial gene expression values in mice brain}
+\subsubsection{Spatial gene expression values in mouse brains}
 
 The AMBA\cite{MouseBrainAtlas} is a genome-wise and comprehensive, digital 3D-map of spatial gene expression of the adult mouse central nervous system (CNS). AMBA utilizes \textit{in situ} hybridization (ISH) for expression measurement and is publicly and freely available. 
 In literature there are several approaches, compromising sequencing depth, accuracy, throughput and spatial resolution. Generally, one can identify two classes of gene expression measurement while preserving spatial information. The first approach is to store spacial coordinates first, followed by a the sequencing of single-cell RNA where \citet{achim2015high} and \citet{chen2017spatial} propose the mapping and the Geo-seq protocol for this method. The second method includes the usage of "barcodes", decoded in the tissue sample, while running a parallel analysis of numerous mRNAs \cite{ke2013situ, moffitt2016high}. Here, AMBA and \citet{Partel2020}'s dataset are constructed using the first and the latter method, respectively. Sample extraction is very invasive and hence samples are collected from multiple individuals. Please see \citet{ng2007neuroinformatics} for more information and an overview on applied 3D reconstruction and registration of ISH images.\\
@@ -446,7 +446,7 @@ The following definitions and descriptions are summarized from \citet{sporns2016
 
 The third type of connectivity is \textit{effective connectivity}, describing the \textit{causal} effects between neural elements as detailed in \citet{friston1994functional} and \citet{friston2000attentional}. It models the actual collaboration of and dependencies between structures as noted in \ref{sec:eff_conn}.\\
 
-\paragraph{Structural connectome data}
+\paragraph{Structural connectome data}\mbox{}\\
 \label{sec:struc_conn}
 
 We chose the AMBA partly with respect to its neat integration with the Allen Mouse Brain Connectivity Atlas (AMBCA)\cite{oh2014mesoscale}, published by the Allen institute, as a publicly available source for axonal connectivity data. The Allen Mouse Brain Connectivity Atlas is a high-resolution map of neuronal connections in the adult mouse brain, obtained from EGFP-expressing (enhanced green fluorescent protein) vectors following structural connections. As with AMBA, AMBCA tracing images were mapped back to 3D reference space using the CCF(v3) coordinates. Likewise, we are again able to group voxels to structures, parcelating the mouse brain and organized by the CCF ontology. All data was downloaded over the AllenSDK API. For a better understanding we provide a visualization of the measured EGFP data and the associated masks in Figure \ref{fig:struc_conn}.
@@ -461,7 +461,7 @@ Let $S$ be the set of structures, then $M_{\text{struc}}\in\mathbb{R}^{|S|\times
 	\label{fig:struc_conn}
 \end{figure} 
 
-\paragraph{Functional connectivity data} 
+\paragraph{Functional connectivity data} \mbox{}\\
 \label{sec:fun_conn}
 
 The functional connectivity data was rather difficult to obtain in comparison to all other data sources. While previously described data sources are either published by the same institute or provide a inherently provide a wide range of mappings to other databases, there are very few datasets of functional connectivity data publicly and freely available. Moreover, these rare datasets should be related to non-pathological, adult mouse brains, further diminishing resulting numbers. 
@@ -481,7 +481,7 @@ Let $n$ be the number of observed individuals, then $M'_{\text{func}}\in\mathbb{
 with $>:\mathbb{R}\times\mathbb{R}\rightarrow \{0,1\} $ and $t_{\text{func}}:=0.5$. We symmetrize the resulting matrix. This leaves us with $|S|=49$ structures and $\sum_{m\in M_{\text{func}} }m=278$ connections between them. A visualization is shown in Figure \ref{fig:func_conn_vis}.
 
 
-\paragraph{Effective connectivity} 
+\paragraph{Effective connectivity} \mbox{}\\
 \label{sec:eff_conn}
 
 The third considered connection type is \textit{effective connectivity} describing the causal relationship between different structures. In general, effective connectivity may be derived from various neural activity data likewise to functional connectivity, i.e. fMRI data over BOLD signals or electrocorticography. As already processed and available, we use the raw BOLD signals from AIDAmri \cite{AIDAmri2019}. 
@@ -550,9 +550,9 @@ For the prediction gene expression values in the first task (see Section \ref{se
 
 For the other two tasks (see Section \ref{sec:probdesc_dimpres} and Section \ref{sec:probdesc_connpred}), we will use the raw gene expression values parsed from AMBA to represent each substructure.
 
-\subsubsection{Graph convolutional neural layers}
+\subsubsection{Graph convolutional neural networks}
 \label{sec:graphconv}
-Graphs are one of the most expressive and common data structures for structured data. Especially in bio- and neuroinformatics, pairwise relations like in protein-protein interaction graphs, molecular graphs, biomedical ontologies, and biochemical knowledge graphs are widely spread. Considering graphs we distinguish between various types that allow application of differing algorithms. Especially with respect to the four graphs mentioned in Section \ref{sec:datasets}, we will provide a brief classification.
+Graphs are one of the most expressive and common data structures for structured data. Especially in bio- and neuroinformatics, pairwise relations like in protein-protein interaction graphs, molecular graphs, biomedical ontologies, and biochemical knowledge graphs are widely spread. Considering graphs we distinguish between various types that allow application of differing algorithms. Especially with respect to the four graphs mentioned in Section \ref{sec:datasets}, we will provide a brief classification.\\
 
 \begin{mydef}[Homogeneous Graph]
 	A (homogeneous) graph $G$ is given by as tuple $G:=(V,E)$ with $V$ the set of vertices and $E$ the set of edges. A graph $G$ is called
@@ -580,6 +580,19 @@ With these formulations we are able to both classify all previously described gr
 
 Graph convolutional neural networks are a geometric generalization of convolutional neural networks (CNN) commonly used over images, in order to learn generalizable kernels incorporating and learning to highlight local features. A stack of CNNs trained on cat and dog images, was shown to learn general features, such as ear and snout shapes. 
 However, CNN filters have fixed geometric relations, i.e. we may always name and point at the element "right of" our current element within an image. Such orders among neighbors do not exist within graphs, and are even counterproductive, taking the order-invariance of the graph nature. Further, the number of neighbors for an element may not be constant in a graph, while they traditionally are within 2D- and 3D-images. Within a potential formulation of GCNs we would like to keep certain properties of CNNs, namely the ability to exploit locality, correlation of filter sizes and the considered neighborhood, learnable weights and node invariance. \\
+
+We distinguish several tasks for GNNs based on classification. Here classification may also be used for representation learning by increasing the dimensionality of the mapping image to the desired representation space dimension. 
+\begin{enumerate}
+	\item Graph classification - classifying a given, entire graph,
+	\item node classification -  given a graph with incomplete node features, predict the labels of the missing ones, and
+	\item link prediction - given a graph with incomplete adjacency matrix, predict the the missing links.
+\end{enumerate}
+In our formulated tasks, we are performing node classification in the gene expression example (see Section \ref{sec:probdesc_geneexp}), and graph classification in the sub-tasks described in Sections \ref{sec:probdesc_dimpres} and \ref{sec:probdesc_connpred}.
+
+For naming convention identifying each layer type, we follow the notation of PyTorch Geometric \cite{PytorchGeometric}.
+
+\paragraph{Graph convolutional neural layers (GCNConv)}\mbox{}\\
+\label{sec:GCNConv}
 
 The first formulation of GCNs was introduced by \citet{GCNConv} and assumes the following two properties of a graph.
 
@@ -643,6 +656,9 @@ graph convolutional neural layers by \textsc{GCNConv}.
 While in this initial formulation of a \textsc{GCNConv} the node-wise update
 step is defined by the sum over all neighboring node representations. This leads to the effect of \textit{over-smoothing}, i.e. over-softening of strong signals, especially in highly connected, non-sparse graphs. Further this makes the stacking of multiple layers nearly impossible to achieve feasibility due to fading signals.\\
 
+\paragraph{Graph attention networks (GATConv)}\mbox{}\\
+\label{sec:GATConv}
+
 A second approach to graph and geometric deep learning are graph attention networks (GAT), introduced in \citet{chorowski2015attention}. Likewise to GCNs, GATs may be formulated with the following steps:
 
 \begin{enumerate}
@@ -666,9 +682,12 @@ The aggregation is then formulated as a weighted sum with above coefficients.
 \begin{equation}
 	h^{(l+1)}_i := \sigma\left( \sum_{j\in\mathcal{N}(i)} \alpha^{(l)}_{ij} z^{(l)} _j \right)
 \end{equation}
-We are further able to generalize this approach by so called \textit{multi-head attention} allowing for multiple attention vectors $a$, which are then summarized within the aggregation function by averaging over all heads. Similarly, to GCNConv we denote a single layer of GAT as \textit{GATConv}.\\
+We are further able to generalize this approach by so called \textit{multi-head attention} allowing for multiple attention vectors $a$, which are then summarized within the aggregation function by averaging over all heads. Similarly, to GCNConv we denote a single layer of GAT as \textsc{GATConv}.\\
 
-We can alter this propagation formulation to other message passing schemes. Thus, we
+\paragraph{Training deeper graph convolutional neural networks (GENConv)}\mbox{}\\
+\label{sec:GENConv}
+
+The propagation formulation of GCNs may be adjusted to other message passing schemes, as it suffers from the issues described in Section \ref{sec:GCNConv}. As the considered radius of influence is determined by the number of used GCNConv layers, but multiple layers disable the network to pick up any signal. Thus, we
 can rearrange the order of activation function $\sigma$, aggregation
 $\mathrm{AGG}$, and linear neural layer $\mathrm{MLP}$ with this
 formulation as proposed by \cite{GENConv2020}:
@@ -680,9 +699,7 @@ formulation as proposed by \cite{GENConv2020}:
 	\right)
 \end{equation}
 where we only consider
-$\sigma \in \{\mathrm{ReLU}, \mathrm{LeakyReLU}\}$. We denote this
-generalized layer type as \textsc{GENConv} following the notation of
-PyTorch Geometric \cite{PytorchGeometric}.  While the reordering is
+$\sigma \in \{\mathrm{ReLU}, \mathrm{LeakyReLU}\}$. We denote this layer type as \textsc{GENConv}.  While the reordering is
 mainly important for numerical stability, this alteration also addresses
 the vanishing gradient problem for deeper convolutional networks
 \cite{GENConv2020}. Additionally, we can also generalize the
@@ -692,36 +709,97 @@ signals for each vertex, substituting the averaging step in
 \textsc{GCNConv}. Hence, while \textsc{GCNConv} suffers from both
 vanishing gradients and signal fading for large scale and highly
 connected graphs, each propagation step in \textsc{GENConv} emphasizes
-signals with values close to $0$ and $1$. The same convolutional
+signals with values close to $0$ and $1$, and thus emphasizes strong negative and positive signals. The same convolutional
 filter and weight matrix are applied to and learned for all nodes
-simultaneously. % , and the resulting information\todo{Which information?
-% Specify} hold no information on their own connectivity.
+simultaneously. 
 We further employ another mechanism to avoid redundancy and fading
 signals in stacked graph convolutional networks, using residual
-connections and a normalization scheme \cite{DeepGCN2019}
-	\cite{GENConv2020} as shown in Supplementary 3.  The residual
-blocks are reusable and can be stacked multiple times.
+connections and a normalization scheme \cite{DeepGCN2019, GENConv2020}, introducing residual blocks for graph convolution. The residual
+blocks are reusable and may be stacked multiple times, allowing construction of even deeper graph convolutional neural networks. These residual blocks are composed of graph convolutional layer among other functions and hence allow for substitution of arbitrary graph layers. See Figure \ref{fig:ResGraphBlock}.\\
 
-\begin{itemize}
-	\item what is GATConv?
-	\item what is KerGNN and what is its idea?
-	\item add some sentences to the section above
-	\item node vs. graph classification vs. link prediction
-\end{itemize}
+\paragraph{Graph Kernels going beyond the Weisfeiler-Leman algorithm (KerGNN)}\mbox{}\\
+\label{sec:KerGNN}
+
+The fourth graph learning formulation, we present is \textsc{KerGNN} \citet{feng2022kergnns}. Recent studies \cite{xu2018powerful, morris2019weisfeiler} show that graph neural networks based on message passing are less expressive and powerful as the Weisfeiler-Leman (WL) algorithm \cite{leman1968reduction} and the associated WL kernel definition \cite{shervashidze2009efficient}. The WL algorithm hereby describes an isomorphism test, providing a necessary but no sufficient test for non-isomorphism, which message passing may not supersede and outperform. Thus, \citet{feng2022kergnns} provides a novel framework learning both hidden graphs combined with subgraph sampling to overcome this limitation, gaining additional expressive power. In comparison to message passing neural networks (MPNNs) which only consider \textit{subtrees}, KerGNN the entire induced subgraph of the respective nodes neighborhood. \\
+
+Let $G=(V,E)$ be some graph, $\phi_{[l]}$ be family of feature maps for each layer and $v\in V$ an arbitrary vertex. Further let $G_v=(V_v, E_v)$ be the induced neighborhood subgraph and $\phi_0$ the feature map at layer $0$ describing neighborhood mappings $\{ \phi_0(u):u\in V \}$. Then the prospective layer of the  representation $\phi_{1,i}$ depended on the $i$-th graph filter $H_i^{(l)}$ with trainable adjacency matrix $A_i^{(l)}$ is defined by
+
+\begin{equation}
+	\phi_{1,i}(v) := K\left(G_v, H_i^{(l)}\right)
+\end{equation}
+
+with random walk kernel $K(\cdot, \cdot)$ (see \citet{feng2022kergnns} for implementation details). Combined with a readout layer this may be leveraged for full graph representation learning. As we need to a low dimensional representations for the complete PPI graph with node features, this is naturally valuable. The readout layer is defined as a function $\Phi$ among all intermediate KerGNN layer embeddings $\phi_l$ given by 
+
+\begin{equation}
+	\label{equ:KerGNN}
+	\Phi(G):= \text{concat}\left( \sum_{v\in V(G)} \phi_l(v) \text{ }\middle|\text{ } l=0,1,\dots, L \right)
+\end{equation} 
+
+with $L$ the number of stacked KerGNN layers. The authors show moreover, that this formulation is more powerful than the WL kernel and WL algorithm, with a \textit{sufficient} number of stacked KerGNN layers. This draws again connections to CNNs giving a permutation invariant relation of neighbors of node $v\in V$, which e.g. GCNs are not able to derive. 
+
 
 \subsubsection{Dimensionality reduction techniques}
-\paragraph{Principal component analysis (PCA)}
+
+The underlying task was briefly described in Section \ref{sec:probdesc_dimpres} with respect to gene expression. However, this task may also be formulated in a general. Here, we want to find a mapping $f_\text{emb}:\mathbb{R}^n\rightarrow \mathbb{R}^k$ with $k<n$ in order to transform data in high-dimensional space $\mathbb{R}^n$ into lower dimensionality of space co-domain $\mathbb{R}^k$, preserving \textit{meaningful properties} of the mapping's domain. The term \textit{meaningful properties} is intentionally held vague as this may refer to both domain-specific but also space specific notions. This often refers to pair-wise linkage of entities.
+
+In domain space, e.g. biomedicine, this may refer to external graphs, such as known biological or neurological interactions and biomedical correlations between embedded entities. Space specific features rather try to preserve spatial properties of the underlying space model, e.g. euclidean space. This may be expressed in terms of maintaining local proximity, e.g. in auto-encoders \cite{ng2011sparse} or t-SNE \cite{van2008visualizing}, or retaining cluster boundaries, e.g. in support vector machines (SVMs) \cite{noble2006support}. The co-domain $\mathbb{R}^k$ of $f_\text{emb}$ is termed \textit{latent space} with latent dimensionality $k$.
+In order to better understand the yielded latent space, we choose $k<4$ for a downstream, bijective mapping into color space for visualization. For our analysis we will only consider $k=3$. Note that consider only unsupervised learning methods, as no ground truth is given for gene expression patterns and their relations.\\
+
+We will briefly introduce all utilized dimensionality embedding methods and their respective assumptions and properties. PCA and t-SNE are not neural network-based, while UMAP and Parametric UMAP are.
+
+\paragraph{Principal component analysis (PCA)}\mbox{}\\
 \label{sec:pca}
 
-\paragraph{tSNE}
+
+Principal component analysis (PCA) \cite{abdi2010principal, wold1987principal} is among the most successful and simplest dimensionality reduction techniques. PCA therefore tries to capture the datas underlying variance in space. Variance here both creates uncertainty and makes the target harder to explain and predict, but also gives a measure for importance of features. More specifically, features with no variance contain no information for the eventual embedding, similar to entropy in information theory. PCA yields a set of principal components, i.e. vectors forming a basis of the domain space, ranked by their respective variance in descending order. 
+
+Finding such principal components is done successively for each component. This may be formulated as a linear regression problem fitting a straight line trough the data. The prospective, next components are found likewise in embedding space, after removing all data correlated to the first component, i.e. the second components must be orthogonal to the first one (or generally all preceding ones). In order to embed our domain space into three dimensions as described above, we compute the first three principal components forming a basis of the domain space. Naturally, we then express every embedding, representing entities, as coordinates of that basis. Moreover, we linearly normalize each coefficient by the respective maximum and minimum values. This is feasible as we only consider euclidean spaces, preserving the respective bases.
+
+\paragraph{t-SNE}\mbox{}\\
 \label{sec:tsne}
 
-\paragraph{UMAP}
+t-Distributed Stochastic Neighbor Embedding (t-SNE) \cite{van2008visualizing} is a generalization of Stochastic Neighbor Embedding (SNE), and often used a direct competitor for PCA. However, as PCA only performs linear regression to build the linear basis of the respective domain space, its incapable to capture \textit{non-linear} correlations, i.e. cannot separate data that may not be separated by a plane in respective dimensionality. This issue is addressed by t-SNE and used for visualization of complex manifolds and spaces such as image representation space returned by CNNs. \\
+
+SNE measures similarity of data points by measuring their pair-wise conditional probability describing membership to the same cluster in the supervised and neighborhood in the unsupervised learning case, and likewise for t-SNE. After construction of distributions in domain, i.e. high-dimensional, space, t-SNE's algorithm constructs similar probability distributions for in the target co-domain, i.e. low-dimensional, space minimizing the Kullback-Leibler divergence \cite{hershey2007approximating} of two points with respect to their euclidean distance in the domain space. Kullback-Leibler divergence measures pairwise divergence of two given (uni-modal) distributions $P,Q$ and is defined as relative entropy from $Q$ to $P$ by
+\begin{equation}
+	\label{equ:KL_div}
+	D_{KL} (P||Q) := \int_{-\infty}^\infty p(x)\log \left(\frac{p(x)}{q(x)}\right)
+\end{equation}
+for continuous spaces, where $p$ and $q$ denote the probability densities of $P$ and $Q$, respectively.
+
+\paragraph{UMAP}\mbox{}\\
 \label{sec:umap}
 
-\paragraph{Parametric UMAP}
+Uniform manifold approximation and projection (UMAP) \cite{mcinnes2018umap} is constructed based on and as a direct competitor of t-SNE. Likewise to t-SNE, UMAP tries to preserve the pair-wise distances, but changes the metric for distances. As described in Section \ref{sec:tsne}, embeddings are correlated with distributions and hence a distance measure over probability distributions, i.e. density functions for continuous variables as in our case, was introduced reusing the Kullback-Leibler divergence. UMAP interprets the data as samples of a an underlying manifold over Riemannian geometry based in algebraic topology. Riemannian manifolds are embedded as a generalization of euclidean space, requiring and preserving euclidean properties only locally. More specifically, euclidean distance measures may be applied only locally. Hence, UMAP conserves euclidean distances within the fuzzy simplical complex, i.e. a "neighborhood subgraph".
+The UMAP algorithm first computes a graphical representation of the dataset determined by an ablation of k-nearest neighbors, and learns the corresponding embeddings in a second step. \\
+
+While this idea is very simple and na\"ive, it allows for both incorporation of neural networks for embeddings and analysis of the domain space's manifold. This approach has shown great results for a variety of tasks, which we will not cite in detail here, and especially a significant improvement over PCA and t-SNE.
+A visualization of UMAP from the PyPi library umap is shown in Figure \ref{fig:umap_vis}.
+A great visualization of UMAP and its expressive power especially in comparison to t-SNE is given at the \href{https://pair-code.github.io/understanding-umap/}{Google PAIR website} with loads of examples.
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{1.\textwidth}
+		\centering
+		\includegraphics[width=.95\linewidth]{figures/umap-only.png}
+		\caption{UMAP pipeline}
+		\label{fig:umap_vis}
+	\end{subfigure}\\
+	\begin{subfigure}{1.\textwidth}
+		\centering
+		\includegraphics[width=0.95\linewidth]{figures/pumap-only.png}
+		\caption{Parametric UMAP pipeline}
+		\label{fig:para_umap_vis}
+	\end{subfigure}
+	
+	\label{fig:umap_visualizations}
+	\caption{Visualization of UMAP's and  Parametric UMAP's respective workflows. Images are taken from the \href{https://umap-learn.readthedocs.io/en/latest/parametric_umap.html}{PyPi umap library docs} and the papers. The library is built and maintained by the UMAP and Parametric UMAP authors.}
+\end{figure}
+
+\paragraph{Parametric UMAP}\mbox{}\\
 \label{sec:paraumap}
 
+The fourth presented dimensionality reduction method is Parametric UMAP \cite{sainburg2021parametric}, that forms a direct successor of UMAP, not only by name. Developed in the same research group, UMAP learns a low-dimensional embedding of the underlying neighborhood graph in its second step, as described in Section \ref{sec:umap}. Within Parametric UMAP, this second step is substituted by neural network learning the correlation and relation of data and embeddings. This trick makes the method applicable to arbitrary deep learning applications, and enhances performance. The workflow of Parametric UMAP is shown in Figure \ref{fig:para_umap_vis}.
 
 \subsubsection{Hyperparameter tuning}
 \begin{itemize}
@@ -736,6 +814,8 @@ blocks are reusable and can be stacked multiple times.
 	\item self-built metric for evaluation of dim-red
 	\item AUC and AUPR for conn pred
 \end{itemize}
+
+
 
 
 \newpage

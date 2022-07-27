@@ -14,21 +14,25 @@
 \contentsline {subsubsection}{\numberline {3.2.2}Protein-protein interaction graph}{14}{subsubsection.3.2.2}%
 \contentsline {subsubsection}{\numberline {3.2.3}Connectivity data}{14}{subsubsection.3.2.3}%
 \contentsline {paragraph}{\numberline {3.2.3.1}Structural connectome data}{15}{paragraph.3.2.3.1}%
-\contentsline {paragraph}{\numberline {3.2.3.2}Functional connectivity data}{16}{paragraph.3.2.3.2}%
+\contentsline {paragraph}{\numberline {3.2.3.2}Functional connectivity data}{15}{paragraph.3.2.3.2}%
 \contentsline {paragraph}{\numberline {3.2.3.3}Effective connectivity}{17}{paragraph.3.2.3.3}%
 \contentsline {subsection}{\numberline {3.3}Model}{18}{subsection.3.3}%
 \contentsline {subsubsection}{\numberline {3.3.1}Feature generation and protein representation}{18}{subsubsection.3.3.1}%
-\contentsline {subsubsection}{\numberline {3.3.2}Graph convolutional neural layers}{19}{subsubsection.3.3.2}%
-\contentsline {subsubsection}{\numberline {3.3.3}Dimensionality reduction techniques}{22}{subsubsection.3.3.3}%
-\contentsline {paragraph}{\numberline {3.3.3.1}Principal component analysis (PCA)}{22}{paragraph.3.3.3.1}%
-\contentsline {paragraph}{\numberline {3.3.3.2}tSNE}{22}{paragraph.3.3.3.2}%
-\contentsline {paragraph}{\numberline {3.3.3.3}UMAP}{22}{paragraph.3.3.3.3}%
-\contentsline {paragraph}{\numberline {3.3.3.4}Parametric UMAP}{22}{paragraph.3.3.3.4}%
-\contentsline {subsubsection}{\numberline {3.3.4}Hyperparameter tuning}{22}{subsubsection.3.3.4}%
-\contentsline {subsection}{\numberline {3.4}Evaluation and metrics}{22}{subsection.3.4}%
-\contentsline {section}{\numberline {4}Results}{24}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Gene expression prediction}{24}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Dimensionality reduction and its combination with different graphs structures}{24}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}On the linkage of connectivities and gene expression patterns}{25}{subsection.4.3}%
-\contentsline {section}{\numberline {5}Discussion}{26}{section.5}%
-\contentsline {section}{\numberline {6}Conclusion}{27}{section.6}%
+\contentsline {subsubsection}{\numberline {3.3.2}Graph convolutional neural networks}{19}{subsubsection.3.3.2}%
+\contentsline {paragraph}{\numberline {3.3.2.1}Graph convolutional neural layers (GCNConv)}{20}{paragraph.3.3.2.1}%
+\contentsline {paragraph}{\numberline {3.3.2.2}Graph attention networks (GATConv)}{21}{paragraph.3.3.2.2}%
+\contentsline {paragraph}{\numberline {3.3.2.3}Training deeper graph convolutional neural networks (GENConv)}{22}{paragraph.3.3.2.3}%
+\contentsline {paragraph}{\numberline {3.3.2.4}Graph Kernels going beyond the Weisfeiler-Leman algorithm (KerGNN)}{23}{paragraph.3.3.2.4}%
+\contentsline {subsubsection}{\numberline {3.3.3}Dimensionality reduction techniques}{23}{subsubsection.3.3.3}%
+\contentsline {paragraph}{\numberline {3.3.3.1}Principal component analysis (PCA)}{24}{paragraph.3.3.3.1}%
+\contentsline {paragraph}{\numberline {3.3.3.2}t-SNE}{24}{paragraph.3.3.3.2}%
+\contentsline {paragraph}{\numberline {3.3.3.3}UMAP}{25}{paragraph.3.3.3.3}%
+\contentsline {paragraph}{\numberline {3.3.3.4}Parametric UMAP}{25}{paragraph.3.3.3.4}%
+\contentsline {subsubsection}{\numberline {3.3.4}Hyperparameter tuning}{27}{subsubsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.4}Evaluation and metrics}{27}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Results}{28}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Gene expression prediction}{28}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Dimensionality reduction and its combination with different graphs structures}{28}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}On the linkage of connectivities and gene expression patterns}{29}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Discussion}{30}{section.5}%
+\contentsline {section}{\numberline {6}Conclusion}{31}{section.6}%

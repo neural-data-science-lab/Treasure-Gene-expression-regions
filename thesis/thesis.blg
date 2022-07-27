@@ -3,44 +3,49 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: thesis.aux
 The style file: abbrvnat.bst
 Database file #1: citations.bib
-You've used 106 entries,
+Repeated entry---line 1410 of file citations.bib
+ : @article{feng2022kergnns
+ :                         ,
+I'm skipping whatever remains of this entry
+You've used 117 entries,
             2773 wiz_defined-function locations,
-            1276 strings with 38258 characters,
-and the built_in function-call counts, 82761 in all, are:
-= -- 6571
-> -- 8572
-< -- 31
-+ -- 2869
-- -- 2763
-* -- 8367
-:= -- 13586
-add.period$ -- 376
-call.type$ -- 106
-change.case$ -- 1216
-chr.to.int$ -- 106
-cite$ -- 212
-duplicate$ -- 2234
-empty$ -- 4188
-format.name$ -- 2903
-if$ -- 16306
+            1333 strings with 40245 characters,
+and the built_in function-call counts, 88507 in all, are:
+= -- 7096
+> -- 8919
+< -- 41
++ -- 2985
+- -- 2868
+* -- 8839
+:= -- 14444
+add.period$ -- 411
+call.type$ -- 117
+change.case$ -- 1283
+chr.to.int$ -- 117
+cite$ -- 234
+duplicate$ -- 2493
+empty$ -- 4640
+format.name$ -- 3028
+if$ -- 17530
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 109
-newline$ -- 594
-num.names$ -- 426
-pop$ -- 2237
+missing$ -- 120
+newline$ -- 649
+num.names$ -- 470
+pop$ -- 2367
 preamble$ -- 1
-purify$ -- 1114
+purify$ -- 1170
 quote$ -- 0
-skip$ -- 2265
+skip$ -- 2479
 stack$ -- 0
-substring$ -- 2322
-swap$ -- 169
-text.length$ -- 4
+substring$ -- 2553
+swap$ -- 212
+text.length$ -- 9
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 1146
+type$ -- 1267
 warning$ -- 0
-while$ -- 476
+while$ -- 528
 width$ -- 0
-write$ -- 1490
+write$ -- 1635
+(There was 1 error message)
