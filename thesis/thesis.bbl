@@ -1,4 +1,4 @@
-\begin{thebibliography}{117}
+\begin{thebibliography}{118}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -225,7 +225,7 @@ A.~Fakhry, T.~Zeng, H.~Peng, and S.~Ji.
 \bibitem[Feng et~al.(2022)Feng, You, Wang, and Tassiulas]{feng2022kergnns}
 A.~Feng, C.~You, S.~Wang, and L.~Tassiulas.
 \newblock Kergnns: Interpretable graph neural networks with graph kernels.
-\newblock \emph{ArXiv Preprint: https://arxiv.org/abs/2201.00491}, 2022.
+\newblock \emph{ArXiv Preprint: https://arxiv. org/abs/2201.00491}, 2022.
 
 \bibitem[Fey and Lenssen(2019)]{PytorchGeometric}
 M.~Fey and J.~E. Lenssen.
@@ -380,13 +380,21 @@ R.~Hoehndorf, P.~N. Schofield, and G.~V. Gkoutos.
 \newblock \doi{10.1093/nar/gkr538}.
 \newblock URL \url{https://doi.org/10.1093/nar/gkr538}.
 
-\bibitem[Jeni et~al.(2013)Jeni, Cohn, and De~La~Torre]{Jeni2013}
+\bibitem[Jeni et~al.(2013{\natexlab{a}})Jeni, Cohn, and De~La~Torre]{Jeni2013}
 L.~A. Jeni, J.~F. Cohn, and F.~De~La~Torre.
 \newblock Facing imbalanced data--recommendations for the use of performance
   metrics.
 \newblock In \emph{2013 Humaine Association Conference on Affective Computing
-  and Intelligent Interaction}, pages 245--251, 2013.
+  and Intelligent Interaction}, pages 245--251, 2013{\natexlab{a}}.
 \newblock \doi{10.1109/ACII.2013.47}.
+
+\bibitem[Jeni et~al.(2013{\natexlab{b}})Jeni, Cohn, and
+  De~La~Torre]{jeni2013facing}
+L.~A. Jeni, J.~F. Cohn, and F.~De~La~Torre.
+\newblock Facing imbalanced data--recommendations for the use of performance
+  metrics.
+\newblock In \emph{2013 Humaine association conference on affective computing
+  and intelligent interaction}, pages 245--251. IEEE, 2013{\natexlab{b}}.
 
 \bibitem[Kaufman et~al.(2006)Kaufman, Dror, Meilijson, and
   Ruppin]{kaufman2006gene}
@@ -526,12 +534,6 @@ J.~Z. Li, B.~G. Bunney, F.~Meng, M.~H. Hagenauer, D.~M. Walsh, M.~P. Vawter,
   disruption in major depressive disorder.
 \newblock \emph{Proceedings of the National Academy of Sciences}, 110\penalty0
   (24):\penalty0 9950--9955, 2013.
-
-\bibitem[Liaw et~al.(2018)Liaw, Liang, Nishihara, Moritz, Gonzalez, and
-  Stoica]{liaw2018tune}
-R.~Liaw, E.~Liang, R.~Nishihara, P.~Moritz, J.~E. Gonzalez, and I.~Stoica.
-\newblock Tune: A research platform for distributed model selection and
-  training, 2018.
 
 \bibitem[Lo et~al.(2009)Lo, Lee, Lee, and Lyu]{lo2009cpdb}
 W.-C. Lo, C.-C. Lee, C.-Y. Lee, and P.-C. Lyu.
@@ -712,6 +714,12 @@ S.~Razick, G.~Magklaras, and I.~M. Donaldson.
 \newblock irefindex: a consolidated protein interaction database with
   provenance.
 \newblock \emph{BMC bioinformatics}, 9\penalty0 (1):\penalty0 1--19, 2008.
+
+\bibitem[Resnik(1995)]{resnik1995using}
+P.~Resnik.
+\newblock Using information content to evaluate semantic similarity in a
+  taxonomy.
+\newblock \emph{arXiv preprint cmp-lg/9511007}, 1995.
 
 \bibitem[Richiardi et~al.(2015)Richiardi, Altmann, Milazzo, Chang, Chakravarty,
   Banaschewski, Barker, Bokde, Bromberg, B{\"u}chel,

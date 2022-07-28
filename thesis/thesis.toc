@@ -10,7 +10,7 @@
 \contentsline {subsubsection}{\numberline {3.1.2}Preserving dimensionality reduction in brains}{8}{subsubsection.3.1.2}%
 \contentsline {subsubsection}{\numberline {3.1.3}Structural, functional and effective connectivity prediction}{8}{subsubsection.3.1.3}%
 \contentsline {subsection}{\numberline {3.2}Datasets and preprocessing}{9}{subsection.3.2}%
-\contentsline {subsubsection}{\numberline {3.2.1}Spatial gene expression values in mice brain}{10}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.1}Spatial gene expression values in mouse brains}{10}{subsubsection.3.2.1}%
 \contentsline {subsubsection}{\numberline {3.2.2}Protein-protein interaction graph}{14}{subsubsection.3.2.2}%
 \contentsline {subsubsection}{\numberline {3.2.3}Connectivity data}{14}{subsubsection.3.2.3}%
 \contentsline {paragraph}{\numberline {3.2.3.1}Structural connectome data}{15}{paragraph.3.2.3.1}%
@@ -28,11 +28,11 @@
 \contentsline {paragraph}{\numberline {3.3.3.2}t-SNE}{24}{paragraph.3.3.3.2}%
 \contentsline {paragraph}{\numberline {3.3.3.3}UMAP}{25}{paragraph.3.3.3.3}%
 \contentsline {paragraph}{\numberline {3.3.3.4}Parametric UMAP}{25}{paragraph.3.3.3.4}%
-\contentsline {subsubsection}{\numberline {3.3.4}Hyperparameter tuning}{27}{subsubsection.3.3.4}%
+\contentsline {subsubsection}{\numberline {3.3.4}Hyperparameter tuning}{26}{subsubsection.3.3.4}%
 \contentsline {subsection}{\numberline {3.4}Evaluation and metrics}{27}{subsection.3.4}%
-\contentsline {section}{\numberline {4}Results}{28}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Gene expression prediction}{28}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Dimensionality reduction and its combination with different graphs structures}{28}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}On the linkage of connectivities and gene expression patterns}{29}{subsection.4.3}%
-\contentsline {section}{\numberline {5}Discussion}{30}{section.5}%
-\contentsline {section}{\numberline {6}Conclusion}{31}{section.6}%
+\contentsline {section}{\numberline {4}Results}{29}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Gene expression prediction}{29}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Dimensionality reduction and its combination with different graphs structures}{29}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}On the linkage of connectivities and gene expression patterns}{30}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Discussion}{31}{section.5}%
+\contentsline {section}{\numberline {6}Conclusion}{32}{section.6}%

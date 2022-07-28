@@ -775,19 +775,19 @@ The UMAP algorithm first computes a graphical representation of the dataset dete
 
 While this idea is very simple and na\"ive, it allows for both incorporation of neural networks for embeddings and analysis of the domain space's manifold. This approach has shown great results for a variety of tasks, which we will not cite in detail here, and especially a significant improvement over PCA and t-SNE.
 A visualization of UMAP from the PyPi library umap is shown in Figure \ref{fig:umap_vis}.
-A great visualization of UMAP and its expressive power especially in comparison to t-SNE is given at the \href{https://pair-code.github.io/understanding-umap/}{Google PAIR website} with loads of examples.
+A great visualization of UMAP and its expressive power especially in comparison to t-SNE is given at the \href{https://pair-code.github.io/understanding-umap/}{Google PAIR website} with loads of examples. Moreover, see \href{https://umap-learn.readthedocs.io/en/latest/performance.html}{umap-learn}'s comparison of UMAP with various other embedding methods with respect to runtime and embedding quality.
 
 \begin{figure}
 	\centering
 	\begin{subfigure}{1.\textwidth}
 		\centering
-		\includegraphics[width=.95\linewidth]{figures/umap-only.png}
+		\includegraphics[width=.90\linewidth]{figures/umap-only.png}
 		\caption{UMAP pipeline}
 		\label{fig:umap_vis}
 	\end{subfigure}\\
 	\begin{subfigure}{1.\textwidth}
 		\centering
-		\includegraphics[width=0.95\linewidth]{figures/pumap-only.png}
+		\includegraphics[width=0.90\linewidth]{figures/pumap-only.png}
 		\caption{Parametric UMAP pipeline}
 		\label{fig:para_umap_vis}
 	\end{subfigure}
@@ -802,21 +802,79 @@ A great visualization of UMAP and its expressive power especially in comparison 
 The fourth presented dimensionality reduction method is Parametric UMAP \cite{sainburg2021parametric}, that forms a direct successor of UMAP, not only by name. Developed in the same research group, UMAP learns a low-dimensional embedding of the underlying neighborhood graph in its second step, as described in Section \ref{sec:umap}. Within Parametric UMAP, this second step is substituted by neural network learning the correlation and relation of data and embeddings. This trick makes the method applicable to arbitrary deep learning applications, and enhances performance. The workflow of Parametric UMAP is shown in Figure \ref{fig:para_umap_vis}.
 
 \subsubsection{Hyperparameter tuning}
-\begin{itemize}
-	\item RayTune\cite{liaw2018tune} for automated hyperparameter tuning
-\end{itemize}
+\label{sec:hyperparameter_tuning}
+As for the two classification tasks, namely gene expression prediction (see Section \ref{sec:probdesc_geneexp}) and connectivity prediction (see Section \ref{sec:probdesc_connpred}), positive links are scattered and few, training and testing datasets are highly imbalanced. Exact number may be seen in the respective dataset description sections.
+The values
+
+\begin{align}
+	\label{equ:loss_weight}
+	w_\text{geneexp}:=&\frac{|S| \cdot |G|}{\#positives} > 10 \text{, and}\\
+	\label{equ:loss_weight_conn}
+	w_\text{connpred}:=&\frac{|S| \cdot |S|}{\#positives} > 5
+\end{align}
+
+describing imbalances within the gene expression and connectivity prediction dataset, hence need a suitable compensation in the respective loss functions and the evaluation metrics. Thus, we formulate a weighted version of the binary cross-entropy described by
+
+\begin{equation}
+	l(x,y):= -w\cdot\left( y\cdot \log x + (1-y)\cdot\log(1-x) \right)
+\end{equation}
+
+for given prediction $x$, ground truth $y$, and weights $w$ as described in Equations \ref{equ:loss_weight} and \ref{equ:loss_weight_conn}, respectively. The losses are averaged among all predictions in the training set on which we apply the \textit{Adam} optimizer \cite{Adam2014}, guided by an early stopping scheme. For both prediction tasks we run a 5-fold cross validation for statistical robustness.\\
+
+We determine the hyperparameters by a manual grid search among the search space, guided by the corresponding AUROC scores among the validation set. We further optimize the layer types, model depth and learning rate by a manual grid search, too.\\
+
+For the task of dimensionality reduction, we do not have access to underlying ground truth caused by the explorative, and unsupervised nature. Corresponding loss functions are determined by each reduction method.
+Thus, hyperparameters of each embedding method is are determined likewise, with a manual grid search.
 
 \subsection{Evaluation and metrics}
 \label{sec:evalmetrics}
-\begin{itemize}
-	\item unbalanced data for prediction task
-	\item AUC and AUPR for gene expression prediction
-	\item self-built metric for evaluation of dim-red
-	\item AUC and AUPR for conn pred
-\end{itemize}
 
+As mentioned, both classification datasets are highly imbalanced, and the dataset for dimensionality prediction is not bound to ground truth for evaluation. Therefor, we will treat these two problem classes separately.\\
 
+The classification tasks already follow the guidance of the customized and adjusted loss function. However, we need other metrics for evaluation of the observed predictions. We hence use the area under receiver operating characteristic curve (AUROC) on training and validation split data.
+The AUROC score is calculated by determining true positive rates at various false positive rate thresholds and use trapezoidal approximations to estimate the are under the curve. We use the widely used and open-source implementation of \verb*|scikit-learn| for that matter. We further choose the AUROC score as primary metric over measures like the area under precision recall curve (AUPRC) as AUPRC is sensitive to imbalanced datasets \cite{jeni2013facing}.\\
 
+For evaluation of respective embeddings in the dimensionality reduction task, we use a custom metric based on similarity of embeddings for proximate and \textit{related} sub-structures. We propose \textsc{EmbSim}, a structure dependent similarity measure for embeddings. 
+
+Let $S'$ be the set of all structures in the brain, and $f_{\text{emb}}:S\rightarrow \mathbb{R}^k ,S\subseteq S'$ be the learned embedding function, where $k$ is set to $k=3$ if not stated otherwise. We are hereby only interested in the set of structures $S\subseteq S'$ that have a an associated embedding, i.e. gene expressions values are given for all $s\in S$ but not for all $s'\in S'$. 
+Further, let $s_1, s_2$ be two structures, whose embedding similarity we are trying to determine. We compute this similarity by the pair-wise cosine similarity defined by 
+
+\begin{equation}
+	sim_\text{cos}(x_1,x_2):=\frac{x_1\cdot x_2}{\max\left( ||x_1||_2 \cdot ||x_2||_2,\epsilon \right)}
+\end{equation}
+
+for embeddings $x_1, x_2$. As we only operate within the space $[0,1]$, we normalize $f_{\text{emb}}(S)$ by their maximum and minimum value along each dimension. 
+
+\begin{equation}
+	norm_S(s) = \left( norm_{S,i}'(s) \right)_i
+\end{equation}
+
+and
+
+\begin{equation}
+	norm_{S,i}'(s)=\frac{f_{\text{emb},i}(s) - \min\left(f_{\text{emb},i}(S) \right)}{\max\left(f_{\text{emb},i}(S) \right) - \min\left(f_{\text{emb},i}(S) \right)} \text{,  }s\in S
+\end{equation}
+
+with $f_{\text{emb},i}$ the $i$-th dimension of $f_{\text{emb}}$. As this is only a linear transformation, this preserves the assumptions of all considered reduction methodologies.
+
+Second, we weight these pairwise similarities by their relation, measured by the Resnik similarity \cite{resnik1995using} $sim_\text{Resnik}:S\times S\rightarrow \mathbb{R}$, a semantic similarity measure, measuring the pairwise maximum information gain in the taxonomy of the closest common ancestor. We describe proximate and related sub-structures and their pairwise anatomical proximity, via the structure ontology of CCFv3.
+We further normalize these similarities by their maximum value among all structure pairs in the ontology. This measure gives us an assessment of importance of similarities for two structures. If two entities are close in the taxonomy want the metric to emphasize the correct similarity more than for distant and un-related structures.\\
+
+Eventually, we combine these two values weighting the similarities obtained from the cosine similarity by their corresponding Resnik similarity. With 
+
+\begin{align*}
+	P_{\text{cos}}:=& \left( \sum_{(t_1,t_2)\in S\times S} sim_\text{cos}(norm_S(t_1), norm_S(t_1)) \right) \\
+	P_{\text{Resnik}}:=&\left( \sum_{(t_1,t_2)\in S\times S}sim_\text{Resnik} (norm_S(t_1), norm_S(t_2)) \right)
+\end{align*}
+
+we can eventually define \textsc{EmbSim} by
+
+\begin{equation}
+	\textsc{EmbSim}(s_1,s_2):= \frac{sim_\text{cos}(norm_S(s_1), norm_S(s_1)) \cdot sim_\text{Resnik}(norm_S(s_1), norm_S(s_2))}{ P_{\text{cos}} \cdot P_{\text{Resnik}}}
+\end{equation}
+
+We will do an extensive analysis of this measure within Section \ref{sec:results_dimred}.
+Further, for comparison of various neural network based models fused to UMAP and Parametric UMAP, we will use the associated UMAP loss, which is invariant to model formulation but variant on structure selection.
 
 \newpage
 \section{Results}
@@ -852,8 +910,17 @@ best results are achieved when combining both row- and column-based normalizatio
 (Supplementary Table 2).	
 
 \subsection{Dimensionality reduction and its combination with different graphs structures}
+\label{sec:results_dimred}
 
 \begin{itemize}
+	
+	\item Show validity of measurement $\rightarrow$ 
+	\begin{itemize}
+		\item Show penalty for too similar embeddings and random embeddings
+		\item show invalidity to choice of structures
+		\item describe normalization techniques
+		\item UMAP loss is dependent on selected structures
+	\end{itemize}
 	\item plot for showing validity of embeddings: K-means colour with respect to cluster 
 	\item plot colour parent structure all similar
 \end{itemize}
