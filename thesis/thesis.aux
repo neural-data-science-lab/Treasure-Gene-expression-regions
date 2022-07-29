@@ -156,7 +156,7 @@
 \newlabel{sub@fig:ano_sag}{{d}{11}{Annotation sagittal\relax }{figure.caption.4}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces (a)-(b): Coronal and sagittal view on the "average brain", an averaged map of all gene expression values gathered from AMBA; (c)-(d): Coronal and sagittal view on the annotation atlas, partitioning the reference brain into $\approx 900$ sub-structures.\relax }}{11}{figure.caption.4}\protected@file@percent }
 \newlabel{fig:CCF_images}{{1}{11}{(a)-(b): Coronal and sagittal view on the "average brain", an averaged map of all gene expression values gathered from AMBA; (c)-(d): Coronal and sagittal view on the annotation atlas, partitioning the reference brain into $\approx 900$ sub-structures.\relax }{figure.caption.4}{}}
-\newlabel{tab:expr_values}{{\caption@xref {tab:expr_values}{ on input line 349}}{11}{Spatial gene expression values in mouse brains}{table.caption.5}{}}
+\newlabel{tab:expr_values}{{\caption@xref {tab:expr_values}{ on input line 352}}{11}{Spatial gene expression values in mouse brains}{table.caption.5}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Formulas and descriptions for the calculation of the three expression values provided by AMBA. The respective descriptions are provided by the official \href  {http://help.brain-map.org/download/attachments/2818169/InformaticsDataProcessing.pdf?version=1&modificationDate=1319667590884&api=v2}{Allen Mouse Brain Documentation}, which we note as a reference for further information on these metrics.\relax }}{11}{table.caption.5}\protected@file@percent }
 \@writefile{tdo}{\contentsline {todo}{Edit figure caption}{12}{section*.7}\protected@file@percent }
 \pgfsyspdfmark {pgfid16}{5594039}{7964155}
@@ -280,7 +280,7 @@
 \newlabel{sub@fig:umap_vis}{{a}{26}{UMAP pipeline\relax }{figure.caption.14}{}}
 \newlabel{fig:para_umap_vis}{{6b}{26}{Parametric UMAP pipeline\relax }{figure.caption.14}{}}
 \newlabel{sub@fig:para_umap_vis}{{b}{26}{Parametric UMAP pipeline\relax }{figure.caption.14}{}}
-\newlabel{fig:umap_visualizations}{{\caption@xref {fig:umap_visualizations}{ on input line 795}}{26}{UMAP}{figure.caption.14}{}}
+\newlabel{fig:umap_visualizations}{{\caption@xref {fig:umap_visualizations}{ on input line 798}}{26}{UMAP}{figure.caption.14}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Visualization of UMAP's and Parametric UMAP's respective workflows. Images are taken from the \href  {https://umap-learn.readthedocs.io/en/latest/parametric_umap.html}{PyPi umap library docs} and the papers. The library is built and maintained by the UMAP and Parametric UMAP authors.\relax }}{26}{figure.caption.14}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.4}Hyperparameter tuning}{26}{subsubsection.3.3.4}\protected@file@percent }
 \newlabel{sec:hyperparameter_tuning}{{3.3.4}{26}{Hyperparameter tuning}{subsubsection.3.3.4}{}}
@@ -291,16 +291,45 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Evaluation and metrics}{27}{subsection.3.4}\protected@file@percent }
 \newlabel{sec:evalmetrics}{{3.4}{27}{Evaluation and metrics}{subsection.3.4}{}}
 \citation{resnik1995using}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Results}{29}{section.4}\protected@file@percent }
-\newlabel{sec:results}{{4}{29}{Results}{section.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Gene expression prediction}{29}{subsection.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Dimensionality reduction and its combination with different graphs structures}{29}{subsection.4.2}\protected@file@percent }
-\newlabel{sec:results_dimred}{{4.2}{29}{Dimensionality reduction and its combination with different graphs structures}{subsection.4.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}On the linkage of connectivities and gene expression patterns}{30}{subsection.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5}Discussion}{31}{section.5}\protected@file@percent }
-\newlabel{sec:discussion}{{5}{31}{Discussion}{section.5}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{32}{section.6}\protected@file@percent }
-\newlabel{sec:conclusion}{{6}{32}{Conclusion}{section.6}{}}
+\newlabel{equ:norm}{{18}{28}{Evaluation and metrics}{equation.3.18}{}}
+\newlabel{equ:embsim}{{22}{28}{Evaluation and metrics}{equation.3.22}{}}
+\newlabel{equ:embvar}{{23}{28}{Evaluation and metrics}{equation.3.23}{}}
+\@writefile{tdo}{\contentsline {todo}{What is EmbVar exactly? Give good intuition here! Note that EmbVar may reach values above 1}{28}{section*.15}\protected@file@percent }
+\pgfsyspdfmark {pgfid31}{5594039}{7524422}
+\pgfsyspdfmark {pgfid34}{37498829}{7536382}
+\pgfsyspdfmark {pgfid35}{39612364}{7312577}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Results}{30}{section.4}\protected@file@percent }
+\newlabel{sec:results}{{4}{30}{Results}{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Gene expression prediction}{30}{subsection.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Dimensionality reduction and its combination with different graphs structures}{30}{subsection.4.2}\protected@file@percent }
+\newlabel{sec:results_dimred}{{4.2}{30}{Dimensionality reduction and its combination with different graphs structures}{subsection.4.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.1}On the validity of \textsc  {EmbSim} and \textsc  {EmbVar}}{30}{subsubsection.4.2.1}\protected@file@percent }
+\newlabel{sec:results_embsim}{{4.2.1}{30}{On the validity of \textsc {EmbSim} and \textsc {EmbVar}}{subsubsection.4.2.1}{}}
+\newlabel{fig:tree_balanced}{{7a}{32}{Balanced $5\times 5$ tree\relax }{figure.caption.16}{}}
+\newlabel{sub@fig:tree_balanced}{{a}{32}{Balanced $5\times 5$ tree\relax }{figure.caption.16}{}}
+\newlabel{fig:tree_unbalanced}{{\caption@xref {fig:tree_unbalanced}{ on input line 978}}{32}{On the validity of \textsc {EmbSim} and \textsc {EmbVar}}{figure.caption.16}{}}
+\newlabel{sub@fig:tree_unbalanced}{{a}{32}{On the validity of \textsc {EmbSim} and \textsc {EmbVar}}{figure.caption.16}{}}
+\newlabel{fig:tree_unbalanced_reduced}{{\caption@xref {fig:tree_unbalanced_reduced}{ on input line 991}}{32}{On the validity of \textsc {EmbSim} and \textsc {EmbVar}}{figure.caption.16}{}}
+\newlabel{sub@fig:tree_unbalanced_reduced}{{b}{32}{On the validity of \textsc {EmbSim} and \textsc {EmbVar}}{figure.caption.16}{}}
+\newlabel{fig:trees}{{\caption@xref {fig:trees}{ on input line 994}}{32}{On the validity of \textsc {EmbSim} and \textsc {EmbVar}}{figure.caption.16}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces text\relax }}{32}{figure.caption.16}\protected@file@percent }
+\citation{ValkShapingBrainStructure2020}
+\citation{Partel2020}
+\newlabel{tab:dim_red_results}{{\caption@xref {tab:dim_red_results}{ on input line 1096}}{33}{On the validity of \textsc {EmbSim} and \textsc {EmbVar}}{table.caption.18}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Test\relax }}{33}{table.caption.18}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}On the linkage of connectivities and gene expression patterns}{33}{subsection.4.3}\protected@file@percent }
+\newlabel{fig:random_distribution}{{8a}{34}{Uniform distribution $p_\text {uni}$\relax }{figure.caption.17}{}}
+\newlabel{sub@fig:random_distribution}{{a}{34}{Uniform distribution $p_\text {uni}$\relax }{figure.caption.17}{}}
+\newlabel{fig:dirac_distribution}{{8d}{34}{Dirac distribution $p_\text {dirac}$\relax }{figure.caption.17}{}}
+\newlabel{sub@fig:dirac_distribution}{{d}{34}{Dirac distribution $p_\text {dirac}$\relax }{figure.caption.17}{}}
+\newlabel{fig:gauss_distribution}{{8g}{34}{Gaussian distribution $p_\text {gauss}$\relax }{figure.caption.17}{}}
+\newlabel{sub@fig:gauss_distribution}{{g}{34}{Gaussian distribution $p_\text {gauss}$\relax }{figure.caption.17}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Baseline functions from Section \ref  {sec:results_embsim} and the corresponding colored brain structures, coronal and sagittal cross-section. (a) - (c): Uniform distribution $p_\text  {uni}$; (d) - (f): Constant values with respect to Dirac distribution $p_\text  {dirac}$ with peak at $t=0.3$; (g) - (i): Values sampled from Gaussian distribution $p_\text  {gauss}$ with $\mu =0.3, \sigma =0.05$\relax }}{34}{figure.caption.17}\protected@file@percent }
+\newlabel{fig:baseline_distributions}{{8}{34}{Baseline functions from Section \ref {sec:results_embsim} and the corresponding colored brain structures, coronal and sagittal cross-section. (a) - (c): Uniform distribution $p_\text {uni}$; (d) - (f): Constant values with respect to Dirac distribution $p_\text {dirac}$ with peak at $t=0.3$; (g) - (i): Values sampled from Gaussian distribution $p_\text {gauss}$ with $\mu =0.3, \sigma =0.05$\relax }{figure.caption.17}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Discussion}{35}{section.5}\protected@file@percent }
+\newlabel{sec:discussion}{{5}{35}{Discussion}{section.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{36}{section.6}\protected@file@percent }
+\newlabel{sec:conclusion}{{6}{36}{Conclusion}{section.6}{}}
 \bibdata{citations}
 \bibcite{abdi2010principal}{{1}{2010}{{Abdi and Williams}}{{}}}
 \bibcite{achim2015high}{{2}{2015}{{Achim et~al.}}{{Achim, Pettit, Saraiva, Gavriouchkina, Larsson, Arendt, and Marioni}}}
@@ -420,4 +449,4 @@
 \bibcite{zeng_deep_2015}{{116}{2015}{{Zeng et~al.}}{{Zeng, Li, Mukkamala, Ye, and Ji}}}
 \bibcite{Zerbi2021}{{117}{2021}{{Zerbi et~al.}}{{Zerbi, Pagani, Markicevic, Matteoli, Pozzi, Fagiolini, Bozzi, Galbusera, Scattoni, Provenzano, Banerjee, Helmchen, Basson, Ellegood, Lerch, Rudin, Gozzi, and Wenderoth}}}
 \bibcite{Zitnik2017}{{118}{2017}{{Zitnik and Leskovec}}{{}}}
-\gdef \@abspage@last{47}
+\gdef \@abspage@last{51}

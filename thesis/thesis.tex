@@ -11,6 +11,9 @@
 \usepackage{rotating}
 
 \usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{forest}
+\usepackage{tikz-qtree}
 
 % bibliography natbib
 \usepackage{natbib}
@@ -846,6 +849,7 @@ Further, let $s_1, s_2$ be two structures, whose embedding similarity we are try
 for embeddings $x_1, x_2$. As we only operate within the space $[0,1]$, we normalize $f_{\text{emb}}(S)$ by their maximum and minimum value along each dimension. 
 
 \begin{equation}
+	\label{equ:norm}
 	norm_S(s) = \left( norm_{S,i}'(s) \right)_i
 \end{equation}
 
@@ -860,20 +864,29 @@ with $f_{\text{emb},i}$ the $i$-th dimension of $f_{\text{emb}}$. As this is onl
 Second, we weight these pairwise similarities by their relation, measured by the Resnik similarity \cite{resnik1995using} $sim_\text{Resnik}:S\times S\rightarrow \mathbb{R}$, a semantic similarity measure, measuring the pairwise maximum information gain in the taxonomy of the closest common ancestor. We describe proximate and related sub-structures and their pairwise anatomical proximity, via the structure ontology of CCFv3.
 We further normalize these similarities by their maximum value among all structure pairs in the ontology. This measure gives us an assessment of importance of similarities for two structures. If two entities are close in the taxonomy want the metric to emphasize the correct similarity more than for distant and un-related structures.\\
 
-Eventually, we combine these two values weighting the similarities obtained from the cosine similarity by their corresponding Resnik similarity. With 
+Eventually, we combine these two values weighting the similarities obtained from the cosine similarity by their corresponding Resnik similarity, normalized by the sum of weights. With 
 
-\begin{align*}
-	P_{\text{cos}}:=& \left( \sum_{(t_1,t_2)\in S\times S} sim_\text{cos}(norm_S(t_1), norm_S(t_1)) \right) \\
-	P_{\text{Resnik}}:=&\left( \sum_{(t_1,t_2)\in S\times S}sim_\text{Resnik} (norm_S(t_1), norm_S(t_2)) \right)
-\end{align*}
+\begin{align}
+	P_{\text{cos}}:=&\left( \sum_{(t_1,t_2)\in S\times S}sim_\text{cos} (norm_S(t_1), norm_S(t_2)) \right)\\
+	P_{\text{Resnik}}:=&\left( \sum_{(t_1,t_2)\in S\times S}sim_\text{Resnik} (norm_S(t_1), norm_S(t_2)) \right) \cdot \frac{1}{|S|^2}
+\end{align}
 
 we can eventually define \textsc{EmbSim} by
 
 \begin{equation}
-	\textsc{EmbSim}(s_1,s_2):= \frac{sim_\text{cos}(norm_S(s_1), norm_S(s_1)) \cdot sim_\text{Resnik}(norm_S(s_1), norm_S(s_2))}{ P_{\text{cos}} \cdot P_{\text{Resnik}}}
+	\label{equ:embsim}
+	\textsc{EmbSim}(s_1,s_2):= \frac{sim_\text{cos}(norm_S(s_1), norm_S(s_1)) \cdot sim_\text{Resnik}(norm_S(s_1), norm_S(s_2))}{ P_{\text{Resnik}}}
 \end{equation}
 
-We will do an extensive analysis of this measure within Section \ref{sec:results_dimred}.
+and
+
+\begin{equation}
+	\label{equ:embvar}
+	\textsc{EmbVar}(s_1,s_2):= \frac{\textsc{EmbSim}(s_1, s_2)}{ P_{\text{cos}} }
+\end{equation}
+\todo{What is EmbVar exactly? Give good intuition here! Note that EmbVar may reach values above 1}
+\textsc{EmbVar} is a direct extension of \textsc{EmbSim} additionally penalizing overly-similar or even constant embeddings. We will do an extensive analysis of these measures within Section \ref{sec:results_dimred}.\\
+Second, we compare the resulting coloured brain images manually, and compare them via visual features. Notably this is prone to subjectiveness.
 Further, for comparison of various neural network based models fused to UMAP and Parametric UMAP, we will use the associated UMAP loss, which is invariant to model formulation but variant on structure selection.
 
 \newpage
@@ -912,15 +925,180 @@ best results are achieved when combining both row- and column-based normalizatio
 \subsection{Dimensionality reduction and its combination with different graphs structures}
 \label{sec:results_dimred}
 
-\begin{itemize}
+In this second section we want to show and demonstrate the results of our experiments on dimensionality reduction. This section is divided into two subsections. First, we show the validity of \textsc{EmbSim} (see Section \ref{sec:evalmetrics} and Equation \ref{equ:embsim}), followed by the results of our application of graph convolutional neural networks.
+
+\subsubsection{On the validity of \textsc{EmbSim} and \textsc{EmbVar}}
+\label{sec:results_embsim}
+
+The formulation of \textsc{EmbSim} contains various thoughts. First, we want to achieve so called sample invariance, i.e. metric that is invariant to the amount and selection of samples within the ontology. As our different datasets, especially in the task of connectivity prediction, only contain data on a rather small-scale subset of structures, we want to formulate a measure allowing for cross-subset comparison of embedding similarities. 
+Second, we want to penalize overly-similar embeddings. Most intuitive measures, such as the sum of cosine similarities fail to address this issue. An embedding mapping all entities to the same embedding, e.g. $(0,0,0)^T$ is optimal, is optimal for this kind of measurement, as it maximizes the pairwise similarity. However, to cope with both issues and get a sufficient understanding of the underlying data, we will need both methods. Third, we naturally want our metric to correlate with our natural understanding of a good embedding, i.e. similar embeddings for structures with similar gene expression values.\\
+
+First, we show the sample invariance of \textsc{EmbSim}. We assume three different toy taxonomies and ontologies, describing the sample issue, all shown in Figure \ref{fig:trees}. Let $a_i $  and $b_j$ be entities of respective classes. Further, let $sim_\text{cos}(a_i, a_j)=1$ and $sim_\text{cos}(b_i, b_j)=1$ for all pairs $i,j$, describing maximum similarity within classes. However, we further assume $sim_\text{cos}(a_i, b_j)=0$ for all $i,j$. Then the smoothness functions yield the following results:\\
+
+{
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{l|ll}
+	Tree type& \textsc{EmbSim} & \textsc{EmbVar}\\
+	\hline
+	Balanced $5\times 5$ tree&0.89&0.94\\
+	Unbalanced $2\times 8$ tree&0.91&1.00\\
+	Unbalanced $1\times 4$ tree&0.91&1.00\\
+\end{tabular}
+}\\
+
+As shown, both measures are invariant to sample size comparing the $2\times 8$ and $1\times 4$ trees, if and only if samples are drawn from the same distribution. However, \textsc{EmbVar} heavily drops functioning when prompted with varying number of samples, caused by the added normalization term. This may be crucial for our purpose, as number of structures are significantly decreased in the connectivity prediction example. Additionally, we see better consistency in \textsc{EmbSim} for these examples, correctly dissecting the clusters and computing persistent smoothness values. Thus, \textsc{EmbSim} is sufficient and superior when comparing embeddings over the same set of sub-structures, but also when considering different subsets.\\
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{1.\textwidth}
+		\centering
+		\begin{tikzpicture}
+			\tikzset{edge from parent/.style={draw,edge from parent path={(\tikzparentnode.south)-- +(0,-8pt)-| (\tikzchildnode)}}}
+			\Tree [.Root
+			[.A
+			[.$a_1$ ] [.$a_2$ ] [.$a_3$ ] [.$a_4$ ] [.$a_5$ ]
+			]
+			[.B [.$b_1$ ] [.$b_2$ ] [.$b_3$ ] [.$b_4$ ] [.$b_5$ ] ] ]
+		\end{tikzpicture}
+		\caption{Balanced $5\times 5$ tree}
+		\label{fig:tree_balanced}
+	\end{subfigure}\\
 	
-	\item Show validity of measurement $\rightarrow$ 
-	\begin{itemize}
-		\item Show penalty for too similar embeddings and random embeddings
-		\item show invalidity to choice of structures
-		\item describe normalization techniques
-		\item UMAP loss is dependent on selected structures
-	\end{itemize}
+	\begin{subfigure}{1.\textwidth}
+		\centering
+		\begin{tikzpicture}
+			\tikzset{edge from parent/.style={draw,edge from parent path={(\tikzparentnode.south)-- +(0,-8pt)-| (\tikzchildnode)}}}
+			\Tree [.Root
+			[.A
+			[.$a_1$ ] [.$a_2$ ]
+			]
+			[.B [.$b_1$ ] [.$b_2$ ] [.$b_3$ ] [.$b_4$ ] [.$b_5$ ] [.$b_6$ ] [.$b_7$ ] [.$b_8$ ] ] ]
+		\end{tikzpicture}
+		\label{fig:tree_unbalanced}
+		\caption{Unbalanced $2\times 8$ tree}
+	\end{subfigure}	\\
+	\begin{subfigure}{1.\textwidth}
+		\centering
+		\begin{tikzpicture}
+			\tikzset{edge from parent/.style={draw,edge from parent path={(\tikzparentnode.south)-- +(0,-8pt)-| (\tikzchildnode)}}}
+			\Tree [.Root
+			[.A
+			[.$a_1$ ]
+			]
+			[.B [.$b_1$ ] [.$b_2$ ] [.$b_3$ ] [.$b_4$ ] ] ]
+		\end{tikzpicture}
+		\label{fig:tree_unbalanced_reduced}
+		\caption{Unbalanced $1\times 4$ tree}
+	\end{subfigure}	
+	\label{fig:trees}
+	\caption{text}
+\end{figure}
+
+
+In the second issue of penalizing overly similar embeddings we less considered with the choice of sub-structures, but with the properties of embeddings. Therefore, we introduce three, na\"ive baseline functions that shall serve as comparison to overcome, and proof the third point. Functions are given by their respective probability functions $p(x)$ shown in Figure \ref{fig:baseline_distributions}:
+
+\begin{align}
+	p_\text{uni}(x):=&\begin{cases}
+		1 & \text{ if }x\in [0,1]\\
+		0& \text{otherwise}
+	\end{cases}&\\
+	p_\text{dirac}(x):= &\begin{cases}
+		\infty & \text{ if }x=0.3\\
+		0& \text{otherwise}
+	\end{cases} &\int_{-\infty}^{\infty}p_\text{dirac}(x)=1\\
+	p_\text{gauss}(x):=&\frac{1}{{\sigma \sqrt {2\pi } }}e^{-\frac{(x-\mu)^2}{2\sigma^2}} &\text{ with }\mu:=0.3, \sigma=0.05
+\end{align}
+
+For all three functions, $\int_{-\infty}^{\infty}p(x)=1$ holds by their respective definitions. \\
+
+Further, all three are to be seen as distributions for sampling of the structure's respective embeddings, that naturally do not correlate with the corresponding division's properties. Applied smoothness metrics results are shown in Table \ref{tab:dim_red_results}. Let us consider $p_\text{dirac}$ and $p_\text{gauss}$ initially, constructing toy examples with too small image. Per definition, the vectors sampled from $p_\text{dirac}$ are constant and thus have a mutual similarity of $1$ over all possible pairs. However, as described in Section \ref{sec:evalmetrics}, we normalize all embeddings by their respective maximum and minimum values in among each coordinate with $norm_S$ (see Equation \ref{equ:norm}). As this leads to a division by 0 error, \textsc{EmbSim} and \textsc{EmbVar} are consistently not computable for these cases. 
+However, $p_{gauss}$ is a more sturdy adversary for the smoothness metrics. While $p_\text{gauss}(x)>0$ across the entire domain of $x$, the distribution may not be be adjusted by $norm_S$ and hence approximately reduced to $p_\text{uni}$. The results table Table \ref{tab:dim_red_results} shows clearly, that \textsc{EmbSim} struggles to penalize the overly similar embeddings of this very distribution. On the other hand, \textsc{EmbVar} behaves nicely, showing a clear gap of smoothness in comparison to \textit{reasonable} distributions like PCA. Hence, \textsc{EmbVar} is clearly superior in penalizing overly smooth embeddings functions.\\
+
+Third, we want the smoothness metrics to correlate with our natural understanding of good embeddings. As described in \citet{ValkShapingBrainStructure2020} and \citet{Partel2020} gene expression patterns are very similar across the frontal lobe and the \textit{Precentral gyrus}. Used distributions generate the brain colorings displayed in Figure \ref{fig:baseline_distributions}, which do not coincide with our neurological background knowledge. We will provide the computed visualization of the \textit{proper} embedding methods later in this chapter for comparison. However, \textsc{EmbVar} weighs the smoothness of the image even higher than the generated representations from principal component analysis (PCA). This is caused by the normalization by the sum across all similarities. As random embeddings are very dissimilar, they are not penalized and even rewarded for their spread usage of the representation space. Fortunately, \textsc{EmbSim} nicely shows a significant gap between the PCA generated and uniformly sampled vectors.\\
+
+As we see from our toy examples, \textsc{EmbSim} and \textsc{EmbVar} have differing strengths measuring, but also struggle crucially with simple and na\"ive baseline methods. To summarize, \textsc{EmbSim} differs precisely between non-similar and similar embeddings with respect to our similarity measure, but struggles to penalize overly akin and alike embeddings from semantically \textit{better} mappings. This issue is resolved by \textsc{EmbVar}. Thus we conclude that only both metrics combined may be sufficient to properly judge improvement over other embedding functions.
+
+\begin{figure}
+		
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{plotted_figures/random_density_function.png}
+		\caption{Uniform distribution $p_\text{uni}$}
+		\label{fig:random_distribution}
+	\end{subfigure}
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=0.95\linewidth]{../results/random_ano_coronal_50_res_slice_1.png}
+		\caption{}
+	\end{subfigure}
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=.67\linewidth, angle=270]{../results/random_ano_sagittal_50_res_slice_1.png}
+		\caption{}
+	\end{subfigure}\\
+
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{plotted_figures/constant_density_function.png}
+		\caption{Dirac distribution $p_\text{dirac}$}
+		\label{fig:dirac_distribution}
+	\end{subfigure}
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=0.95\linewidth]{figures/avgt_coronal.png}
+		\caption{}
+	\end{subfigure}
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=.67\linewidth, angle=270]{figures/avgt_sagittal.png}
+		\caption{}
+	\end{subfigure}\\
+
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=1.1\linewidth]{plotted_figures/small_noise_density_function.png}
+		\caption{Gaussian distribution $p_\text{gauss}$}
+		\label{fig:gauss_distribution}
+	\end{subfigure}
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=0.95\linewidth]{../results/random_noise__ano_coronal_50_res_slice_1.png}
+		\caption{}
+	\end{subfigure}
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=.67\linewidth, angle=270]{../results/random_noise__ano_sagittal_50_res_slice_1.png}
+		\caption{}
+	\end{subfigure}\\
+	\caption{Baseline functions from Section \ref{sec:results_embsim} and the corresponding colored brain structures, coronal and sagittal cross-section. (a) - (c): Uniform distribution $p_\text{uni}$; (d) - (f): Constant values with respect to Dirac distribution $p_\text{dirac}$ with peak at $t=0.3$; (g) - (i): Values sampled from Gaussian distribution $p_\text{gauss}$ with $\mu=0.3, \sigma=0.05$}
+	\label{fig:baseline_distributions}
+\end{figure}
+
+\begin{table}
+	\centering
+	\renewcommand{\arraystretch}{1.5}
+	\begin{tabular}{|l|llll|}
+		\hline
+		Dimensionality reduction&Uniform $p_\text{uni}$ &Constant $p_\text{dirac}$&Gaussian $p_\text{gauss}$&PCA\\
+		\hline
+		\textsc{EmbSim}&0.79& -- & 0.94&0.95\\
+		\textsc{EmbVar}&1.15& -- & 0.91 & 1.10\\ 
+		\hline
+		
+	\end{tabular}
+	\label{tab:dim_red_results}
+	\caption{Test}
+\end{table}
+
+\subsubsection{Enhancing neural embedding methods with GCNs}
+
+
+
+
+\begin{itemize}
+	\item UMAP loss is dependent on selected structures
+
 	\item plot for showing validity of embeddings: K-means colour with respect to cluster 
 	\item plot colour parent structure all similar
 \end{itemize}

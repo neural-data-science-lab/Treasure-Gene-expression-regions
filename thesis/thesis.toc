@@ -30,9 +30,10 @@
 \contentsline {paragraph}{\numberline {3.3.3.4}Parametric UMAP}{25}{paragraph.3.3.3.4}%
 \contentsline {subsubsection}{\numberline {3.3.4}Hyperparameter tuning}{26}{subsubsection.3.3.4}%
 \contentsline {subsection}{\numberline {3.4}Evaluation and metrics}{27}{subsection.3.4}%
-\contentsline {section}{\numberline {4}Results}{29}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Gene expression prediction}{29}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Dimensionality reduction and its combination with different graphs structures}{29}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}On the linkage of connectivities and gene expression patterns}{30}{subsection.4.3}%
-\contentsline {section}{\numberline {5}Discussion}{31}{section.5}%
-\contentsline {section}{\numberline {6}Conclusion}{32}{section.6}%
+\contentsline {section}{\numberline {4}Results}{30}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Gene expression prediction}{30}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Dimensionality reduction and its combination with different graphs structures}{30}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {4.2.1}On the validity of \textsc {EmbSim} and \textsc {EmbVar}}{30}{subsubsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.3}On the linkage of connectivities and gene expression patterns}{33}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Discussion}{35}{section.5}%
+\contentsline {section}{\numberline {6}Conclusion}{36}{section.6}%
