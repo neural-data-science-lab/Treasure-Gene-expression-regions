@@ -301,6 +301,7 @@ We further use five different graphs in our setup, which shall be described and 
 We provide visualizations and plots for each graph to provide a better intuition respectively. Links to all datasets and download scripts are available in the \href{\Github}{\Github} Github repository.
 
 \subsubsection{Spatial gene expression values in mouse brains}
+\label{sec:geneexp_data}
 
 The AMBA\cite{MouseBrainAtlas} is a genome-wise and comprehensive, digital 3D-map of spatial gene expression of the adult mouse central nervous system (CNS). AMBA utilizes \textit{in situ} hybridization (ISH) for expression measurement and is publicly and freely available. 
 In literature there are several approaches, compromising sequencing depth, accuracy, throughput and spatial resolution. Generally, one can identify two classes of gene expression measurement while preserving spatial information. The first approach is to store spacial coordinates first, followed by a the sequencing of single-cell RNA where \citet{achim2015high} and \citet{chen2017spatial} propose the mapping and the Geo-seq protocol for this method. The second method includes the usage of "barcodes", decoded in the tissue sample, while running a parallel analysis of numerous mRNAs \cite{ke2013situ, moffitt2016high}. Here, AMBA and \citet{Partel2020}'s dataset are constructed using the first and the latter method, respectively. Sample extraction is very invasive and hence samples are collected from multiple individuals. Please see \citet{ng2007neuroinformatics} for more information and an overview on applied 3D reconstruction and registration of ISH images.\\
@@ -549,7 +550,7 @@ This results in $|S|=49$ structures and $\sum_{m\in M_{\text{eff}} }m=492$ causa
 
 \subsubsection{Feature generation and protein representation}
 \label{sec:feature_gen}
-For the prediction gene expression values in the first task (see Section \ref{sec:probdesc_geneexp}), we need embeddings of each gene potentially representing its role in downstream tasks. Hence, we decided to exploit protein-function data based on both bottom-up and top-down i.e. molecular and phenotypical background data. For the bottom-up representations we utilize the DeepGOPlus \cite{DeepGoPlus} embeddings, that are based on a prediction of protein-function based on their corresponding amino-acid sequence. For top-down and phenotypical features, we use DL2vec \cite{DL2vec2020} over PhenomeNET\cite{PhenomeNET2011} an aggregation of various ontologies such as Gene Ontology (GO) \cite{GOoriginal2000, GOrecent2020}, Mammalian Phenotype Ontology (MPO) \cite{MP2009} and Uberon \cite{mungall2012uberon}, a multi-species anatomy ontology. DL2vec hereby formulates random walks over these ontologies, interpreted as knowledge graphs, and embeds them under usage of Word2Vec \cite{Word2vec2013}.
+For the prediction gene expression values in the first task (see Section \ref{sec:probdesc_geneexp}), we need embeddings of each gene potentially representing its role in downstream tasks. Hence, we decided to exploit protein-function data based on both bottom-up and top-down i.e. molecular and phenotypical background data. For the bottom-up representations we utilize the DeepGOPlus \cite{DeepGoPlus} embeddings, that are based on a prediction of protein-function based on their corresponding amino-acid sequence. For top-down and phenotypical features, we use DL2vec \cite{DL2vec2020} over PhenomeNET\cite{PhenomeNET2011} an aggregation of various ontologies such as Gene Ontology (GO) \cite{GOoriginal2000, GOrecent2020}, Mammalian Phenotype Ontology (MPO) \cite{MP2009} and Uberon \cite{mungall2012uberon}, a multi-species anatomy ontology. DL2vec hereby formulates random walks over these ontologies, interpreted as knowledge graphs, and embeds them under usage of Word2Vec \cite{Word2vec2013}. 
 
 For the other two tasks (see Section \ref{sec:probdesc_dimpres} and Section \ref{sec:probdesc_connpred}), we will use the raw gene expression values parsed from AMBA to represent each substructure.
 
@@ -889,38 +890,48 @@ and
 Second, we compare the resulting coloured brain images manually, and compare them via visual features. Notably this is prone to subjectiveness.
 Further, for comparison of various neural network based models fused to UMAP and Parametric UMAP, we will use the associated UMAP loss, which is invariant to model formulation but variant on structure selection.
 
+
+
 \newpage
 \section{Results}
 \label{sec:results}
 \subsection{Gene expression prediction}
+We originally started from the per section prediction in order to paste its performance and results to other "related" structures within in the mouse brain. One approach here is to score the models from one sub-structure to \textit{related} structures via "transfer learning". Transfer learning was successfully applied especially in image classification and learning, and describes the re-purposing of property extraction methods, trained on one domain to the target domain, re-learning the final classification layers and steps. As features in images are fairly similar, mainly described by edges, vertices, and smaller shapes, the frequently utilized prelearned convolutional neural network (CNN) filters may be to other images. This saves both computing time, resources and energy, but also makes few-shot and zero-shot learning, i.e. learning and predicting based on very few examples in comparison to the amount of the model's parameters, feasible. Further this may yield additional insights into inter-domain relations and similarity. Filters learned on e.g. dog images, may be suitable for transfer learning predicting cat images, due to their phenotypical and anatomical resemblance, but less appropriate and practical for returning valuable features for e.g. optical character recognition from a document. By this performance gap for the two transfer learning tasks, we may assume that cats are more similar to dogs, while letters are rather dissimilar to dogs in their set of descriptive features. \\
 
+We hence follow a likewise approach for mouse brains divisions. First, we will predict gene expression from molecular and phenotypical features described in Section \ref{sec:feature_gen} pursuing the frameworks described in \citet{schulte2021integration} and \citet{wang2021mogonet}'s MOGONET for human tissues. Both use \textsc{GCNConv} layers for their respective forecasts, hereby achieving tremendous performances. Second, we will try to see how generalizable these filters are for mouse brain tissues and their transcriptome from one structure to proximate ones.\\
+
+For the first setup we anticipate the gene expression within a single structure, based on the non-structure dependent meta-information, given by the protein's representations. We thus run three different setups: (1) Molecular representations, (2) phenotypical features, and (3) both combined. We thus run five different neural network compositions described by their respective graph convolutional neural layer type. We will apply all layers described in Section \ref{sec:graphconv} and a non-graph convolutional composition as baseline method described by "flat". Here flat includes linear layers similar to the learnable weight matrix of graph convolutional neural layers, but omitting the message passing over the graph. Sections are randomly sampled from \textit{Frontal lobe}, \textit{Parietal lobe}, \textit{Occipital lobe } and \textit{Temporal lobe}. The results are available in Table \ref{tab:geneexp_pred}. Results displayed are based on 5 different sub-structures in the \textit{transcriptomic smooth}, i.e. very similar in gene expression patters, \textit{Frontal lobe}. Results within the other tissues perform similarly poor. Unfortunately, due to the specificity of the tissue, we found no other works as baseline for this very task within mouse brain tissue.
+
+\begin{table}
+	\centering
+	\renewcommand{\arraystretch}{1.5}
+	\begin{tabular}{l|lllll}
+		Feature type&Flat&\multicolumn{4}{|c}{Graph Convolutional Layers}\\
+		&&\multicolumn{1}{|l}{\textsc{GCNConv}}&\textsc{GATConv}&\textsc{GENConv}&\textsc{KerGNN}\\
+		\hline
+		Molecular features&&&&&\\
+		Phenotypical features&&&&&\\
+		Molecular + phenotypical features &&&&&\\
+	\end{tabular}
+	\label{tab:geneexp_pred}
+	\caption{AUROC scores for singular structures within the \textit{Frontal lobe}; Forecasted with different graph convolutional neural layer types over three feature setups averaged among different substructures. Molecular features from DeepGOPlus \cite{DeepGoPlus} and phenotypical features from DL2vec \cite{DL2vec2020} over PhenomeNET \cite{PhenomeNET2011}. }
+\end{table}
 
 \begin{itemize}
-	\item We originally started from the per section prediction in order to paste its performance and results to other "related" structures within in the mouse brain. We propose multiple ideas \dots. As mentioned we used three different feature types in this study. \dots (molecular features, phenotypical features, pure taxonomic features (InterPro embedding))) \dots Due to the poor performance of the predictor with all three used feature types, we abandoned these plane
-	\item what is our baseline here? -> no study on prediction yet in adult mouse brains
-	\begin{itemize}
-		\item 
-	\end{itemize}
-	\item structure specific features?
-	\begin{itemize}
-		\item structural ontology / closeness
-		\item developmental hierarchy of tissue
-	\end{itemize}
+	\item describe poor results here
+	\item slight increase in GENConv and KerGNN but nothing significant $\rightarrow$ GCNs may no be able to exploit PPI graph features for gene expression prediction
+	\item Molecular features marginally worse than phenotypical features
+	\item yet no ground-shaking results close to performances within \citet{schulte2021integration} and \citet{wang2021mogonet}.
 \end{itemize}
 
-Our model also allows us to test different ways of representing omics data. We
-tested different ways to normalize values assigned to genes as these normalizations
-convey different biological information; in the matrix of values assigned to genes from
-cancer samples, we can normalize values across the entire matrix, across each row
-(cancer sample), or across each column (gene). While a global normalization is more
-common, row-based normalization allows us to highlight values that are significantly
-higher or lower within one sample (e.g., which genes are expressed at high or low levels within a single sample), and column-based normalization allows us to highlight values
-assigned to a particular gene that are significantly higher or lower within one sample
-(e.g., whether a gene is expressed at higher or lower levels within one sample compared
-to all others). We find that column-based normalization performs better than row-based
-normalization, while the global normalization approach performs close to random. The
-best results are achieved when combining both row- and column-based normalization
-(Supplementary Table 2).	
+As described, we further test the graph convolutional neural filters in a transfer learning scenario. We thus learn the filters on different \textit{related} sub-structures within the mouse brain and validate on the target structure. Likewise to the first sub-task, we analyze results for sub-structures in different compartments of the brain: \textit{Frontal lobe}, \textit{Parietal lobe}, \textit{Occipital lobe } and \textit{Temporal lobe}.
+For a given structure, we define \textit{related} divisions as "siblings" and "cousins", i.e. structures connected by paths \verb*|hasParent|$^n \circ$ \verb*|hasChild|$^n$ with $n\leq2$, within the structure ontology described by the Allen Mouse Brain Common Coordinate Framework (CCFv3). 
+Results for this second step are not displayed in a separate table, but may be described here in detail. Due to the high similarity between neighboring structures, results in training and validation-phase were highly similar. For $n=1$, i.e. transfer learning from sibling structures, high correlation of adjacent divisions leads to leak from training to validation datasets. This leads to arbitrary performance, determined by the networks ability to memorize the past samples, and the number of siblings in the ontology. This holds across all observed across all brain compartments.
+These results are fairly different, when concerning $n=2$, i.e. cousin structures, where results were only determined by the number of neighbors. For smaller sets of relatives, especially seen in the temporal and frontal lobe, very similar behavior as for $n=1$ was observed. However, for larger sets the results tended crucially towards outcomes shown in Table \ref{tab:geneexp_pred}. This may be due to the diminishing transcriptomic similarity for larger distances within the structure ontology and the varying parcelation across brain compartments within this ontology. 
+We evaluate these results extensively in Section \ref{sec:discussion}. \\
+
+Due to disappointing outcomes within this task and the poor performances measured among all tested feature types, we move towards showing the influence of transcriptomic patterns for down-stream tasks. 
+
 
 \subsection{Dimensionality reduction and its combination with different graphs structures}
 \label{sec:results_dimred}
@@ -1071,7 +1082,7 @@ As we see from our toy examples, \textsc{EmbSim} and \textsc{EmbVar} have differ
 		\includegraphics[width=.67\linewidth, angle=270]{../results/random_noise__ano_sagittal_50_res_slice_1.png}
 		\caption{}
 	\end{subfigure}\\
-	\caption{Baseline functions from Section \ref{sec:results_embsim} and the corresponding colored brain structures, coronal and sagittal cross-section. (a) - (c): Uniform distribution $p_\text{uni}$; (d) - (f): Constant values with respect to Dirac distribution $p_\text{dirac}$ with peak at $t=0.3$; (g) - (i): Values sampled from Gaussian distribution $p_\text{gauss}$ with $\mu=0.3, \sigma=0.05$}
+	\caption{Baseline functions from Section \ref{sec:results_embsim} and the corresponding colored brain structures, coronal and sagittal cross-section. (a) - (c): Uniform distribution $p_\text{uni}$; (d) - (f): Constant values with respect to Dirac distribution $p_\text{dirac}$ with peak at $t=0.3$, note that brain coloring for constant colors is not possible due to coordinate-wise normalization of embeddings, thus these images are placeholders; (g) - (i): Values sampled from Gaussian distribution $p_\text{gauss}$ with $\mu=0.3, \sigma=0.05$}
 	\label{fig:baseline_distributions}
 \end{figure}
 
@@ -1092,8 +1103,68 @@ As we see from our toy examples, \textsc{EmbSim} and \textsc{EmbVar} have differ
 \end{table}
 
 \subsubsection{Enhancing neural embedding methods with GCNs}
+\label{sec:results_dim_GCN}
+In this section we will examine in more detail the results of our dimensionality reduction experiments. 
+Thus, we first investigate the overall similarity of gene expression values across the mouse brain, measured by \textsc{EmbSim} and \textsc{EmbVar} based on the raw expression values as baseline method to overcome. We combine this with a study on the most expressive genes and the corresponding normalization scheme (see Section \ref{sec:geneexp_data}). Afterwards, we  analyze the influence of GCNs over PPI graphs on the performance and expressivity of the dimensionality reduction approaches.\\
+
+Our data preparation scheme allows for testing of different ways of representing omics data. We hence evaluated various ways to normalize gene expression values, as these normalizations capture varying biological information. Generally, there are the four possible normalization schemes possible, the three introduced and explained in Section \ref{sec:geneexp_data} and no normalization, which makes the features infeasible for the neural network-based approaches, e.g. UMAP and Parametric UMAP.
+Further, we survey the behavior of dimensionality reduction methods, based on different subsets of genes. We therefor rank the genes based on their respective sum of expressions across all structures, with respect to each normalization scheme. We then select the $N\in \{20, 100, 1000, 16679\}$ most expressed genes and prune each sub-structure representation down to these genes. For a better overview we will only display the results PCA and UMAP here, but all reduction embeddings behave likewise.\\
+
+Concerning the 
+
+\begin{table}
+	\centering
+	\renewcommand{\arraystretch}{1.5}
+	
+	\begin{tabular}{ll|ll|ll|ll|}
+		
+		&&\multicolumn{2}{c|}{Value sim}&\multicolumn{2}{c|}{PCA}&\multicolumn{2}{c|}{UMAP}\\
+		$N$&$norm$&\textsc{EmbSim}&\textsc{EmbVar}&\textsc{EmbSim}&\textsc{EmbVar}&\textsc{EmbSim}&\textsc{EmbVar}\\
+		\hline
+		\multirow{4}{*}{$20$}&none&0.91&0.99&0.94&1.00&0.96&0.99\\
+		&row&0.91&0.99&0.91&1.00&0.98&0.99\\
+		&column&0.94&1.00&0.95&1.00&0.95&0.99\\
+		&global&0.91&0.99&0.94&0.99&0.97&1.00\\
+		\hline
+		\multirow{4}{*}{$100$}&none&0.90&1.00&0.95&1.00&0.95&1.00\\
+		&row&0.90&1.00&0.92&1.00&0.94&1.00\\
+		&column&0.91&1.00&0.95&1.00&0.91&1.00\\
+		&global&0.90&1.00&0.94&1.00&0.95&1.01\\
+		\hline
+		\multirow{4}{*}{$1000$}&none&0.88&1.01&0.96&1.00&0.94&1.01\\
+		&row&0.88&1.01&0.94&1.00&0.96&1.00\\
+		&column&0.88&1.00&0.95&1.00&0.96&1.02\\
+		&global&0.88&1.01&0.96&1.00&-.94&1.01\\
+		\hline
+		\multirow{4}{*}{$16679$}&none&0.84&1.01&0.96&1.00&0.92&1.03\\
+		&row&0.84&1.01&0.94&1.01&0.96&1.00\\
+		&column&\textbf{0.72}&\textbf{1.03}&\textbf{0.96}&\textbf{1.02}&\textbf{0.96}&\textbf{1.04}\\
+		&global&0.84&1.01&0.97&0.99&0.94&1.01\\
+		
+		
+	\end{tabular}
+	\caption{Textitex}
+	\label{tab:gen_red eample}
+\end{table}
+
+\begin{itemize}
+	\item gap in \textsc{EmbSim} and \textsc{EmbVar}
+\end{itemize}
 
 
+Our model also allows us to test different ways of representing omics data. We
+tested different ways to normalize values assigned to genes as these normalizations
+convey different biological information; in the matrix of values assigned to genes from
+cancer samples, we can normalize values across the entire matrix, across each row
+(cancer sample), or across each column (gene). While a global normalization is more
+common, row-based normalization allows us to highlight values that are significantly
+higher or lower within one sample (e.g., which genes are expressed at high or low levels within a single sample), and column-based normalization allows us to highlight values
+assigned to a particular gene that are significantly higher or lower within one sample
+(e.g., whether a gene is expressed at higher or lower levels within one sample compared
+to all others). We find that column-based normalization performs better than row-based
+normalization, while the global normalization approach performs close to random. The
+best results are achieved when combining both row- and column-based normalization
+(Supplementary Table 2).	
 
 
 \begin{itemize}
@@ -1120,6 +1191,31 @@ Reliability and Validity of the Analysis}
 \subsection*{Full Discussion of Research Analysis of Findings}
 \subsection*{Full Discussion of Hypothesis and of Findings}
 \subsection*{Post Analysis and Implications of Hypothesis and of Findings}
+
+\subsection{Evaluating different feature types for gene expression prediction}
+
+\begin{itemize}
+	\item GCNs over protein-protein interaction graphs may not be applicable for gene expression prediction, but are suitable for predicting down-stream behavior 
+	\item other ways to incorporate structure data in there $\rightarrow$ no structure specific embeddings containing molecular features that are not gene expression value dependent available
+	\begin{itemize}
+		\item structural ontology / closeness
+		\item developmental hierarchy of tissue
+	\end{itemize}
+\end{itemize}
+
+\subsection{Gene expression patterns and their relation to GCNs}
+
+\begin{itemize}
+	\item influence of normalization technique $\rightarrow$ Structure, gene, global
+	\item we considered including connectivity graphs into UMAP-loss, but no natural formulation for combination is possible. Here an artificial weighting of respective UMAP proximity graph and external connectivity graph is necessary. We conducted several experiments \dots. Collapses to either side, namely either overly weighting embedding proximity or connectivity matrix. We could not define a stable set of parameters for this to work. 
+\end{itemize}
+
+\subsection{Connectivity prediction}
+
+\begin{itemize}
+	\item we reduce to three dimensions, but there does not necessarily needs to be a 3D-representation
+	\item naturally, much better results with higher embedding dimension $\rightarrow$ poor visualization possibilities
+\end{itemize}
 
 Novelty:
 \begin{itemize}
