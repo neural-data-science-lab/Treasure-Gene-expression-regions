@@ -24,13 +24,20 @@ class PerSectionNetworkData:
         self.config = config
 
         print('Loading data...')
-        gene_list = GE_data_preparation.get_gene_list()
+        self.gene_list = GE_data_preparation.get_gene_list()
         alias_mapping = GE_data_preparation.get_alias_to_STRING_prot_mapping()
         gene_id_to_symbol_mapping = GE_data_preparation.get_gene_id_to_symbol_mapping()
 
-        self.gene_list = [gene_id_to_symbol_mapping[gene] for gene in gene_list
-                          if gene_id_to_symbol_mapping[gene] in alias_mapping.keys()]
-        self.protein_list = [alias_mapping[gene] for gene in self.gene_list]
+        self.protein_list = []
+        gene_list = []
+        for gene in self.gene_list:
+            map_gene = gene_id_to_symbol_mapping[gene]
+            if map_gene in alias_mapping.keys():
+                prot = alias_mapping[gene_id_to_symbol_mapping[gene]]
+                if prot not in self.protein_list:
+                    gene_list.append(map_gene)
+                    self.protein_list.append(prot)
+        self.gene_list = gene_list
 
         self.structure_list = GE_data_preparation.get_structure_list() # full structure list
         struc_onto_graph, struc_annotation_mapping = GE_data_preparation.get_structure_ontology()
@@ -38,9 +45,10 @@ class PerSectionNetworkData:
         self.structure_list = [struc for struc in self.structure_list if struc in struc_onto_graph.nodes()]
         # prune structure list w.r.t. threshold w.r.t. similarity metric specified
         orig_node_list = list(struc_onto_graph.nodes())
-        GE_struc_mat = GE_data_preparation.get_GEs(self.gene_list, self.structure_list)
+        GE_struc_mat = GE_data_preparation.get_mapped_GEs(self.gene_list, self.structure_list)
         max_expr_struc_ind = np.argsort(GE_struc_mat.sum(axis=1))[-1] # sort struct indices by maximum expressions
         max_expr_struc = self.structure_list[max_expr_struc_ind]
+        self.y_data = GE_struc_mat
 
         print('max_expr_struc', max_expr_struc)
 
@@ -75,13 +83,13 @@ class PerSectionNetworkData:
             with open(file=filename, mode='rb') as f:
                 protein_to_feature_dict = pickle.load(f)
             print(len(set(protein_to_feature_dict.keys()) & set(self.protein_list)))
-            self.protein_embeddings = torch.Tensor([protein_to_feature_dict[protein] for protein in self.protein_list])
+            self.protein_embeddings = torch.Tensor(np.array([protein_to_feature_dict[protein] for protein in self.protein_list]))
         elif config.prot_representation == 'phenotype':
             raise NotImplementedError
         else:
             raise ValueError("Invalid protein representation method selected!")
 
-        self.y_data = GE_data_preparation.get_GEs(self.gene_list, self.structure_list)
+        self.y_data = GE_data_preparation.get_mapped_GEs(self.gene_list, self.structure_list)
 
         if config.expr_normalization == 'none':
             pass
@@ -97,8 +105,8 @@ class PerSectionNetworkData:
         else:
             raise ValueError("Unsupported normalization mode selected for config.expr_normalization!")
 
+        # apply plain threshold
         if not config.expr_threshold == 0:
-            # apply plain threshold after
             self.y_data = (self.y_data > config.expr_threshold).astype(float)
 
         self.y_data = torch.tensor(self.y_data)
@@ -119,15 +127,9 @@ class PerSectionNetworkData:
 
         print("Building feature matrix ...")
         self.train_prots = config.train_prots
-        self.train_mask = np.zeros(self.num_genes).astype(int)
+        self.train_mask = np.zeros(self.num_genes, dtype=int)
         self.train_mask[self.train_prots] = 1
 
-        # cluster self.y_data values with kmeans for sample weighting
-        if config.expr_threshold == 0:
-            kmeans = KMeans(n_clusters=5, random_state=42).fit(self.y_data.numpy()[:,self.train_mask].reshape(-1,1))
-            self.cluster_ids = kmeans.predict(self.y_data.numpy().reshape(-1,1)).reshape(self.y_data.shape)
-
-            self.cluster_ids = torch.tensor(self.cluster_ids)
 
     def get(self):
         data_list = []
@@ -137,8 +139,6 @@ class PerSectionNetworkData:
             full_PPI_graph = data.Data(x=self.protein_embeddings,
                                   edge_index=self.edge_list,
                                   y=y[i, :].view(1,-1))
-            if self.config.expr_threshold == 0:
-                full_PPI_graph.cluster_ids = self.cluster_ids[i, :]
             data_list.append(full_PPI_graph)
         return data_list
 
@@ -169,7 +169,7 @@ class GE_PerSectionDataset(data.Dataset):
         pass
 
 
-class GE_PerSectionPredNet(/orch.nn.Module):
+class GE_PerSectionPredNet(torch.nn.Module):
     def __init__(self, config, num_prots, num_features, conv_method):
         super(GE_PerSectionPredNet, self).__init__()
 
@@ -184,7 +184,7 @@ class GE_PerSectionPredNet(/orch.nn.Module):
         self.relu = torch.nn.ReLU()
         self.dropout1 = torch.nn.Dropout(0.5)
         self.dropout2 = torch.nn.Dropout(0.5)
-        self.dropout3 = torch.nn.Dropout(0.5)
+        # self.dropout3 = torch.nn.Dropout(0.5)
 
         if conv_method == 'flat':
             pass
@@ -192,6 +192,10 @@ class GE_PerSectionPredNet(/orch.nn.Module):
             self.conv1 = nn.GCNConv(200, 200, cached=True, improved=True)
             self.conv2 = nn.GCNConv(200, 200, cached=True, improved=True)
             self.conv3 = nn.GCNConv(200, 200, cached=True, improved=True)
+        elif 'GATConv' in conv_method:
+            self.conv1 = nn.GATConv(200, 200, heads=4, dropout=0.2, add_self_loops=True)
+            self.conv2 = nn.GATConv(200 * 4, 200, heads=1, dropout=0.2, add_self_loops=True)
+
         elif 'GENConv' in conv_method:
             conv1 = nn.GENConv(200, 200, aggr='softmax', t=1.0, learn_t=True, num_layers=2, norm='layer')
             norm1 = torch.nn.LayerNorm(200, elementwise_affine=True)
@@ -199,15 +203,14 @@ class GE_PerSectionPredNet(/orch.nn.Module):
             conv2 = nn.GENConv(200, 200, aggr='softmax', t=1.0, learn_t=True, num_layers=2, norm='layer')
             norm2 = torch.nn.LayerNorm(200, elementwise_affine=True)
 
-            conv3 = nn.GENConv(200, 200, aggr='softmax', t=1.0, learn_t=True, num_layers=2, norm='layer')
-
-            norm3 = torch.nn.LayerNorm(200, elementwise_affine=True)
+            # conv3 = nn.GENConv(200, 200, aggr='softmax', t=1.0, learn_t=True, num_layers=2, norm='layer')
+            # norm3 = torch.nn.LayerNorm(200, elementwise_affine=True)
 
             act = torch.nn.LeakyReLU(0.2, inplace=True)
 
             self.conv1 = nn.DeepGCNLayer(conv1, norm1, act, block='res', dropout=0.5)
             self.conv2 = nn.DeepGCNLayer(conv2, norm2, act, block='res', dropout=0.5)
-            self.conv3 = nn.DeepGCNLayer(conv3, norm3, act, block='res', dropout=0.5)
+            # self.conv3 = nn.DeepGCNLayer(conv3, norm3, act, block='res', dropout=0.5)
 
     def forward(self, data):
         PPI_x, PPI_edge_index, PPI_batch, edge_attr = data.x, data.edge_index, data.batch, data.edge_attr
@@ -220,9 +223,6 @@ class GE_PerSectionPredNet(/orch.nn.Module):
             PPI_x = self.conv1(PPI_x, PPI_edge_index)
             PPI_x = self.dropout2(PPI_x)
             PPI_x = self.conv2(PPI_x, PPI_edge_index)
-            PPI_x = self.dropout3(PPI_x)
-            PPI_x = self.conv3(PPI_x, PPI_edge_index)
-            PPI_x = self.dropout3(PPI_x)
 
         PPI_x = self.output_linear(PPI_x)
 
@@ -241,15 +241,6 @@ def BCELoss_ClassWeights(input, target, pos_weight):
     final_reduced_over_batch = weighted_bce.sum(axis=0)
     return final_reduced_over_batch
 
-def weighted_l1_loss(pred, target, weight):
-    # pred (n, 1)
-    # target (n, 1)
-    # weight (n, 1)
-    target = target.view(-1, 1)
-
-    l1_loss = torch.abs(pred-target) * weight
-    reduced_l1_loss = l1_loss.sum()
-    return reduced_l1_loss
 
 def train(config, model, device, train_loader, optimizer, epoch, class_weight, train_mask):
     if not config.quiet and len(train_loader.dataset)>1:
@@ -257,6 +248,7 @@ def train(config, model, device, train_loader, optimizer, epoch, class_weight, t
     sys.stdout.flush()
     model.train()
     return_loss = 0
+    train_mask = torch.tensor(train_mask)
 
     for batch_idx, data in enumerate(train_loader):
         optimizer.zero_grad()
@@ -265,44 +257,24 @@ def train(config, model, device, train_loader, optimizer, epoch, class_weight, t
 
         y = torch.cat([graph_data.y for graph_data in data]).float().to(output.device).squeeze()
 
-        if not config.expr_threshold == 0:
-            pos_weight = class_weight
-            # apply sigmoid only in case of binary classification
-            output = output.sigmoid()
+        pos_weight = class_weight
+        # apply sigmoid only in case of binary classification
+        output = output.sigmoid()
 
-            # my implementation of BCELoss
-            output = torch.clamp(output, min=1e-7, max=1 - 1e-7)
+        # my implementation of BCELoss
+        output = torch.clamp(output, min=1e-7, max=1 - 1e-7)
 
-            # model task as classification task with highly imbalanced data
-            loss = BCELoss_ClassWeights(input=output[:, train_mask == 1].view(-1, 1),
-                                        target=y[:, train_mask == 1].view(-1, 1),
-                                        pos_weight=pos_weight)
-            loss = loss / (config.num_genes * config.num_structures)
-        else:
-            # model task as regression task with highly imbalanced data
-            cluster_ids = torch.Tensor(np.array([graph_data.cluster_ids.numpy() for graph_data in data]))
-
-            num_clusters = len(class_weight)
-            class_weight = class_weight / class_weight.max()
-
-            # distribute respective class weights calculated by k-means to each label
-            point_wise_weights = torch.zeros(cluster_ids.size())
-            for i in range(num_clusters):
-                point_wise_weights[cluster_ids==i] = class_weight.sum()/class_weight[i]
-
-            # output = output.sigmoid()
-
-            loss = weighted_l1_loss(pred=output[:, train_mask == 1].view(-1, 1),
+        # model task as classification task with highly imbalanced data
+        loss = BCELoss_ClassWeights(input=output[:, train_mask == 1].view(-1, 1),
                                     target=y[:, train_mask == 1].view(-1, 1),
-                                    weight=point_wise_weights[:, train_mask == 1].to(output.device).view(-1, 1))
-            # calculate mean over all genes and present structures
-            loss = loss / (config.num_genes * config.num_structures)
+                                    pos_weight=pos_weight)
+        loss = loss / (config.num_genes * config.num_structures)
 
         # loss = nn.BCEWithLogitsLoss(pos_weight=pos_weights.to(device))(input=output[:, train_mask==1].view(-1, 1), target=y[:, train_mask==1].view(-1, 1),)
         # loss = nn.BCELoss(reduction='mean')(input=output[help_mask==1].view(-1, 1), target=y[help_mask==1].view(-1, 1))
-        return_loss += loss
         loss.backward()
         optimizer.step()
+        return_loss += loss.item()
         if not config.quiet and batch_idx % 10 == 0 and epoch%1==0:
             print('Train epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(epoch,
                                                                            batch_idx * output.size(0),
@@ -371,22 +343,11 @@ def main(config):
 
         train_dataset = GE_PerSectionDataset(train_dataset)
 
-        # Calculate weights for imbalanced data
-        if config.expr_threshold==0:
-            # calculate prevalence of each cluster calculated by k-means for regression task
-            num_clusters = len(network_data.cluster_ids.unique())
-            class_weight = np.zeros(num_clusters)
-            for i in range(num_clusters):
-                class_weight[i] = (network_data.cluster_ids.numpy()==i).sum()
-            class_weight = class_weight/class_weight.sum()
-            print('Class weight:', class_weight)
-
-        else:
-            # calculate weight of positive samples for binary classification task
-            positives = network_data.y_data[:, train_protein_indices].sum()
-            len_to_sum_ratio = (network_data.num_structures * len(train_protein_indices)-positives)/positives #Get negatives/positives ratio
-            class_weight = len_to_sum_ratio
-            print('Neg/pos ratio:', len_to_sum_ratio)
+        # calculate weight of positive samples for binary classification task
+        positives = network_data.y_data[:, train_protein_indices].sum()
+        len_to_sum_ratio = (network_data.num_structures * len(train_protein_indices)-positives)/positives #Get negatives/positives ratio
+        class_weight = len_to_sum_ratio
+        print('Neg/pos ratio:', len_to_sum_ratio)
 
         train_mask = network_data.train_mask
         test_mask = 1-network_data.train_mask
@@ -442,47 +403,23 @@ def main(config):
                     # print('pred_eval', train_labels.max(), train_predictions.max(), train_labels.min(), train_predictions.min(), train_predictions.shape)
                     # print('pred_eval', test_labels.max(), test_predictions.max(), test_labels.min(), test_predictions.min(), test_predictions.shape)
 
-                    if config.expr_threshold == 0:
-                        for data in train_loader:
-                            cluster_ids = torch.Tensor(np.array([graph_data.cluster_ids.numpy() for graph_data in data]))
-                        num_clusters = len(class_weight)
-
-                        # distribute respective class weights calculated by k-means to each label
-                        point_wise_weights = torch.zeros(cluster_ids.size())
-                        for i in range(num_clusters):
-                            point_wise_weights[cluster_ids == i] = class_weight.sum()/class_weight[i]
-
-                        train_loss = weighted_l1_loss(pred=torch.tensor(train_predictions), target=torch.tensor(train_labels), weight=point_wise_weights[:, train_mask==1].view(-1))
-                        train_loss = train_loss/(config.num_genes * config.num_structures)
-
-                        test_loss = weighted_l1_loss(pred=torch.tensor(test_predictions), target=torch.tensor(test_labels), weight=point_wise_weights[:, train_mask == 0].view(-1))
-                        test_loss = test_loss / (config.num_genes * config.num_structures)
-
-                        print(f'Epoch: {epoch}\t|\tTrain Loss: {train_loss}\t|\tTest Loss: {test_loss}')
-                        print('min/max preds:', train_predictions.min(), train_predictions.max())
-
-                        if test_loss < best_score:
-                            best_score = test_loss
-                            best_epoch = epoch
-                            print(f"New best AUROC score: {best_score}|\tEpoch:{best_epoch}")
-                    else:
-                        new_AUROC = metrics.roc_auc_score(test_labels, test_predictions)
-                        if new_AUROC > best_score:
-                            best_score = new_AUROC
-                            best_epoch = epoch
-                            if not config.quiet:
-                                print(f"New best AUROC score: {best_score}|\tEpoch:{best_epoch}")
-
+                    new_AUROC = metrics.roc_auc_score(test_labels, test_predictions)
+                    if new_AUROC > best_score:
+                        best_score = new_AUROC
+                        best_epoch = epoch
                         if not config.quiet:
-                            print('Train:', 'Acc, ROC_AUC, matthews_corrcoef',
-                                  round(metrics.accuracy_score(train_labels, train_predictions.round()),4),
-                                  round(metrics.roc_auc_score(train_labels, train_predictions),4),
-                                  round(metrics.matthews_corrcoef(train_labels, train_predictions.round()),4))
+                            print(f"New best AUROC score: {best_score}|\tEpoch:{best_epoch}")
 
-                            print('Test:', 'Acc, ROC_AUC, matthews_corrcoef',
-                                  round(metrics.accuracy_score(test_labels, test_predictions.round()),4),
-                                  round(metrics.roc_auc_score(test_labels, test_predictions),4),
-                                  round(metrics.matthews_corrcoef(test_labels, test_predictions.round()),4))
+                    if not config.quiet:
+                        print('Train:', 'Acc, ROC_AUC, matthews_corrcoef',
+                              round(metrics.accuracy_score(train_labels, train_predictions.round()),4),
+                              round(metrics.roc_auc_score(train_labels, train_predictions),4),
+                              round(metrics.matthews_corrcoef(train_labels, train_predictions.round()),4))
+
+                        print('Test:', 'Acc, ROC_AUC, matthews_corrcoef',
+                              round(metrics.accuracy_score(test_labels, test_predictions.round()),4),
+                              round(metrics.roc_auc_score(test_labels, test_predictions),4),
+                              round(metrics.matthews_corrcoef(test_labels, test_predictions.round()),4))
 
             sys.stdout.flush()
         print(f"Best AUROC score: {best_score}|\tEpoch:{best_epoch}")
@@ -498,7 +435,7 @@ if __name__ == '__main__':
     parser.add_argument("--num_proteins", type=int, default=-1)
     # if set to 0, model will perform regression task instead of classification
     parser.add_argument("--expr_threshold", type=float, default=0.1)
-    parser.add_argument("--expr_normalization", type=str, default='global') # other options are 'none', 'column' and 'row'
+    parser.add_argument("--expr_normalization", type=str, default='column') # other options are 'none', 'column' and 'row'
     parser.add_argument("--struc_sim_threshold", type=float, default=2.0) # similarity measure is distance over structure ontology graph
     parser.add_argument("--prot_representation", type=str, default='DeepGOPlus')
 

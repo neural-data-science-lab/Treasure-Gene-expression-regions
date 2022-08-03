@@ -8,6 +8,8 @@ from tqdm import tqdm
 import pickle
 import os
 
+import GE_data_preparation
+
 
 def write_structure_subgroups():
     from allensdk.core.mouse_connectivity_cache import MouseConnectivityCache
@@ -175,12 +177,12 @@ def get_struc_conn_matrix(hemisphere_id=3):
     return return_mat  # / diagonal_vec
 
 
-def get_struc_conn_list():
+def get_struc_struc_list():
     path = '../data/connectivity_data/structural_connectivity/'
     structure_list = []
     with open(file=path + 'structure_list', mode='r') as f:
         for line in f:
-            structure_list.append(int(line.strip()))
+            structure_list.append(line.strip())
     return structure_list
 
 
@@ -251,21 +253,76 @@ def write_functional_conn_data(aggr='mean'):
     print('Done.')
 
 
-def get_funn_struc_list():
+def get_orig_funn_struc_list():
     path = '../data/connectivity_data/functional_connectivity/'
     struc_list = []
     with open(file=path + 'funn_structs.txt', mode='r') as f:
         for line in f:
-            struc_list.append(line.strip())
+            struc = line.strip()
+            struc_list.append(struc)
 
     return struc_list
 
 
-def get_funn_conn_mat():
+def get_funn_struc_list():
+    path = '../data/connectivity_data/functional_connectivity/'
+    return_struc_list = []
+    orig_struc_list = get_orig_funn_struc_list()
+
+    meta_data = GE_data_preparation.parse_structure_metadata()
+
+    for struc in orig_struc_list:
+        struc = struc[2:]
+        for entry in meta_data:
+            if struc == entry['name']:
+                if entry['id'] not in return_struc_list:
+                    return_struc_list.append(entry['id'])
+                break
+
+    return return_struc_list
+
+
+def get_funn_conn_mat(threshold=0.5):
     path = '../data/connectivity_data/functional_connectivity/'
 
     with open(file=path + 'funn_conn_mat.npy', mode='rb') as f:
-        return np.load(f)
+        return reduce_to_single_hemisphere(np.load(f))>threshold
+
+
+def reduce_to_single_hemisphere(mat, mode='mean'):
+    orig_struc_list = get_orig_funn_struc_list()
+    struc_list = []
+
+    for struc in orig_struc_list:
+        struc = struc[2:]
+        if struc not in struc_list: struc_list.append(struc)
+
+    l_indices = []
+    r_indices = []
+    for j, struc in enumerate(struc_list):
+        for i, orig_struc in enumerate(orig_struc_list):
+            if orig_struc == 'L ' + struc:
+                l_indices.append(i)
+            elif orig_struc == 'R ' + struc:
+                r_indices.append(i)
+    l_indices = np.array(l_indices)
+    r_indices = np.array(r_indices)
+
+    mat = mat.reshape((1, len(orig_struc_list), len(orig_struc_list)))
+    return_mat = np.concatenate((mat[:, l_indices, :][:, :, l_indices],
+                                 # mat[:, l_indices, :][:, :, r_indices],
+                                 # mat[:, r_indices, :][:, :, l_indices],
+                                 mat[:, r_indices, :][:, :, r_indices]
+                                 ), axis=0)
+
+    if mode=='max':
+        return_mat = return_mat.max(axis=0)
+    elif mode=='mean':
+        return_mat = return_mat.mean(axis=0)
+    else:
+        raise ValueError
+
+    return return_mat
 
 
 def get_funn_conn_graph(threshold=0.5):
@@ -279,12 +336,143 @@ def get_funn_conn_graph(threshold=0.5):
     return G
 
 
+def calculate_eff_conn(threshold=0.1):
+    path = '../data/connectivity_data/functional_connectivity/data/Baseline/Control/'
+    data_list = []
+    for individual in os.listdir(path):
+        filename = path+individual+'/fMRI/regr/MasksTCsSplit.GV.txt'
+        data = np.transpose(np.genfromtxt(filename))
+        betas = pseudo_iv_betas(data)
+        betas = np.abs(betas)
+        # betas[betas!=0] = np.log(betas[betas!=0])
+        betas /= betas.max()
+        betas = betas>threshold
+        print(f'{betas.shape=} {betas.max()=} {betas.sum()=} {betas.min()=}')
+        data_list.append(betas)
+        data_list.append(np.transpose(betas))  # symmetrize adjacency matrix
+
+    betas = np.array(data_list).max(axis=0)
+    betas = reduce_to_single_hemisphere(betas, mode='max')
+    return betas
+
+
+def iv_betas(activations, instruments):
+    """
+    See https://github.com/KordingLab/fmri-iv for more information.
+
+    Estimate causal connection strengths using instrumental variable method.
+    :param activations: NxM time series of activations for N neurons/regions
+    :param instruments: NxM time series N instruments each of which corresponds to 1 region
+    only directly affects its corresponding neuron (i.e. satisfies the IV criteria for
+    that node of the causal graph).
+    Typically, the instrument might be binary and represent whether its neuron is locally
+    inhibited from firing, but any linear relationship between instrument and neuron should work.
+    Instruments should satisfy the IV criteria for their corresponding neurons/regions, i.e.
+    have no direct causal influence on other neurons.
+    :return: a matrix of "beta" coefficients representing the extent of directed causal influence
+    between each neuron and every other neuron at a later time step, using the IV method.
+    beta[i, j] = estimated effect of region j on region i.
+    """
+
+    assert instruments.shape == activations.shape, "Activations and instruments must be the same shape"
+
+    n_regions, n_times = activations.shape
+
+    assert n_times >= 2, "Must have at least 2 timepoints for IV analysis"
+
+    # define z (instrument), x (timepoint 1), and y (timepoint 2)
+    z = instruments[:, :-1]
+    x = activations[:, :-1]
+    y = activations[:, 1:]
+
+    # do 2SLS for each region
+    beta = np.zeros((n_regions, n_regions))
+
+    for kR1 in range(n_regions):
+        w, b = np.linalg.lstsq(np.vstack([z[kR1], np.ones(n_times - 1)]).T, x[kR1], rcond=None)[0]
+        x_pred = z[kR1] * w + b
+
+        for kR2 in range(n_regions):
+            beta[kR2, kR1], _ = np.linalg.lstsq(np.vstack([x_pred, np.ones(n_times - 1)]).T, y[kR2], rcond=None)[0]
+
+    return beta
+
+
+
+def get_eff_struc_list():
+    # effective connectivity is calculated on same AIDAmri data
+    return get_funn_struc_list()
+
+
+def pseudo_iv_betas(activations, sd_threshold=2, log_transform_input=False):
+    """
+    See https://github.com/KordingLab/fmri-iv for more information.
+
+    Try to estimate causal connection strengths, using past activity of each neuron as its own
+    "instrumental variable." This is unlikely to actually satisfy the IV criteria since the
+    instrument will have the same outgoing influences as the variable itself, meaning it
+    does probably affect other neurons in the network. Similarly, it is going to be influenced
+    by other neurons in the network.
+    :param activations: NxM time series of activations for N neurons/regions
+    :param sd_threshold: instrument is "on" when past activity of each neuron is below
+    its mean activation minus this number times the standard deviation of its activation.
+    :param log_transform_input: if true, take the natural log of the activations before calculating the pseudo-IV.
+    :return: a matrix of "beta" coefficients representing the extent of directed causal influence
+    between each neuron and every other neuron at a later time step, using the IV method.
+    beta[i, j] = estimated effect of region j on region i.
+    """
+    n_times, n_regions = activations.shape
+
+    assert n_times >= 3, "Must have at least 3 timepoints for pseudo-IV analysis"
+
+    # define instrument, x, and y
+    act_t0 = activations[:, :-1]
+    if log_transform_input:
+        act_t0 = np.log(act_t0)
+
+    threshold = np.mean(activations, axis=1, keepdims=True) - sd_threshold * np.std(activations, axis=1, keepdims=True)
+    z = np.array(act_t0 < threshold, dtype=np.float64)
+
+    return iv_betas(activations[:, 1:], z)
+
+
+def norm_lagged_corr(activations):
+    """
+    See https://github.com/KordingLab/fmri-iv for more information.
+
+    Estimate connectivity matrix A from autocorrelation and covariance matrices
+    :param activations: NxM time series of activations for N neurons/regions
+    :return: estimation of A
+    """
+
+    _, n_times = activations.shape
+
+    cov_mat = np.cov(activations)
+    autocorr_mat = activations[:, 1:] @ activations[:, :-1].T / (n_times - 1)
+
+    return autocorr_mat @ np.linalg.pinv(cov_mat)
+
+
+def prune_conn_mat(conn_mat, structure_sub_list, orig_structure_list):
+
+    struc_indices = [orig_structure_list.index(struct) for struct in structure_sub_list]
+    return conn_mat[struc_indices,:][:, struc_indices]
+
+
+def get_both_struc_list():
+    raise NotImplementedError
+
+
+
+
 if __name__ == '__main__':
     # write_structure_subgroups()
     # download_connectivity_data()
 
     # write_functional_conn_data()
     # get_funn_conn_graph()
-    get_struc_conn_graph()
+    # get_struc_conn_graph()
+
+    calculate_eff_conn()
 
 

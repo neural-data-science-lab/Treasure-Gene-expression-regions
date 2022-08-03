@@ -27,57 +27,6 @@ def get_protein_to_EnsemblProtein_id():
     return protein_to_Ensembl_protein_id_mapping
 
 
-def write_ge_data_old():
-    # Parse gene expression data downloaded as described in NeÜrDS/AllenSDK
-
-    path = '../data/mouse_expression/structure_data/'
-    print('Parsing gene expression data...')
-
-    gene_list = []
-    structure_list = []
-    for file in tqdm(os.listdir(path)):
-        if 'structure_unionizes' not in file: continue
-
-        with open(file=path+file, mode='r') as f:
-            # skip header
-            f.readline()
-            for line in f:
-                _, structure_id, expr_energy, expr_density, _, _, _, _, gene_id = line.strip().split(',')
-                structure_list.append(structure_id)
-                gene_list.append(gene_id)
-
-    gene_list = list(set(gene_list))
-    structure_list = list(set(structure_list))
-    print(f'Genes: {len(gene_list)}\t|\tStructures: {len(structure_list)}')
-
-    ge_structure_data = np.zeros((len(structure_list), len(gene_list)))
-    for file in tqdm(os.listdir(path)):
-        if 'structure_unionizes' not in file: continue
-
-        with open(file=path+file, mode='r') as f:
-            # skip header
-            f.readline()
-            for line in f:
-                _, structure_id, expr_energy, expr_density, _, _, _, _, gene_id = line.strip().split(',')
-                structure_index = structure_list.index(structure_id)
-                gene_index = gene_list.index(gene_id)
-                ge_structure_data[structure_index, gene_index] = float(expr_density)
-
-    # Write structure_list, gene_list, expression_density_mat to disk
-    path = '../data/mouse_expression/'
-    with open(path+'gene_list.pkl', mode='wb') as f:
-        pickle.dump(gene_list, f, pickle.HIGHEST_PROTOCOL)
-
-    # write structure_list
-    with open(path+'structure_list.pkl', mode='wb') as f:
-        pickle.dump(structure_list, f, pickle.HIGHEST_PROTOCOL)
-
-    # dump ge_structure_matrix to file
-    with open(path+'ge_structure_mat.pkl', mode='wb') as f:
-        pickle.dump(ge_structure_data, f, pickle.HIGHEST_PROTOCOL)
-    print('Done.')
-
-
 def write_ge_data():
     gene_list = set()
     structure_list = set()
@@ -160,12 +109,16 @@ def get_gene_id_to_symbol_mapping():
     # parses mouse atlas data and returns an internal gene_id to generic gene_symbol mapping
     # in form of a dictionary
     path = '../data/mouse_expression/'
-    gene_file = 'mouse_expression_data_sets.csv'
-    full_gene_data = pd.read_csv(path + gene_file, index_col=0)
+    gene_file = 'geneInfo.csv'
 
     return_dict = {}
-    for _, row in full_gene_data.iterrows():
-        return_dict[str(row['gene_id'])] = row['gene_symbol']
+
+    with open(path+gene_file, mode='r') as f:
+        f.readline()  # skip header
+        for line in f:
+            split_line = line.strip().split(',')
+            gene_id, acronym = split_line[-1], split_line[1]
+            return_dict[gene_id] = acronym
     return return_dict
 
 def get_alias_to_STRING_prot_mapping():
@@ -184,24 +137,52 @@ def get_alias_to_STRING_prot_mapping():
 
     return return_dict
 
+
 def get_DeepGOPlus_feature_dict():
     # build protein features
     filename = 'protein_representation/DeepGOPlus/results/prot_to_encoding_dict'
     with open(file=filename + '.pkl', mode='rb') as f:
         return pickle.load(f)
 
-def get_GEs(gene_list, structure_list):
+
+def get_GEs(gene_list=None, structure_list=None):
     # prune gene_expression structure matrix to given genes and given structures
     # returns matrix GE of shape len(structure_list) x len(gene_list)
+
+    orig_gene_list = get_gene_list()
+    if gene_list:
+        gene_indices = [orig_gene_list.index(gene) for gene in gene_list]
+    else:
+        gene_indices = list(range(len(orig_gene_list)))
+
+    orig_structure_list = get_structure_list()
+    if structure_list:
+        structure_indices = [orig_structure_list.index(struct) for struct in structure_list
+                             if struct in orig_structure_list]
+    else:
+        structure_indices = list(range(len(orig_structure_list)))
+
+    return get_ge_structure_data()[structure_indices,:][:,gene_indices]
+
+
+def get_mapped_GEs(gene_list=None, structure_list=None):
     gene_id_to_symbol_mapping = get_gene_id_to_symbol_mapping()
     orig_gene_list = [gene_id_to_symbol_mapping[gene] for gene in get_gene_list()]
 
-    gene_indices = [orig_gene_list.index(gene) for gene in gene_list]
+    if gene_list:
+        gene_indices = [orig_gene_list.index(gene) for gene in gene_list]
+    else:
+        gene_indices = list(range(len(orig_gene_list)))
 
     orig_structure_list = get_structure_list()
-    structure_indices = [orig_structure_list.index(struct) for struct in structure_list]
+    if structure_list:
+        structure_indices = [orig_structure_list.index(struct) for struct in structure_list
+                             if struct in orig_structure_list]
+    else:
+        structure_indices = list(range(len(orig_structure_list)))
 
-    return np.transpose(get_ge_structure_data()[gene_indices,:][:,structure_indices])
+    return get_ge_structure_data()[structure_indices,:][:,gene_indices]
+
 
 def get_structure_ontology():
     """
@@ -237,7 +218,6 @@ def get_structure_ontology():
     return onto_graph, id_to_data_mapping
 
 
-
 def get_similarity_matrix(G, similarity_metric='dist'):
     # Takes graph and metric for measuring similarity type as inputs and calculates
     # the corresponding similarity matrix ordered w.r.t. G.nodes()/inherent node ordering
@@ -255,12 +235,43 @@ def get_similarity_matrix(G, similarity_metric='dist'):
     return mat
 
 
+def parse_structure_metadata():
+    path = '../data/mouse_expression/structures.csv'
+
+    return_list = []
+    with open(file=path, mode='r') as f:
+        header = f.readline().strip().split(',')
+        for line in f:
+            line = line.strip()
+            split_line = line.split(',')
+
+            if len(split_line) > len(header):
+                name = line.split('"')[1]
+                first_occ = line.index('"')
+                split_line = line[:first_occ] + line[line.index('"', first_occ+1)+1:]
+                split_line = split_line.split(',')
+                vals = {}
+                for i, col in enumerate(header):
+                    vals[col] = split_line[i]
+                vals['name'] = name
+                return_list.append(vals)
+
+            else:
+                vals = {}
+                for i,col in enumerate(header):
+                    vals[col] = split_line[i]
+                return_list.append(vals)
+
+    return return_list
+
+
 if __name__ == '__main__':
     # write_ge_data()
+    l = parse_structure_metadata()
+    print([i for i in l if i['hemisphere_id'] != '3'])
 
     # graph, mapping = parse_structure_ontology()
     # print(len(graph.nodes()), len(graph.edges()))
-    draw_onto_graph()
 
 
 

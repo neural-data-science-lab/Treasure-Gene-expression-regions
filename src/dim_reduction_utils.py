@@ -18,7 +18,30 @@ from tqdm import tqdm
 import GE_data_preparation
 
 
-def measure_smoothness(data, structure_list):
+def write_resnik_sim_matrix():
+    structure_list = GE_data_preparation.get_structure_list()
+
+    orig_onto_graph, _ = GE_data_preparation.get_structure_ontology()
+    onto_graph = nx.DiGraph()
+    onto_graph.add_edges_from([(u, v) for u, v in orig_onto_graph.edges()
+                               if orig_onto_graph[u][v]['label'] == 'has_child'])
+
+    nxo_onto_graph = nxo.ontology.NXOntology(onto_graph)
+    sim_mat = np.zeros((len(structure_list), len(structure_list)))
+    for i, struc_1 in tqdm(enumerate(structure_list), total=len(structure_list)):
+        for j, struc_2 in enumerate(structure_list):
+            sim_mat[i,j] = nxo_onto_graph.similarity(struc_1, struc_2, ic_metric='intrinsic_ic_sanchez').resnik_scaled
+
+    with open(file='../data/resnik_sim.npy', mode='wb') as f:
+        np.save(f, sim_mat)
+
+
+def get_resnik_sim_matrix():
+    with open(file='../data/resnik_sim.npy', mode='rb') as f:
+        return np.load(f)
+
+
+def measure_smoothness(data, structure_list, mode='EmbSim'):
     """
     1. Calculate pair-wise cosine-similarity over leaves
     2. Calculate pair-wise resnik similarity of leaves over structure ontology
@@ -29,33 +52,31 @@ def measure_smoothness(data, structure_list):
     :return:
     """
 
-    orig_onto_graph, _ = GE_data_preparation.get_structure_ontology()
-    onto_graph = nx.DiGraph()
-    onto_graph.add_edges_from([(u,v) for u,v in orig_onto_graph.edges()
-                              if orig_onto_graph[u][v]['label'] == 'has_child'])
-
-    leaves = [x for x in onto_graph.nodes() if onto_graph.out_degree(x)==1]
-    print(f'{len(set(structure_list) & set(leaves))} of {len(structure_list)} are leaves ')
-    # structure_list = [struc for struc in structure_list if struc in leaves]
+    # get index subset of selected sub-structures
+    full_structure_list = GE_data_preparation.get_structure_list()
+    struc_indices = np.array([full_structure_list.index(struc) for struc in structure_list])
 
     # 1. Calculate pair-wise cosine-similarity over leaves
-    cos_mat = metrics.pairwise_distances(data, metric='cosine')
-    cos_mat = (cos_mat + 1)/2  # Project from [-1,1] to [0,1]
 
-    structure_list = leaves
+    cos_mat = 1 - metrics.pairwise_distances(data, metric='cosine')
+    # print(f'{cos_mat.mean()=}')
 
     # 2. Calculate pair-wise resnik similarity of leaves over structure ontology
-    nxo_onto_graph = nxo.ontology.NXOntology(onto_graph)
-    sim_mat = np.zeros((len(structure_list), len(structure_list)))
-    for i, leaf_1 in enumerate(structure_list):
-        for j, leaf_2 in enumerate(structure_list):
-            sim_mat[i,j] = nxo_onto_graph.similarity(leaf_1, leaf_2, ic_metric='intrinsic_ic_sanchez').resnik_scaled
+    sim_mat = get_resnik_sim_matrix()
+    # if penalty: sim_mat = sim_mat - sim_mat.mean()  # Project from [0,1] to [-1,1]
+    sim_mat = sim_mat[struc_indices, :][:, struc_indices]
 
-    print(sim_mat.min(), sim_mat.max())
+    # print('sim_mat:', sim_mat.min(), sim_mat.max())
 
     # 3. Compute weighted sum of embedding similarities weighted with resnik and normalize by sum of weights
     help_mat = cos_mat * sim_mat * (1-np.identity(len(structure_list)))  # set diagonal to zero
-    return help_mat.sum()/sim_mat.sum()  # normalize by sum of weights
+
+    if mode=='EmbSim':
+        return help_mat.sum()/sim_mat.sum()  # normalize by sum of weights
+    elif mode=='EmbVar':
+        return help_mat.sum()/(sim_mat.sum() * cos_mat.mean())# * (1-metrics.pairwise_distances(data, metric='euclidean')/3**(1/2)).mean())  # normalize by sum of weights
+    else:
+        raise ValueError('Invalid smoothness measure selected.')
 
 
 class ConstructUMAPGraph:
@@ -271,15 +292,18 @@ class Encoder(nn.Module):
 
     def __init__ (self, input_dim, output_dim):
         super().__init__()
-        self.linear1 = nn.Linear(input_dim, 512)
-        self.linear2 = nn.Linear(512, 512)
-        self.linear3 = nn.Linear(512, output_dim)
+        self.linear1 = nn.Linear(input_dim, 128)
+        self.linear2 = nn.Linear(128, 128)
+        self.linear3 = nn.Linear(128, 128)
+        self.linear4 = nn.Linear(128, 128)
+        self.out = nn.Linear(128, output_dim)
 
     def forward(self, x):
-        x = self.flatten(x)
         x = F.relu(self.linear1(x))
         x = F.relu(self.linear2(x))
         x = F.relu(self.linear3(x))
+        x = F.relu(self.linear4(x))
+        x = self.out(x)
 
         return x
 
@@ -288,5 +312,6 @@ class Encoder(nn.Module):
 
 
 if __name__ == '__main__':
-    measure_smoothness(None, None)
+    # measure_smoothness(None, None)
+    write_resnik_sim_matrix()
 
