@@ -154,7 +154,7 @@ General thread for introduction and motivation:
 		\item built an open framework for parametric UMAP in torch to integrate non-UMAP graphs
 	\end{itemize}
 	\item what is the outline of this script?
-	\item implementation available at Github link
+	\item implementation done in Python, pytorch and Pytorch Geometric and available at Github link
 \end{itemize}
 
 \subsection*{General Introduction of the Research Study}
@@ -350,8 +350,9 @@ Expression values in AMBA are provided per structure as expression densities, in
 		Expression intensity&$E_i(g,d):=\frac{\sum_{p_e\in P_{g,d,e}} p_e}{|P_{g,d,e}|}$&sum of expressing pixel intensity / sum of expressing pixels\\
 		Expression energy&$E_e(g,d):=\frac{\sum_{p_e\in P_{g,d,e}} p_e}{|P_{g,d}|}$&sum of expressing pixel intensity / sum of all pixels in division\\
 	\end{tabular}
-	\label{tab:expr_values}
+
 	\caption{Formulas and descriptions for the calculation of the three expression values provided by AMBA. The respective descriptions are provided by the official \href{http://help.brain-map.org/download/attachments/2818169/InformaticsDataProcessing.pdf?version=1&modificationDate=1319667590884&api=v2}{Allen Mouse Brain Documentation}, which we note as a reference for further information on these metrics.}
+	\label{tab:expr_values}
 \end{table}
 
  As expression energy provides an in-division normalization within itself, is invariant to structure size and is dependent on the actually measured intensities, it appears to be the natural choice. It was further used by all previously mentioned studies over AMBA as ground-truth; we will hence do likewise, and thus use expression value and expression energy interchangeably.
@@ -719,7 +720,14 @@ simultaneously.
 We further employ another mechanism to avoid redundancy and fading
 signals in stacked graph convolutional networks, using residual
 connections and a normalization scheme \cite{DeepGCN2019, GENConv2020}, introducing residual blocks for graph convolution. The residual
-blocks are reusable and may be stacked multiple times, allowing construction of even deeper graph convolutional neural networks. These residual blocks are composed of graph convolutional layer among other functions and hence allow for substitution of arbitrary graph layers. See Figure \ref{fig:ResGraphBlock}.\\
+blocks are reusable and may be stacked multiple times, allowing construction of even deeper graph convolutional neural networks. These residual blocks are composed of graph convolutional layer among other functions and hence allow for substitution of arbitrary graph layers as displayed in Figure \ref{fig:ResGraphBlock}.\\
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.3\textwidth]{figures/GCN_residual_block.png}
+	\caption{Textitext}
+	\label{fig:ResGraphBlock}
+\end{figure}
 
 \paragraph{Graph Kernels going beyond the Weisfeiler-Leman algorithm (KerGNN)}\mbox{}\\
 \label{sec:KerGNN}
@@ -743,6 +751,7 @@ with $L$ the number of stacked KerGNN layers. The authors show moreover, that th
 
 
 \subsubsection{Dimensionality reduction techniques}
+\label{sec:dim_red}
 
 The underlying task was briefly described in Section \ref{sec:probdesc_dimpres} with respect to gene expression. However, this task may also be formulated in a general. Here, we want to find a mapping $f_\text{emb}:\mathbb{R}^n\rightarrow \mathbb{R}^k$ with $k<n$ in order to transform data in high-dimensional space $\mathbb{R}^n$ into lower dimensionality of space co-domain $\mathbb{R}^k$, preserving \textit{meaningful properties} of the mapping's domain. The term \textit{meaningful properties} is intentionally held vague as this may refer to both domain-specific but also space specific notions. This often refers to pair-wise linkage of entities.
 
@@ -796,8 +805,9 @@ A great visualization of UMAP and its expressive power especially in comparison 
 		\label{fig:para_umap_vis}
 	\end{subfigure}
 	
-	\label{fig:umap_visualizations}
+
 	\caption{Visualization of UMAP's and  Parametric UMAP's respective workflows. Images are taken from the \href{https://umap-learn.readthedocs.io/en/latest/parametric_umap.html}{PyPi umap library docs} and the papers. The library is built and maintained by the UMAP and Parametric UMAP authors.}
+	\label{fig:umap_visualizations}
 \end{figure}
 
 \paragraph{Parametric UMAP}\mbox{}\\
@@ -905,16 +915,17 @@ For the first setup we anticipate the gene expression within a single structure,
 \begin{table}
 	\centering
 	\renewcommand{\arraystretch}{1.5}
-	\begin{tabular}{l|lllll}
+	\begin{tabular}{l|l|llll}
 		Feature type&Flat&\multicolumn{4}{|c}{Graph Convolutional Layers}\\
 		&&\multicolumn{1}{|l}{\textsc{GCNConv}}&\textsc{GATConv}&\textsc{GENConv}&\textsc{KerGNN}\\
 		\hline
-		Molecular features&&&&&\\
-		Phenotypical features&&&&&\\
-		Molecular + phenotypical features &&&&&\\
+		Molecular features&0.56&0.64&0.66&0.63&0.64\\
+		Phenotypical features&0.60&0.66&0.68&0.66&0.67\\
+		Molecular + phenotypical features &0.60&0.67&0.68&0.67&0.68\\
 	\end{tabular}
-	\label{tab:geneexp_pred}
+
 	\caption{AUROC scores for singular structures within the \textit{Frontal lobe}; Forecasted with different graph convolutional neural layer types over three feature setups averaged among different substructures. Molecular features from DeepGOPlus \cite{DeepGoPlus} and phenotypical features from DL2vec \cite{DL2vec2020} over PhenomeNET \cite{PhenomeNET2011}. }
+	\label{tab:geneexp_pred}
 \end{table}
 
 \begin{itemize}
@@ -949,7 +960,7 @@ First, we show the sample invariance of \textsc{EmbSim}. We assume three differe
 {
 \centering
 \renewcommand{\arraystretch}{1.5}
-\begin{tabular}{l|ll}
+\hspace{3cm}\begin{tabular}{l|ll}
 	Tree type& \textsc{EmbSim} & \textsc{EmbVar}\\
 	\hline
 	Balanced $5\times 5$ tree&0.89&0.94\\
@@ -1002,8 +1013,9 @@ As shown, both measures are invariant to sample size comparing the $2\times 8$ a
 		\label{fig:tree_unbalanced_reduced}
 		\caption{Unbalanced $1\times 4$ tree}
 	\end{subfigure}	
-	\label{fig:trees}
+
 	\caption{text}
+	\label{fig:trees}
 \end{figure}
 
 
@@ -1093,13 +1105,14 @@ As we see from our toy examples, \textsc{EmbSim} and \textsc{EmbVar} have differ
 		\hline
 		Dimensionality reduction&Uniform $p_\text{uni}$ &Constant $p_\text{dirac}$&Gaussian $p_\text{gauss}$&PCA\\
 		\hline
-		\textsc{EmbSim}&0.79& -- & 0.94&0.95\\
-		\textsc{EmbVar}&1.15& -- & 0.91 & 1.10\\ 
+		\textsc{EmbSim}&0.79& -- & 0.94&0.96\\
+		\textsc{EmbVar}&0.99& -- & 0.91 & 1.01\\ 
 		\hline
 		
 	\end{tabular}
-	\label{tab:dim_red_results}
+
 	\caption{Test}
+	\label{tab:dim_red_results}
 \end{table}
 
 \subsubsection{Enhancing neural embedding methods with GCNs}
@@ -1107,18 +1120,18 @@ As we see from our toy examples, \textsc{EmbSim} and \textsc{EmbVar} have differ
 In this section we will examine in more detail the results of our dimensionality reduction experiments. 
 Thus, we first investigate the overall similarity of gene expression values across the mouse brain, measured by \textsc{EmbSim} and \textsc{EmbVar} based on the raw expression values as baseline method to overcome. We combine this with a study on the most expressive genes and the corresponding normalization scheme (see Section \ref{sec:geneexp_data}). Afterwards, we  analyze the influence of GCNs over PPI graphs on the performance and expressivity of the dimensionality reduction approaches.\\
 
-Our data preparation scheme allows for testing of different ways of representing omics data. We hence evaluated various ways to normalize gene expression values, as these normalizations capture varying biological information. Generally, there are the four possible normalization schemes possible, the three introduced and explained in Section \ref{sec:geneexp_data} and no normalization, which makes the features infeasible for the neural network-based approaches, e.g. UMAP and Parametric UMAP.
-Further, we survey the behavior of dimensionality reduction methods, based on different subsets of genes. We therefor rank the genes based on their respective sum of expressions across all structures, with respect to each normalization scheme. We then select the $N\in \{20, 100, 1000, 16679\}$ most expressed genes and prune each sub-structure representation down to these genes. For a better overview we will only display the results PCA and UMAP here, but all reduction embeddings behave likewise.\\
+Please note that the majority of these results are image-driven. As printed versions likely will not capture the entire color depth and nuances shown, please refer to the digital version of this script for more insights.\\
 
-Concerning the 
+Our data preparation scheme allows for testing of different ways of representing omics data. We hence evaluated various ways to normalize gene expression values, as these normalizations capture varying biological information. Generally, there are the four possible normalization schemes possible, the three introduced and explained in Section \ref{sec:geneexp_data} and no normalization, which makes the features infeasible for the neural network-based approaches, e.g. UMAP and Parametric UMAP.
+Further, we survey the behavior of dimensionality reduction methods, based on different subsets of genes. We therefor rank the genes based on their respective sum of expressions across all structures, with respect to each normalization scheme. We then select the $N\in \{20, 100, 1000, 16679\}$ most expressed genes and prune each sub-structure representation down to these genes. For a better overview we will only display the results PCA and UMAP here, but all reduction embeddings behave likewise. Results are depicted in Table \ref{tab:gen_red_baseline}. Experiments were repeated 5 times for the non-deterministic approach UMAP and averaged over all results.\\
 
 \begin{table}
 	\centering
-	\renewcommand{\arraystretch}{1.5}
+	\renewcommand{\arraystretch}{1.2}
 	
-	\begin{tabular}{ll|ll|ll|ll|}
+	\begin{tabular}{ll|l|l|l|l|l|l|}
 		
-		&&\multicolumn{2}{c|}{Value sim}&\multicolumn{2}{c|}{PCA}&\multicolumn{2}{c|}{UMAP}\\
+		&&\multicolumn{2}{c|}{Raw gene expr. }&\multicolumn{2}{c|}{PCA}&\multicolumn{2}{c|}{UMAP}\\
 		$N$&$norm$&\textsc{EmbSim}&\textsc{EmbVar}&\textsc{EmbSim}&\textsc{EmbVar}&\textsc{EmbSim}&\textsc{EmbVar}\\
 		\hline
 		\multirow{4}{*}{$20$}&none&0.91&0.99&0.94&1.00&0.96&0.99\\
@@ -1133,38 +1146,141 @@ Concerning the
 		\hline
 		\multirow{4}{*}{$1000$}&none&0.88&1.01&0.96&1.00&0.94&1.01\\
 		&row&0.88&1.01&0.94&1.00&0.96&1.00\\
-		&column&0.88&1.00&0.95&1.00&0.96&1.02\\
-		&global&0.88&1.01&0.96&1.00&-.94&1.01\\
+		&column&0.84&1.02&0.95&1.00&0.96&1.02\\
+		&global&0.88&1.00&0.96&1.00&0.94&1.01\\
 		\hline
 		\multirow{4}{*}{$16679$}&none&0.84&1.01&0.96&1.00&0.92&1.03\\
 		&row&0.84&1.01&0.94&1.01&0.96&1.00\\
-		&column&\textbf{0.72}&\textbf{1.03}&\textbf{0.96}&\textbf{1.02}&\textbf{0.96}&\textbf{1.04}\\
+		&column&\textbf{0.72}&\textbf{1.03}&\textbf{0.96}&\textbf{1.01}&\textbf{0.96}&\textbf{1.01}\\
 		&global&0.84&1.01&0.97&0.99&0.94&1.01\\
 		
 		
 	\end{tabular}
 	\caption{Textitex}
-	\label{tab:gen_red eample}
+	\label{tab:gen_red_baseline}
 \end{table}
 
-\begin{itemize}
-	\item gap in \textsc{EmbSim} and \textsc{EmbVar}
-\end{itemize}
+There are several trends and properties clearly visible in this very table. Foremost, raw gene expression values differ in their corresponding similarity, measured by \textsc{EmbSim} and \textsc{EmbVar}, across the considered number of genes. The similarity is comparable to PCA and UMAP results for the subset of 20 most expressed genes. However, the low \textsc{EmbVar} value, diagnoses overly similar embeddings. The more genes we consider, the lower the like analogy gets, culminating in \textsc{EmbSim}s and \textsc{EmbVar}s of 0.72 and 1.03 respectively. This indicates both the most information content, which follows naturally by the features derivation process, and spread of data. 
+Moreover, we may clearly see a large discrepancy in kinship across the various normalization schemes. As described in Section \ref{sec:geneexp_data}, about 70\% of all expression values are very close to zero for none, row-wise and global normalization, leading to increased sameness in representation. \\
+
+Fortunately, both PCA and UMAP are able to both extract the important features, but also keep the \textit{less relevant} values for spreading of embeddings along the representation space approaching a clearer dissection of clusters. Moreover, UMAP and PCA as representatives for traditional and neural network-based dimensionality reduction approaches both clearly outperform the baseline of similarity of raw gene expression values. 
+This reasons and underlines our choice of normalization scheme and gene set choice, but also accentuates the validity of elected similarity metrics.\\
+
+In the second step we approach the impact of GCNs on this embedding method. Initially, we show the computed performances across all introduced methods without GCNs, followed by a description and implementation details of the used model in combination with GCNs, and closed by their respective results and the insights we gain from this. Statistics of these trials are shown in Table \ref{tab:dim_red_GCN}. Corresponding brain images are shown in \\
+
+For our experiments we evaluate the four methods PCA, t-SNE, UMAP and Parametric UMAP on the unsupervised task of dimensionality reduction based on the raw, normalized gene expression energy data over the full set of genes. We consider 843 structures and 16679 associated genes. As mappings to the corresponding proteins are not available for all genes and some genes are linked with the same Entrez ID, we yield a total subset of 10689 genes eventually. We prune the corresponding representations accordingly for GAT based methods, but also test for the full set of genes. Only results for the pruned set of genes are shown, as full set performances are \textit{very} similar. We further extended a digit in these results tables, to underline the rather marginal gaps measured.
+We generally generally see a very solid performance across all applied methods. Moreover, all "baseline" methods, i.e. PCA, t-SNE and UMAP achieve akin \textsc{EmbSim} and \textsc{EmbVar} scores. A noticeable drop in both measures and the UMAP-loss is observed from UMAP to Parametric UMAP. For these experiments we tested numerous hyperparameter settings, as described in Section \ref{sec:evalmetrics}. Their corresponding images may be see in Figure \ref{fig:dim_red_vis}. We thus map the corresponding embeddings into color space and display a coronal and one sagittal cross-section across the colored CCFv3 reference atlas. For a better intuition about measured section boarders, please refer to Figure \ref{fig:baseline_vis}. 
+Here PCA and t-SNE show a very diverse spectrum, causing the high performance with respect to \textsc{EmbVar}. Moreover, the corresponding images are highly parcelated and boarders between neighboring structures are clearly visible. This lacking smoothness of embeddings may also be seen in the 3D-scatter plot, which we will not display in this publication due to lack of additional insights. \\
+
+This issue is solved with the formulation of UMAP as described in more detail in Section \ref{sec:dim_red}, ensuring smoothness and closeness of similar embeddings. This is clearly visible in Figure \ref{fig:UMAP_cor} and \ref{fig:UMAP_sag}. Both coronal and sagittal cross-section greatly improve the smoothness of embeddings across structures, while clearly highlighting the overall regions. However, we evidently detect the issue of over-smoothing, which we could not fix with different sets of hyperparameters. This issue may also be seen in the values of \textsc{EmbVar} in comparison to the right side of the table.
+At this point we will introduce the work of \citet{Partel2020}, who introduced a novel in-situ sequencing (ISS) dataset and pipeline for mouse brains. The corresponding embeddings calculated over UMAP, too, are displayed in Figure \ref{fig:baseline_vis}. Here, gene expression data was not aggregated across divisions, but was left as voxels. Corresponding to our data and visualizations, embeddings nicely display the brains overall compartments and sub-structures with respect to gene expression values. Yet, UMAP leads to overly smoothed images with only little sensitivity to small derivations. \\
 
 
-Our model also allows us to test different ways of representing omics data. We
-tested different ways to normalize values assigned to genes as these normalizations
-convey different biological information; in the matrix of values assigned to genes from
-cancer samples, we can normalize values across the entire matrix, across each row
-(cancer sample), or across each column (gene). While a global normalization is more
-common, row-based normalization allows us to highlight values that are significantly
-higher or lower within one sample (e.g., which genes are expressed at high or low levels within a single sample), and column-based normalization allows us to highlight values
-assigned to a particular gene that are significantly higher or lower within one sample
-(e.g., whether a gene is expressed at higher or lower levels within one sample compared
-to all others). We find that column-based normalization performs better than row-based
-normalization, while the global normalization approach performs close to random. The
-best results are achieved when combining both row- and column-based normalization
-(Supplementary Table 2).	
+\begin{table}
+	\centering
+	\renewcommand{\arraystretch}{1.2}
+	
+	\begin{tabular}{l|l|l|l|l|l|l|l|l}
+		Method&PCA&T-SNE&UMAP&\multicolumn{5}{c}{Parametric UMAP}\\
+		GCN layer type &&&&None&\textsc{GCN}&\textsc{GAT}&\textsc{GEN}&\textsc{KerGNN}\\
+		\hline
+		\textsc{EmbSim}&0.956&0.956&0.959&0.952&0.920&0.927&0.968&0.964\\
+		
+		\textsc{EmbVar}&1.010&1.003&1.006&1.002&1.038&1.028&1.022&1.019\\
+		\hline
+		UMAP-loss&--&--&0.94&1.06&1.75&1.52&0.62&0.88\\
+	\end{tabular}
+
+	\caption{Textitext}
+	\label{tab:dim_red_GCN}
+\end{table}
+
+
+
+\begin{figure}
+	\begin{subfigure}{.43\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{../results/pca_ano_coronal_50_res_slice_1.png}
+		\caption{PCA coronal}
+		\label{fig:PCA_cor}
+	\end{subfigure}
+	\begin{subfigure}{.3\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth, angle=270]{../results/pca_ano_sagittal_50_res_slice_1.png}
+		\caption{PCA sagittal}
+		\label{fig:PCA_sag}
+	\end{subfigure}\\
+
+	\begin{subfigure}{.43\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{../results/tsne_ano_coronal_50_res_slice_1.png}
+		\caption{T-SNE coronal}
+		\label{fig:TSNE_cor}
+	\end{subfigure}
+	\begin{subfigure}{.3\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth, angle=270]{../results/tsne_ano_sagittal_50_res_slice_1.png}
+		\caption{T-SNE sagittal}
+		\label{fig:TSNE_sag}
+	\end{subfigure}\\
+
+	\begin{subfigure}{.43\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{../results/umap_ano_coronal_50_res_slice_1.png}
+		\caption{UMAP coronal}
+		\label{fig:UMAP_cor}
+	\end{subfigure}
+	\begin{subfigure}{.3\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth, angle=270]{../results/umap_ano_sagittal_50_res_slice_1.png}
+		\caption{UMAP sagittal}
+		\label{fig:UMAP_sag}
+	\end{subfigure}\\
+
+	\begin{subfigure}{.43\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{../results/para_umap_ano_coronal_50_res_slice_1.png}
+		\caption{Parametric UMAP coronal}
+		\label{fig:ParaUMAP_cor}
+	\end{subfigure}
+	\begin{subfigure}{.3\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth, angle=270]{../results/para_umap_ano_sagittal_50_res_slice_1.png}
+		\caption{Parametric UMAP sagittal}
+		\label{fig:ParaUMAP_sag}
+	\end{subfigure}\\
+
+	\caption{Textitext}
+	\label{fig:dim_red_vis}
+\end{figure}
+\todo{Align to middle}
+
+
+\begin{figure}
+	\centering
+	
+	\includegraphics[width=0.5\textwidth]{figures/graphiss_anlaysis.jpg}
+	
+	\caption{Textitext}
+	\label{fig:baseline_vis}
+\end{figure}
+
+
+
+Unfortunately, we could not find a suitable implementation of UMAP allowing for custom, deeper encoding models (though theoretically possible), but we were successful looking for suitable implementations for Parametric UMAP. Links and further links are given in the Github repository. \\
+
+Thus, the following images and results are given with respect to deeper and thus more expressive neural network-based models than for UMAP. Moreover, we may re-use the UMAP loss, used as the optimization objective for UMAP and Parametric UMAP. It describes the proximity and boundness of simplices in the domain space, and how well they are preserved in lower dimensions.
+For the non-graph convolutional baseline encoder for Parametric UMAP we run a manual grid search for the best set of hyperparameters. Moreover, we instantiated control neural network, consisting of the same layers as GENConv, but removed the message passing step. These two cases coincided, thus leading to the graph-less baseline method and its data shown in the right part of Table \ref{tab:dim_red_GCN}.\\
+As encoding model for the combination with Parametric UMAP we applied the model shown in Figure \ref{fig:dim_red_mdel}.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.3\textwidth]{figures/Dim_red_model_GCN.png}
+	\caption{Textitext}
+	\label{fig:dim_red_mdel}
+\end{figure}
+
+
 
 
 \begin{itemize}
@@ -1174,7 +1290,51 @@ best results are achieved when combining both row- and column-based normalizatio
 	\item plot colour parent structure all similar
 \end{itemize}
 
+
+
+
+
 \subsection{On the linkage of connectivities and gene expression patterns}
+
+\begin{table}
+	\centering
+	\renewcommand{\arraystretch}{1.2}
+	\begin{subfigure}{1.\textwidth}
+		\centering
+		\begin{tabular}{l|l|l|l|l|l}
+			\hline
+			&\multicolumn{5}{c}{GCN layer type}\\
+			Connectivity type&None&\textsc{GCN}&\textsc{GAT}&\textsc{GEN}&\textsc{KerGNN}\\
+			\hline
+			Struc conn&0.80&0.73&0.76&0.82&0.83\\
+			Funn conn&0.76&0.72&0.73&0.79&0.81\\
+			Eff conn&0.77&0.75&0.75&0.79&0.78\\		
+		\end{tabular}
+	
+		\caption{AUROC scores for embedding dim $n=20$}
+		\label{tab:results_connpred_20}
+	\end{subfigure}\\
+
+	\begin{subfigure}{1.0\textwidth}
+		\hspace{0.5cm}
+		\centering
+		\begin{tabular}{l|l|l|l|l|l}
+			\hline
+			&\multicolumn{5}{c}{GCN layer type}\\
+			Connectivity type&None&\textsc{GCN}&\textsc{GAT}&\textsc{GEN}&\textsc{KerGNN}\\
+			\hline
+			Struc conn&0.70&0.68&0.67&0.72&0.73\\
+			Funn conn&0.69&0.54&0.63&0.71&0.73\\
+			Eff conn&&&&&\\		
+		\end{tabular}
+		
+		\caption{AUROC scores for embedding dim $n=3$}
+		\label{tab:results_connpred_3}
+	\end{subfigure}
+	
+	\caption{Textitext}
+	\label{tab:conn_pred_GCN}
+\end{table}
 
 \subsection*{Brief Overview of Material}
 \subsection*{Findings (Results) of the Method of Study and Any Unplanned or Unexpected Situations that Occurred}
@@ -1208,6 +1368,7 @@ Reliability and Validity of the Analysis}
 \begin{itemize}
 	\item influence of normalization technique $\rightarrow$ Structure, gene, global
 	\item we considered including connectivity graphs into UMAP-loss, but no natural formulation for combination is possible. Here an artificial weighting of respective UMAP proximity graph and external connectivity graph is necessary. We conducted several experiments \dots. Collapses to either side, namely either overly weighting embedding proximity or connectivity matrix. We could not define a stable set of parameters for this to work. 
+	\item no integration with UMAP possible due to missing implementation of UMAP in PyTorch
 \end{itemize}
 
 \subsection{Connectivity prediction}
@@ -1215,11 +1376,19 @@ Reliability and Validity of the Analysis}
 \begin{itemize}
 	\item we reduce to three dimensions, but there does not necessarily needs to be a 3D-representation
 	\item naturally, much better results with higher embedding dimension $\rightarrow$ poor visualization possibilities
+	\item only few structures considered
 \end{itemize}
 
 Novelty:
 \begin{itemize}
 	\item GCNs over gene expression was never applied here
+\end{itemize}
+
+Contribution of this work:
+\begin{itemize}
+	\item Open source contribution, contributing a KerGNN implementation to PyTorch Geometric
+	\item Contribution to AIDAconnect project and enhanced their pipeline
+	\item Built plenty of pipelines on open-source data for the NeurDS group at CBS
 \end{itemize}
 
 
