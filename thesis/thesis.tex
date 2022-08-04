@@ -334,8 +334,15 @@ The most important supportive dataset for AMBA is the Common Coordinate Framewor
 		\includegraphics[width=.9\linewidth, angle=270]{figures/ano_sagittal.png}
 		\caption{Annotation sagittal}
 		\label{fig:ano_sag}
+	\end{subfigure}\\
+
+	\begin{subfigure}{0.9\textwidth}
+		\centering
+		\includegraphics[width=.8\linewidth]{figures/ADULT_ATLAS.jpg}
+		\caption{Mouse brain anatomy }
+		\label{fig:mousebrain_anatomy}
 	\end{subfigure}
-	\caption{(a)-(b): Coronal and sagittal view on the "average brain", an averaged map of all gene expression values gathered from AMBA; (c)-(d): Coronal and sagittal view on the annotation atlas, partitioning the reference brain into $\approx900$ sub-structures.}
+	\caption{(a)-(b): Coronal and sagittal view on the "average brain", an averaged map of all gene expression values gathered from AMBA; (c)-(d): Coronal and sagittal view on the annotation atlas, partitioning the reference brain into $\approx900$ sub-structures; (e) Mouse brain anatomy image from the \href{http://www.gensat.org/}{gensat project} at Rockefeller University, image is licensed under Creative Commons}
 	\label{fig:CCF_images}
 \end{figure}
 
@@ -1299,22 +1306,15 @@ We aim to solve this issue by proposing a Siamese neural network\cite{bromley199
 For the respective encoding model, we use a stacked architecture of ResGraphConv blocks (see Section \ref{sec:GENConv} for more information) to incorporate the chosen graph convolutional neural layers equivalently as in Section \ref{sec:results_dim_GCN}. Again, we use the "flat", non-GCN model as a baseline approach for our method. Again, we use the same architecture but remove the corresponding message passing step. Eventually, we use Cosine similarity as similarity metric.
 The full model is shown in Figure \ref{fig:conn_pred_model}.\\
 
-While the input dimensionality is fixed among for all entities, the sembedding space dimensionality remains a crucial hyperparameter and thus a central research question. Naturally, the \textit{real} embedding space does not have to follow our desire for visualizations and better understanding. We thus analyze the impact of the output dimensionality on the predictive performance and descriptive capabilities of the SNN. We hence choose $k\in \{3,20\}$ for a better understanding.\\
+While the input dimensionality is fixed among for all entities, the sembedding space dimensionality remains a crucial hyperparameter and thus a central research question. Naturally, the \textit{real} embedding space does not have to follow our desire for visualizations and better understanding. We thus analyze the impact of the output dimensionality on the predictive performance and descriptive capabilities of the SNN. We hence choose $k\in \{3,20\}$ as representatives for a better understanding.\\
 
-The results of our experiments are shown in Table \ref{tab:results_connpred_20} and \ref{tab:results_connpred_3}. Here, are results are computed over a 5-fold cross validation on the full set of pairs of structures. Concerning both experiment sets.
+The results of our experiments are shown in Table \ref{tab:results_connpred_20} and \ref{tab:results_connpred_3}. Here, results are computed over a 5-fold cross validation on the full set of pairs of structures. Both experiment sets follow the same random seed for their splits, and hence share the collection of structures in training and validation phase for different choices of $k$. However, we have different sets of structures for structural, and functional and effective connectivity (see Section \ref{sec:datasets} for more information and numbers). 
+From the results, we may conclude that all predictors were able to grasp the underlying signal. The predictive performance was higher than $0.60$ in terms of AUROC score with exception to only one data point. Moreover, we see a surprisingly high AUC  around $0.75$ for dimensionality $k=20$, but a noticeable drop in score towards lower dimensionality. This may indicate that the underlying dimensionality of connectivity is larger than three, and will be discussed further in Section \ref{sec:discussion}.
 
-\todo{predict on unseen structure?}
+Crucially, the dimensionality reduction experiments in Section \ref{sec:results_dim_GCN} behave likewise to the observed ones here. Again, GCNConv and GATConv were not able to provide any additional performance gain, which may be again due to lacking ability to highlight and identify important substructures within the PPI graph. Furthermore, GCNConv's and GATConv message passing algorithm lead non-convergence of the model in a number of cases, inducing very low scores in both functional and effective connectivity, primarily in the lower-dimensional $k=3$ case. 
+Most importantly, we observe a consistent performance increase across all types of connectivity using GENConv and KerGNN. This is clearly visible for both displayed dimensionalities $k\in \{3,20\}$. GENConv and KerGNN seem to observe underlying patterns that are descriptive of the brains connectivity, not only for axonal and functional connectivity, but also for effective connectivity, on which only little literature may be found. \\
 
-
-\begin{itemize}
-	\item Model requirements 
-	\begin{itemize}
-		\item should be order invariant
-		\item solve encoding problem
-	\end{itemize}
-	\item different used graph convolutional filters
-	\item How do we annotate graph
-\end{itemize}
+We hence conclude that GCNs over protein-protein interaction graphs help to identify crucial patterns within the gene expression values for all sub-types of connectivity. 
 
 \begin{table}
 	\centering
@@ -1345,15 +1345,14 @@ The results of our experiments are shown in Table \ref{tab:results_connpred_20} 
 			Connectivity type&None&\textsc{GCN}&\textsc{GAT}&\textsc{GEN}&\textsc{KerGNN}\\
 			\hline
 			Struc conn&0.70&0.68&0.67&0.72&0.73\\
-			Funn conn&0.69&0.54&0.63&0.71&0.73\\
-			Eff conn&0.70&&&&\\		
+			Funn conn&0.64&0.54&0.61&0.66&0.68\\
+			Eff conn&0.69&0.60&0.60&0.69&0.71\\		
 			\hline
 		\end{tabular}
 		
 		\caption{AUROC scores for embedding dim $k=3$}
 		\label{tab:results_connpred_3}
-	\end{subfigure}
-	
+	\end{subfigure}	
 	\caption{Textitext}
 	\label{tab:conn_pred_GCN}
 \end{table}
@@ -1401,13 +1400,15 @@ Reliability and Validity of the Analysis}
 	\item no integration with UMAP possible due to missing implementation of UMAP in PyTorch
 \end{itemize}
 
-\subsection{Connectivity prediction}
+\subsection{Connectivity prediction and its dimensionality}
 
 \begin{itemize}
 	\item we reduce to three dimensions, but there does not necessarily needs to be a 3D-representation
 	\item naturally, much better results with higher embedding dimension $\rightarrow$ poor visualization possibilities
 	\item only few structures considered
 	\item eff conn and fun conn seem somewhat correlated, thus similar predictive performance of all approaches
+	\item parcelation is quite coarse, thus we cannot predict on separate structures $\rightarrow$ Results are to be taken with care
+	\item what is the dimensionality of conn pred?
 \end{itemize}
 
 Novelty:
