@@ -17,7 +17,7 @@
 
 % bibliography natbib
 \usepackage{natbib}
-\bibliographystyle{abbrvnat}
+\bibliographystyle{ieeetr}
 %\setcitestyle{authoryear, open={((},close={))}
 \renewcommand{\cite}{\citep}
 
@@ -740,14 +740,14 @@ Let $G=(V,E)$ be some graph, $\phi_{[l]}$ be family of feature maps for each lay
 	\phi_{1,i}(v) := K\left(G_v, H_i^{(l)}\right)
 \end{equation}
 
-with random walk kernel $K(\cdot, \cdot)$ (see \citet{feng2022kergnns} for implementation details). Combined with a readout layer this may be leveraged for full graph representation learning. As we need to a low dimensional representations for the complete PPI graph with node features, this is naturally valuable. The readout layer is defined as a function $\Phi$ among all intermediate KerGNN layer embeddings $\phi_l$ given by 
+with random walk kernel $K(\cdot, \cdot)$ (see \citet{feng2022kergnns} for implementation details). Combined with a readout layer this may be leveraged for full graph representation learning. As we need to generate a low dimensional representations for the complete PPI graph with node features, this is naturally valuable. The readout layer is defined as a function $\Phi$ among all intermediate KerGNN layer embeddings $\phi_l$ given by 
 
 \begin{equation}
 	\label{equ:KerGNN}
 	\Phi(G):= \text{concat}\left( \sum_{v\in V(G)} \phi_l(v) \text{ }\middle|\text{ } l=0,1,\dots, L \right)
 \end{equation} 
 
-with $L$ the number of stacked KerGNN layers. The authors show moreover, that this formulation is more powerful than the WL kernel and WL algorithm, with a \textit{sufficient} number of stacked KerGNN layers. This draws again connections to CNNs giving a permutation invariant relation of neighbors of node $v\in V$, which e.g. GCNs are not able to derive. 
+with $L$ the number of stacked KerGNN layers. The authors show moreover, that this formulation is more powerful than the WL kernel and WL algorithm given a \textit{sufficient} number of stacked KerGNN layers. This draws again connections to CNNs giving a permutation invariant relation of neighbors of node $v\in V$, which e.g. GCNs are not able to derive. 
 
 
 \subsubsection{Dimensionality reduction techniques}
@@ -910,38 +910,34 @@ We originally started from the per section prediction in order to paste its perf
 
 We hence follow a likewise approach for mouse brains divisions. First, we will predict gene expression from molecular and phenotypical features described in Section \ref{sec:feature_gen} pursuing the frameworks described in \citet{schulte2021integration} and \citet{wang2021mogonet}'s MOGONET for human tissues. Both use \textsc{GCNConv} layers for their respective forecasts, hereby achieving tremendous performances. Second, we will try to see how generalizable these filters are for mouse brain tissues and their transcriptome from one structure to proximate ones.\\
 
-For the first setup we anticipate the gene expression within a single structure, based on the non-structure dependent meta-information, given by the protein's representations. We thus run three different setups: (1) Molecular representations, (2) phenotypical features, and (3) both combined. We thus run five different neural network compositions described by their respective graph convolutional neural layer type. We will apply all layers described in Section \ref{sec:graphconv} and a non-graph convolutional composition as baseline method described by "flat". Here flat includes linear layers similar to the learnable weight matrix of graph convolutional neural layers, but omitting the message passing over the graph. Sections are randomly sampled from \textit{Frontal lobe}, \textit{Parietal lobe}, \textit{Occipital lobe } and \textit{Temporal lobe}. The results are available in Table \ref{tab:geneexp_pred}. Results displayed are based on 5 different sub-structures in the \textit{transcriptomic smooth}, i.e. very similar in gene expression patters, \textit{Frontal lobe}. Results within the other tissues perform similarly poor. Unfortunately, due to the specificity of the tissue, we found no other works as baseline for this very task within mouse brain tissue.
+For the first setup we anticipate the gene expression within a single structure, based on the non-structure dependent meta-information, given by the protein's representations. We thus run three different setups: (1) Molecular representations, (2) phenotypical features, and (3) both combined. We thus run five different neural network compositions described by their respective graph convolutional neural layer type. We will apply all layers described in Section \ref{sec:graphconv} and a non-graph convolutional composition as baseline method described by "flat". Here flat includes linear layers similar to the learnable weight matrix of graph convolutional neural layers, but omitting the message passing over the graph. Sections are randomly sampled from \textit{Frontal lobe}, \textit{Parietal lobe}, \textit{Occipital lobe } and \textit{Temporal lobe}. The results are available in Table \ref{tab:geneexp_pred} and are based on 5 different sub-structures in the \textit{transcriptomic smooth}, i.e. very similar in gene expression patters, \textit{Frontal lobe}. Results within the other tissues perform similarly poor. Unfortunately, due to the specificity of the tissue and approach, we found no other works as baseline for this very task within mouse brain tissue.
 
 \begin{table}
 	\centering
 	\renewcommand{\arraystretch}{1.5}
-	\begin{tabular}{l|l|llll}
+	\begin{tabular}{|l|l|llll|}
+		\hline
 		Feature type&Flat&\multicolumn{4}{|c}{Graph Convolutional Layers}\\
 		&&\multicolumn{1}{|l}{\textsc{GCNConv}}&\textsc{GATConv}&\textsc{GENConv}&\textsc{KerGNN}\\
 		\hline
-		Molecular features&0.56&0.64&0.66&0.63&0.64\\
-		Phenotypical features&0.60&0.66&0.68&0.66&0.67\\
-		Molecular + phenotypical features &0.60&0.67&0.68&0.67&0.68\\
+		Molecular features&0.65&0.64&0.63&0.63&0.64\\
+		Phenotypical features&0.68&0.66&0.64&0.66&0.67\\
+		Molecular + phenotypical features &0.67&0.65&0.66&0.67&0.68\\
+		\hline
 	\end{tabular}
 
 	\caption{AUROC scores for singular structures within the \textit{Frontal lobe}; Forecasted with different graph convolutional neural layer types over three feature setups averaged among different substructures. Molecular features from DeepGOPlus \cite{DeepGoPlus} and phenotypical features from DL2vec \cite{DL2vec2020} over PhenomeNET \cite{PhenomeNET2011}. }
 	\label{tab:geneexp_pred}
 \end{table}
 
-\begin{itemize}
-	\item describe poor results here
-	\item slight increase in GENConv and KerGNN but nothing significant $\rightarrow$ GCNs may no be able to exploit PPI graph features for gene expression prediction
-	\item Molecular features marginally worse than phenotypical features
-	\item yet no ground-shaking results close to performances within \citet{schulte2021integration} and \citet{wang2021mogonet}.
-\end{itemize}
+In our experiments we generally observe a similar, but poor performance across all feature types, with a slight improvement of semantic phenotypical features over the molecular representations. Additionally, all tested graph convolutional layers and kernel types do not improve the down-stream performance of this task. Contrary, GCNs over molecular features seem to worsen the predictive performance. This may be founded in the very node specific nature of our molecular representations, which may not propagate over the network. Eventually, we observe no behavior as reported in \citet{schulte2021integration} and \citet{wang2021mogonet}.\\
 
 As described, we further test the graph convolutional neural filters in a transfer learning scenario. We thus learn the filters on different \textit{related} sub-structures within the mouse brain and validate on the target structure. Likewise to the first sub-task, we analyze results for sub-structures in different compartments of the brain: \textit{Frontal lobe}, \textit{Parietal lobe}, \textit{Occipital lobe } and \textit{Temporal lobe}.
 For a given structure, we define \textit{related} divisions as "siblings" and "cousins", i.e. structures connected by paths \verb*|hasParent|$^n \circ$ \verb*|hasChild|$^n$ with $n\leq2$, within the structure ontology described by the Allen Mouse Brain Common Coordinate Framework (CCFv3). 
 Results for this second step are not displayed in a separate table, but may be described here in detail. Due to the high similarity between neighboring structures, results in training and validation-phase were highly similar. For $n=1$, i.e. transfer learning from sibling structures, high correlation of adjacent divisions leads to leak from training to validation datasets. This leads to arbitrary performance, determined by the networks ability to memorize the past samples, and the number of siblings in the ontology. This holds across all observed across all brain compartments.
-These results are fairly different, when concerning $n=2$, i.e. cousin structures, where results were only determined by the number of neighbors. For smaller sets of relatives, especially seen in the temporal and frontal lobe, very similar behavior as for $n=1$ was observed. However, for larger sets the results tended crucially towards outcomes shown in Table \ref{tab:geneexp_pred}. This may be due to the diminishing transcriptomic similarity for larger distances within the structure ontology and the varying parcelation across brain compartments within this ontology. 
-We evaluate these results extensively in Section \ref{sec:discussion}. \\
+These results are fairly different, when concerning $n=2$, i.e. cousin structures, where results were only determined by the number of neighbors. For smaller sets of relatives, especially seen in the temporal and frontal lobe, very similar behavior as for $n=1$ was observed. However, for larger sets the results tended crucially towards outcomes shown in Table \ref{tab:geneexp_pred}. This may be due to the diminishing transcriptomic similarity for larger distances within the structure ontology and the varying parcelation across brain compartments within this ontology. \\
 
-Due to disappointing outcomes within this task and the poor performances measured among all tested feature types, we move towards showing the influence of transcriptomic patterns for down-stream tasks. 
+We thus conclude that GCNs may not be able to exploit protein-protein interaction networks for gene expression prediction. This may be caused in the complicated structure and complex nature of gene expression. We elaborate further on this matter in Section \ref{sec:discussion}. Due to negative outcomes within this task and the poor performances measured among all tested feature types, we move towards showing the influence of transcriptomic patterns for down-stream tasks. 
 
 
 \subsection{Dimensionality reduction and its combination with different graphs structures}
@@ -953,7 +949,7 @@ In this second section we want to show and demonstrate the results of our experi
 \label{sec:results_embsim}
 
 The formulation of \textsc{EmbSim} contains various thoughts. First, we want to achieve so called sample invariance, i.e. metric that is invariant to the amount and selection of samples within the ontology. As our different datasets, especially in the task of connectivity prediction, only contain data on a rather small-scale subset of structures, we want to formulate a measure allowing for cross-subset comparison of embedding similarities. 
-Second, we want to penalize overly-similar embeddings. Most intuitive measures, such as the sum of cosine similarities fail to address this issue. An embedding mapping all entities to the same embedding, e.g. $(0,0,0)^T$ is optimal, is optimal for this kind of measurement, as it maximizes the pairwise similarity. However, to cope with both issues and get a sufficient understanding of the underlying data, we will need both methods. Third, we naturally want our metric to correlate with our natural understanding of a good embedding, i.e. similar embeddings for structures with similar gene expression values.\\
+Second, we want to penalize overly-similar embeddings. Most intuitive measures, such as the sum of cosine similarities fail to address this issue. An embedding mapping all entities to the same embedding, e.g. $(0,0,0)^T$, is optimal for this kind of measurement as it maximizes the pairwise similarity. However, to cope with both issues and get a sufficient understanding of the underlying data, we will need both methods. Third, we naturally want our metric to correlate with our natural understanding of a good embedding, i.e. similar embeddings for structures with similar gene expression values.\\
 
 First, we show the sample invariance of \textsc{EmbSim}. We assume three different toy taxonomies and ontologies, describing the sample issue, all shown in Figure \ref{fig:trees}. Let $a_i $  and $b_j$ be entities of respective classes. Further, let $sim_\text{cos}(a_i, a_j)=1$ and $sim_\text{cos}(b_i, b_j)=1$ for all pairs $i,j$, describing maximum similarity within classes. However, we further assume $sim_\text{cos}(a_i, b_j)=0$ for all $i,j$. Then the smoothness functions yield the following results:\\
 
@@ -1129,8 +1125,8 @@ Further, we survey the behavior of dimensionality reduction methods, based on di
 	\centering
 	\renewcommand{\arraystretch}{1.2}
 	
-	\begin{tabular}{ll|l|l|l|l|l|l|}
-		
+	\begin{tabular}{|ll|l|l|l|l|l|l|}
+		\hline
 		&&\multicolumn{2}{c|}{Raw gene expr. }&\multicolumn{2}{c|}{PCA}&\multicolumn{2}{c|}{UMAP}\\
 		$N$&$norm$&\textsc{EmbSim}&\textsc{EmbVar}&\textsc{EmbSim}&\textsc{EmbVar}&\textsc{EmbSim}&\textsc{EmbVar}\\
 		\hline
@@ -1153,7 +1149,7 @@ Further, we survey the behavior of dimensionality reduction methods, based on di
 		&row&0.84&1.01&0.94&1.01&0.96&1.00\\
 		&column&\textbf{0.72}&\textbf{1.03}&\textbf{0.96}&\textbf{1.01}&\textbf{0.96}&\textbf{1.01}\\
 		&global&0.84&1.01&0.97&0.99&0.94&1.01\\
-		
+		\hline
 		
 	\end{tabular}
 	\caption{Textitex}
@@ -1180,8 +1176,9 @@ At this point we will introduce the work of \citet{Partel2020}, who introduced a
 	\centering
 	\renewcommand{\arraystretch}{1.2}
 	
-	\begin{tabular}{l|l|l|l|l|l|l|l|l}
-		Method&PCA&T-SNE&UMAP&\multicolumn{5}{c}{Parametric UMAP}\\
+	\begin{tabular}{|l|l|l|l|l|l|l|l|l|}
+		\hline
+		Method&PCA&T-SNE&UMAP&\multicolumn{5}{c|}{Parametric UMAP}\\
 		GCN layer type &&&&None&\textsc{GCN}&\textsc{GAT}&\textsc{GEN}&\textsc{KerGNN}\\
 		\hline
 		\textsc{EmbSim}&0.956&0.956&0.959&0.952&0.920&0.927&0.968&0.964\\
@@ -1189,6 +1186,7 @@ At this point we will introduce the work of \citet{Partel2020}, who introduced a
 		\textsc{EmbVar}&1.010&1.003&1.006&1.002&1.038&1.028&1.022&1.019\\
 		\hline
 		UMAP-loss&--&--&0.94&1.06&1.75&1.52&0.62&0.88\\
+		\hline
 	\end{tabular}
 
 	\caption{Textitext}
@@ -1271,70 +1269,102 @@ Unfortunately, we could not find a suitable implementation of UMAP allowing for 
 
 Thus, the following images and results are given with respect to deeper and thus more expressive neural network-based models than for UMAP. Moreover, we may re-use the UMAP loss, used as the optimization objective for UMAP and Parametric UMAP. It describes the proximity and boundness of simplices in the domain space, and how well they are preserved in lower dimensions.
 For the non-graph convolutional baseline encoder for Parametric UMAP we run a manual grid search for the best set of hyperparameters. Moreover, we instantiated control neural network, consisting of the same layers as GENConv, but removed the message passing step. These two cases coincided, thus leading to the graph-less baseline method and its data shown in the right part of Table \ref{tab:dim_red_GCN}.\\
-As encoding model for the combination with Parametric UMAP we applied the model shown in Figure \ref{fig:dim_red_mdel}.
+As base graph, we utilize the protein-protein interaction graph with associated gene expression value for each gene-protein pair as node feature. Thus every node only has a singular value as description. As encoding model for the combination with Parametric UMAP we applied the model shown in Figure \ref{fig:dim_red_mdel}. It consists of three stacked ResGraphConv Blocks allowing for deeper neural networks overcoming the oversmoothing of node features in GCNConv and GATConv, especially in highly connected graphs like our STRING-based PPI network.
+However, this circumvention does not work for GCNConv and GATConv as seen in the respective results. The performance drops crucially in comparison to the non-GCN Parametric UMAP model with a considerable jump in both \textsc{EmbSim} and \textsc{EmbVar}. The latter indicates overly similar embeddings, which may be caused by the respective kernel filters and message passing scheme. This also applies for GATConv, which applies the same message passing approach as GCNConv.
+A large increase in \textsc{EmbSim} and \textsc{EmbVar} may be see in juxtaposition to GENConv and KerGNN. Both methods try to overcome the oversmoothing issues with novel learnable weighting methods and a learnable softmax preserving strong signals for GENConv, and shadow graph construction for KerGNNs, cutting edges from the dense PPI network. An increase in both measures indicates much better embeddings, which may not be reproduced with non-GCN methods. This signifies both increased similarity and good spread across the representation space. The improvement of embeddings may also be observed in the gap in UMAP-loss, also indicating improved embeddings. 
+
+\begin{itemize}
+	\item results on the images? \todo{Include GCN-based images}
+\end{itemize}
+
+Yet, we see a distinction in performance from GENConv to KerGNN in terms of UMAP-loss, which we are not able to explain but must be caused in the different formulations. We assume that some singular genes are highly predictive for the structures orientation, as indicated by the gene set experiments in \citet{Partel2020}. Thus, GENConv might be able to underline, propagate and preserve these features better. The authors show, that a small subset of about 20 genes is able to properly represent each structure over UMAP. We show, that this is only partly true and overly simplifies the underlying issue in Figure \ref{tab:dim_red_results}. We conclude that GCNs may be able to naturally select and derive importance measures for these decisive genes and their corresponding interactions, which non-GCN deep neural networks and traditional approaches, i.e. PCA and t-SNE, are incapable of.
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.3\textwidth]{figures/Dim_red_model_GCN.png}
+	\includegraphics[width=0.4\textwidth]{figures/Dim_red_model_GCN.png}
 	\caption{Textitext}
 	\label{fig:dim_red_mdel}
 \end{figure}
 
 
 
+\subsection{On the linkage of connectivities and gene expression patterns}
+\label{sec:results_connpred}
+In this section we will describe the experiments and their outcomes for the connectivity prediction task. Here, we use normalized gene expression values as representations for each structure and predict the interactions between them. Further, the task is based on a two-entity prediction, whereas these entities are represented in the same representation space. 
+This formulation causes a variety of challenges. Let us assume a nai\"ive neural network (nNN) $f_{nNN}:\mathbb{R}^n\times \mathbb{R}^n\rightarrow [0,1]$ with parameterization $\Phi$ where inputs are bluntly concatenated and put through a series of linear neural layers before being reduced to a dimensionality of $1$ for the output function. Moreover, let $s_1, s_2\in S$ be the gene expression-based representations of two structures in the mouse brain with $S$ the set of structure embeddings.
+First, neural network models impose and assume an order among the inputs, indicated by the Cartesian product characterizing $f_{nNN}$'s domain. This causes $f_{nNN}(s_1, s_2)\neq f_{nNN}(s_2, s_1)$ for every distinct pair $s_1,s_2\in S$ with $s_1\neq s_2$. This may be solved by either a special regularization term in the model's loss function or my a special model structure. 
+Second, we wish our model to be descriptive and explainable in terms of interpretability of results. Naturally, neural networks and their intermediate representation spaces are seldom understandable for humans. This is frequently done by a mapping into color space and the corresponding visualization. However, even if we assume the second to last layer of $f_{nNN}$ to be of dimensionality $k=3$, i.e. a bijective mapping to RGB color space exists, the meaning stays unsolved, as a complex transformation of this space follows in form the neural output layer.\\
+
+We aim to solve this issue by proposing a Siamese neural network\cite{bromley1993signature} (see \citet{chicco2021siamese} for an overview) for this purpose. Siamese neural networks (SNNs) embed the two considered entities from the same representation domain into the same embedding space. Here, the SNN optimizer tries to maximize the similarity of the two embeddings if linked and minimize the kinship for non-linked ones. This solves the two issues mentioned above. On one hand, as both entities are put through the same embedding model and the similarity function is commutative, SNNs are invariant to the order of their arguments. On the other hand, we may set the dimensionality of the embedding space to $k=3$ which is straightforward to visualize. Second, similar embeddings are embedded similarly imposing a natural structure among the embeddings. 
+For the respective encoding model, we use a stacked architecture of ResGraphConv blocks (see Section \ref{sec:GENConv} for more information) to incorporate the chosen graph convolutional neural layers equivalently as in Section \ref{sec:results_dim_GCN}. Again, we use the "flat", non-GCN model as a baseline approach for our method. Again, we use the same architecture but remove the corresponding message passing step. Eventually, we use Cosine similarity as similarity metric.
+The full model is shown in Figure \ref{fig:conn_pred_model}.\\
+
+While the input dimensionality is fixed among for all entities, the sembedding space dimensionality remains a crucial hyperparameter and thus a central research question. Naturally, the \textit{real} embedding space does not have to follow our desire for visualizations and better understanding. We thus analyze the impact of the output dimensionality on the predictive performance and descriptive capabilities of the SNN. We hence choose $k\in \{3,20\}$ for a better understanding.\\
+
+The results of our experiments are shown in Table \ref{tab:results_connpred_20} and \ref{tab:results_connpred_3}. Here, are results are computed over a 5-fold cross validation on the full set of pairs of structures. Concerning both experiment sets.
+
+\todo{predict on unseen structure?}
+
 
 \begin{itemize}
-	\item UMAP loss is dependent on selected structures
-
-	\item plot for showing validity of embeddings: K-means colour with respect to cluster 
-	\item plot colour parent structure all similar
+	\item Model requirements 
+	\begin{itemize}
+		\item should be order invariant
+		\item solve encoding problem
+	\end{itemize}
+	\item different used graph convolutional filters
+	\item How do we annotate graph
 \end{itemize}
-
-
-
-
-
-\subsection{On the linkage of connectivities and gene expression patterns}
 
 \begin{table}
 	\centering
 	\renewcommand{\arraystretch}{1.2}
 	\begin{subfigure}{1.\textwidth}
 		\centering
-		\begin{tabular}{l|l|l|l|l|l}
+		\begin{tabular}{|l|l|l|l|l|l|}
 			\hline
-			&\multicolumn{5}{c}{GCN layer type}\\
+			&\multicolumn{5}{c|}{GCN layer type}\\
 			Connectivity type&None&\textsc{GCN}&\textsc{GAT}&\textsc{GEN}&\textsc{KerGNN}\\
 			\hline
 			Struc conn&0.80&0.73&0.76&0.82&0.83\\
 			Funn conn&0.76&0.72&0.73&0.79&0.81\\
 			Eff conn&0.77&0.75&0.75&0.79&0.78\\		
+			\hline
 		\end{tabular}
 	
-		\caption{AUROC scores for embedding dim $n=20$}
+		\caption{AUROC scores for embedding dim $k=20$}
 		\label{tab:results_connpred_20}
 	\end{subfigure}\\
 
 	\begin{subfigure}{1.0\textwidth}
-		\hspace{0.5cm}
+		\vspace{0.5cm}
 		\centering
-		\begin{tabular}{l|l|l|l|l|l}
+		\begin{tabular}{|l|l|l|l|l|l|}
 			\hline
-			&\multicolumn{5}{c}{GCN layer type}\\
+			&\multicolumn{5}{c|}{GCN layer type}\\
 			Connectivity type&None&\textsc{GCN}&\textsc{GAT}&\textsc{GEN}&\textsc{KerGNN}\\
 			\hline
 			Struc conn&0.70&0.68&0.67&0.72&0.73\\
 			Funn conn&0.69&0.54&0.63&0.71&0.73\\
-			Eff conn&&&&&\\		
+			Eff conn&0.70&&&&\\		
+			\hline
 		\end{tabular}
 		
-		\caption{AUROC scores for embedding dim $n=3$}
+		\caption{AUROC scores for embedding dim $k=3$}
 		\label{tab:results_connpred_3}
 	\end{subfigure}
 	
 	\caption{Textitext}
 	\label{tab:conn_pred_GCN}
 \end{table}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.5\textwidth]{figures/ConnPred_model.png}
+	
+	\caption{Textitext}
+	\label{fig:conn_pred_model}
+\end{figure}
 
 \subsection*{Brief Overview of Material}
 \subsection*{Findings (Results) of the Method of Study and Any Unplanned or Unexpected Situations that Occurred}
@@ -1377,6 +1407,7 @@ Reliability and Validity of the Analysis}
 	\item we reduce to three dimensions, but there does not necessarily needs to be a 3D-representation
 	\item naturally, much better results with higher embedding dimension $\rightarrow$ poor visualization possibilities
 	\item only few structures considered
+	\item eff conn and fun conn seem somewhat correlated, thus similar predictive performance of all approaches
 \end{itemize}
 
 Novelty:
@@ -1413,6 +1444,7 @@ Contribution of this work:
 
 \newpage
 
+\bibliographystyle{ieeetr}
 \bibliography{citations}
 
 \newpage

@@ -1,4 +1,4 @@
-\begin{thebibliography}{118}
+\begin{thebibliography}{120}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -97,6 +97,12 @@ J.~W. Bohland, H.~Bokil, S.~D. Pathak, C.-K. Lee, L.~Ng, C.~Lau, C.~Kuan,
   comparison with classical neuroanatomy.
 \newblock \emph{Methods}, 50\penalty0 (2):\penalty0 105--112, 2010.
 
+\bibitem[Bromley et~al.(1993)Bromley, Guyon, LeCun, S{\"a}ckinger, and
+  Shah]{bromley1993signature}
+J.~Bromley, I.~Guyon, Y.~LeCun, E.~S{\"a}ckinger, and R.~Shah.
+\newblock Signature verification using a" siamese" time delay neural network.
+\newblock \emph{Advances in neural information processing systems}, 6, 1993.
+
 \bibitem[Carbon et~al.(2020)Carbon, Douglass, Good, Unni, Harris, Mungall,
   Basu, Chisholm, Dodson, Hartline, Fey, Thomas, Albou, Ebert, Kesling, Mi,
   Muruganujan, Huang, Mushayahama, LaBonte, Siegele, Antonazzo, Attrill, Brown,
@@ -173,6 +179,11 @@ J.~Chen, A.~Althagafi, and R.~Hoehndorf.
 \newblock \doi{10.1093/bioinformatics/btaa879}.
 \newblock URL \url{https://doi.org/10.1093/bioinformatics/btaa879}.
 \newblock advance access.
+
+\bibitem[Chicco(2021)]{chicco2021siamese}
+D.~Chicco.
+\newblock Siamese neural networks: An overview.
+\newblock \emph{Artificial Neural Networks}, pages 73--94, 2021.
 
 \bibitem[Chikina et~al.(2009)Chikina, Huttenhower, Murphy, and
   Troyanskaya]{chikina2009global}
