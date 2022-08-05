@@ -25,10 +25,11 @@
 % configure headline
 
 \ihead{Tilman Hinnerichs}
-\ohead{Linking Connectivities and Gene Expression Patterns in the Mouse Brain}
+\ohead{Gene Expression Patterns in Mouse Brains and their link to Connectivities}
+%\ohead{Linking Connectivities and Gene Expression Patterns in the Mouse Brain}
 \cfoot*{\pagemark}
 %opening
-\title{Linking Connectivities and Gene Expression Patterns in the Mouse Brain}
+\title{Gene Expression Patterns in Mouse Brains and their link to Connectivities}
 \author{Tilman Hinnerichs}
 \date{}
 \pagestyle{headings}
@@ -65,11 +66,11 @@
 \title{ \normalsize \textsc{Diploma thesis}
 	\\ [2.0cm]
 	\HRule{0.5pt} \\
-	\LARGE \textbf{\uppercase{Linking Connectivities and Gene Expression Patterns in the Mouse Brain}
+	\LARGE \textbf{\uppercase{Gene Expression Patterns in Mouse Brains and their link to Connectivities}
 		\HRule{1pt} \\ [0.5cm]
 		\normalsize September 30, 2022 \vspace*{5\baselineskip}}
 	
-	\date{Summer semester 2022}
+
 	
 	\author{
 		Tilman Hinnerichs \\
@@ -143,6 +144,7 @@ General thread for introduction and motivation:
 		\item Guilt by association over gene networks \cite{Oliver2000, Gillis2012} in genetic networks
 		
 		\item protein function prediction from PPI networks \cite{Vazquez2003}
+		\item PPI networks show pathways and co-working proteins
 		\item GCNs have been applied successfully to variety of tasks over different types of graphs.		
 	\end{itemize}
 
@@ -912,7 +914,10 @@ Further, for comparison of various neural network based models fused to UMAP and
 \newpage
 \section{Results}
 \label{sec:results}
+In this section we briefly describe the executed experiments and report their respective results. All implementations were done in Python and are available in the Github repository under \href{https://github.com/neural-data-science-lab/Treasure-Gene-expression-regions}{\texttt{github.com/neural-data-science-lab/Treasure-Gene-expression-regions} }. We further applied PyTorch \cite{Pytorch} for construction of all neural network-based models and PyTorch Geometric \cite{PytorchGeometric} for all graph learning methods. All experiments are were computed with $150 GiB$ of memory and two Nvidia Tesla V100 (Volta architecture). For more information on libraries, versions and data availability, please see the mentioned Github repository.
+
 \subsection{Gene expression prediction}
+\label{sec:results_genexp}
 We originally started from the per section prediction in order to paste its performance and results to other "related" structures within in the mouse brain. One approach here is to score the models from one sub-structure to \textit{related} structures via "transfer learning". Transfer learning was successfully applied especially in image classification and learning, and describes the re-purposing of property extraction methods, trained on one domain to the target domain, re-learning the final classification layers and steps. As features in images are fairly similar, mainly described by edges, vertices, and smaller shapes, the frequently utilized prelearned convolutional neural network (CNN) filters may be to other images. This saves both computing time, resources and energy, but also makes few-shot and zero-shot learning, i.e. learning and predicting based on very few examples in comparison to the amount of the model's parameters, feasible. Further this may yield additional insights into inter-domain relations and similarity. Filters learned on e.g. dog images, may be suitable for transfer learning predicting cat images, due to their phenotypical and anatomical resemblance, but less appropriate and practical for returning valuable features for e.g. optical character recognition from a document. By this performance gap for the two transfer learning tasks, we may assume that cats are more similar to dogs, while letters are rather dissimilar to dogs in their set of descriptive features. \\
 
 We hence follow a likewise approach for mouse brains divisions. First, we will predict gene expression from molecular and phenotypical features described in Section \ref{sec:feature_gen} pursuing the frameworks described in \citet{schulte2021integration} and \citet{wang2021mogonet}'s MOGONET for human tissues. Both use \textsc{GCNConv} layers for their respective forecasts, hereby achieving tremendous performances. Second, we will try to see how generalizable these filters are for mouse brain tissues and their transcriptome from one structure to proximate ones.\\
@@ -1153,9 +1158,9 @@ Further, we survey the behavior of dimensionality reduction methods, based on di
 		&global&0.88&1.00&0.96&1.00&0.94&1.01\\
 		\hline
 		\multirow{4}{*}{$16679$}&none&0.84&1.01&0.96&1.00&0.92&1.03\\
-		&row&0.84&1.01&0.94&1.01&0.96&1.00\\
+		&row&0.84&1.01&0.94&1.01&0.93&1.02\\
 		&column&\textbf{0.72}&\textbf{1.03}&\textbf{0.96}&\textbf{1.01}&\textbf{0.96}&\textbf{1.01}\\
-		&global&0.84&1.01&0.97&0.99&0.94&1.01\\
+		&global&0.84&1.01&0.97&0.99&0.92&1.03\\
 		\hline
 		
 	\end{tabular}
@@ -1203,56 +1208,105 @@ At this point we will introduce the work of \citet{Partel2020}, who introduced a
 
 
 \begin{figure}
-	\begin{subfigure}{.43\textwidth}
+	\centering
+	\begin{subfigure}{.25\textwidth}
 		\centering
 		\includegraphics[width=.9\linewidth]{../results/pca_ano_coronal_50_res_slice_1.png}
 		\caption{PCA coronal}
 		\label{fig:PCA_cor}
 	\end{subfigure}
-	\begin{subfigure}{.3\textwidth}
+	\begin{subfigure}{.176\textwidth}
 		\centering
 		\includegraphics[width=.9\linewidth, angle=270]{../results/pca_ano_sagittal_50_res_slice_1.png}
 		\caption{PCA sagittal}
 		\label{fig:PCA_sag}
-	\end{subfigure}\\
-
-	\begin{subfigure}{.43\textwidth}
+	\end{subfigure}\hspace{1.3cm}
+	\begin{subfigure}{.25\textwidth}
 		\centering
 		\includegraphics[width=.9\linewidth]{../results/tsne_ano_coronal_50_res_slice_1.png}
 		\caption{T-SNE coronal}
 		\label{fig:TSNE_cor}
 	\end{subfigure}
-	\begin{subfigure}{.3\textwidth}
+	\begin{subfigure}{.176\textwidth}
 		\centering
 		\includegraphics[width=.9\linewidth, angle=270]{../results/tsne_ano_sagittal_50_res_slice_1.png}
 		\caption{T-SNE sagittal}
 		\label{fig:TSNE_sag}
 	\end{subfigure}\\
 
-	\begin{subfigure}{.43\textwidth}
+	\begin{subfigure}{.25\textwidth}
 		\centering
 		\includegraphics[width=.9\linewidth]{../results/umap_ano_coronal_50_res_slice_1.png}
 		\caption{UMAP coronal}
 		\label{fig:UMAP_cor}
 	\end{subfigure}
-	\begin{subfigure}{.3\textwidth}
+	\begin{subfigure}{.176\textwidth}
 		\centering
 		\includegraphics[width=.9\linewidth, angle=270]{../results/umap_ano_sagittal_50_res_slice_1.png}
 		\caption{UMAP sagittal}
 		\label{fig:UMAP_sag}
-	\end{subfigure}\\
-
-	\begin{subfigure}{.43\textwidth}
+	\end{subfigure}\hspace{1.3cm}
+	\begin{subfigure}{.25\textwidth}
 		\centering
 		\includegraphics[width=.9\linewidth]{../results/para_umap_ano_coronal_50_res_slice_1.png}
-		\caption{Parametric UMAP coronal}
+		\caption{PaUMAP coronal}
 		\label{fig:ParaUMAP_cor}
 	\end{subfigure}
-	\begin{subfigure}{.3\textwidth}
+	\begin{subfigure}{.176\textwidth}
 		\centering
 		\includegraphics[width=.9\linewidth, angle=270]{../results/para_umap_ano_sagittal_50_res_slice_1.png}
-		\caption{Parametric UMAP sagittal}
+		\caption{PaUMAP sag.}
 		\label{fig:ParaUMAP_sag}
+	\end{subfigure}\\
+
+	\begin{subfigure}{.25\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{../results/para_umap_GCN_ano_coronal_50_res_slice_1.png}
+		\caption{PaUMAP GCN}
+		\label{fig:ParaUMAP_GCN_cor}
+	\end{subfigure}
+	\begin{subfigure}{.176\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth, angle=270]{../results/para_umap_GCN_ano_sagittal_50_res_slice_1.png}
+		\caption{PaUMAP GCN}
+		\label{fig:ParaUMAP_GCN_sag}
+	\end{subfigure}\hspace{1.3cm}
+	\begin{subfigure}{.25\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{../results/para_umap_GAT_ano_coronal_50_res_slice_1.png}
+		\caption{PaUMAP GAT}
+		\label{fig:ParaUMAP_GAT_cor}
+	\end{subfigure}
+	\begin{subfigure}{.176\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth, angle=270]{../results/para_umap_GAT_ano_sagittal_50_res_slice_1.png}
+		\caption{PaUMAP GAT}
+		\label{fig:ParaUMAP_GAT_sag}
+	\end{subfigure}\\
+
+	\begin{subfigure}{.25\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{../results/para_umap_GEN_ano_coronal_50_res_slice_1.png}
+		\caption{PaUMAP GEN}
+		\label{fig:ParaUMAP_GEN_cor}
+	\end{subfigure}
+	\begin{subfigure}{.176\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth, angle=270]{../results/para_umap_GEN_ano_sagittal_50_res_slice_1.png}
+		\caption{PaUMAP GEN}
+		\label{fig:ParaUMAP_GEN_sag}
+	\end{subfigure}\hspace{1.3cm}
+	\begin{subfigure}{.25\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{../results/para_umap_KerGNN_ano_coronal_50_res_slice_1.png}
+		\caption{PaUMAP KerGNN}
+		\label{fig:ParaUMAP_KerGNN_cor}
+	\end{subfigure}
+	\begin{subfigure}{.176\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth, angle=270]{../results/para_umap_KerGNN_ano_sagittal_50_res_slice_1.png}
+		\caption{PaU KerGNN}
+		\label{fig:ParaUMAP_KerGNN_sag}
 	\end{subfigure}\\
 
 	\caption{Textitext}
@@ -1365,43 +1419,100 @@ We hence conclude that GCNs over protein-protein interaction graphs help to iden
 	\label{fig:conn_pred_model}
 \end{figure}
 
-\subsection*{Brief Overview of Material}
-\subsection*{Findings (Results) of the Method of Study and Any Unplanned or Unexpected Situations that Occurred}
-\subsection*{Brief Descriptive Analysis
-Reliability and Validity of the Analysis}
-\subsection*{Explanation of the Hypothesis and Precise and Exact Data (Do Not Give Your Opinion)}
+%\subsection*{Brief Overview of Material}
+%\subsection*{Findings (Results) of the Method of Study and Any Unplanned or Unexpected Situations that Occurred}
+%\subsection*{Brief Descriptive Analysis
+%Reliability and Validity of the Analysis}
+%\subsection*{Explanation of the Hypothesis and Precise and Exact Data (Do Not Give Your Opinion)}
+
+
+
 
 
 \newpage
 \section{Discussion}
 \label{sec:discussion}
-\subsection*{Brief Overview of Material}
-\subsection*{Full Discussion of Findings (Results) and Implications}
-\subsection*{Full Discussion of Research Analysis of Findings}
-\subsection*{Full Discussion of Hypothesis and of Findings}
-\subsection*{Post Analysis and Implications of Hypothesis and of Findings}
+
+Within this discussion we will elaborate on the answers and experiments of the results chapter. This chapter is divided into three sub-sections following the results of the respective trial groups. 
 
 \subsection{Evaluating different feature types for gene expression prediction}
+\label{sec:disc_genexp}
+First, we evaluate the conclusions and materials of the gene expression prediction task. Here, we predicted gene expression values across different brain compartments based on varying feature types and tried to incorporate spatial models and knowledge in our prediction task. \\
 
-\begin{itemize}
-	\item GCNs over protein-protein interaction graphs may not be applicable for gene expression prediction, but are suitable for predicting down-stream behavior 
-	\item other ways to incorporate structure data in there $\rightarrow$ no structure specific embeddings containing molecular features that are not gene expression value dependent available
-	\begin{itemize}
-		\item structural ontology / closeness
-		\item developmental hierarchy of tissue
-	\end{itemize}
-\end{itemize}
+Based on the strong results in \citet{schulte2021integration} and \citet{wang2021mogonet} predicting gene expression values in human tissue based on molecular features, we expected these experiments to work out much better. Especially the weakness of GENConv, that was successfully applied to a variety of tasks, e.g. in the other two tasks, was particularly surprising. 
+We expect molecular features, i.e. "bottom-up representations" to not be exploitable over protein-protein interaction graphs as molecular descriptors are very protein and gene specific. Thus, neighbors in the interaction network may not be able to benefit from information about their respective adjacents in pathways. The phenotypical, i.e. "top-down", representations describe properties of sets of proteins with specific functions. As this function may likely be shared among proteins within pathways, i.e. a neighborhood within the PPI graph, we do expect GCNs to benefit. Similar results were indicated for the related task drug-target interaction prediction in \citet{hinnerichs2021dti}, requiring a strong and functional representation for proteins, too. \\
+
+Yet, we see that these assumptions and hypotheses do not hold within the mouse brain over none of the  tested brain divisions. This may be due to two rationales. First, in comparison to the works mentioned, we try to infer the transcriptome in neural tissues. As these compartments are very different from other tissues, e.g. are situated within a separate nutritional network, they also follow different sets of phenotypes. The features mentioned above are mainly fit against ground truth functions such as \textit{Tachykardia} or pathological symptoms such as \textit{coughing}, that are only valuable for other organs. While there might even be a correlation between these two phenotypes  (cough correlates with viral infections, causing fever and hence high-levels of circulatory activities) their correlation with brain division is yet to be found. Second, gene expression might be too protein specific for graph convolution to grasp. GCNs are only capable of learning a fixed, small set of kernels which are applied to all proteins at once for deriving node-level predictions. We assume that these kernels are too diverse to properly pick up for smaller networks. This may be either overcome using large sets of independent kernels such as in \citet{schulte2021integration}, or by a non-GCN approaches, modeling all edges in the PPI graph by separate neural networks. The latter may be very insightful to further understand specific protein-protein interactions and their impact on the gene expression. \\
+
+Due to the specificity of the tissue, task and approach, we were not able to find a suitable baseline method in the literature, and thus are the first to test this very hypothesis. However, the hypothesis was to find such correlation, and we eventually have to reject this assumption.\\
+
+Eventually, we were not able to derive a natural formulation to incorporate both spatial knowledge and gene-specific features into a single model. We moreover stopped all experiments after the extensive experiments for this very task failed to show any improvement over the non-GCN baseline. Possible encodings for this task may include structure specific representations, e.g. a random walk based method on the structure ontology describing the spatial orientation within the mouse brain, or a graph learning approach over the structure ontology. However, the latter may be infeasible for regular message passing schemes to grasp and should rely on a more sophisticated and expressive model formulations.
+
+
+%\subsection*{Brief Overview of Material}
+%\subsection*{Full Discussion of Findings (Results) and Implications}
+%\subsection*{Full Discussion of Research Analysis of Findings}
+%\subsection*{Full Discussion of Hypothesis and of Findings}
+%\subsection*{Post Analysis and Implications of Hypothesis and of Findings}
 
 \subsection{Gene expression patterns and their relation to GCNs}
+\label{sec:disc_dimred}
+The experiments on dimensionality reduction were crucially more successful. We first showed the validity of \textsc{EmbSim} and \textsc{EmbVar} and show through various experiments that both metrics are necessary to properly evaluate and show improvement over baseline methods. This step is central and vital for the entire following validity and genuineness of our results. However, we see clear issues in both formulations. We originally tried to formulate a measure that is able to overcome both the random and the "narrow gaussian" signals. Yet, we were not able to formulate a measure such that the qualified assessment directly correlates with our understanding of \textit{reasonable} and \textit{natural} embeddings and their properties. With our formulation of \textsc{EmbSim} and \textsc{EmbVar}, allowing for robustness against choice of structures, further assessment of the sub-compartments smoothness may be made. 
+We thus conduct a follow-up study to further analyze the performance of all dimensionality reduction approaches on sets of sub-structures. Comparing kinship of raw and encoded structures across proximate entities based on k-nearest neighbor clustering (KNN) does not show remarkable deviations, once again proving the correctness of our embeddings. 
+Additionally, we see a indirect correlation of UMAP loss and \textsc{EmbSim}. The UMAP loss describing the proximity of entities in embedding space in correlation with neighborhood in the domain representation space, decreases whenever \textsc{EmbSim} and vice versa. This indicates the high similarity of gene expression values within compartments on one hand, and thus the legitimacy of our biological hypothesis underlying \textsc{EmbSim} and \textsc{EmbVar} on the other hand. \\
 
-\begin{itemize}
-	\item influence of normalization technique $\rightarrow$ Structure, gene, global
-	\item we considered including connectivity graphs into UMAP-loss, but no natural formulation for combination is possible. Here an artificial weighting of respective UMAP proximity graph and external connectivity graph is necessary. We conducted several experiments \dots. Collapses to either side, namely either overly weighting embedding proximity or connectivity matrix. We could not define a stable set of parameters for this to work. 
-	\item no integration with UMAP possible due to missing implementation of UMAP in PyTorch
-\end{itemize}
+Second, we were able to show the importance of the normalization technique for the biological assumption, data diversity and embedding complexity. Hence, we observe an performance gain for PCA in comparison to the other proposed normalization schemes. We thus conclude that a column-wise, i.e. per-gene, normalization does indeed help highlighting\textit{effective genes} and penalizes \textit{ineffective genes}, and shows the existence of both.\\
 
-\subsection{Connectivity prediction and its dimensionality}
+Contrary to the gene expression prediction task, we were able show consistent performance increase across all considered metrics, i.e. \textsc{EmbSim}, \textsc{EmbVar} and UMAP loss, by applying GENConv and KerGNN as convolutional graph layers. The large sample size of $843$ structures may indicate the legitimacy of the results. Experimental setups and hyperparameter configurations suffer from high sensitivity and reduced robustness, and thus are in need for careful adjustments. For that very reason, even though we were able to consistently grasp the added signal within our experiments, information may not be automatically perceived by blind usage of graph convolutional approaches.
 
+Yet, we struggle to reason the experiment outcomes. While the issue of over-smoothing for GCNConv and GATConv are known and clearly visible from the results, the improved score for GENConv and KerGNN remains puzzling. 
+In \citet{Partel2020} and \citet{bohland2010clustering}, the authors show the importance of a subset of genes for description of gene expression patterns. We hypothesize that the pathway information, encoded in the interaction network, may contain information not only about the gene importance, but also on inter-gene relation, possibly for down-stream tasks. We expand this discussion in Section \ref{sec:disc_connpred}. An in-depth analysis of these gene interactions, e.g. by exploiting the explainability of GCNs over activation heatmaps, may be subject to future projects but will possibly provide novel insights to gene importance and influence. \\
+
+Even though we showed a distinction under the proposed metrics, the visualizations of structure embeddings in Figure \ref{fig:baseline_vis} are of limited value for such comparisons. As all embeddings have own ways of distributing entities in the embedding, i.e. color, space, the varying color schemes conceal the underlying differences, thus leaving us with vague descriptions of RGB tendencies. Unfortunately, there is no trivial way to overcome this issue. However, these visualizations are great to show the spatial distribution and structural color trends over all methods.
+ 
+Across all experiments we notice a continuous gene expression gradient in the sagittal cross-section, while the coronal cross-section shows clear distinctions in color space. This gradient is described by the an alteration of expressions especially in the \textit{Isocortex} and its sub-regions, i.e. \textit{Frontal pole}, \textit{Somatomotor areas} (layer 1 to 6b), \textit{Primary}  and \textit{Secondary motor areas} (layer 1 to 6b) and \textit{Somatosensory areas} and other sensing related areas. While these structures are fairly similar in transcriptomic values, we notice an increased amount protein-protein interactions in between \textit{shifting genes}, i.e. genes with changing expression value, across neighboring structures in e.g. \textit{Somatosensory areas}. Moreover, all \textit{shifting genes} are connected to at least one expressing gene in the PPI graph, which may cause the capability of GCNs for \textit{smoother} representations. \\
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{.4\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{../results/para_umap_GEN_ano_coronal_50_res_clus_slice_1.png}
+		\caption{PaUMAP GENConv cor.}
+		\label{fig:disc_clustering_cor}
+	\end{subfigure}
+	\begin{subfigure}{.28\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth, angle=270]{../results/para_umap_GEN_ano_sagittal_50_res_clus_slice_1.png}
+		\caption{PaUMAP GENConv sag.}
+		\label{fig:disc_clustering_sag}
+	\end{subfigure}\\
+	
+	\caption{Textitext}
+	\label{fig:disc_clustering}
+\end{figure}
+
+
+We take the chance to apply crisp clustering in form of k-nearest neighbors (KNN) to the derived encodings, in order to construct distinguishable expression patterns. We fix $k=16$, with respect to the number of top-level sub-compartments described by the structure ontology (CCFv3). The results are depicted in Figure \ref{fig:disc_clustering}. This visualization shows direct correspondence with the parcelation of CCFv3. However, this analysis is strictly bound to the divisions defined in the Allen Mouse Brain atlas, and may not be feasible for discovery of novel subdivisions, like e.g. \citet{takata_flexible_2021} directly using the underlying voxels. Yet we were able to show the inter-structure similarity within neighborhood and thus may, without loss of generality, assume the smoothness of expression within compartments and the legitimacy for consideration of summaries of voxels, i.e. structures. The voxel-wise application of GCNs will remain an open research question, but will surely require enormous computational power.\\
+
+
+
+%
+%
+%\begin{itemize}
+%	\item influence of normalization technique $\rightarrow$ Structure, gene, global
+%	
+%	\item no integration with UMAP possible due to missing implementation of UMAP in PyTorch
+%	\item dimensionality of encoding embedding to be done
+%	\item what do these novel embedding yield as insights?
+%	\item different distance metrics
+%	\item correlation of UMAP loss and our metrics shows both the validity of our method, but also the similarity of gene expression values within compartments (see Table \ref{tab:gen_red_baseline})
+%	\item no real additional insight from GCN based visualizations
+%	\item no clustering as it only makes sense in the coronal cross-section $\rightarrow$ sagittal section show clear gradient
+%	\item fragile experiments
+%\end{itemize}
+
+\subsection{Connectivity prediction and brain dimensionality}
+\label{sec:disc_connpred}
 \begin{itemize}
 	\item we reduce to three dimensions, but there does not necessarily needs to be a 3D-representation
 	\item naturally, much better results with higher embedding dimension $\rightarrow$ poor visualization possibilities
@@ -1409,6 +1520,14 @@ Reliability and Validity of the Analysis}
 	\item eff conn and fun conn seem somewhat correlated, thus similar predictive performance of all approaches
 	\item parcelation is quite coarse, thus we cannot predict on separate structures $\rightarrow$ Results are to be taken with care
 	\item what is the dimensionality of conn pred?
+	\item biological meaning:
+	\begin{itemize}
+		\item different time-scale of observations
+		\item genetic expression may be a prior for neural activation patterns 
+	\end{itemize}
+	\item we considered including connectivity graphs into UMAP-loss, but no natural formulation for combination is possible. Here an artificial weighting of respective UMAP proximity graph and external connectivity graph is necessary. We conducted several experiments \dots. Collapses to either side, namely either overly weighting embedding proximity or connectivity matrix. We could not define a stable set of parameters for this to work.
+	\item approach is not limited to gene expression data, but may also be applied to other structure or regions-of-interest (ROI) focused representations, such as embeddings of e.g. neural activities 
+	\item May be applicable to analysis of the \textit{Disconnection Hypothesis} (see intro for more information)
 \end{itemize}
 
 Novelty:
@@ -1428,6 +1547,8 @@ Contribution of this work:
 \newpage
 \section{Conclusion}
 \label{sec:conclusion}
+
+
 
 \subsection*{Summary of Academic Study}
 \subsection*{Reference to Literature Review}
