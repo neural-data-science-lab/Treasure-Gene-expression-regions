@@ -1,4 +1,4 @@
-\begin{thebibliography}{120}
+\begin{thebibliography}{130}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -54,6 +54,13 @@ M.~Ashburner, C.~A. Ball, J.~A. Blake, D.~Botstein, H.~Butler, J.~M. Cherry,
 \newblock \doi{10.1038/75556}.
 \newblock URL \url{https://doi.org/10.1038/75556}.
 
+\bibitem[Baiocchi et~al.(2014)Baiocchi, Cheng, and
+  Small]{baiocchi2014instrumental}
+M.~Baiocchi, J.~Cheng, and D.~S. Small.
+\newblock Instrumental variable methods for causal inference.
+\newblock \emph{Statistics in medicine}, 33\penalty0 (13):\penalty0 2297--2340,
+  2014.
+
 \bibitem[Bauer et~al.(2018)Bauer, Kraft, Baxter, Wright, Reisman, Bice, Park,
   Bruchas, Snyder, Lee, et~al.]{bauer2018effective}
 A.~Q. Bauer, A.~W. Kraft, G.~A. Baxter, P.~W. Wright, M.~D. Reisman, A.~R.
@@ -72,22 +79,20 @@ R.~F. Betzel, J.~D. Medaglia, A.~E. Kahn, J.~Soffer, D.~R. Schonhaut, and D.~S.
 \newblock \emph{Nature biomedical engineering}, 3\penalty0 (11):\penalty0
   902--916, 2019.
 
-\bibitem[Blum et~al.(2020)Blum, Chang, Chuguransky, Grego, Kandasaamy,
-  Mitchell, Nuka, Paysan-Lafosse, Qureshi, Raj, Richardson, Salazar, Williams,
-  Bork, Bridge, Gough, Haft, Letunic, Marchler-Bauer, Mi, Natale, Necci,
-  Orengo, Pandurangan, Rivoire, Sigrist, Sillitoe, Thanki, Thomas, Tosatto, Wu,
-  Bateman, and Finn]{Interpro2020}
-M.~Blum, H.-Y. Chang, S.~Chuguransky, T.~Grego, S.~Kandasaamy, A.~Mitchell,
-  G.~Nuka, T.~Paysan-Lafosse, M.~Qureshi, S.~Raj, L.~Richardson, G.~A. Salazar,
-  L.~Williams, P.~Bork, A.~Bridge, J.~Gough, D.~H. Haft, I.~Letunic,
-  A.~Marchler-Bauer, H.~Mi, D.~A. Natale, M.~Necci, C.~A. Orengo, A.~P.
-  Pandurangan, C.~Rivoire, C.~J.~A. Sigrist, I.~Sillitoe, N.~Thanki, P.~D.
-  Thomas, S.~C.~E. Tosatto, C.~H. Wu, A.~Bateman, and R.~D. Finn.
-\newblock The {InterPro} protein families and domains database: 20 years on.
-\newblock \emph{Nucleic Acids Research}, 49\penalty0 (D1):\penalty0 D344--D354,
-  Nov. 2020.
-\newblock \doi{10.1093/nar/gkaa977}.
-\newblock URL \url{https://doi.org/10.1093/nar/gkaa977}.
+\bibitem[Bianchi et~al.(2019)Bianchi, Grattarola, Livi, and Alippi]{ArmaConv}
+F.~M. Bianchi, D.~Grattarola, L.~Livi, and C.~Alippi.
+\newblock Graph neural networks with convolutional {ARMA} filters.
+\newblock \emph{CoRR}, abs/1901.01343, 2019.
+\newblock URL \url{http://arxiv.org/abs/1901.01343}.
+
+\bibitem[Blackwood et~al.(2001)Blackwood, Fordyce, Walker, Clair, Porteous, and
+  Muir]{blackwood2001schizophrenia}
+D.~Blackwood, A.~Fordyce, M.~Walker, D.~S. Clair, D.~Porteous, and W.~Muir.
+\newblock Schizophrenia and affective disorders—cosegregation with a
+  translocation at chromosome 1q42 that directly disrupts brain-expressed
+  genes: clinical and p300 findings in a family.
+\newblock \emph{The American Journal of Human Genetics}, 69\penalty0
+  (2):\penalty0 428--433, 2001.
 
 \bibitem[Bohland et~al.(2010)Bohland, Bokil, Pathak, Lee, Ng, Lau, Kuan,
   Hawrylycz, and Mitra]{bohland2010clustering}
@@ -215,11 +220,29 @@ P.~Davis, M.~Zarowiecki, V.~Arnaboldi, A.~Becerra, S.~Cain, J.~Chan, W.~J.
   caenorhabditis elegans.
 \newblock \emph{Genetics}, 220\penalty0 (4):\penalty0 iyac003, 2022.
 
+\bibitem[Defferrard et~al.(2016)Defferrard, Bresson, and
+  Vandergheynst]{ChebConv}
+M.~Defferrard, X.~Bresson, and P.~Vandergheynst.
+\newblock Convolutional neural networks on graphs with fast localized spectral
+  filtering.
+\newblock In \emph{Proceedings of the 30th International Conference on Neural
+  Information Processing Systems}, NIPS'16, page 3844–3852, Red Hook, NY,
+  USA, 2016. Curran Associates Inc.
+\newblock ISBN 9781510838819.
+
 \bibitem[Diez and Sepulcre(2018)]{diez2018neurogenetic}
 I.~Diez and J.~Sepulcre.
 \newblock Neurogenetic profiles delineate large-scale connectivity dynamics of
   the human brain.
 \newblock \emph{Nature communications}, 9\penalty0 (1):\penalty0 1--10, 2018.
+
+\bibitem[Dillman et~al.(2013)Dillman, Hauser, Gibbs, Nalls, McCoy, Rudenko,
+  Galter, and Cookson]{dillman2013mrna}
+A.~A. Dillman, D.~N. Hauser, J.~R. Gibbs, M.~A. Nalls, M.~K. McCoy, I.~N.
+  Rudenko, D.~Galter, and M.~R. Cookson.
+\newblock mrna expression, splicing and editing in the embryonic and adult
+  mouse cerebral cortex.
+\newblock \emph{Nature neuroscience}, 16\penalty0 (4):\penalty0 499--506, 2013.
 
 \bibitem[Fakhry and Ji(2015)]{fakhry2015high}
 A.~Fakhry and S.~Ji.
@@ -327,6 +350,14 @@ P.~Goel, A.~Kuceyeski, E.~LoCastro, and A.~Raj.
 \newblock \emph{Human brain mapping}, 35\penalty0 (8):\penalty0 4204--4218,
   2014.
 
+\bibitem[Hall et~al.(2003)Hall, Dhilla, Charalambous, Gogos, and
+  Karayiorgou]{hall2003sequence}
+D.~Hall, A.~Dhilla, A.~Charalambous, J.~A. Gogos, and M.~Karayiorgou.
+\newblock Sequence variants of the brain-derived neurotrophic factor (bdnf)
+  gene are strongly associated with obsessive-compulsive disorder.
+\newblock \emph{The American Journal of Human Genetics}, 73\penalty0
+  (2):\penalty0 370--376, 2003.
+
 \bibitem[Hamida et~al.(2018)Hamida, Mendon{\c{c}}a-Netto, Arefin, Nasseef,
   Boulos, McNicholas, Ehrlich, Clarke, Moquin, Gratton,
   et~al.]{hamida2018increased}
@@ -337,6 +368,11 @@ S.~B. Hamida, S.~Mendon{\c{c}}a-Netto, T.~M. Arefin, M.~T. Nasseef, L.-J.
   dysfunctional mesocorticolimbic networks.
 \newblock \emph{Biological psychiatry}, 84\penalty0 (3):\penalty0 202--212,
   2018.
+
+\bibitem[Hamilton et~al.(2017)Hamilton, Ying, and Leskovec]{SAGEConv}
+W.~L. Hamilton, Z.~Ying, and J.~Leskovec.
+\newblock Inductive representation learning on large graphs.
+\newblock In \emph{NIPS}, 2017.
 
 \bibitem[Harris et~al.(2019)Harris, Mihalas, Hirokawa, Whitesell, Choi,
   Bernard, Bohn, Caldejon, Casal, Cho, et~al.]{harris2019hierarchical}
@@ -391,21 +427,12 @@ R.~Hoehndorf, P.~N. Schofield, and G.~V. Gkoutos.
 \newblock \doi{10.1093/nar/gkr538}.
 \newblock URL \url{https://doi.org/10.1093/nar/gkr538}.
 
-\bibitem[Jeni et~al.(2013{\natexlab{a}})Jeni, Cohn, and De~La~Torre]{Jeni2013}
-L.~A. Jeni, J.~F. Cohn, and F.~De~La~Torre.
-\newblock Facing imbalanced data--recommendations for the use of performance
-  metrics.
-\newblock In \emph{2013 Humaine Association Conference on Affective Computing
-  and Intelligent Interaction}, pages 245--251, 2013{\natexlab{a}}.
-\newblock \doi{10.1109/ACII.2013.47}.
-
-\bibitem[Jeni et~al.(2013{\natexlab{b}})Jeni, Cohn, and
-  De~La~Torre]{jeni2013facing}
+\bibitem[Jeni et~al.(2013)Jeni, Cohn, and De~La~Torre]{jeni2013facing}
 L.~A. Jeni, J.~F. Cohn, and F.~De~La~Torre.
 \newblock Facing imbalanced data--recommendations for the use of performance
   metrics.
 \newblock In \emph{2013 Humaine association conference on affective computing
-  and intelligent interaction}, pages 245--251. IEEE, 2013{\natexlab{b}}.
+  and intelligent interaction}, pages 245--251. IEEE, 2013.
 
 \bibitem[Kaufman et~al.(2006)Kaufman, Dror, Meilijson, and
   Ruppin]{kaufman2006gene}
@@ -442,6 +469,14 @@ T.~N. Kipf and M.~Welling.
 \newblock Semi-supervised classification with graph convolutional networks.
 \newblock \emph{CoRR}, abs/1609.02907, 2016.
 \newblock URL \url{http://arxiv.org/abs/1609.02907}.
+
+\bibitem[Klicpera et~al.(2018)Klicpera, Bojchevski, and
+  G{\"{u}}nnemann]{APPNPConv}
+J.~Klicpera, A.~Bojchevski, and S.~G{\"{u}}nnemann.
+\newblock Personalized embedding propagation: Combining neural networks on
+  graphs with personalized pagerank.
+\newblock \emph{CoRR}, abs/1810.05997, 2018.
+\newblock URL \url{http://arxiv.org/abs/1810.05997}.
 
 \bibitem[Kuleshov et~al.(2016)Kuleshov, Jones, Rouillard, Fernandez, Duan,
   Wang, Koplev, Jenkins, Jagodnik, Lachmann, et~al.]{kuleshov2016enrichr}
@@ -619,6 +654,13 @@ L.~Ng, S.~Pathak, C.~Kuan, C.~Lau, H.-w. Dong, A.~Sodt, C.~Dang, B.~Avants,
 \newblock \emph{IEEE/ACM Transactions on Computational Biology and
   Bioinformatics}, 4\penalty0 (3):\penalty0 382--393, 2007.
 
+\bibitem[Nieh et~al.(2021)Nieh, Schottdorf, Freeman, Low, Lewallen, Koay,
+  Pinto, Gauthier, Brody, and Tank]{nieh2021geometry}
+E.~H. Nieh, M.~Schottdorf, N.~W. Freeman, R.~J. Low, S.~Lewallen, S.~A. Koay,
+  L.~Pinto, J.~L. Gauthier, C.~D. Brody, and D.~W. Tank.
+\newblock Geometry of abstract learned knowledge in the hippocampus.
+\newblock \emph{Nature}, 595\penalty0 (7865):\penalty0 80--84, 2021.
+
 \bibitem[Nieto-Castanon(2020)]{nieto2020handbook}
 A.~Nieto-Castanon.
 \newblock \emph{Handbook of functional connectivity Magnetic Resonance Imaging
@@ -774,6 +816,13 @@ T.~Sainburg, L.~McInnes, and T.~Q. Gentner.
 \newblock \emph{Neural Computation}, 33\penalty0 (11):\penalty0 2881--2907,
   2021.
 
+\bibitem[Sansom and Livesey(2009)]{sansom2009gradients}
+S.~N. Sansom and F.~J. Livesey.
+\newblock Gradients in the brain: the control of the development of form and
+  function in the cerebral cortex.
+\newblock \emph{Cold Spring Harbor perspectives in biology}, 1\penalty0
+  (2):\penalty0 a002519, 2009.
+
 \bibitem[Schulte-Sasse et~al.(2021)Schulte-Sasse, Budach, Hnisz, and
   Marsico]{schulte2021integration}
 R.~Schulte-Sasse, S.~Budach, D.~Hnisz, and A.~Marsico.
@@ -810,6 +859,12 @@ C.~L. Smith and J.~T. Eppig.
 O.~Sporns.
 \newblock \emph{Networks of the Brain}.
 \newblock MIT press, 2016.
+
+\bibitem[Stringer et~al.(2019)Stringer, Pachitariu, Steinmetz, Carandini, and
+  Harris]{stringer2019high}
+C.~Stringer, M.~Pachitariu, N.~Steinmetz, M.~Carandini, and K.~D. Harris.
+\newblock High-dimensional geometry of population responses in visual cortex.
+\newblock \emph{Nature}, 571\penalty0 (7765):\penalty0 361--365, 2019.
 
 \bibitem[Subramanian et~al.(2007)Subramanian, Kuehn, Gould, Tamayo, and
   Mesirov]{subramanian2007gsea}
@@ -868,19 +923,18 @@ K.~Tomczak, P.~Czerwi{\'n}ska, and M.~Wiznerowicz.
 \newblock \emph{Contemporary Oncology/Wsp{\'o}{\l}czesna Onkologia},
   2015\penalty0 (1):\penalty0 68--77, 2015.
 
-\bibitem[Trebacz et~al.(2020)Trebacz, Shams, Jamnik, Scherer, Simidjievski,
-  Terre, and Liò]{Trebacz2020}
-M.~Trebacz, Z.~Shams, M.~Jamnik, P.~Scherer, N.~Simidjievski, H.~A. Terre, and
-  P.~Liò.
-\newblock Using ontology embeddings for structural inductive bias in gene
-  expression data analysis.
-\newblock \emph{CoRR}, abs/2011.10998, 2020.
-
 \bibitem[Twine et~al.(2011)Twine, Janitz, Wilkins, and Janitz]{twine2011whole}
 N.~A. Twine, K.~Janitz, M.~R. Wilkins, and M.~Janitz.
 \newblock Whole transcriptome sequencing reveals gene expression and splicing
   differences in brain regions affected by alzheimer's disease.
 \newblock \emph{PloS one}, 6\penalty0 (1):\penalty0 e16266, 2011.
+
+\bibitem[Valdes-Sosa et~al.(2011)Valdes-Sosa, Roebroeck, Daunizeau, and
+  Friston]{valdes2011effective}
+P.~A. Valdes-Sosa, A.~Roebroeck, J.~Daunizeau, and K.~Friston.
+\newblock Effective connectivity: influence, causality and biophysical
+  modeling.
+\newblock \emph{Neuroimage}, 58\penalty0 (2):\penalty0 339--361, 2011.
 
 \bibitem[Valk et~al.(2020)Valk, Xu, Margulies, Masouleh, Paquola, Goulas,
   Kochunov, Smallwood, Yeo, Bernhardt, and
@@ -892,6 +946,13 @@ S.~L. Valk, T.~Xu, D.~S. Margulies, S.~K. Masouleh, C.~Paquola, A.~Goulas,
 \newblock \emph{Science Advances}, 6\penalty0 (39):\penalty0 eabb3417, 2020.
 \newblock \doi{10.1126/sciadv.abb3417}.
 \newblock URL \url{https://www.science.org/doi/abs/10.1126/sciadv.abb3417}.
+
+\bibitem[Van Den~Heuvel and Pol(2010)]{van2010exploring}
+M.~P. Van Den~Heuvel and H.~E.~H. Pol.
+\newblock Exploring the brain network: a review on resting-state fmri
+  functional connectivity.
+\newblock \emph{European neuropsychopharmacology}, 20\penalty0 (8):\penalty0
+  519--534, 2010.
 
 \bibitem[Van~der Maaten and Hinton(2008)]{van2008visualizing}
 L.~Van~der Maaten and G.~Hinton.
@@ -912,15 +973,12 @@ V.~Varadan, D.~M. Miller~III, and D.~Anastassiou.
   connectivity in c. elegans.
 \newblock \emph{Bioinformatics}, 22\penalty0 (14):\penalty0 e497--e506, 2006.
 
-\bibitem[Vazquez et~al.(2003)Vazquez, Flammini, Maritan, and
-  Vespignani]{Vazquez2003}
-A.~Vazquez, A.~Flammini, A.~Maritan, and A.~Vespignani.
-\newblock Global protein function prediction from protein-protein interaction
-  networks.
-\newblock \emph{Nature Biotechnology}, 21\penalty0 (6):\penalty0 697--700, May
-  2003.
-\newblock \doi{10.1038/nbt825}.
-\newblock URL \url{https://doi.org/10.1038/nbt825}.
+\bibitem[Veli{\v{c}}kovi{\'c} et~al.(2017)Veli{\v{c}}kovi{\'c}, Cucurull,
+  Casanova, Romero, Lio, and Bengio]{GATConv}
+P.~Veli{\v{c}}kovi{\'c}, G.~Cucurull, A.~Casanova, A.~Romero, P.~Lio, and
+  Y.~Bengio.
+\newblock Graph attention networks.
+\newblock \emph{CoRR}, abs/1710.10903v3, 2017.
 
 \bibitem[V{\'e}rtes et~al.(2016)V{\'e}rtes, Rittman, Whitaker, Romero-Garcia,
   V{\'a}{\v{s}}a, Kitzbichler, Wagstyl, Fonagy, Dolan, Jones,
