@@ -608,15 +608,6 @@ N.~Milyaev, D.~Osumi-Sutherland, S.~Reeve, N.~Burton, R.~A. Baldock, and J.~D.
 \newblock The virtual fly brain browser and query interface.
 \newblock \emph{Bioinformatics}, 28\penalty0 (3):\penalty0 411--415, 2012.
 
-\bibitem[modENCODE Consortium et~al.(2010)modENCODE Consortium, Roy, Ernst,
-  Kharchenko, Kheradpour, Negre, Eaton, Landolin, Bristow, Ma,
-  et~al.]{modencode2010identification}
-modENCODE Consortium, S.~Roy, J.~Ernst, P.~V. Kharchenko, P.~Kheradpour,
-  N.~Negre, M.~L. Eaton, J.~M. Landolin, C.~A. Bristow, L.~Ma, et~al.
-\newblock Identification of functional elements and regulatory circuits by
-  drosophila modencode.
-\newblock \emph{Science}, 330\penalty0 (6012):\penalty0 1787--1797, 2010.
-
 \bibitem[Moffitt et~al.(2016)Moffitt, Hao, Wang, Chen, Babcock, and
   Zhuang]{moffitt2016high}
 J.~R. Moffitt, J.~Hao, G.~Wang, K.~H. Chen, H.~P. Babcock, and X.~Zhuang.
@@ -799,6 +790,14 @@ P.~Roland, C.~Graufelds, J.~Wǎhlin, L.~Ingelman, M.~Andersson, A.~Ledberg,
 \newblock Human brain atlas: for high-resolution functional and anatomical
   mapping.
 \newblock \emph{Human Brain Mapping}, 1\penalty0 (3):\penalty0 173--184, 1994.
+
+\bibitem[Roy et~al.(2010)Roy, Ernst, Kharchenko, Kheradpour, Negre, Eaton,
+  Landolin, Bristow, Ma, and modENCODE Consortium]{modencode2010identification}
+S.~Roy, J.~Ernst, P.~V. Kharchenko, P.~Kheradpour, N.~Negre, M.~L. Eaton, J.~M.
+  Landolin, C.~A. Bristow, L.~Ma, and modENCODE Consortium.
+\newblock Identification of functional elements and regulatory circuits by
+  drosophila modencode.
+\newblock \emph{Science}, 330\penalty0 (6012):\penalty0 1787--1797, 2010.
 
 \bibitem[Rubinov et~al.(2015)Rubinov, Ypma, Watson, and
   Bullmore]{rubinov2015wiring}

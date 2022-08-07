@@ -1,16 +1,16 @@
 \babel@toc {nil}{}\relax 
-\contentsline {figure}{\numberline {1}{\ignorespaces Average, annotation and anatomy atlas}}{12}{figure.caption.3}%
-\contentsline {figure}{\numberline {2}{\ignorespaces This figure shows the corresponding distributions of gene expression values for the respective normalization schemes, i.e. global, column-wise and row-wise, each associated with differing biologic interpretations. The expression matrix is determined by $|S|=843$ structures and $|G|=16679$ corresponding genes and the pairwise spatial gene expression values. \ref {fig:global_hist}, \ref {fig:row_hist} and \ref {fig:col_hist}: Color-coded distribution of normalized expression energies; color describes the individual expression values. Note that values are on different scales i.e. $10^7$ for \ref {fig:global_hist} and \ref {fig:row_hist}, and $10^6$ for \ref {fig:col_hist}. \ref {fig:global_perc}, \ref {fig:row_perc} and \ref {fig:col_perc}: Color-coded proportional distribution of expression energies. While showing the same distribution, colors describe the several shares of each bin. Note the different scales. We clearly see a shift of the average for the column-wise normalization in comparison to the other two approaches.\relax }}{15}{figure.caption.5}%
-\contentsline {figure}{\numberline {3}{\ignorespaces Protein-protein interaction graph for \textit {Kdm7a}, an histone demethylase required for brain development, that is closely related to e.g. \textit {Hist2h3c2}, a protein playing central role in transcription regulation and thus proliferation activity indicating e.g. malign tumors. For more information about \textit {Kdm7a} and the used color encoding for vertices and edges, please see \href {https://string-db.org/network/10090.ENSMUSP00000002305}{string-db.org/10090.ENSMUSP00000002305}\relax }}{16}{figure.caption.7}%
-\contentsline {figure}{\numberline {4}{\ignorespaces Test, what is MaxIP? (Maximum intensity projection)\relax }}{17}{figure.caption.8}%
-\contentsline {figure}{\numberline {5}{\ignorespaces Test\relax }}{19}{figure.caption.10}%
-\contentsline {figure}{\numberline {6}{\ignorespaces Textitext\relax }}{25}{figure.caption.13}%
-\contentsline {figure}{\numberline {7}{\ignorespaces Visualization of UMAP's and Parametric UMAP's respective workflows. Images are taken from the \href {https://umap-learn.readthedocs.io/en/latest/parametric_umap.html}{PyPi umap library docs} and the papers. The library is built and maintained by the UMAP and Parametric UMAP authors.\relax }}{28}{figure.caption.14}%
-\contentsline {figure}{\numberline {8}{\ignorespaces text\relax }}{35}{figure.caption.17}%
-\contentsline {figure}{\numberline {9}{\ignorespaces Baseline functions from Section \ref {sec:results_embsim} and the corresponding colored brain structures, coronal and sagittal cross-section. (a) - (c): Uniform distribution $p_\text {uni}$; (d) - (f): Constant values with respect to Dirac distribution $p_\text {dirac}$ with peak at $t=0.3$, note that brain coloring for constant colors is not possible due to coordinate-wise normalization of embeddings, thus these images are placeholders; (g) - (i): Values sampled from Gaussian distribution $p_\text {gauss}$ with $\mu =0.3, \sigma =0.05$\relax }}{38}{figure.caption.18}%
-\contentsline {figure}{\numberline {10}{\ignorespaces Textitext\relax }}{41}{figure.caption.22}%
-\contentsline {figure}{\numberline {11}{\ignorespaces Textitext\relax }}{41}{figure.caption.24}%
-\contentsline {figure}{\numberline {12}{\ignorespaces Textitext\relax }}{43}{figure.caption.26}%
-\contentsline {figure}{\numberline {13}{\ignorespaces Textitext\relax }}{45}{figure.caption.28}%
-\contentsline {figure}{\numberline {14}{\ignorespaces Textitext\relax }}{48}{figure.caption.29}%
-\contentsline {figure}{\numberline {15}{\ignorespaces Textitext\relax }}{50}{figure.caption.30}%
+\contentsline {figure}{\numberline {1}{\ignorespaces Average, annotation and anatomy atlas}}{11}{figure.caption.1}%
+\contentsline {figure}{\numberline {2}{\ignorespaces Distributions of gene expression values for the respective normalization schemes}}{14}{figure.caption.3}%
+\contentsline {figure}{\numberline {3}{\ignorespaces Protein-protein interaction graph for \textit {Kdm7a}}}{15}{figure.caption.4}%
+\contentsline {figure}{\numberline {4}{\ignorespaces Raw axonal projection data derived from fluorescent proteins}}{16}{figure.caption.5}%
+\contentsline {figure}{\numberline {5}{\ignorespaces 3-dimensional visualizations of mouse brain connectivities}}{18}{figure.caption.6}%
+\contentsline {figure}{\numberline {6}{\ignorespaces Residual graph convolutional blocks allowing for deeper neural networks}}{24}{figure.caption.9}%
+\contentsline {figure}{\numberline {7}{\ignorespaces Visualization of UMAP's and Parametric UMAP's respective workflows}}{26}{figure.caption.10}%
+\contentsline {figure}{\numberline {8}{\ignorespaces Different toy examples ontologies for testing the validity, strengths and weaknesses of \textsc {EmbSim} and \textsc {EmbVar} in terms of structure sub-sampling\relax }}{34}{figure.caption.12}%
+\contentsline {figure}{\numberline {9}{\ignorespaces Baseline functions from Section \ref {sec:results_embsim}}}{37}{figure.caption.13}%
+\contentsline {figure}{\numberline {10}{\ignorespaces Resulting visualizations for all dimensionality reduction images}}{40}{figure.caption.17}%
+\contentsline {figure}{\numberline {11}{\ignorespaces Voxel-level dimensionality reduction baseline results}}{40}{figure.caption.18}%
+\contentsline {figure}{\numberline {12}{\ignorespaces Encoding model's architecture, that was combined with Parametric UMAP for the task dimensionality reduction\relax }}{42}{figure.caption.19}%
+\contentsline {figure}{\numberline {13}{\ignorespaces Siamese neural network architecture used for the prediction of connectivities based on gene expression patterns}}{44}{figure.caption.21}%
+\contentsline {figure}{\numberline {14}{\ignorespaces Visualization of clustered gene expression patterns over GENConv-enhanced Parametric UMAP model outputs}}{48}{figure.caption.22}%
+\contentsline {figure}{\numberline {15}{\ignorespaces AUROC scores for different embedding dimensionalities $k$ for the three different connectivity types\relax }}{49}{figure.caption.23}%

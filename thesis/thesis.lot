@@ -1,8 +1,9 @@
 \babel@toc {nil}{}\relax 
-\contentsline {table}{\numberline {1}{\ignorespaces Formulas and descriptions for the calculation of the three expression values provided by AMBA. The respective descriptions are provided by the official \href {http://help.brain-map.org/download/attachments/2818169/InformaticsDataProcessing.pdf?version=1&modificationDate=1319667590884&api=v2}{Allen Mouse Brain Documentation}, which we note as a reference for further information on these metrics.\relax }}{13}{table.caption.4}%
-\contentsline {table}{\numberline {2}{\ignorespaces Overview on sizes of respective connectivity datasets\relax }}{19}{table.caption.12}%
-\contentsline {table}{\numberline {3}{\ignorespaces AUROC scores for singular structures within the \textit {Frontal lobe}; Forecasted with different graph convolutional neural layer types over three feature setups averaged among different substructures. Molecular features from DeepGOPlus \citep {DeepGoPlus} and phenotypical features from DL2vec \citep {DL2vec2020} over PhenomeNET \citep {PhenomeNET2011}. \relax }}{33}{table.caption.16}%
-\contentsline {table}{\numberline {4}{\ignorespaces Test\relax }}{37}{table.caption.19}%
-\contentsline {table}{\numberline {5}{\ignorespaces Textitex\relax }}{39}{table.caption.20}%
-\contentsline {table}{\numberline {6}{\ignorespaces Textitext\relax }}{40}{table.caption.21}%
-\contentsline {table}{\numberline {7}{\ignorespaces Textitext\relax }}{45}{table.caption.27}%
+\contentsline {table}{\numberline {1}{\ignorespaces Formulas and descriptions for the calculation of the three expression values provided by AMBA}}{12}{table.caption.2}%
+\contentsline {table}{\numberline {2}{\ignorespaces Overview on sizes of respective connectivity datasets}}{18}{table.caption.7}%
+\contentsline {table}{\numberline {3}{\ignorespaces Definitions of different, used graph types\relax }}{20}{table.caption.8}%
+\contentsline {table}{\numberline {4}{\ignorespaces AUROC scores for singular structures within the \textit {Frontal lobe}}}{32}{table.caption.11}%
+\contentsline {table}{\numberline {5}{\ignorespaces \textsc {EmbSim} and \textsc {EmbVar} scores for baseline functions, i.e. uniform, dirac and gaussian distribution, and PCA \relax }}{36}{table.caption.14}%
+\contentsline {table}{\numberline {6}{\ignorespaces \textsc {EmbSim} and \textsc {EmbVar} scores for differing gene subsets, normalization techniques and embedding methods}}{38}{table.caption.15}%
+\contentsline {table}{\numberline {7}{\ignorespaces \textsc {EmbSim}, \textsc {EmbVar} and UMAP loss results for all proposed dimensionality reduction techniques}}{39}{table.caption.16}%
+\contentsline {table}{\numberline {8}{\ignorespaces AUROC scores for our experiments on the prediction of connectivities from gene expression values for embedding dimensions $k\in \{3,20\}$}}{44}{table.caption.20}%

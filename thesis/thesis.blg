@@ -9,15 +9,15 @@ Repeated entry---line 1602 of file citations.bib
 I'm skipping whatever remains of this entry
 You've used 130 entries,
             2773 wiz_defined-function locations,
-            1399 strings with 42318 characters,
-and the built_in function-call counts, 94047 in all, are:
-= -- 7628
-> -- 9143
+            1399 strings with 42307 characters,
+and the built_in function-call counts, 94007 in all, are:
+= -- 7626
+> -- 9135
 < -- 47
-+ -- 3061
-- -- 2931
-* -- 9259
-:= -- 15260
++ -- 3058
+- -- 2928
+* -- 9255
+:= -- 15251
 add.period$ -- 451
 call.type$ -- 130
 change.case$ -- 1343
@@ -25,8 +25,8 @@ chr.to.int$ -- 130
 cite$ -- 260
 duplicate$ -- 2799
 empty$ -- 5147
-format.name$ -- 3108
-if$ -- 18727
+format.name$ -- 3105
+if$ -- 18720
 int.to.chr$ -- 1
 int.to.str$ -- 1
 missing$ -- 134
@@ -36,7 +36,7 @@ pop$ -- 2472
 preamble$ -- 1
 purify$ -- 1217
 quote$ -- 0
-skip$ -- 2703
+skip$ -- 2702
 stack$ -- 0
 substring$ -- 2794
 swap$ -- 254
