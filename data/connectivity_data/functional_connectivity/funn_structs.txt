@@ -1,0 +1,98 @@
+L Posterior parietal association areas
+L Anterior cingulate area
+L Infralimbic area
+L Agranular insular area
+L Frontal pole, cerebral cortex
+L Auditory areas
+L Retrosplenial area
+L Lateral septal complex
+L Striatum-like amygdalar nuclei
+L Midbrain
+L Primary somatosensory area, barrel field
+L Primary somatosensory area, lower limb
+L Primary somatosensory area, mouth
+L Primary somatosensory area, nose
+L Medulla
+L Primary somatosensory area, trunk
+L Primary somatosensory area, upper limb
+L Supplemental somatosensory area
+L Striatum dorsal region
+L Striatum ventral region
+L Cerebellar nuclei
+L Cerebellar cortex
+L Temporal association areas
+L Claustrum
+L Visual areas
+L Visceral area
+L Olfactory areas
+L Cortical subplate
+L Orbital area
+L Pons
+L corpus callosum
+L corticospinal tract
+L Pallidum
+L Retrohippocampal region
+L Thalamus, polymodal association cortex related
+L Thalamus, sensory-motor cortex related
+L Ectorhinal area
+L thalamus related
+L Perirhinal area
+L cranial nerves
+L Prelimbic area
+L Primary motor area
+L medial forebrain bundle system
+L Secondary motor area
+L extrapyramidal fiber systems
+L Gustatory areas
+L Hippocampal region
+L Hypothalamus
+L Primary somatosensory area, unassigned
+R Posterior parietal association areas
+R Anterior cingulate area
+R Infralimbic area
+R Agranular insular area
+R Frontal pole, cerebral cortex
+R Auditory areas
+R Retrosplenial area
+R Lateral septal complex
+R Striatum-like amygdalar nuclei
+R Midbrain
+R Primary somatosensory area, barrel field
+R Primary somatosensory area, lower limb
+R Primary somatosensory area, mouth
+R Primary somatosensory area, nose
+R Medulla
+R Primary somatosensory area, trunk
+R Primary somatosensory area, upper limb
+R Supplemental somatosensory area
+R Striatum dorsal region
+R Striatum ventral region
+R Cerebellar nuclei
+R Cerebellar cortex
+R Temporal association areas
+R Claustrum
+R Visual areas
+R Visceral area
+R Olfactory areas
+R Cortical subplate
+R Orbital area
+R Pons
+R corpus callosum
+R corticospinal tract
+R Pallidum
+R Retrohippocampal region
+R Thalamus, polymodal association cortex related
+R Thalamus, sensory-motor cortex related
+R Ectorhinal area
+R thalamus related
+R Perirhinal area
+R cranial nerves
+R Prelimbic area
+R Primary motor area
+R medial forebrain bundle system
+R Secondary motor area
+R extrapyramidal fiber systems
+R Gustatory areas
+R Hippocampal region
+R Hypothalamus
+R Primary somatosensory area, unassigned

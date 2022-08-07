@@ -1,4 +1,0 @@
-\babel@toc {nil}{}
-\contentsline {section}{\numberline {1}Possible prediction tasks}{3}{section.1}%
-\contentsline {section}{\numberline {2}Predict gene expression values for single structures}{3}{section.2}%
-\contentsline {section}{\numberline {3}Pathology prediction}{3}{section.3}%
