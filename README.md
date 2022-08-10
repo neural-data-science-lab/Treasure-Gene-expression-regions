@@ -1,1 +1,10 @@
-# MPI for CBS: Treasure: Finding Gene expression regions in mouse brains
+# Finding Gene Expression Patterns and their Link to Connectivities in Mouse Brains by Exploiting Interaction Networks
+Diplom Thesis of Tilman Hinnerichs @ Max Planck Institute for Human Cognitive and Brain Sciences
+
+### Abstract:
+
+Improvements in finding gene expression patterns and their spatial distribution among different tissues help to identify spatial organization and inter-structure relations. Moreover, they help to understand disturbances in embryogenesis and malignant tissue evolution. Multiple studies showed the correlation of gene expression patterns and cognition, behavior and their pathology. However, these approaches are primarily concerned with inter-structure relations but neglect the gravity of inter-gene networks. We thus try to exploit protein-protein interaction networks for finding gene expression patterns and their influence on structural, functional and effective brain connectivity. Violation of such brain wiring is linked to brain disorders and diseases, while spatial gene expression is correlated with all three connectivity types. 
+Recent advances in sequencing methodology allow for measurement of expression levels for thousands of genes in the respective tissues. We apply graph convolutional neural networks (GCNs) for the three tasks of (1) predicting gene expression from molecular and phenotypical features, (2) learning gene expression patterns over unsupervised dimensionality reduction and (3) predict inter-structure connectivities based on these gene expression patterns. We introduce two metrics for the unsupervised learning task and show that GCNs consistently improve over the non-GCN baseline methods for dimensionality reduction and connectivity prediction. 
+We find associations of \textit{gene importance} in the networks and neurotransmitter related proteins and thus conclude the significance of gene-gene relations for neural activity patterns. This study may hence leverage advances in understanding of pathogenesis for brain disorders.
+
+##### Cite:
