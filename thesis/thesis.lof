@@ -12,5 +12,5 @@
 \contentsline {figure}{\numberline {11}{\ignorespaces Voxel-level dimensionality reduction baseline results}}{40}{figure.caption.18}%
 \contentsline {figure}{\numberline {12}{\ignorespaces Encoding model's architecture, that was combined with Parametric UMAP for the task dimensionality reduction\relax }}{42}{figure.caption.19}%
 \contentsline {figure}{\numberline {13}{\ignorespaces Siamese neural network architecture used for the prediction of connectivities based on gene expression patterns}}{44}{figure.caption.21}%
-\contentsline {figure}{\numberline {14}{\ignorespaces Visualization of clustered gene expression patterns over GENConv-enhanced Parametric UMAP model outputs}}{48}{figure.caption.22}%
+\contentsline {figure}{\numberline {14}{\ignorespaces Visualization of clustered gene expression patterns over GENConv-enhanced Parametric UMAP model outputs}}{47}{figure.caption.22}%
 \contentsline {figure}{\numberline {15}{\ignorespaces AUROC scores for different embedding dimensionalities $k$ for the three different connectivity types\relax }}{49}{figure.caption.23}%
